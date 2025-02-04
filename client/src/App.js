@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './css/common.css';
+import './scss/common.scss';
 import Layout from'./pages/Layout.jsx';
 import KurlyMain from'./pages/KurlyMain.jsx';
 
