@@ -11,7 +11,7 @@ export default function Header() {
       <div className='header'>
         <div className='header-top'>
           <div className='header-top-menu'>
-            <Link to='/' className='header-top-menu-item'>회원가입</Link>
+            <Link to='/' className='header-top-menu-item' >회원가입</Link>
             <Link to='/' className='header-top-menu-item'>로그인</Link>
             <Link to='/' className='header-top-menu-item'>고객센터</Link>
             <IoMdArrowDropdown />
