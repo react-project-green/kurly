@@ -1,0 +1,143 @@
+@import url('./reset.css'); 
+
+/**************************************
+** COMMONS 
+** 2025.01.22 김다희 작성
+**************************************/
+:root{
+  --color-main: rgb(95, 0, 128);
+}
+
+.header-outline,
+.content-outline,
+.footer-outline{
+  width: 100%;
+}
+
+.header,
+.content,
+.footer{
+  border: 1px solid green;
+  width: 1050px;
+  margin: 0px auto;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+ /**************************************
+** HEADER 
+** 2025.02.03 김다희 작성
+**************************************/
+
+.header {
+  border: 1px solid gray;
+  height: 156px;
+}
+ .header-top-menu{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 12px;
+  padding: 10px 0;
+}
+
+.header-top-menu-item:first-child{
+  color: var(--color-main);
+}
+
+.header-top-menu-item:first-child::after,
+.header-top-menu-item:nth-child(2)::after{
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 13px;
+  margin: 0px 12px;
+  background-color: rgb(217, 217, 217);
+} 
+
+/* .header-top-middle-right,
+.header-top-middle-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.header-top-middle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 63px;
+}
+
+.header-top-middle-left {
+  position: relative;
+  width: 248px;
+}
+
+.header-top-middle-left button{
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-main);
+  margin-left: 20px;
+  padding: 0;
+  letter-spacing: normal;
+  position: absolute;
+  top: 10px;
+  cursor: pointer;
+}
+
+.header-top-middle-search{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  height: 48px;
+  padding-left: 14px;
+  border: 1px solid var(--color-main);
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.header-top-middle-search input{
+  width: 300px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  letter-spacing: -0.33px;
+}
+
+.header-top-middle-search button{
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin: 10px 10px 0 0;
+  bottom: 3px;
+  color: var(--color-main);
+  background-color: #fff;
+  border:  none;
+  font-size: 23px;
+}
+
+.header-top-middle-right{
+
+}
+
+.header-top-icon{
+  width: 30px;
+  height: 28px;
+  margin-right: 25px;
+  font-weight: 500px;
+}
+
+
+ /**************************************
+** Footer 
+** 2025.02.03 김다희 작성
+**************************************/
+.footer-outline{
+  background-color: rgb(243, 238, 238);
+}
+
+.footer{
+  border: 1px solid gray;
+  height: 533px;
+}
