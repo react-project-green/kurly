@@ -1,4 +1,7 @@
 @import 'common';
+button > *{
+    display:inline;
+}
 $main-color:rgb(95, 0, 128);
 $common-width:1050px;
 .detail_area{
@@ -920,6 +923,7 @@ $common-width:1050px;
                         width: 88px;
                         border-radius: 3px;
                         text-align:center;
+                        background-color: #fff;
                         button, div{
                             width: 28px;
                             height: 28px;
@@ -952,6 +956,7 @@ $common-width:1050px;
             .total_price{
                 display: flex;
                 justify-content: flex-end;
+                align-items:end;
                 margin-top:20px;
                 font-weight: bold;
                 font-size: 32px;

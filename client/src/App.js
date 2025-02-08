@@ -13,7 +13,7 @@ function App() {
           <Route path='/' element={<Layout/>}>
               <Route index element={<KurlyMain />} />
               <Route path="/goods/list" element={<ProductList />} />
-              <Route path="/goods/detail" element={<Detail />} />
+              <Route path="/goods/detail/:pid" element={<Detail />} />
           </Route>
         </Routes>
       </BrowserRouter>
