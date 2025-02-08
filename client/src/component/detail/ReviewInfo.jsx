@@ -8,6 +8,7 @@ import { Navigation, Pagination} from 'swiper/modules';
 import { IoMdClose } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
+import 'swiper/css';
 
 export default function ReviewInfo() {
     const [slideImg, setSlideImg] = useState([]);
@@ -105,27 +106,27 @@ export default function ReviewInfo() {
                 </div>
             </div>
             { dimiDisplay && <div className='dim_layer_area'>
-                <div className="content">
+                <div className="content_area">
                     <button onClick={() =>{setDimiDisplay(!dimiDisplay)}}><IoMdClose /></button>
                     <div className="tit">사진후기</div>
                     <div className="slide_area">
-                        <div className="pop_slidd">
-                            <Swiper
-                                modules = {[Navigation, Pagination]}
-                                slidesPerView= {1}
-                                centeredSlides = {true}
-                                speed = {500}
-                                loop = {true}
-                                className = {"slider"}
-                                navigation = {{nextEl: '.pop_slide .swiper-next', prevEl: '.pop_slide .swiper-prev'} }  
-                            >
-                                {slideImg && slideImg.map((img) =>
-                                    <SwiperSlide><a href={img.src} target='_blank'><img src={img.img} alt="" /></a></SwiperSlide>
-                                )}
-                            </Swiper>
-                            <div className="swiper-prev"><MdArrowBackIos /></div>
-                            <div className="swiper-next"><MdArrowForwardIos  /></div>
-                        </div>
+                    <div className="pop_slide">
+                        <Swiper
+                            modules = {[Navigation, Pagination]}
+                            slidesPerView= {1}
+                            centeredSlides = {true}
+                            speed = {500}
+                            loop = {true}
+                            className = {"slider"}
+                            navigation = {{nextEl: '.pop_slide .swiper-next', prevEl: '.pop_slide .swiper-prev'} }  
+                        >
+                            {slideImg && slideImg.map((img) =>
+                                <SwiperSlide><a href={img.src} target='_blank'><img src={img.img} alt="" /></a></SwiperSlide>
+                            )}
+                        </Swiper>
+                        <div className="swiper-prev"><MdArrowBackIos /></div>
+                        <div className="swiper-next"><MdArrowForwardIos  /></div>
+                    </div>
                     </div>
                 </div>
             </div>}
