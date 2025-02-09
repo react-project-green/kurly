@@ -16,7 +16,7 @@ export default function ProductList() {
             <div className="inner">
                 {
                     productList.map((item) =>
-                        <ProductThumb slideImg={item} />
+                        <ProductThumb product={item} />
                     )
                 }
             </div>     
