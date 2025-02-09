@@ -9,8 +9,7 @@ import Signup from './component/member/Signup.jsx';
 
 function App() {
   const cartInfo = (data) => {
-    console.log('cart data',data);
-    
+    console.log('cart data',data);    
   }
   return (
     <div className="App">
