@@ -139,9 +139,7 @@ export default function Detail({cartInfo}) {
             "image_url": product.image_url,
             "addCount":count
         };   
-        setCartData(addItem) 
-        cartInfo(cartData);
-        // console.log(addItem);
+        cartInfo(addItem);
     }
 
     return (
