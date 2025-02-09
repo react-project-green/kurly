@@ -12,7 +12,8 @@ import { useParams } from "react-router-dom";
 
 import '../scss/detail.scss';
 
-export default function Detail() {
+export default function Detail({cartInfo}) {
+    
     const refs = {
         tab1Ref:useRef(null),
         tab2Ref:useRef(null),
@@ -31,10 +32,12 @@ export default function Detail() {
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
     const [offset,setOffset] = useState([]);
+    const [cartData, setCartData] = useState({});
 
     // tab nav click event
     const navClass = (ref) => {
-        let children = ref.current.parentElement.children;
+        let children = ref.current && ref.current.parentElement ? ref.current.parentElement.children : [];
+
         for(let tab of children){
             tab.classList.remove('on');
         }
@@ -59,7 +62,8 @@ export default function Detail() {
             }
         }
     }
-    useEffect(() => {
+
+    useEffect(() =>{
         axios.get('/data/productList.json')
                 .then((res) => {
                     res.data.filter((product) =>{
@@ -68,9 +72,7 @@ export default function Detail() {
       
                 })
                 .catch((error) => console.log(error));
-    },[]);
-    
-    useEffect(() =>{
+
         const updateOffsets = () => {
             setOffset([
                 window.scrollY + refs.tab1Ref.current?.getBoundingClientRect().top,
@@ -94,11 +96,12 @@ export default function Detail() {
             }else if(window.scrollY >= offset[3] ){
                 navClass(tabRefs.nav4Ref);
             }
-            
-            if(window.scrollY > 400){
-                btmCartRef.current.classList.add('scroll');
-            }else{
-                btmCartRef.current.classList.remove('scroll');
+            if(btmCartRef.current){
+                if(window.scrollY > 400){
+                    btmCartRef.current.classList.add('scroll');
+                }else{
+                    btmCartRef.current.classList.remove('scroll');
+                }
             }
         }
         scrollCheck();
@@ -116,6 +119,7 @@ export default function Detail() {
     }
     // 장바구니 데이터
     const cartAddItem = () => {
+        // 넘어가는 정보
         const addItem = {
             "pid": product.pid,
             "name": product.name,
@@ -134,7 +138,10 @@ export default function Detail() {
             "total_price": product.discountedPrice * count,
             "image_url": product.image_url,
             "addCount":count
-        };    
+        };   
+        setCartData(addItem) 
+        cartInfo(cartData);
+        // console.log(addItem);
     }
 
     return (
