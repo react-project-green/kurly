@@ -1,0 +1,135 @@
+/*******************
+Login
+**********************/
+.form-box{
+  width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  ul{
+      text-align: center;
+      li{
+          padding: 20px;
+          border: 1px solid tomato;
+          .loginform-input{
+              border: 1px solid gainsboro;
+              border-radius: 8px;
+              width: 300px;
+              height: 20px;
+              padding: 10px;
+          }
+      }
+      .login-founder{
+          text-align: right;
+      }
+  }
+  .member-title-box{
+      border: 1px solid blue;
+      text-align: center;
+      margin: 90px 0px 30px 0px;
+      span{
+          font-size: 1.6rem;
+          font-weight: bold;
+      }
+  } 
+} 
+/*******************
+signup
+**********************/
+.signup-form {
+  /* border: 1px solid green; */
+  width: 700px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  color: var(--color-signup-font);
+  ul{
+    li{
+        padding: 20px;
+        
+        .signup_input{
+            border: 1px solid gainsboro;
+            border-radius: 8px;
+            width: 300px;
+            height: 20px;
+            padding: 10px;
+        } 
+}}
+.email-full{ 
+  display: inline-block;
+  width: 56%; 
+  .email-address{
+    width: 50%;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    height: 20px;
+    padding: 10px;
+  }
+  .email-domain{
+    padding: 10px;
+    border-radius: 10%;
+  }
+}
+.signup-top1 {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+    span{
+      font-size: 2rem;
+    }
+}
+.signup-top2{
+  display: flex;
+  justify-content: right;
+}
+.signup-form {
+  list-style: none;
+  list-style: none;
+  // border: 1px solid tomato;
+  ul {
+    li { 
+    margin: 20px;
+  label {
+    display: inline-block;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-indent: 3px;
+    margin: 0 0 6px 10px;
+    width: 25%;
+    border: 1px solid red;
+  } 
+}}} 
+.phone-full{
+  border: 1px solid red;
+  display: flex;
+}
+.address-botton{
+  border: 1px solid gainsboro; 
+  border-radius: 8px;
+  width: 50%;
+  padding: 10px;
+} 
+.signup_birth{
+  display: inline-block;
+}
+.signup_birth 
+{
+  display: flex;
+    div{
+      border: 1px solid gainsboro;
+      input{ 
+        border: none;
+        justify-content: space-around;
+        width: 80px;
+        justify-content: center;  
+        border-radius: 8px;
+        height: 20px;
+        padding: 10px;
+      }  
+    } 
+}
+.signup-botton{
+  border: 1px solid gainsboro;
+  justify-content: right;
+  margin-left: 10px;
+}
+}
