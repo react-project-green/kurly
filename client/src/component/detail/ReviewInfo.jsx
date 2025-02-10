@@ -123,7 +123,7 @@ export default function ReviewInfo() {
                             navigation = {{nextEl: '.pop_slide .swiper-next', prevEl: '.pop_slide .swiper-prev'} }  
                         >
                             {slideImg && slideImg.map((img) =>
-                                <SwiperSlide><a href={img.src} target='_blank'><img src={img.img} alt="" /></a></SwiperSlide>
+                                <SwiperSlide><a href={img.src} target='_blank'><img src={img.image_url} alt="" /></a></SwiperSlide>
                             )}
                         </Swiper>
                         <div className="swiper-prev"><MdArrowBackIos /></div>

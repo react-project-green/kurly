@@ -789,6 +789,7 @@ $common-width:1050px;
                     }
                 }
                 table{
+                    border-collapse: collapse;
                     margin-top:40px;
                     width:100%;
                     thead{
@@ -810,6 +811,7 @@ $common-width:1050px;
                             text-align: left;
                             color: rgb(153, 153, 153);
                             text-align:center;
+                            vertical-align: middle;
                             &:first-child{
                                 text-align:left;
                                 padding: 0px 20px;

@@ -132,7 +132,7 @@ export default function Detail({cartInfo}) {
             "delivery": {
                 "type": product.type,
                 "details": product.details
-                            },
+                },
             "seller": product.seller,
             "packaging": product.packaging,
             "total_price": product.discountedPrice * count,
