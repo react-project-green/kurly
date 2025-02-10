@@ -1,0 +1,29 @@
+{
+  "banner_img":[
+      { 
+        "num":"1",
+        "path":"/",
+        "img":"/images/commonImage/banner1.png"
+      },
+      {
+        "num":"2",
+        "path":"/",
+        "img":"/images/commonImage/banner2.png"
+      },
+      {
+        "num":"3",
+        "path":"/",
+        "img":"/images/commonImage/banner3.png"
+      },
+      {
+        "num":"4",
+        "path":"/",
+        "img":"/images/commonImage/banner4.png"
+      },
+      {
+        "num":"5",
+        "path":"/",
+        "img":"/images/commonImage/banner5.png"
+      }
+  ]
+}

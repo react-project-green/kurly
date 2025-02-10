@@ -19,8 +19,8 @@ function App() {
               <Route index element={<KurlyMain />} />
               <Route path="/goods/list" element={<ProductList />} />
               <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
-              <Route path="/memeber/login" element={<Login />} />
-              <Route path="/memeber/ㄴignup" element={<Signup />} />
+              <Route path="/member/login" element={<Login />} />
+              <Route path="/member/signup" element={<Signup />} />
           </Route>
         </Routes>
       </BrowserRouter>
