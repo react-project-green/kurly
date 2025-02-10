@@ -49,7 +49,9 @@ export default function Header() {
           <div className='header_middle'>
             <div className='header_middle_left'>
               <img src="/images/commonImage/Logo.svg" alt="image Logo" />
-              <button type='button' className='thin'>마켓컬리</button>
+              <button type='button' className='thin'>
+                <Link to='/'>마켓컬리</Link>
+              </button>
             </div>
             <div className='header_middle_search'>
               <input type="text" placeholder='검색어를 입력해주세요'/>

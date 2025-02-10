@@ -1,7 +1,7 @@
 {
   "header_top_menu" : [
-                        {"no":1, "path":"/", "title":"회원가입"},
-                        {"no":2, "path":"/", "title":"로그인"},
+                        {"no":1, "path":"/member/signup", "title":"회원가입"},
+                        {"no":2, "path":"/member/login", "title":"로그인"},
                         {"no":3, "path":"/", "title":"고객센터"}
                       ],
   "header_icons" : [

@@ -10,7 +10,7 @@
   /* overflow: hidden; */
 }
 .promo_section{
-  /* position: relative; */
+  position: relative;
 }
 .promo_card{
   position: relative;
@@ -45,7 +45,7 @@
 .pagenation{
   border: 1px solid red;
   position: absolute;
-  bottom: 30p0x;
+  bottom: 30px;
   right: 30px;
   z-index: 999;
   width: 55px;
