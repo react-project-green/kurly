@@ -1,0 +1,123 @@
+{
+  "header_top_menu" : [
+                        {"no":1, "path":"/", "title":"회원가입"},
+                        {"no":2, "path":"/", "title":"로그인"},
+                        {"no":3, "path":"/", "title":"고객센터"}
+                      ],
+  "header_icons" : [
+                    {"icon": "/images/commonImage/header_icon1.svg"},
+                    {"icon": "/images/commonImage/header_icon2.svg"},
+                    {"icon": "/images/commonImage/header_icon3.svg"}
+                  ],
+  "support_menu" : [
+                      {"path":"/", "title":"공지사항"},
+                      {"path":"/", "title":"자주하는 질문"},
+                      {"path":"/", "title":"1 : 1 문의"},
+                      {"path":"/", "title":"대량주문 문의"}
+                    ],
+  "header_middle_menu":[
+                        {"title":"신상품"},
+                        {"title":"베스트"},
+                        {"title":"알뜰쇼핑"},
+                        {"title":"특가/혜택"}
+                      ],
+  "category_list":[
+                    {
+                      "img":"/images/commonImage/category1.jpg",
+                      "title":"채소",
+                      "variety":[
+                        {"name":"친환경"},
+                        {"name":"고구마·감자·당근"},
+                        {"name":"시금치·쌈채소·나물"},
+                        {"name":"브로콜리·파프리카·양배추"},
+                        {"name":"양파·대파·마늘·배추"},
+                        {"name":"오이·호박·고추"},
+                        {"name":"냉동·이색·간편채소"},
+                        {"name":"콩나물·버섯"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category2.jpg",
+                      "title":"과일·견과·쌀",
+                      "variety":[
+                        {"name":"친환경"},
+                        {"name":"제철과일"},
+                        {"name":"수입과일"},
+                        {"name":"간편과일"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category3.jpg",
+                      "title":"수산·해산·건어물",
+                      "variety":[
+                        {"name":"제철수산"},
+                        {"name":"생선류"},
+                        {"name":"굴비·반건류"},
+                        {"name":"연어·참치"},
+                        {"name":"회·탕류"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category4.jpg",
+                      "title":"정육·가공육·계란",
+                      "variety":[
+                        {"name":"국내산 소고기"},
+                        {"name":"수입산 소고기"},
+                        {"name":"국내산 돼지고기"},
+                        {"name":"수입산 돼지고기·양고기"},
+                        {"name":"닭·오리고기"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category5.jpg",
+                      "title":"국·반찬·메인요리",
+                      "variety":[
+                        {"name":"국·탕·찌개"},
+                        {"name":"밑반찬"},
+                        {"name":"김치·젓갈·장류"},
+                        {"name":"두부·어묵·부침개"},
+                        {"name":"메인요리"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category6.jpg",
+                      "title":"간편식·밀키트·샐러드",
+                      "variety":[
+                        {"name":"밀키트"},
+                        {"name":"샐러드·샌드위치"},
+                        {"name":"선식·시리얼"},
+                        {"name":"도시락·밥류"}
+                      ]
+                    },
+                    {
+                      "img":"/images/commonImage/category7.jpg",
+                      "title":"면면·양념·오일",
+                      "variety":[]
+                    },
+                    {
+                      "img":"/images/commonImage/category8.jpg",
+                      "title":"생수·음료",
+                      "variety":[]
+                    },
+                    {
+                      "img":"/images/commonImage/category9.jpg",
+                      "title":"커피·차",
+                      "variety":[]
+                    },
+                    {
+                      "img":"/images/commonImage/category10.jpg",
+                      "title":"간식·과자·떡",
+                      "variety":[]
+                    },
+                    {
+                      "img":"/images/commonImage/category11.jpg",
+                      "title":"베이커리",
+                      "variety":[]
+                    },
+                    {
+                      "img":"/images/commonImage/category12.jpg",
+                      "title":"유제품",
+                      "variety":[]
+                    }
+                  ]
+}
