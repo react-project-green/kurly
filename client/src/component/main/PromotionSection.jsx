@@ -1,14 +1,12 @@
 import React from 'react';
-import PromotionTitle from './PromotionTitle.jsx';
+import MainPromotionTitle from './MainPromotionTitle.jsx';
 import MainProductSlider from './MainProductSlider.jsx';
-import WeekendSpecial from './WeekendSpecial.jsx';
 
 export default function PromotionSection() {
   return (
-    <div>
-      <PromotionTitle />
+    <div className='main_setion'>
+      <MainPromotionTitle />
       <MainProductSlider />
-      <WeekendSpecial />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default function PromoBanner() {
   const [ bannerImgs, setBannerImg ] = useState([]);
+  const [ currentSlide, setCurrentSlide ] = useState(0);
 
   const settings = {
     dots: true,
@@ -19,7 +20,10 @@ export default function PromoBanner() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     pauseOnFocus: true,
-    pauseOnHover: true
+    pauseOnHover: true,
+    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex) 
+    // slick에서 제공되는 이벤트 파라미터
+    // 슬라이드가 bannerImgs의 인덱스 순서에 따라 렌더링  bannerImgs[currentSlide]
   };
 
   useEffect(()=>{
@@ -40,16 +44,17 @@ export default function PromoBanner() {
                     <img src={banner.img} alt="banner_img" />
                   </span>
                 </Link>
-                <div className='pagenation'>{banner.num} / 5</div>
               </div> 
             ))}
            </Slider>
+          <div className='pagenation'>
+            { bannerImgs.length > 0 && `${currentSlide +1} / ${bannerImgs.length}`} 
+          </div>
           </div>   
       </div>    
     </div>
   );
 }
-
 
 export const NextArrow = ({onClick})=>{
   return (  

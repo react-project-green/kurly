@@ -1,5 +1,5 @@
 @import url('./reset.scss'); 
-@import url('../component/main/main.css'); 
+@import url('./main.css'); 
 
 /**************************************
 ** COMMONS 
@@ -30,9 +30,10 @@
   letter-spacing: 1.5px;
   }
 .thin{
-  font-family: 'Pretendard-Thin';
-  color: #333333;
-  letter-spacing: -0.5px;
+  font-family: 'Pretendard-Thin' !important;
+}
+.light{
+  font-family: 'Pretendard-light';
 }
 
 .header_outline,
@@ -126,8 +127,8 @@
   position: relative;
   width: 248px;
 }
-.header_middle_left button{
-  font-size: 18px;
+.header_middle_left button a{
+  font-size: 20px;
   font-weight: 500;
   color: var(--color-main);
   margin-left: 20px;
@@ -172,18 +173,36 @@
   align-items: center;
 }
 .header_top_icon{
+  // border: 1px solid red;
   width: 35px;
   height: 45px;
   margin-right: 25px;
   font-weight: 400px;
 }
-.header_top_icon img:hover {
-  color: var(--color-main);
-}
-.header_top_icon:last-child{
+.header_top_icon.cart_icon{
   margin-right: 8px;
+  position: relative;
 }
-
+.cart_icon p{
+  position: absolute;
+  top: 1.5px;
+  right: -11px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 100%;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-main);
+}
+.cartItmem_icon{
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  top: 40px;
+  font-size: 9px;
+  line-height: 15px;
+  
+}
 
  /**************************************
 ** HEADER - BOTTOM
@@ -236,6 +255,12 @@
   padding: 10px;
   color: var(--color-153);
   font-size: 12px;
+}
+.category_list li span{
+  padding: 0;
+  font-size: 12px;
+  color: var(--color-153);
+  font-family: 'Pretendard-Thin';
 }
 .category_list li img,
 .category_list li span,
@@ -292,6 +317,9 @@
   height: 37px;
   padding-top: 18px;
   text-align: center;
+}
+.header_bottom_menu .menu_list:hover a{
+  color: var(--color-main);
 }
 .header_bottom_menu .menu_list li button {
   font-size: 16px;
