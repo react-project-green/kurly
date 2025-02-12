@@ -116,7 +116,7 @@ p,
 }
 
 .checkbox:active {
-    background-image: url('./img/다운로드.svg');
+    background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyMCcgdmlld0JveD0nMCAwIDIwIDIwJyBmaWxsPSdub25lJz48cGF0aCBkPSdNMTUuNzA3IDcuNzA3MUw4LjY4NDA1IDE0LjczMDlMNC4yOTI3MiAxMC4zMzg5TDUuNzA3MDQgOC45MjQ4M0w4LjY4NDA3IDExLjkwMjNMMTQuMjkyNyA2LjI5Mjk3TDE1LjcwNyA3LjcwNzFaJyBmaWxsPScjRjJGNUY4Jy8+PC9zdmc+');
     // width: 20px;
     // height: 20px;
     border-width: 2px;
@@ -130,6 +130,8 @@ p,
 
     cursor: pointer;
 }
+
+/* <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15.707 7.7071L8.68405 14.7309L4.29272 10.3389L5.70704 8.92483L8.68407 11.9023L14.2927 6.29297L15.707 7.7071Z" fill="#F2F5F8"/></svg> */
 
 .w-btn {
     font-size: 14px;
