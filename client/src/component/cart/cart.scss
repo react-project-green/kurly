@@ -1,0 +1,422 @@
+/***********************************************
+*****   default style
+        @정서령
+********************************************/
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    font-weight: 300 400 500 600 700 800 900;
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-style: normal;
+}
+
+:root {
+    --borderlight: #dfe4eb;
+    --fontblack: #333333;
+    --darkblack: #222222;
+    --kurlypurple: #672092;
+}
+
+
+body {
+    line-height: 1;
+}
+
+/* 하얀바탕 */
+.w-full {
+    background-color: white;
+    padding: 16px;
+    border-radius: 15px;
+    margin: 5px;
+    align-items: center;
+
+
+}
+
+/* 회색바탕 */
+.g-full {
+    background-color: #F2F5F8;
+}
+
+/* 검정색 글자 */
+p,
+h3,
+button {
+    font-family: 'Pretendard-Regular';
+    color: #333333;
+    letter-spacing: -0.5px;
+}
+
+.h3,
+p,
+.f16 {
+    font-size: 16px;
+}
+
+.f12 {
+    font-size: 12px;
+}
+
+.f13 {
+    font-size: 13px;
+}
+
+.f14 {
+    font-size: 14px;
+}
+
+.f18 {
+    font-size: 18px;
+    font-weight: 600;
+}
+.f24 {
+    font-size: 24px;
+}
+
+.w500 {
+    font-weight: 500;
+}
+
+.w600 {
+    font-weight: 600;
+}
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.center {
+    align-items: center;
+}
+
+.margin1200 {
+    margin: 12px 0 0;
+}
+
+.margin00016 {
+    margin: 0 0 0 16px;
+}
+
+.checkbox {
+    width: 21px;
+    height: 21px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    /* 체크박스 정렬 */
+    cursor: pointer;
+}
+
+.checkbox:active {
+    background-image: url('./img/다운로드.svg');
+    // width: 20px;
+    // height: 20px;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #222222;
+    border-color: #222222;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 4px;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+.w-btn {
+    font-size: 14px;
+    background-color: white;
+    color: #222222;
+    border-width: 1px;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 5px 12px 5px 12px;
+    font-weight: 600;
+    border-color: #dfe4eb;
+    height: 30px;
+    /* 버튼 높이 고정 */
+}
+
+.order-btn {
+    background-color: var(--kurlypurple);
+    padding: 24px;
+    width: 100%;
+    align-items: center;
+    border-radius: 12px;
+    p {
+        color: white;
+    }
+}
+
+/*****************************
+    cart
+    @정서령
+*********************************/
+
+.cart-layout {
+    padding: 0 0 80px;
+}
+
+.cart-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 50px 0 48px;
+
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* grid section */
+
+.flex {
+    display: flex;
+}
+
+.cart-content {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.cart-left-side {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+
+.cart-right-side {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    position: sticky;
+    top: 0;
+    align-self: start; 
+}
+
+
+
+/* 콘텐츠 */
+.cart-select-all {
+    display: flex;
+}
+
+.cart-product {
+    padding: 16px;
+}
+
+
+.cart-select-all label,
+.cart-product-top p {
+    padding: 0 0 0 16px;
+}
+
+.cart-product-top {
+    display: flex;
+    padding: 0 0 16px;
+}
+
+.cart-product-item {
+    margin: 0 0 20px 0;
+    border-top: #dfe4eb 1px solid;
+
+}
+
+
+.cart-product-pacakaging {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 16px 0 12px;
+}
+
+.cart-product-pacakaging span {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: red solid 1px;
+    margin: 3px;
+}
+
+
+.cart-product-pacakaging p {
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.cart-product-pacakaging2 {
+    width: 35px;
+    padding: 4px 8px;
+    // border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+
+    gap: 5px;
+
+}
+
+.cart-product-pacakaging2 p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #67bfa4;
+}
+
+
+
+.product-item div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* 상품 */
+
+.product-item-title {
+    padding: 10px 0 10px 0;
+}
+
+.product-item-title p {
+    text-align: left;
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.product-item-center {
+    display: flex;
+    margin: 12px 0 0;
+    gap: 20px;
+}
+
+.product-item-center img {
+    border-radius: 8px;
+    width: 64px;
+    height: 83px;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+.product-item-center2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 83px;
+}
+
+.product-item-center2 div:first-child {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.quantity-selector {
+    display: flex;
+    width: 82px;
+    height: 20px;
+    align-items: center;
+    padding: 8px;
+    background-color: #eceff3;
+    border-radius: 20px;
+    justify-content: space-between;
+}
+
+.quantity-selector button {
+    background: none;
+    width: 20px;
+    height: 20px;
+}
+
+.quantitiy-count {
+    text-align: center;
+    min-width: 36px;
+    margin: 0px 2px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+.product-bottom {
+    margin-left: 30px;
+}
+
+.price-summury1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8px 0 0;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: #F2F5F8;
+    color: var(--darkblack);
+}
+
+.delivery-address {
+    padding: 20px 20px 36px;
+    margin: 0 0 16px;
+
+}
+.delivery-address {
+    padding: 20px 20px 36px;
+    margin: 0 0 16px;
+
+}
+
+.delivery-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 5px;
+
+}
+
+.delivery-type {
+    margin: 0 0 4px;
+}
+
+.delivery-bottom p {
+    width: 250px;
+}
+
+.delivery-bottom button {
+    margin: 0 0 0 24px;
+    padding: 0 12px;
+}
+
+.payment {
+    padding: 20px;
+    margin: 0 0 16px;
+}
+
+.total-price-summury {
+
+}
+
+.payment p:last-child {
+    text-align: right;
+}
