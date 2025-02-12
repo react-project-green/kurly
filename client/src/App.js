@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import './scss/common.scss';
 import Layout from'./pages/Layout.jsx';
 import KurlyMain from'./pages/KurlyMain.jsx';
@@ -10,14 +11,20 @@ import CartLayout from './component/cart/CartLayout.jsx';
 import Order from './component/cart/Order.jsx';
 
 function App() {
+  const [ productPid, setProductPid ] = useState('');
+  const [ cartCount, setCartCount ] = useState(0);
+
   const cartInfo = (data) => {
-    console.log('cart data',data);    
-  }
+    console.log('cart data',data);
+    setProductPid(data.pid);
+    setCartCount(cartCount + data.addCount)   
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout/>}>
+          <Route path='/' element={<Layout cartCount={cartCount} productPid={productPid}/>}>
               <Route index element={<KurlyMain />} />
               <Route path="/goods/list" element={<ProductList />} />
               <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />

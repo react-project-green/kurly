@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
+export default function Header({cartCount, productPid}) {
   const [ topMenu, setTopMenu ] = useState([]);
   const [ supportMenu, setSupportMenu ] = useState([]);
   const [ menuList, setMenuList ] = useState([]);
   const [ icons, setIcons ] = useState([]);
   const [ categoryList, setCategoryList ] = useState([]);
   const [ hoverCategoryIndex, setHoverCategoryIndex ]= useState(null);
+  const navigate = useNavigate();
 
   useEffect(()=> {
     axios.get('/data/header.json')
@@ -49,7 +51,7 @@ export default function Header() {
           <div className='header_middle'>
             <div className='header_middle_left'>
               <img src="/images/commonImage/Logo.svg" alt="image Logo" />
-              <button type='button' className='thin'>
+              <button type='button'>
                 <Link to='/'>마켓컬리</Link>
               </button>
             </div>
@@ -58,11 +60,20 @@ export default function Header() {
               <button className='search_button'></button>
             </div>
             <div className='header_middle_right'>
-              { icons && icons.map((icon)=>( 
-                <button className='header_top_icon'>
-                  <img src={icon.icon} alt="icons"  />
-                </button>
-              ))}             
+              <button className='header_top_icon' onClick={()=>navigate('/')}>  
+                <img src="/images/commonImage/header_icon1.svg" alt="header_icon" />
+              </button>  
+              <button className='header_top_icon' onClick={()=>navigate('/')} >  
+                <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
+              </button>  
+              <button className='header_top_icon cart_icon' onClick={()=>navigate('/cart')}>  
+                <img src="/images/commonImage/header_icon3.svg" alt="header_icon" />
+                { cartCount !==0 &&
+                  <p className='cartItem_icon_bk'>
+                    <span className='cartItmem_icon'>{cartCount}</span>
+                  </p>
+                }   
+              </button>  
             </div>
           </div> {/* end of header-middle */}
         </div>   {/* end of header-top */}
@@ -78,15 +89,15 @@ export default function Header() {
                     onMouseLeave={() => setHoverCategoryIndex(null)}>
                     { idx <= 5 ? ( 
                           <Link to='' className='thin'>
-                            <img src={category.img} alt="" />{category.title}
+                            <img src={category.img}/>{category.title}
                           </Link>  
                         ) : (
-                          <span className='thin'>
-                            <img src={category.img} alt="" />{category.title}
+                          <span className='thin category_list_span'>
+                            <img src={category.img} />{category.title}
                           </span>
                         )} 
                     {hoverCategoryIndex === idx && (
-                      <ul className='variety_list'>
+                      <ul className='variety_list light'>
                           {category.variety && category.variety.map((item, i)=>(
                               <li key={i}>
                                   <Link to=''>{item.name}</Link>
@@ -101,7 +112,7 @@ export default function Header() {
           <ul className='menu_list'>
             { menuList && menuList.map((menu)=>(
               <li>
-                <button>{menu.title}</button>
+                <button onClick={()=>{navigate(`${menu.path}`)}}>{menu.title}</button>
               </li>
             ))}
           </ul>

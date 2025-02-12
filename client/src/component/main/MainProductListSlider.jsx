@@ -1,8 +1,8 @@
 import React from 'react';
-import ProductList from '../../pages/ProductList';
+import ProductList from '../../pages/ProductList.jsx';
 import MainProductList from './MainProductList.jsx';
 
-export default function MainProductSlider() {
+export default function MainProductListSlider() {
   return (
     <div className='section_product'>
       <div>

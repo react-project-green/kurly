@@ -16,10 +16,10 @@
                       {"path":"/", "title":"대량주문 문의"}
                     ],
   "header_middle_menu":[
-                        {"title":"신상품"},
-                        {"title":"베스트"},
-                        {"title":"알뜰쇼핑"},
-                        {"title":"특가/혜택"}
+                        {"path":"/", "title":"신상품"},
+                        {"path":"/goods/list", "title":"베스트"},
+                        {"path":"/", "title":"알뜰쇼핑"},
+                        {"path":"/", "title":"특가/혜택"}
                       ],
   "category_list":[
                     {
