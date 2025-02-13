@@ -40,10 +40,10 @@ export default function Login() {
                                 </div>
                             </li>
                             <li>
-                                <button>로그인</button>
+                                <button className='member-true-button'>로그인</button>
                             </li>
-                            <li>
-                                <button>
+                            <li> 
+                                <button className='member-none-button'>
                                     <Link to={'/member/signup'}>
                                     회원가입
                                     </Link>
@@ -57,4 +57,4 @@ export default function Login() {
             {/* Loginbox end */}
         </div> // content end 
     );
-}
+} 
