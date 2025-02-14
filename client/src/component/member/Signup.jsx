@@ -165,70 +165,94 @@ export default function Signup() {
                                 <p>· 가입 이후 수정이 불가능합니다.</p>
                             </div> */}
                         </li>
-                        <div> 
-                            <li>
-                                <div>
+                        <div className='signup-bottom'> 
+                                <div className='signup-bottom-title'>
                                     <label>이용약관동의</label>
-                                </div>  
-                            </li>
-                            <li>
-                                <div className='signup-notic'>
-                                    <div>
+                                </div> 
+                                <div className="signup-notic">
+                                    <div className="control-container">
                                         <input 
                                             type="checkbox" 
-                                            name="d" 
-                                            value='selectall'
-                                            onclick='selectAll(this)'
-                                            />
-                                        <span>전체 동의합니다.</span>
-                                        <p>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p> 
+                                            id="selectall" 
+                                            className="screen-reader" 
+                                            // onClick={selectAll} 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>전체 동의합니다.</label>
+                                        </div>
+                                        <p className='signup-notic-sub'>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p>
                                     </div>
-                                <input 
-                                    type="checkbox" 
-                                    name="d" 
-                                    value="all"
-                                    />
-                                이용약관 동의(필수)
-                                <a href="#">약관보기</a>
-                                <input 
-                                    type="checkbox" 
-                                    name="d" 
-                                    value="1"/>
-                                    개인정보 수집·이용 동의(필수)
-                                    <a href="#">약관보기</a>
-                                <input 
-                                    type="checkbox" 
-                                    name="d" 
-                                    value="2"/>
-                                    개인정보 수집·이용 동의(선택)
-                                    <a href="#">약관보기</a>
-                                    <input 
-                                        type="checkbox" 
-                                        name="d" 
-                                        value="3"/>
-                                    무료배송, 할인쿠폰 등 혜택/정보 수신 동의(선택)
-                                        <div>
-                                            <input 
-                                                type="checkbox" 
-                                                name="d"
-                                                value="3-1" /> <span>SMS</span>
-                                            <input 
-                                                type="checkbox" 
-                                                name="d"
-                                                value="3-2" /><span>이메일</span> 
-                                    <input 
-                                        type="checkbox"
-                                        name="d"
-                                        value="4" />
-                                        본인은 만 14세 이상입니다
-                                        </div> 
+
+                                    <div className="control-container">
+                                        <input 
+                                            type="checkbox" 
+                                            id="all" 
+                                            className="screen-reader" 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>이용약관 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
+                                        </div>
+                                    </div>
+
+                                    <div className="control-container">
+                                        <input 
+                                            type="checkbox" 
+                                            id="privacy1" 
+                                            className="screen-reader" 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>개인정보 수집·이용 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
+                                        </div>
+                                    </div>
+
+                                    <div className="control-container">
+                                        <input 
+                                            type="checkbox" 
+                                            id="privacy2" 
+                                            className="screen-reader" 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>개인정보 수집·이용 동의(선택)<a href="#" className='signup-link'>약관보기</a></label>
+                                        </div>
+                                    </div>
+
+                                    <div className="control-container">
+                                        <input 
+                                            type="checkbox" 
+                                            id="benefits" 
+                                            className="screen-reader" 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>무료배송, 할인쿠폰 등 혜택/정보 수신 동의(선택)</label>
+                                        </div>
+                                        <input 
+                                            type="checkbox" 
+                                            id="sms" 
+                                            className="screen-reader" 
+                                        /> 
+                                    </div> 
+                                    <div className="control-container">
+                                        <input 
+                                            type="checkbox" 
+                                            id="age" 
+                                            className="screen-reader" 
+                                        />
+                                        <div className="label-box">
+                                            <span className="check-icon" aria-hidden="true"></span>
+                                            <label>본인은 만 14세 이상입니다</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </li> 
-                                <div className='button-box'>
-                                    <button type="submit"
-                                    className='member-true-button' 
-                                    >가입하기</button>
-                                </div>
+                </div>
+                        <div className='button-box'>
+                            <button type="submit"
+                            className='member-true-button' 
+                            >가입하기</button>
                         </div>
                     </ul>{/* signup-body-end */} 
                 </form>

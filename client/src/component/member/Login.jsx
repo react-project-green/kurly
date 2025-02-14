@@ -6,7 +6,7 @@ import Signup from './Signup.jsx';
 export default function Login() {
     return (
         <div className='content'> 
-                <div className='form-box'>
+                <div className='member-form-box'>
             <div className='login-box'>
                 <div className='member-title-box'>
                     <span>

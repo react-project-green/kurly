@@ -104,8 +104,8 @@ button{cursor:pointer; border:0; background-color:#fff;}
 button > *{position:relative; display:block;}
 
 ::-webkit-file-upload-button { cursor:pointer;}
-input { -webkit-appearance: none; -moz-appearance: none; border-radius: 0; }
-input:disabled { -webkit-appearance: none; -moz-appearance: none; appearance: none; color: #555555; -webkit-text-fill-color: #555555; opacity: 1; }
+// input { -webkit-appearance: none; -moz-appearance: none; border-radius: 0; }
+// input:disabled { -webkit-appearance: none; -moz-appearance: none; appearance: none; color: #555555; -webkit-text-fill-color: #555555; opacity: 1; }
 
 /* input-placeholder */
 ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {color: #767676; font-family: 'Nanum Gothic'; }

@@ -37,7 +37,7 @@ body {
 /*******************
 Login
 **********************/
-.form-box{
+.member-form-box{
   width: 900px;
   margin: 0 auto;
   display: flex;
@@ -113,111 +113,210 @@ signup
   margin: 0 auto;
   margin-bottom: 50px;
   color: var(--color-signup-font); 
-  }
-  ul{
-    li{
-        width: 700px;
-        padding: 20px;
-        height: 44px;
-        label{
-          display: inline-block;
-          font-size: 1.1em;
-          font-weight: 700;
-          text-indent: 3px;
-          margin: 0 0 6px 10px;
-          width: 25%;
-          // border: 1px solid red;
-        }
-        
-        .signup_input{
-            border: 1px solid gainsboro;
-            border-radius: 8px;
-            width: 300px;
-            height: 20px;
-            padding: 10px;
+      ul{
+        li{
+            width: 700px;
+            padding: 20px;
+            // height: 44px;
+            // border: 1px solid green;
+            label{
+              
+              display: inline-block;
+              font-size: 1.1em;
+              font-weight: 700;
+              text-indent: 3px;
+              margin: 0 0 6px 10px;
+              width: 25%;
+              // border: 1px solid red;
+            }
+            
+            .signup_input{
+                border: 1px solid gainsboro;
+                border-radius: 8px;
+                width: 300px;
+                height: 20px;
+                padding: 10px;
+            } 
+        .member-additional{
+          // padding: 10px 0px;
+          border-bottom: 1px solid rgb(51, 51, 51);
         } 
-    .member-additional{
-      // padding: 10px 0px;
-      border-bottom: 1px solid rgb(51, 51, 51);
-    } 
-    .signup_gender{
-      width: 330px;
-      display: inline-flex;
-      justify-content: space-around;
-      
-      input[type=radio]{ 
-        appearance: none;
-        border: max(2px, 0.1em) solid gainsboro;
-        border-radius: 50%;
-        width: 1.5em;
-        height: 1.5em;
-        // transition: border 0.5s ease-in-out;
-      } 
-      input[type=radio]:checked{
-        border: 0.4em solid rgb(95, 0, 128);
-      }
-    }
-    .signup-notic{
-      border: 1px solid red;
-      height: auto; 
-    }
-}} 
-
-.email-full{ 
-  display: inline-block;
-  width: 56%; 
-  .email-address{
-    width: 50%;
-    border: 1px solid gainsboro;
-    border-radius: 8px;
-    height: 20px;
-    padding: 10px;
-  }
-  .email-domain{
-    padding: 10px;
-    border-radius: 10%;
-  }
-}
-
-.phone-full{
-  // border: 1px solid red;
-  display: flex; 
-}
-.address-botton{
-    display: inline-block;
-    padding: 0px 10px;
-    text-align: center;
-    overflow: hidden;
-    width: 320px;
-    height: 44px;
-    border-radius: 4px;
-    color: rgb(95, 0, 128);
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(95, 0, 128);
-}  
-.signup_birth{
-  display: inline-block;
-}
-.signup_birth 
-{
-  display: flex;
-    div{
-      border: 1px solid gainsboro;
-      border-radius: 4px;
-      input{ 
-        border: none;
-        justify-content: space-around;
-        width: 80px;
-        justify-content: center;  
+        .signup_gender{
+          width: 330px;
+          display: inline-flex;
+          justify-content: space-around;
+          
+          input[type=radio]{ 
+            appearance: none;
+            border: max(2px, 0.1em) solid gainsboro;
+            border-radius: 50%;
+            width: 1.5em;
+            height: 1.5em;
+            // transition: border 0.5s ease-in-out;
+          } 
+          input[type=radio]:checked{
+            border: 0.4em solid rgb(95, 0, 128);
+          }
+        }
+    }} 
+    .email-full{ 
+      display: inline-block;
+      width: 56%; 
+      .email-address{
+        width: 38%;
+        border: 1px solid gainsboro;
         border-radius: 8px;
         height: 20px;
         padding: 10px;
-      }  
+      }
+      .email-domain{
+        padding: 10px;
+        border-radius: 10%;
+      }
+    }
+    
+    .phone-full{
+      
+      display: flex; 
+      .signup-phone-botton{
+        border: 1px solid gainsboro;
+        width: 150px;
+        border-radius: 5px;
+        margin-left: 5px;
+      }
+    }
+    .address-botton{
+        display: inline-block;
+        padding: 0px 10px;
+        text-align: center;
+        overflow: hidden;
+        width: 320px;
+        height: 44px;
+        border-radius: 4px;
+        color: rgb(95, 0, 128);
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(95, 0, 128);
+    }  
+    .signup_birth{
+      display: inline-block;
+    }
+    .signup_birth 
+    {
+      display: flex;
+        div{
+          border: 1px solid gainsboro;
+          border-radius: 4px;
+          input{ 
+            border: none; 
+            width: 80px; 
+            text-align: center;
+            border-radius: 8px;
+            height: 20px;
+            padding: 10px;
+          }  
+        } 
     } 
-}
-
-.member-signup-agree{  
-  display: inline-flex;
-  width: 100%;
-  padding: 10px 0px 10px 20px;
+    .member-signup-agree{  
+      width: 100%;
+      padding: 10px 0px 10px 20px;
+    } 
+    .signup-bottom{ 
+      margin-left: 30px;
+      display: inline-flex; 
+      // border: 1px solid tomato;
+      height: 380px;
+      .signup-bottom-title{
+        // border: 1px solid tomato;
+        width: 150px;
+        font-size: 1.3rem;
+        label{
+          font-weight: bold;
+        }
+      }
+    }
+    .signup-notic{ 
+      // margin-left: 90px;
+      div{
+        // border: 1px solid tomato;
+        font-size: 1.3rem;
+      }
+      .signup-notic-sub{
+        font-size: small;
+        padding-left: 20px; 
+        margin-top: 5px;
+        color :  gray;
+      }
+  }
+  .control-container {
+    // display: flex;
+    // position: relative; 
+    
+    height: 60px; 
+    
+    .screen-reader {
+      // Screen reader-specific styles to hide the checkbox visually
+      position: absolute; 
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      margin: -1px;
+      clip-path: inset(50%);
+    }
+    
+    .label-box {
+      // border: 1px solid salmon;
+      position: relative;
+      width: 100%; 
+      .check-icon {
+        width: 1.4em;
+        height: 1.4em;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid gray;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        
+        &::before {
+          content: "";
+          position: absolute;
+          box-sizing: border-box;
+          width: 30%;
+          height: 55%;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
+          border-right: 1.7px solid gray;
+          border-bottom: 1.7px solid gray;
+        }
+      }
+      .signup-link{
+        // border: 1px solid blue;
+        display: block;
+        text-align: right; 
+        color: rgb(95, 0, 128);
+      }
+    }
+  
+    label {
+      width: 100%;
+      // border: 1px solid blue;
+      padding-left: 2.2em;
+      position: relative;
+      cursor: pointer;
+    }
+  
+    [type="checkbox"]:checked + .label-box .check-icon {
+      border-color: rgb(95, 0, 128);
+      background-color: rgb(95, 0, 128);;
+    }
+  
+    [type="checkbox"]:checked + .label-box .check-icon::before {
+      border-color: #fff;
+    }
+  }
+  
 }
