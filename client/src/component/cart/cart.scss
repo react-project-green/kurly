@@ -39,9 +39,9 @@ body {
 }
 
 /* 검정색 글자 */
-p,
-h3,
-button {
+.cart-layout p,
+.cart-layout h3,
+.c-layout button {
     font-family: 'Pretendard-Regular';
     color: #333333;
     letter-spacing: -0.5px;
@@ -156,9 +156,7 @@ p,
     width: 100%;
     align-items: center;
     border-radius: 12px;
-    p {
-        color: white;
-    }
+    color: white;
 }
 
 /*****************************
@@ -192,11 +190,10 @@ p,
 }
 
 .cart-content {
+    width: 1050px;
     display: grid;
-    grid-template-columns: 2fr 1.3fr;
+    grid-template-columns: 60% 40%;
     justify-content: center;
-    gap: 20px;
-    width: 100%;
     margin: 0 auto;
 }
 
@@ -204,17 +201,19 @@ p,
 .cart-left-side {
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
+    padding-right: 10px;
+    margin-left: 40px;
 }
 
 
 .cart-right-side {
     display: flex;
     flex-direction: column;
-    margin-right: 30px;
     position: sticky;
     top: 0;
     align-self: start; 
+    padding-left: 10px;
+    margin-right: 40px;
 }
 
 
@@ -270,22 +269,22 @@ p,
 }
 
 .cart-product-pacakaging2 {
-    width: 35px;
-    padding: 4px 8px;
-    // border: 1px solid red;
+    width: 40px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-
     gap: 5px;
+    padding: 4px 8px;
+    margin-top: 8px;
 
 }
 
 .cart-product-pacakaging2 p {
     font-size: 12px;
     font-weight: 600;
-    color: #67bfa4;
+    // color: #67bfa4;
 }
 
 
@@ -300,7 +299,7 @@ p,
 /* 상품 */
 
 .product-item-title {
-    padding: 10px 0 10px 0;
+    padding: 5px 0 10px 0;
 }
 
 .product-item-title p {
@@ -363,6 +362,17 @@ p,
     line-height: 26px;
 }
 
+.cart-layout .decrease {
+    position: relative;
+    bottom: 4px;
+}
+
+.cart-layout .increase {
+    position: relative;
+    right: 3px;
+    top : 1px;
+}
+
 .product-bottom {
     margin-left: 30px;
 }
@@ -380,14 +390,10 @@ p,
 
 .delivery-address {
     padding: 20px 20px 36px;
-    margin: 0 0 16px;
+    margin: 5px 0 16px;
 
 }
-.delivery-address {
-    padding: 20px 20px 36px;
-    margin: 0 0 16px;
 
-}
 
 .delivery-title {
     display: flex;
@@ -415,10 +421,11 @@ p,
     margin: 0 0 16px;
 }
 
-.total-price-summury {
 
-}
 
 .payment p:last-child {
     text-align: right;
 }
+
+
+
