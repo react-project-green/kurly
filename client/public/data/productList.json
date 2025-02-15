@@ -13,7 +13,7 @@
             "details": "23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착 (그 외 지역 아침 8시 전 도착)"
                         },
         "seller": "컬리",
-        "packaging": "상온 (종이포장)",
+        "packaging": "냉장 (종이포장)",
         "total_price": 52200,
         "image_url": "https://picsum.photos/id/1/500/700",
         "isLive":true,
@@ -33,7 +33,7 @@
             "details": "23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착 (그 외 지역 아침 8시 전 도착)"
                         },
         "seller": "컬리",
-        "packaging": "상온 (종이포장)",
+        "packaging": "냉동 (종이포장)",
         "total_price": 52200,
         "image_url": "https://picsum.photos/id/2/500/700",
         "isLive":true,
