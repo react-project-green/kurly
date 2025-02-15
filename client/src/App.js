@@ -9,6 +9,7 @@ import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import CartLayout from './component/cart/CartLayout.jsx';
 import Order from './component/cart/Order.jsx';
+import NewProduct from './pages/NewProduct.jsx';
 
 function App() {
   const [ productPid, setProductPid ] = useState('');
@@ -32,6 +33,7 @@ function App() {
               <Route path="/member/signup" element={<Signup />} />
               <Route path="/cart" element={<CartLayout />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/goods/new" element={<NewProduct />} />
           </Route>
         </Routes>
       </BrowserRouter>
