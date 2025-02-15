@@ -1,6 +1,6 @@
 import React,{useEffect, useRef, useState} from 'react';
 import '../scss/new_product.scss';
-// import ImageUpload from '../components/ImageUpload.jsx';
+import ImageUpload from '../component/detail/ImageUpload.jsx';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,9 @@ export default function NewProduct() {
         description:'',
         price:'',
         dc:'',
-        event:''
+        event:'',
+        uploadImg:'',
+        orgImg:''
     }
     let [formData, setFormData] = useState(initForm);
     const [fname, setFname] = useState({});
@@ -45,9 +47,9 @@ export default function NewProduct() {
 
 
 
-    const getFileName = (filenames) => {
+    const getFileName = (filenames) => {       
         setFname(filenames);
-        setPreviewImg(`http://localhost:9000/${filenames.uploadFileName}`);
+        setPreviewImg(`http://localhost:9000/${filenames.upload_name}`);
     }
     // input formdata
     const changeFormData = (e) => {
@@ -88,18 +90,23 @@ export default function NewProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        formData ={...formData,"uploadImg":fname.uploadFileName,"orgImg":fname.sourceFileName,"event":eventRef.current.value };
+        formData ={...formData,"uploadImg":fname.upload_name,"orgImg":fname.org_name,"event":eventRef.current.value };
         if(validator() ) {
-            console.log('formData',formData);
-        
-            // axios.post('http://localhost:9000/product/new',formData)
-            //         .then(res => {
-            //             if(res.data.result_rows === 1){
-            //                 alert('상품이 등록되었습니다.');
-            //                 setTimeout(()=>{navigate('/goods/list')} ,1000);
-            //             }
-            //         })
-            //         .catch(err => console.log(err));
+           console.log('formData',formData);
+            
+            axios.post('http://localhost:9000/product/new',formData)
+                    .then(res =>{
+                            if(res.data.affectedRows === 1){
+                                alert(`상품이 등록되었습니다.\n메인화면으로 이동합니다.`);
+                                setTimeout(() =>{
+                                    navigate('/')
+                                },1000);
+                            }else{
+                                alert('상품등록에 실패했습니다.\n다시 입력해주세요.');
+                            }
+                        })
+                    .catch(err => console.log(err));
+            
         }
 
     }
@@ -183,17 +190,17 @@ export default function NewProduct() {
                             </label>
                         </div>
                     </div>
-                    {/* <div className="f_wrap upload_file">
+                    <div className="f_wrap upload_file">
                         <span>대표이미지</span>
                         <div>
                             <ImageUpload getFileName={getFileName} />
                             <div>
-                                <input type="text" name="upload" value={fname.uploadFileName} hidden />
-                                <input type="text" name="source" value={fname.sourceFileName} hidden />
+                                <input type="text" name="upload" value={fname.upload_name}  />
+                                <input type="text" name="source" value={fname.org_name}  />
                             </div>
                         </div>
                         <div className='img'><img src={previewImg} alt="" /></div>
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className="btn">
@@ -203,4 +210,3 @@ export default function NewProduct() {
         </div>
     );
 }
-

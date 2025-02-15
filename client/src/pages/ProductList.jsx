@@ -7,10 +7,11 @@ export default function ProductList() {
     const [productList, setProductList ]= useState([]);
 
     useEffect(() =>{
-        axios.get('/data/productList.json')
+        axios.post('http://localhost:9000/product/all')
                 .then(res => setProductList(res.data))
                 .catch(err => console.log(err));
     },[]);
+    
     return (
         <div className='product_list'>
             <div className="inner">
