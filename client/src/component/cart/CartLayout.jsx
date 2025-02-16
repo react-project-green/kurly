@@ -101,9 +101,9 @@ export default function CartLayout() {
 
 
     return (
-        <div className='cart-layout g-full'>
-            <p className='cart-title'>장바구니</p>
-            <div className='cart-content '>
+        <div className='c-layout g-full'>
+            <p className='c-title'>장바구니</p>
+            <div className='c-content'>
                 <div className='cart-left-side '>
                     <SelectAll CheckBox={CheckBox}  />
 
@@ -111,7 +111,7 @@ export default function CartLayout() {
                     <div className='cart-product w-full'>
                         <div className='cart-product-top'>
                             <CheckBox />
-                            <p className='f18'>샛별배송</p>
+                            <p className='f18 w600'>샛별배송</p>
                         </div>
                         <ul className='cart-product-list'> {/* 상품리스트 반복 */}
                             {productList.map((product) =>
@@ -174,7 +174,7 @@ export default function CartLayout() {
                             <p>배송비</p>
                             <p className='w600'>0원</p>
                         </div>
-                        <div className='total-price-summury flex space-between center'>
+                        <div className='total-price-summury flex space-between align-center'>
                             <p>결제예정금액</p>
                             <p className='f24 w600 margin1200'>52,390원</p>
                         </div>
@@ -182,7 +182,7 @@ export default function CartLayout() {
                     </div>
 
                     {/* 주문하기 버튼 */}
-                    <button className='order-btn f18' onClick={naviToOrder}>
+                    <button className='order-btn1 f18' onClick={naviToOrder}>
                         50,000원 주문하기
                     </button>
                 </div>
