@@ -54,10 +54,9 @@ $main-color:rgb(95, 0, 128);
                     line-height:46px !important;
                 }
                 .img{
-                    width:100px;
-                    height:120px;
-                    margin-left:auto;
-                    border: 1px solid rgb(221, 221, 221);
+                    max-width:100px;
+                    max-height:120px;
+                    margin-top:5px;
                     overflow:hidden;
                     text-align:center;
                     img{height:120px;}
@@ -126,6 +125,18 @@ $main-color:rgb(95, 0, 128);
             &.select_area{
                 >div:nth-child(2){
                     flex-grow:1;
+                }
+            }
+            .preview_list{
+                display:flex;
+                justify-content: left;
+                flex-wrap:wrap;
+                gap:5px;
+                li{
+                    width:80px;
+                    height:100px;
+                    overflow: hidden;
+                    img{width:100%;}
                 }
             }
         }

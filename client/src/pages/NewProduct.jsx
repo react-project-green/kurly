@@ -1,6 +1,7 @@
 import React,{useEffect, useRef, useState} from 'react';
 import '../scss/new_product.scss';
 import ImageUpload from '../component/detail/ImageUpload.jsx';
+import ImageMultiUpload from '../component/detail/ImageMultiUpload.jsx';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +32,9 @@ export default function NewProduct() {
     }
     let [formData, setFormData] = useState(initForm);
     const [fname, setFname] = useState({});
+    const [fnames, setFnames] = useState({});
     const [previewImg, setPreviewImg] = useState('');
+    const [previewList, setPreviewList] = useState([]);
     const [navList, setNavList] = useState([]);
     const [navSub, setNavSub] = useState([]);
     const [selectNavSub,setSelectNavSub] = useState(null);
@@ -46,11 +49,16 @@ export default function NewProduct() {
     },[]);
 
 
-
+    // upload file
     const getFileName = (filenames) => {       
         setFname(filenames);
         setPreviewImg(`http://localhost:9000/${filenames.upload_name}`);
     }
+    const getMultiFilesName = (filenames) => {
+        setFnames(filenames);
+        setPreviewList(filenames.uploadname)
+    }
+
     // input formdata
     const changeFormData = (e) => {
         const {name, value} = e.target;
@@ -90,7 +98,7 @@ export default function NewProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        formData ={...formData,"uploadImg":fname.upload_name,"orgImg":fname.org_name,"event":eventRef.current.value };
+        formData ={...formData,"uploadImg":fname.upload_name,"orgImg":fname.org_name,"event":eventRef.current.value,"detailImgs":fnames.uploadname, "OrgDetailImgs":fnames.originalname };
         if(validator() ) {
            console.log('formData',formData);
             
@@ -191,15 +199,33 @@ export default function NewProduct() {
                         </div>
                     </div>
                     <div className="f_wrap upload_file">
-                        <span>대표이미지</span>
+                        <span>대표이미지(1)</span>
                         <div>
                             <ImageUpload getFileName={getFileName} />
                             <div>
-                                <input type="text" name="upload" value={fname.upload_name}  />
-                                <input type="text" name="source" value={fname.org_name}  />
+                                <input type="text" name="upload" value={fname.upload_name} hidden />
+                                <input type="text" name="source" value={fname.org_name} hidden />
+                            </div>
+                            <div className='img'>{ previewImg&& <img src={previewImg} alt="" /> }</div>
+                        </div>
+                    </div>
+                    <div className="f_wrap upload_file">
+                        <span>상품설명 이미지들</span>
+                        <div>
+                            <ImageMultiUpload getMultiFilesName={getMultiFilesName} />
+                            <div>
+                                <input type="text" name="upload" value={fnames.uploadname} hidden />
+                                <input type="text" name="source" value={fnames.originalname} hidden />
                             </div>
                         </div>
-                        <div className='img'><img src={previewImg} alt="" /></div>
+                        
+                    </div>
+                    <div className="f_wrap upload_file">
+                        <ul className='preview_list'>
+                            { previewList && previewList.map((file) =>
+                                <li><img src={file}/></li>
+                            )}
+                        </ul>
                     </div>
                 </div>
 

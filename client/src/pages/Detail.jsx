@@ -62,14 +62,15 @@ export default function Detail({cartInfo}) {
             }
         }
     }
-
     useEffect(() =>{
         axios.post('http://localhost:9000/product/detail',{'pid':pid})
                 .then((res) => {
                     setProduct(res.data[0]);                   
                 })
                 .catch((error) => console.log(error));
+    },[]);
 
+    useEffect(() =>{
         const updateOffsets = () => {
             setOffset([
                 window.scrollY + refs.tab1Ref.current?.getBoundingClientRect().top,
@@ -229,7 +230,7 @@ export default function Detail({cartInfo}) {
                         <div className="tab_box">
                             {/* 1 상품설명 */}
                             <div ref={refs.tab1Ref}>
-                                <ProductInfo />
+                                <ProductInfo detailImgs={product.detail_imgs}/>
                             </div>
                             {/* 2 상세정보 */}
 

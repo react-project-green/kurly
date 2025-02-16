@@ -15,9 +15,11 @@ export const resigerProduct = async (formData ) => {
                                     dc,
                                     event_label,
                                     upload_img,
-                                    org_img
+                                    org_img,
+                                    detail_imgs,
+                                    detail_org_imgs
                                     )
-                values(?,?,?,?,?,?,?,?,?,?)
+                values(?,?,?,?,?,?,?,?,?,?,?,?)
     `;
     const value=[
         formData.brend ,
@@ -29,10 +31,11 @@ export const resigerProduct = async (formData ) => {
         formData.dc || 0,
         formData.event || 0,
         formData.uploadImg || null,
-        formData.orgImg || null
+        formData.orgImg || null,
+        formData.detailImgs || null,
+        formData.OrgDetailImgs || null
     ]
     const [result] = await db.execute(sql,value);
-    console.log('result 결과값 받기---->',result);
     
     return {'affectedRows': result.affectedRows};
 }
@@ -56,8 +59,7 @@ export const getList = async () => {
     `;
 
     const [result] = await db.execute(sql);
-    console.log('상품리스트 result', result);
-    
+
     return result;
 }
 
@@ -77,12 +79,12 @@ export const getDetail = async({pid}) => {
                     format((price * (100 - dc) *0.01),0) as discountedPrice,
                     truncate((price * (100 - dc) *0.01),0) as dcPrice,
                     event_label,
-                    concat('http://localhost:9000/',upload_img) as image_url
+                    concat('http://localhost:9000/',upload_img) as image_url,
+                    detail_imgs
             from kurly_product
             where pid = ?
     `;
     const [result] = await db.execute(sql,[pid]);
-    console.log('result pid filter', result);
     
     return result;
 }
