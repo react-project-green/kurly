@@ -23,6 +23,9 @@ $common-width:1050px;
                 height:552px;
                 border-radius: 5px;
                 overflow: hidden;
+                img{
+                    width:100%;
+                }
                 .dc{
                     position:absolute;
                     background-color: rgb(189, 118, 255);
@@ -867,6 +870,7 @@ $common-width:1050px;
         height:254px;
         border-top: 2px solid $main-color;
         background-color: #fff;
+        z-index:100;
         &.scroll{
             bottom:-240px;
         }
@@ -898,6 +902,9 @@ $common-width:1050px;
                     margin-left:10px;
                     color:#fff;
                     font-size:20px;
+                    *{
+                        color:#fff;
+                    }
                 }
             }
                 
@@ -969,6 +976,7 @@ $common-width:1050px;
                     font-size: 32px;
                     font-weight: bold;
                     margin-left:12px;
+                    transform: translateY(5px);
                 }
                 em{
                     padding-left: 5px;
