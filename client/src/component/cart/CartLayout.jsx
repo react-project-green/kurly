@@ -14,9 +14,22 @@ import axios from 'axios';
 
 // 체크박스 컴포넌트
 const CheckBox = () => {
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+    }
+
     return (
-        <input className='checkbox'
-                    type="checkbox" />
+        <>
+        <input className="checkbox-input"
+                        onChange={handleCheckboxChange}
+                        type="checkbox" 
+                    />
+        <div className={ isChecked ? "checkbox-active" : "checkbox"} 
+        onClick={handleCheckboxChange}></div>
+        </>
     );
 }
 
@@ -182,7 +195,7 @@ export default function CartLayout() {
                     </div>
 
                     {/* 주문하기 버튼 */}
-                    <button className='order-btn1 f18' onClick={naviToOrder}>
+                    <button className='order-btn1' onClick={naviToOrder}>
                         50,000원 주문하기
                     </button>
                 </div>

@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NextArrow } from './main/PromoBanner';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
   const [ certifiedList, setCertifiedList] = useState([]);
   const [ footerLinks, setFooterLinks ] = useState([]);
   const [ companySnsInfo, setCompanySnsInfo ] = useState([]);
-
+  const navigate = useNavigate();
+  
   useEffect(()=>{
     axios.get('/data/footer.json')
          .then((res)=>{
@@ -126,7 +128,8 @@ export default function Footer() {
           마켓플레이스(오픈마켓) 상품의 경우 컬리는 통신판매중개자로서 통신판매의 당사자가 아닙니다. 컬리는 해당 상품의 주문, 품질, 교환/환불 등 의무와 책임을 부담하지 않습니다.
         </p>
         <p>
-          © KURLY CORP. ALL RIGHTS RESERVED
+          <span className='main_product_add' onClick={()=>navigate('/goods/new')}>©</span>
+          <span>KURLY CORP. ALL RIGHTS RESERVED</span>
         </p>
       </div>  {/* end of footer_bottom */}
     </div>    
