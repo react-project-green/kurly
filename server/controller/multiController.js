@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
     // console.log('req.body',req.body);
     // console.log('req.query',req.query);
     // console.log('req.query.maxFiles',req.query.maxFiles);
+    console.log('req.files-------------->>',req.files);
     
     const maxFiles = parseInt(req.query.maxFiles);
     const upload = multer({ storage: storage }).array('files', maxFiles);
