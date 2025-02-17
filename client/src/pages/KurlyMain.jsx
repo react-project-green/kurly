@@ -1,19 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PromoBanner from '../component/main/PromoBanner';
-import MainSideMenu from'../component/main/MainSideMenu.jsx';
+import MainSideBarMenu from'../component/main/MainSideBarMenu.jsx';
 import MainSection from'../component/main/MainSection.jsx';
-import HotRanking from'../component/main/HotRanking.jsx';
+import MainPopUp from'../component/main/MainPopUp.jsx';
 
 
 export default function KurlyMain() {
+  useEffect(() => {
+   const handleScroll = () => {
+    (window.scrollY > 200)
+    ? document.body.classList.add('scrolled')
+    : document.body.classList.remove('scrolled');
+   };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className='content-outline'>
       <PromoBanner />
-      <MainSideMenu />
+      <MainSideBarMenu />
       <div className='content'> 
+        <MainPopUp />
         <MainSection /> {/* 1단위 ~주말특가 */}
-        <HotRanking />      {/* 1단위 ~실시간 인기랭킹 */}
-        {/* <MainProductList /> 1단위 ~주말특가 */}
       </div>
     </div>
   );

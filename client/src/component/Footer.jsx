@@ -93,7 +93,7 @@ export default function Footer() {
             <ul className='sns_info'>
               {companySnsInfo && companySnsInfo.map((sns)=>(
                 <li>
-                  <a path={sns.link}>
+                  <a href={sns.link}>
                     <img src={sns.img} alt="img" />
                   </a>
                 </li>

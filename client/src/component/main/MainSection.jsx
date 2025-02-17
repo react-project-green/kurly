@@ -6,7 +6,9 @@ export default function MainSection() {
   return (
     <div>
       <PromotionSection /> {/* title + 상품리스트 */}
+      <PromotionSection />
       <TodayPromotion />
+      <PromotionSection />
     </div>
   );
 }
