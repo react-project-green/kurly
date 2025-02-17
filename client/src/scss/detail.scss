@@ -1043,7 +1043,7 @@ $common-width:1050px;
     position: relative;
     .inner{
         display:flex;
-        justify-content: space-between;
+        justify-content: start;
         width: 1050px;
         margin: 0 auto;
         padding: 40px 0;
@@ -1099,6 +1099,9 @@ $common-width:1050px;
                 font-weight: 500;
                 line-height: 21px;
                 text-align:center;
+            }
+            img{
+                width:100%;
             }
             &:hover img{
                 transform:scale(1.2);
