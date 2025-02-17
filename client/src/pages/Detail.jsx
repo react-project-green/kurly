@@ -230,12 +230,12 @@ export default function Detail({cartInfo}) {
                         <div className="tab_box">
                             {/* 1 상품설명 */}
                             <div ref={refs.tab1Ref}>
-                                <ProductInfo detailImgs={product.detail_imgs}/>
+                                <ProductInfo detailImgs={product.info_imgs}/>
                             </div>
                             {/* 2 상세정보 */}
 
                             <div ref={refs.tab2Ref}>
-                                <DetailInfo />
+                                <DetailInfo detailImgs={product.detail_imgs} />
                             </div>
                             {/* 3 상품 후기 */}
                             <div ref={refs.tab3Ref}>

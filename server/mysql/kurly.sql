@@ -15,11 +15,15 @@ create table kurly_product(
     sub_desc		varchar(100) ,
     price 			int  			not null,
     dc				int,
+    delivery		char(2)	,
     event_label		boolean,
     upload_img		varchar(100) ,
     org_img 		varchar(50) ,
+	info_imgs 		json ,
+    info_org_imgs 	json,
     detail_imgs 	json ,
     detail_org_imgs json,
     pdate 			datetime
 );
 desc kurly_product;
+select * from kurly_product;
