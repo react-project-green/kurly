@@ -41,7 +41,10 @@
 .footer_outline{
   width: 100%;
 }
-
+.content_outline,
+.content{
+  position: relative;
+}
 .header,
 .content,
 .footer{
@@ -127,7 +130,7 @@
   position: relative;
   width: 248px;
 }
-.header_middle_left button a{
+.header_middle_left button {
   font-size: 20px;
   font-weight: 500;
   color: var(--color-main);
@@ -178,13 +181,22 @@
   height: 45px;
   margin-right: 25px;
   font-weight: 400px;
+  background-color: transparent;
 }
 .header_top_icon.cart_icon{
   margin-right: 8px;
   position: relative;
 }
+.header_top_icon img {
+  transition: filter 0.3s ease;
+}
+.header_top_icon:hover img{
+  filter: brightness(0) saturate(100%) invert(16%) sepia(95%) saturate(800%) hue-rotate(250deg) brightness(100%) contrast(150%);
+}
+.location_icon{
+  position: relative;
+}
 .cart_icon p{
-  border: 1px solid red;
   position: absolute;
   top: 1.5px;
   right: -11px;
@@ -204,11 +216,67 @@
   line-height: 15px;
   
 }
+.location_icon .location_info{
+  position: absolute;
+  right: -120px;
+  width: 250px;
+  height: 100px;
+  border: 1px solid var(--borderlight);
+  z-index: 100;
+  background-color: #fff;
+  font-size: 1px;
+  font-family: 'Pretendard-light';
+  padding: 10px;
+  opacity: 0;
+}
+.location_icon:hover .location_info{
+  opacity: 1;
+}
+.location_info div{
+  display: flex;
+  align-items: center;
+}
+.location_info span{
+  display: block;
+  text-align: left;
+  font-size: 15px;
+  font-family: 'Pretendard-Regular';
+  letter-spacing: 2px;
+  margin-top: 5px;
+} 
+.location_info span:first-child{
+  color: var(--color-main);
+  margin-left: 3px;
+}
+.location_info button{
+  margin-top: 15px;
+  border: 1px solid var(--color-main);
+  border-radius: 5px;
+}
+.location_info button:nth-of-type(1){
+  padding: 8px 20px;
+  margin-right: 8px;
+  color: var(--color-main);
+}
+.location_info button:nth-of-type(2){
+  position: relative;
+  padding: 8px 45px 8px 52px;
+  color: #fff;
+  background-color: var(--color-main);
+}
+.location_info button:nth-of-type(2) img{
+  position: absolute;
+  filter: brightness(0) invert(1);
+  top: 6px;
+  left: 29px;
+  width: 20px;
+}
 
  /**************************************
 ** HEADER - BOTTOM
 ** 2025.02.05 김다희 작성
 **************************************/
+
 .header_bottom_menu{
   display: flex;
   justify-content: space-between;
@@ -236,7 +304,15 @@
   width: 16px;
   height: 14px;
   margin-right: 14px;
-  background-image: url('../../public/images/commonImage/header_menu.svg');
+  background-color: rgb(51, 51, 51); /* 기본 색상 */
+  mask-image: url('../../public/images/commonImage/header_menu.svg');
+  -webkit-mask-image: url('../../public/images/commonImage/header_menu.svg');
+}
+.category_div:hover .category_title{
+  color: var(--color-main);
+}
+.category_div:hover .category_icon{
+  background-color: var(--color-main);
 }
 .category_list{
   display: none;
@@ -319,14 +395,16 @@
   padding-top: 18px;
   text-align: center;
 }
-.header_bottom_menu .menu_list:hover a{
-  color: var(--color-main);
-}
-.header_bottom_menu .menu_list li button {
+.header_bottom_menu .menu_list button {
   font-size: 16px;
   font-weight: 500;
   color: rgb(51, 51, 51);
   cursor: pointer;
+}
+.header_bottom_menu .menu_list button:hover {
+  color: var(--color-main);
+  text-decoration: underline;
+  text-underline-position: under;
 }
 .delivery_btn_line{
   margin: 0;
@@ -490,3 +568,90 @@
   height: 30px;
   margin-right: 10px;
 }
+
+ /**************************************
+** Top Banner 
+** 2025.02.15 김다희 작성
+************************************* */
+.top_banner{
+  width: 1050px;
+  margin: 0 auto;
+  position: relative;
+}
+.top_banner_content{
+  text-align: center;
+  transition: margin 0.4s linear;
+  background-color: var(--color-main);
+}
+.banner_content,
+.banner_content span{
+  font-size: 11px;
+  line-height: 42px;
+  font-family: 'Pretendard-light';
+  letter-spacing: -0.1px;
+  color: rgb(255, 255, 255);
+}
+.banner_content span{
+  font-weight: bold;
+}
+.top_banner button{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 23%;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+.top_banner_btn{
+  fill: var(--color-153);
+  background: none;
+}
+
+ /**************************************
+** Side Bar  
+** 2025.02.15 김다희 작성
+************************************* */
+
+.side_bar_outline{
+  position: fixed;
+  top: 540px;
+  right: 20px;
+  z-index: 1;
+  margin-top: 93px;
+  transition: top 0.6s ease;
+}
+.scrolled .side_bar_outline{
+  top: calc(50vh - 200px); //  화면의 세로 중앙에서 위로 200px 이동
+}
+.side_bar1{
+  width: 80px;
+  line-height: 16px;
+}
+.side_delivery_info{
+  height: 120px;
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+.side_delivery_info img{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: initial;
+  background: none;
+  opacity: 1;
+}
+
+.side_bar2 ul li{
+  width: 80px;
+  font-size: 11px;
+  font-family: 'Pretendard-Thin' ;
+  letter-spacing: -0.3px;
+  color: rgb(51, 51, 51);
+  text-align: center;
+  padding: 6px 0;
+  border: 1px solid rgb(221, 221, 221);
+  background-color: rgb(255, 255, 255);
+}
+

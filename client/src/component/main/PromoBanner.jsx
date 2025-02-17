@@ -10,7 +10,7 @@ export default function PromoBanner() {
   const [ currentSlide, setCurrentSlide ] = useState(0);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
     speed: 500,
     autoplay: true,      // 자동 재생

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 
 export default function Header({cartCount, productPid}) {
   const [ topMenu, setTopMenu ] = useState([]);
@@ -27,6 +27,7 @@ export default function Header({cartCount, productPid}) {
   
   return (
     <div className='header_outline'>
+      <HeaderPromotionBanner />
       <div className='header'>
         <div className='header_top'>
           <div className='header_top_menu'>
@@ -51,19 +52,26 @@ export default function Header({cartCount, productPid}) {
           <div className='header_middle'>
             <div className='header_middle_left'>
               <img src="/images/commonImage/Logo.svg" alt="image Logo" />
-              <button type='button'>
-                <Link to='/'>마켓컬리</Link>
-              </button>
+              <button type='button' onClick={()=>navigate('/')}>마켓컬리</button>
             </div>
             <div className='header_middle_search'>
               <input type="text" placeholder='검색어를 입력해주세요'/>
               <button className='search_button'></button>
             </div>
             <div className='header_middle_right'>
-              <button className='header_top_icon' onClick={()=>navigate('/')}>  
+              <button className='header_top_icon location_icon'>  
                 <img src="/images/commonImage/header_icon1.svg" alt="header_icon" />
+                <div className='location_info'>
+                  <div>
+                    <span>배송지를 등록</span>
+                    <span>하고</span><br/>
+                  </div>
+                  <span>구매 가능한 상품을 확인하세요!</span>
+                  <button type='button' onClick={()=>navigate('/member/login')}>로그인</button>
+                  <button type='button'><img src="/images/commonImage/search_img.svg"/>주소검색</button>
+                </div>
               </button>  
-              <button className='header_top_icon' onClick={()=>navigate('/')} >  
+              <button className='header_top_icon' onClick={()=>navigate('/member/login')} >  
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>  
               <button className='header_top_icon cart_icon' onClick={()=>navigate('/cart')}>  
@@ -74,14 +82,16 @@ export default function Header({cartCount, productPid}) {
                   </p>
                 }   
               </button>  
-            </div>
-          </div> {/* end of header-middle */}
-        </div>   {/* end of header-top */}
+            </div> {/* end of header_middle_right */}
+          </div>   {/* end of header-middle */}
+        </div>     {/* end of header-top */}
 
         <div className='header_bottom_menu'>
           <div className='category'>
-            <span className='category_icon'></span>
-            <span className='category_title'>카테고리</span>
+            <div className='category_div'>
+              <span className='category_icon'></span>
+              <span className='category_title'>카테고리</span>
+            </div>
             <ul className='category_list'>
               {categoryList && categoryList.map((category, idx)=>(
                 <li key={idx}
