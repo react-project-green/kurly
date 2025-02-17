@@ -18,6 +18,8 @@ create table kurly_product(
     event_label		boolean,
     upload_img		varchar(100) ,
     org_img 		varchar(50) ,
+    detail_imgs 	json ,
+    detail_org_imgs json,
     pdate 			datetime
 );
 desc kurly_product;
