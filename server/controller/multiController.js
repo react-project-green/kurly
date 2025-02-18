@@ -6,18 +6,16 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'upload_files/')
     },
-    filename: function (req, file, cb) {
-      console.log('file---->>', file);
-      
+    filename: function (req, file, cb) {     
       cb(null, Date.now() + '-' + file.originalname )
     }
   })
  
 
   export const fileUploadMultiple = (req,res) => {
-    // console.log('req.body',req.body);
-    // console.log('req.query',req.query);
-    // console.log('req.query.maxFiles',req.query.maxFiles);
+    
+    console.log('req.query ==>>',req.query);
+    console.log('req.query.maxFiles ==>>',req.query.maxFiles);
     console.log('req.files-------------->>',req.files);
     
     const maxFiles = parseInt(req.query.maxFiles);
@@ -28,16 +26,37 @@ const storage = multer.diskStorage({
             console.log(err)
             
         }else{
-            console.log('upload file list --->', req.files);
+
+			const deleteFiles = req.body.oldFiles;
+			const oldFilesArray = deleteFiles.split(',');
+
+			for(let oldfile of oldFilesArray){
+				if(oldfile){
+					let filePath = path.join('upload_files/',oldfile);
+					if(fs.existsSync(filePath)){
+						try{
+							fs.unlinkSync(filePath);
+						}catch(err){
+							console.log('파일삭제 실패',err);
+							
+						}
+					}
+				}
+			}
+
+
             let originalname = [];
             let uploadname = [];
+			let oldFiles =[];
             for(let file of req.files){
                 originalname.push(file.originalname);
                 uploadname.push(`http://localhost:9000/${file.path}`);
+				oldFiles.push(file.filename);
             }
             res.json({
                 'originalname': originalname,
-                'uploadname' : uploadname
+                'uploadname' : uploadname,
+				'oldFiles':oldFiles
             });
             res.end();
         }

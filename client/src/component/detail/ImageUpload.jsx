@@ -1,16 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
 export default function ImageUpload({getFileName}) {
+    const formData = new FormData();
+    const [oldFile, setOldFile] = useState('');
     const imageUpload = (e) => {
-        const formData = new FormData();
-        console.log(e.target.files[0]);
+
         formData.append("file",e.target.files[0]);
+        formData.append("oldFile",oldFile);
         axios.post('http://localhost:9000/upload/file',formData,{
                     "headers":{"Content-type":"multipart/form-data"}
                 })
-                .then(res => getFileName(res.data))
+                .then(res => {
+                    getFileName(res.data);
+                    setOldFile(res.data.oldFile);
+                })
                 .catch(err => console.log(err));
 
     }
