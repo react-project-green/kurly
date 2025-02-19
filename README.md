@@ -6,8 +6,8 @@
 ```bash
 npm i
 npm i react-bootstrap
-npm install react-slick --save
-npm install slick-carousel --save
+npm i react-slick --save
+npm i slick-carousel --save
 ```
 
 ### server
