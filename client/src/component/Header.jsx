@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
+import DaumPostcode from 'react-daum-postcode';
 
 export default function Header({cartCount, productPid}) {
   const [ topMenu, setTopMenu ] = useState([]);
@@ -10,6 +11,7 @@ export default function Header({cartCount, productPid}) {
   const [ icons, setIcons ] = useState([]);
   const [ categoryList, setCategoryList ] = useState([]);
   const [ hoverCategoryIndex, setHoverCategoryIndex ]= useState(null);
+  const [ isPopUpOpen, setIsPopUpOpen ] = useState(false);
   const navigate = useNavigate();
 
   useEffect(()=> {
@@ -25,6 +27,38 @@ export default function Header({cartCount, productPid}) {
   },[]);
   // console.log('categoryList',categoryList);
   
+  const handleTogle = () => {
+    // setIsPopUpOpen(!isPopUpOpen);
+    const popup = window.open('/address-popup','addressPopup','width=500, height=600, scrollbars=yes');
+    // const popup = window.open('"https://postcode.map.daum.net/guide"',
+                            // '주소 검색',
+                            // 'width=500, height=600, scrollbars=yes');
+    if(popup) popup.focus();
+  };
+
+  
+  const themeObj = {
+    bgColor: '#FFFFFF',
+    pageBgColor: '#FFFFFFF',
+    postcodeTextColor: '#C05850',
+    emphTextColor: "#222222"
+  };
+  const postCodeStyle = {
+    width: '360px',
+    height: '480px'
+  };      
+  const completeHandler = (data) =>{
+    const { address, zonecode } = data;
+  };
+
+  const closeHandler = (state) =>{
+    if(state === 'FORCE_CLOSE'){
+      setIsPopUpOpen(false);
+    }else if(state === 'COMPLETE_CLOSE'){
+      setIsPopUpOpen(false);
+    }
+  };
+
   return (
     <div className='header_outline'>
       <HeaderPromotionBanner />
@@ -52,7 +86,7 @@ export default function Header({cartCount, productPid}) {
           <div className='header_middle'>
             <div className='header_middle_left'>
               <img src="/images/commonImage/Logo.svg" alt="image Logo" />
-              <button type='button' onClick={()=>navigate('/')}>마켓컬리</button>
+              <button type='button' onClick={()=>navigate('/')}>뷰티컬리</button>
             </div>
             <div className='header_middle_search'>
               <input type="text" placeholder='검색어를 입력해주세요'/>
@@ -68,7 +102,18 @@ export default function Header({cartCount, productPid}) {
                   </div>
                   <span>구매 가능한 상품을 확인하세요!</span>
                   <button type='button' onClick={()=>navigate('/member/login')}>로그인</button>
-                  <button type='button'><img src="/images/commonImage/search_img.svg"/>주소검색</button>
+                  <button type='button' onClick={handleTogle}>
+                    <img src="/images/commonImage/search_img.svg"/>주소검색
+                  </button>
+                    {isPopUpOpen === true && (
+                      <div className='post_popup'>
+                        <DaumPostcode className='postmodal'
+                                      theme={themeObj}
+                                      style={postCodeStyle}
+                                      onComplete={completeHandler}
+                                      onClose={closeHandler}/>
+                      </div>
+                     )}
                 </div>
               </button>  
               <button className='header_top_icon' onClick={()=>navigate('/member/login')} >  

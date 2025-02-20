@@ -33,9 +33,9 @@ export default function MainProductListSlider() {
         <div className='product_list main_list'>
           <Slider  {...settings}>
               {mainProductList && mainProductList.map((row, i)=>(
-                <div className="product-slide" key={i}>
+                // <div className="product-slide" key={i}>
                   <ProductThumb key={i} product={row}/> 
-                </div>
+                // </div>
               ))}
           </Slider>
         </div>
