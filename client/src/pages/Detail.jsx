@@ -1,4 +1,5 @@
 import React,{useRef, useState, useEffect} from 'react';
+import { useParams } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { VscBell } from "react-icons/vsc";
 
@@ -7,11 +8,10 @@ import ProductInfo from '../component/detail/ProductInfo.jsx';
 import DetailInfo from '../component/detail/DetailInfo.jsx';
 import ReviewInfo from '../component/detail/ReviewInfo.jsx';
 import InquireInfo from '../component/detail/InquireInfo.jsx';
-import axios from 'axios';
-import { useParams } from "react-router-dom";
-
-import '../scss/detail.scss';
 import CartBottom from '../component/detail/CartBottom.jsx';
+
+import axios from 'axios';
+import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
 
@@ -243,7 +243,7 @@ export default function Detail({cartInfo}) {
                             </div>
                             {/* 4 상품 문의 */}
                             <div ref={refs.tab4Ref} >
-                                <InquireInfo />  
+                                <InquireInfo src={product.image_url} name={product.name} />  
                             </div>
                         </div>
                     </div>
