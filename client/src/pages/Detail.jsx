@@ -106,7 +106,7 @@ export default function Detail({cartInfo}) {
         scrollCheck();
         
         window.addEventListener('scroll',scrollCheck);
-    },[offset]);
+    },[]);
 
     // cart count
     const buttonCartCount = (type) => {
