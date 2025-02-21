@@ -20,7 +20,6 @@ export default function MainProductListSlider() {
   useEffect(()=> {
     axios.get('/data/mainProductList.json')
          .then((res)=> {
-          console.log(res.data);
           setMainProductList(res.data);
         })
          .catch((error)=>console.log(error))
@@ -28,14 +27,10 @@ export default function MainProductListSlider() {
 
   return (
     <div className='section_product'>
-      {/* <div className='slider-container section_product_list'> */}
-        {/* <div className='product_list main_list'> */}
         <div className='product_list main_list'>
           <Slider  {...settings}>
               {mainProductList && mainProductList.map((row, i)=>(
-                // <div className="product-slide" key={i}>
                   <ProductThumb key={i} product={row}/> 
-                // </div>
               ))}
           </Slider>
         </div>

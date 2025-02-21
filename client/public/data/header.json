@@ -24,84 +24,79 @@
   "category_list":[
                     {
                       "img":"/images/commonImage/category1.jpg",
-                      "title":"채소",
+                      "title":"스킨케어",
                       "variety":[
-                        {"name":"친환경"},
-                        {"name":"고구마·감자·당근"},
-                        {"name":"시금치·쌈채소·나물"},
-                        {"name":"브로콜리·파프리카·양배추"},
-                        {"name":"양파·대파·마늘·배추"},
-                        {"name":"오이·호박·고추"},
-                        {"name":"냉동·이색·간편채소"},
-                        {"name":"콩나물·버섯"}
+                        {"name":"스킨·토너"},
+                        {"name":"로션"},
+                        {"name":"에센스·세럼·엠플"},
+                        {"name":"크림"},
+                        {"name":"아이크림"},
+                        {"name":"미스트"},
+                        {"name":"오일"},
+                        {"name":"마스크·팩"}
                       ]
                     },
                     {
                       "img":"/images/commonImage/category2.jpg",
-                      "title":"과일·견과·쌀",
+                      "title":"메이크업",
                       "variety":[
-                        {"name":"친환경"},
-                        {"name":"제철과일"},
-                        {"name":"수입과일"},
-                        {"name":"간편과일"}
+                        {"name":"베이스 메이크업"},
+                        {"name":"블려셔·하이라이터·셰이딩"},
+                        {"name":"립 메이크업"},
+                        {"name":"아이 메이크업"}
                       ]
                     },
                     {
                       "img":"/images/commonImage/category3.jpg",
-                      "title":"수산·해산·건어물",
+                      "title":"클렌징",
                       "variety":[
-                        {"name":"제철수산"},
-                        {"name":"생선류"},
-                        {"name":"굴비·반건류"},
-                        {"name":"연어·참치"},
-                        {"name":"회·탕류"}
+                        {"name":"밤·오일·크림"},
+                        {"name":"워터"},
+                        {"name":"폼·젤"},
+                        {"name":"티슈"},
+                        {"name":"스크럽·필링"}
                       ]
                     },
                     {
                       "img":"/images/commonImage/category4.jpg",
-                      "title":"정육·가공육·계란",
+                      "title":"선케어",
                       "variety":[
-                        {"name":"국내산 소고기"},
-                        {"name":"수입산 소고기"},
-                        {"name":"국내산 돼지고기"},
-                        {"name":"수입산 돼지고기·양고기"},
-                        {"name":"닭·오리고기"}
+                        {"name":"선스틱"},
+                        {"name":"선쿠션"},
+                        {"name":"선크림"},
+                        {"name":"수딩·에프터선"},
+                        {"name":"선스프레이"}
                       ]
                     },
                     {
                       "img":"/images/commonImage/category5.jpg",
-                      "title":"국·반찬·메인요리",
+                      "title":"헤어케어",
                       "variety":[
-                        {"name":"국·탕·찌개"},
-                        {"name":"밑반찬"},
-                        {"name":"김치·젓갈·장류"},
-                        {"name":"두부·어묵·부침개"},
-                        {"name":"메인요리"}
+                        {"name":"샴푸"},
+                        {"name":"컨디셔너·린스"},
+                        {"name":"트리트먼트·헤어팩"},
+                        {"name":"에센스·오일"},
+                        {"name":"미스트"}
                       ]
                     },
                     {
                       "img":"/images/commonImage/category6.jpg",
-                      "title":"간편식·밀키트·샐러드",
-                      "variety":[
-                        {"name":"밀키트"},
-                        {"name":"샐러드·샌드위치"},
-                        {"name":"선식·시리얼"},
-                        {"name":"도시락·밥류"}
-                      ]
+                      "title":"바디케어",
+                      "variety":[]
                     },
                     {
                       "img":"/images/commonImage/category7.jpg",
-                      "title":"면면·양념·오일",
+                      "title":"구강·위생용품",
                       "variety":[]
                     },
                     {
                       "img":"/images/commonImage/category8.jpg",
-                      "title":"생수·음료",
+                      "title":"더모 코스메틱",
                       "variety":[]
                     },
                     {
                       "img":"/images/commonImage/category9.jpg",
-                      "title":"커피·차",
+                      "title":"향수·디퓨저",
                       "variety":[]
                     },
                     {
@@ -116,7 +111,7 @@
                     },
                     {
                       "img":"/images/commonImage/category12.jpg",
-                      "title":"유제품",
+                      "title":"건강식품",
                       "variety":[]
                     }
                   ]

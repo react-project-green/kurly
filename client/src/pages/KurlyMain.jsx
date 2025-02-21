@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
-import PromoBanner from '../component/main/PromoBanner';
+import PromoBannerSlider from '../component/main/PromoBannerSlider.jsx';
 import MainSideBarMenu from'../component/main/MainSideBarMenu.jsx';
 import MainSection from'../component/main/MainSection.jsx';
 import MainPopUp from'../component/main/MainPopUp.jsx';
-
 
 export default function KurlyMain() {
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function KurlyMain() {
 
   return (
     <div className='content-outline'>
-      <PromoBanner />
+      <PromoBannerSlider />
       <MainSideBarMenu />
       <div className='content'> 
         <MainPopUp />

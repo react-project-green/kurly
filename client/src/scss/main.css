@@ -2,47 +2,64 @@
 ** Main Pomotion Banner
 ** 2025.02.08 김다희 작성
 **************************************/
-
 .promotion_banner{
+  /* border: 1px solid red; */
   position: relative;
   max-width: 1900px;
   height: 370px;
   margin: 0px auto 40px;
-  overflow: hidden;
+  overflow: visible;
 }
-.promo_card{
-  display: block;
+.promotion_section{
+  position: relative;
 }
-.promo_l_btn,
-.promo_r_btn{
+.promotion_section .slick-prev,
+.promotion_section .slick-next{
   position: absolute;
   top: 50%;
-  width: 52px;
-  height: 50px;
-  z-index: 90;
-  background: url('../../public/images/commonImage/banner_r_arrow.svg');
+  transform: translateY(-50%);
+  z-index: 100;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.promotion_section .slick-prev{
+  left: 400px;
+}
+.promotion_section .slick-next{
+  right: 400px;
+}
+.promotion_section:hover .slick-prev,
+.promotion_section:hover .slick-next{
+  opacity: 1;
+} 
+.promotion_section .slick-prev::before,
+.promotion_section .slick-next::before{
+  content: '';
+  display: block;
+  width: 60px;
+  height: 60px;
+  z-index: 100;
   background-size: contain;
   background-repeat: no-repeat;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.promo_r_btn{
-  right: calc(50% - 525px);
-  transform: translateY(-50%); /*자기 자신의 요소의 50%이동*/
-}
-.promo_l_btn{
-  left: calc(50% - 525px);
-  transform: translateY(-50%) scaleX(-1); /*뒤집기*/
-}
-.promotion_banner:hover .promo_l_btn,
-.promotion_banner:hover .promo_r_btn {
   opacity: 1;
+}
+.promotion_section .slick-prev::before{
+  background-image: url('../../public/images/commonImage/banner_r_arrow.svg');
+  transform: scaleX(-1);
+}
+.promotion_section .slick-next::before{
+  background-image: url('../../public/images/commonImage/banner_r_arrow.svg');
+}
+.promotion_section slick-next.slick-disabled,
+.promotion_section slick-prev.slick-disabled{
+  display: none;
 }
 .pagenation{
   position: absolute;
-  bottom: 25px;
-  right: 520px;
+  bottom: 8%;
+  right: 30%;
   z-index: 100;
   width: 55px;
   height: 23px;
@@ -56,7 +73,9 @@
   justify-content: center;
 }
 
-
+.promotion_img{
+  cursor: pointer;
+}
 
 
 

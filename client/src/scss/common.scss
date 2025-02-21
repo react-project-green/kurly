@@ -108,6 +108,8 @@
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(241, 240, 240);
   z-index: 10;
+  visibility: hidden;
+  pointer-events: none;
 }
 .surrport_drop_down li {
   height: 23px;
@@ -118,6 +120,8 @@
 .header_top_menu_item:last-child:hover .surrport_drop_down,
 .drop_down_icon:hover .surrport_drop_down{
   display: block;
+  visibility: visible;
+  pointer-events: auto;
 }
 .header_middle{
   height: 64px;
@@ -228,9 +232,13 @@
   font-family: 'Pretendard-light';
   padding: 10px;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .location_icon:hover .location_info{
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 .location_info div{
   display: flex;
@@ -321,7 +329,7 @@
   top: 100%;
   left: 0;
   width: 220px;
-  z-index: 30;
+  z-index: 101;
   background-color: #fff;
 }
 .category_list::-webkit-scrollbar{
@@ -417,6 +425,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: 50;
 }
 .delivery_btn_line span{
   height: 20px;
