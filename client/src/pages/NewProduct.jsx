@@ -18,6 +18,7 @@ export default function NewProduct() {
         dcRef:useRef(null)
     };
     const eventRef = useRef(null);
+    const deliveryRef = useRef(null);
     const initForm = {
         brend:'',
         depth1:'',
@@ -33,8 +34,10 @@ export default function NewProduct() {
     let [formData, setFormData] = useState(initForm);
     const [fname, setFname] = useState({});
     const [fnames, setFnames] = useState({});
+    const [fnames2, setFnames2] = useState({});
     const [previewImg, setPreviewImg] = useState('');
     const [previewList, setPreviewList] = useState([]);
+    const [previewList2, setPreviewList2] = useState([]);
     const [navList, setNavList] = useState([]);
     const [navSub, setNavSub] = useState([]);
     const [selectNavSub,setSelectNavSub] = useState(null);
@@ -57,6 +60,10 @@ export default function NewProduct() {
     const getMultiFilesName = (filenames) => {
         setFnames(filenames);
         setPreviewList(filenames.uploadname)
+    }
+    const getMultiFilesName2 = (filenames) => {
+        setFnames2(filenames);
+        setPreviewList2(filenames.uploadname)
     }
 
     // input formdata
@@ -98,7 +105,15 @@ export default function NewProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        formData ={...formData,"uploadImg":fname.upload_name,"orgImg":fname.org_name,"event":eventRef.current.value,"detailImgs":fnames.uploadname, "OrgDetailImgs":fnames.originalname };
+        formData ={...formData,"uploadImg":fname.upload_name,
+                    "orgImg":fname.org_name,
+                    "event":eventRef.current.value,
+                    "infoImgs":fnames.uploadname, 
+                    "orgInfoImgs":fnames.originalname,
+                    "detailImgs":fnames2.uploadname, 
+                    "orgDetailImgs":fnames2.originalname,
+                    "delivery":deliveryRef.current.value 
+                };
         if(validator() ) {
            console.log('formData',formData);
             
@@ -180,6 +195,16 @@ export default function NewProduct() {
                         </div>
                     </div>
                     <div className="f_wrap">
+                        <span>포장타입</span>
+                        <div>
+                            <Form.Select  name="delivery"  ref={deliveryRef}>
+                                <option value="상온">상온</option>
+                                <option value="냉장">냉장</option>
+                                <option value="냉동">냉동</option>
+                            </Form.Select>
+                        </div>
+                    </div>
+                    <div className="f_wrap">
                         <span>라이브특가</span>
                         <div className='event'>
                             <label className="radio_box">
@@ -217,12 +242,28 @@ export default function NewProduct() {
                                 <input type="text" name="upload" value={fnames.uploadname} hidden />
                                 <input type="text" name="source" value={fnames.originalname} hidden />
                             </div>
-                        </div>
-                        
+                        </div>           
                     </div>
                     <div className="f_wrap upload_file">
                         <ul className='preview_list'>
                             { previewList && previewList.map((file) =>
+                                <li><img src={file}/></li>
+                            )}
+                        </ul>
+                    </div>
+                    <div className="f_wrap upload_file">
+                        <span>상세정보 이미지들</span>
+                        <div>
+                            <ImageMultiUpload getMultiFilesName={getMultiFilesName2} />
+                            <div>
+                                <input type="text" name="upload" value={fnames2.uploadname} hidden />
+                                <input type="text" name="source" value={fnames2.originalname} hidden />
+                            </div>
+                        </div>           
+                    </div>
+                    <div className="f_wrap upload_file">
+                        <ul className='preview_list'>
+                            { previewList2 && previewList2.map((file) =>
                                 <li><img src={file}/></li>
                             )}
                         </ul>

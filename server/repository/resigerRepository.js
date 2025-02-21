@@ -13,13 +13,17 @@ export const resigerProduct = async (formData ) => {
                                     sub_desc,
                                     price,
                                     dc,
+                                    delivery,
                                     event_label,
                                     upload_img,
                                     org_img,
+                                    info_imgs,
+                                    info_org_imgs,
                                     detail_imgs,
-                                    detail_org_imgs
+                                    detail_org_imgs,
+                                    pdate
                                     )
-                values(?,?,?,?,?,?,?,?,?,?,?,?)
+                values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())
     `;
     const value=[
         formData.brend ,
@@ -29,11 +33,14 @@ export const resigerProduct = async (formData ) => {
         formData.description ,
         formData.price ,
         formData.dc || 0,
+        formData.delivery ,
         formData.event || 0,
         formData.uploadImg || null,
         formData.orgImg || null,
+        formData.infoImgs || null,
+        formData.orgInfoImgs || null,
         formData.detailImgs || null,
-        formData.OrgDetailImgs || null
+        formData.orgDetailImgs || null
     ]
     const [result] = await db.execute(sql,value);
     
@@ -80,6 +87,7 @@ export const getDetail = async({pid}) => {
                     truncate((price * (100 - dc) *0.01),0) as dcPrice,
                     event_label,
                     concat('http://localhost:9000/',upload_img) as image_url,
+                    info_imgs,
                     detail_imgs
             from kurly_product
             where pid = ?

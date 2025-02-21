@@ -17,16 +17,32 @@ const storage = multer.diskStorage({
 export const uploadFile = (req,res) => {
     upload(req, res, function (err) {
         if (err) {
-            console.log(err);
+            console.log('uploadFile',err);
             
           return
+        }else{
+			const oldFile = req.body.oldFile;
+			if(oldFile){
+				const oldFilePath = path.join('upload_files/',req.body.oldFile);
+				if(fs.existsSync(oldFilePath)){
+					try{
+						fs.unlinkSync(oldFilePath);
+						console.log('이전파일삭제 완료');
+						
+					}catch(err){
+						console.log('이전파일 삭제 실패',err);
+					}
+				}
+
+			}
+			
+			res.send({
+				'upload_name': req.file.path,
+				'org_name': req.file.originalname,
+				'oldFile':res.req.file.filename
+			})
         }
-        console.log('req.file test test--->',res.req.file);
-        res.send({
-            'upload_name': req.file.path,
-            'org_name': req.file.originalname
-        })
-        // 정상적으로 완료됨
+
       })
     
 }

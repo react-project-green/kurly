@@ -134,7 +134,7 @@ body {
     width: 21px;
     height: 21px;
     border-width: 2px;
-    border-style: solid;
+    border: solid 2px #cbd1d7 ;
     border-radius: 4px;
     padding: 0;
     margin: 0;
@@ -143,21 +143,26 @@ body {
     cursor: pointer;
 }
 
-.checkbox:active {
+.checkbox-active {
     background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyMCcgdmlld0JveD0nMCAwIDIwIDIwJyBmaWxsPSdub25lJz48cGF0aCBkPSdNMTUuNzA3IDcuNzA3MUw4LjY4NDA1IDE0LjczMDlMNC4yOTI3MiAxMC4zMzg5TDUuNzA3MDQgOC45MjQ4M0w4LjY4NDA3IDExLjkwMjNMMTQuMjkyNyA2LjI5Mjk3TDE1LjcwNyA3LjcwNzFaJyBmaWxsPScjRjJGNUY4Jy8+PC9zdmc+');
-    // width: 20px;
-    // height: 20px;
+    width: 21px;
+    height: 21px;
     border-width: 2px;
     border-style: solid;
     background-color: #222222;
     border-color: #222222;
-    background-repeat: no-repeat;
+    // background-repeat: no-repeat;
     background-position: 50% 50%;
     border-radius: 4px;
     padding: 0;
-
     cursor: pointer;
 }
+
+
+.checkbox-input {
+    display: none;
+}
+
 
 /* 주소 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15.707 7.7071L8.68405 14.7309L4.29272 10.3389L5.70704 8.92483L8.68407 11.9023L14.2927 6.29297L15.707 7.7071Z" fill="#F2F5F8"/></svg> */
 
@@ -202,6 +207,7 @@ body {
     align-items: center;
     border-radius: 12px;
     color: white !important;
+    font-size: 18px !important;
 }
 
 .order-btn2 {

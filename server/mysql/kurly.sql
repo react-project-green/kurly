@@ -23,3 +23,4 @@ create table kurly_product(
     pdate 			datetime
 );
 desc kurly_product;
+select * from  kurly_product;

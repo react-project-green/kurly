@@ -2,6 +2,7 @@
 button > *{
     display:inline;
 }
+*{box-sizing: border-box;}
 $main-color:rgb(95, 0, 128);
 $common-width:1050px;
 .detail_area{
@@ -1277,6 +1278,151 @@ $common-width:1050px;
         }
         .swiper-button-disabled{
             opacity: 0.5;
+        }
+    }
+}
+.inquire_area{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    .box_area{
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+        height: 690px;
+        padding: 30px;
+        background: rgb(255, 255, 255);
+        border-radius: 20px;
+        .tit{
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 22px;
+            border-bottom: 1px solid rgb(244, 244, 244);
+            letter-spacing: -1px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 30px;
+            color: rgb(51, 51, 51);
+            button{
+                font-size:40px;
+                *{
+                    color:#aeadad;
+                } 
+            }
+        }
+        .product{
+            display: flex;
+            padding: 16px 0px;
+            border-bottom: 1px solid rgb(244, 244, 244);
+            gap:40px;
+            .thumb{
+                display: flex;
+                -webkit-box-pack: start;
+                justify-content: flex-start;
+                width: 72px;
+                height: 72px;
+                object-fit: cover;
+                border-radius: 4px;
+                overflow: hidden;
+                img{
+                    width:100%
+                }
+                & + div{
+                    display: flex;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 22px;
+                    color: rgb(51, 51, 51);
+                }
+            }
+        }
+        form{
+            .form_box{
+                display:flex;
+                margin-top: 16px;
+                & > span{
+                    width:100px;
+                    padding-top: 10px;
+                    padding-left: 10px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: rgb(51, 51, 51);
+                }
+                &> div{
+                    flex-grow:1;
+                    input{
+                        width:100%;
+                        border: 1px solid rgb(221, 221, 221);
+                        color: rgb(51, 51, 51);
+                        height: 44px;
+                        padding: 0px 11px 0px 15px;
+                        font-size: 14px;
+                    }
+                }
+                .text_form{
+                    position:relative;
+                    width:100%;
+                    height:260px;
+                    overflow: hidden;
+                    border: 1px solid rgb(221, 221, 221);
+                    border-radius: 4px;
+                    textarea{
+                        width:100%;
+                        height:220px;
+                        overflow-y: scroll;
+                        border:0;
+                        padding: 15px 15px 32px;
+                    }
+                    .textarea_info{
+                        position:absolute;
+                        top:0;left:0;
+                        width:100%;
+                        height:220px;
+                        overflow-y: scroll;
+                        padding: 15px 15px 32px;
+                        *{
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: rgb(153, 153, 153);
+                        }
+                    }
+                }
+            } 
+            .btns{
+                display:flex;
+                justify-content: center;
+                gap: 8px;
+                border-top: 1px solid rgb(244, 244, 244);
+                text-align: center;
+                padding-top: 20px;
+                button[type='reset']{
+                    width: 160px;
+                    height: 56px;
+                    border-radius: 3px;
+                    color: rgb(51, 51, 51);
+                    background-color: rgb(255, 255, 255);
+                    border: 1px solid rgb(221, 221, 221);
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+                button[type='submit']{
+                    width: 160px;
+                    height: 56px;
+                    border-radius: 3px;
+                    color: rgb(255, 255, 255);
+                    background-color: rgb(221, 221, 221);
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
         }
     }
 }
