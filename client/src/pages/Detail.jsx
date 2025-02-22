@@ -1,8 +1,7 @@
-import React,{useRef, useState, useEffect} from 'react';
+import React,{useRef, useState, useEffect, useContext} from 'react';
 import { useParams } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { VscBell } from "react-icons/vsc";
-
 
 import ProductInfo from '../component/detail/ProductInfo.jsx';
 import DetailInfo from '../component/detail/DetailInfo.jsx';
@@ -14,7 +13,7 @@ import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
-
+  
     const refs = {
         tab1Ref:useRef(null),
         tab2Ref:useRef(null),
@@ -140,7 +139,7 @@ export default function Detail({cartInfo}) {
         };   
         cartInfo(addItem);
     }
-    
+
     return (
         <div>
             <div className="detail_area">
