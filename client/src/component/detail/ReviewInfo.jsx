@@ -15,6 +15,7 @@ export default function ReviewInfo({src, name}) {
     const [slideImg, setSlideImg] = useState([]);
     const [dimiDisplay, setDimiDisplay] = useState(false);
     const [isTrue, setIsTrue] = useState(false);
+    const [popupData, setPopupData] = useState({});
 
     useEffect(() => {
         axios.get('/data/productList.json')
@@ -24,6 +25,9 @@ export default function ReviewInfo({src, name}) {
 
     const checkIsTrue = (check) => {
             setIsTrue(check);
+    }
+    const getPopupData = (data) => {
+        setPopupData(data)
     }
     
     return (
@@ -140,7 +144,7 @@ export default function ReviewInfo({src, name}) {
                     </div>
                 </div>
             </div>}
-            { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} file="true" />}
+            { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} file="true" getPopupData={getPopupData} />}
         </div>
     );
 }

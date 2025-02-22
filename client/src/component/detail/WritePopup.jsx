@@ -3,7 +3,7 @@ import ImageMultiUpload from './ImageMultiUpload.jsx';
 import { MdClose } from "react-icons/md";
 import axios from 'axios';
 
-export default function WritePopup({src, name, checkIsTrue, file}) {
+export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) {
     const titleRef = useRef(null);
     const textareaRef = useRef(null);
     let [textCount, setTextCount] = useState(0);
@@ -16,15 +16,12 @@ export default function WritePopup({src, name, checkIsTrue, file}) {
         setFnames(filenames);
         setPreviewList(filenames.uploadname)
     }
-    console.log('fname',fnames);
-    console.log('previewList',previewList);
     
     const getValues = (e) => {
         getTextCount();
         const {name, value} = e.target;
         setFormData({...formData, [name]:value});
     }
-    console.log('formData',formData);
     
     const getTextCount = () => {
         let count = textareaRef.current.value.length;
@@ -47,12 +44,7 @@ export default function WritePopup({src, name, checkIsTrue, file}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         formData = {...formData,'images':fnames.uploadname};
-        // 입력값 전송
-        // if(validator()){
-        //     axios.post('http://localhost:9000/',{formData})
-        //             .then(res => console.log(res.data))
-        //             .catch(err => console.log(err));
-        // }
+        getPopupData(formData);     
     }
 
     return (

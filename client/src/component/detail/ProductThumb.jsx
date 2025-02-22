@@ -1,12 +1,24 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineChatBubbleLeftEllipsis } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
 
 export default function ProductThumb({product}) {
+    const [getProduct, setGetProduct] = useState([]);
+    const addPid = (pid) => {
+        setGetProduct(getProduct =>{
+            if(getProduct.length <10){
+                return [...getProduct, pid];
+            }
+        })
+        
+    }
+    console.log('getProduct',getProduct);
+    
     return (
-        <div className="box">
-            <Link key={product.pid} to={`/goods/detail/${product.pid}`}>
+        <div className="box" onClick={()=> addPid(product.pid)}>
+            <Link key={product.pid}>
+            {/* <Link key={product.pid} to={`/goods/detail/${product.pid}`}> */}
                 <div className="thumb">
                     <img src={product.image_url} alt="" />
                     { product.isLive && <div className="ban_top_left">라이브특가</div> }
