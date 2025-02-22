@@ -239,7 +239,7 @@ export default function Detail({cartInfo}) {
                             </div>
                             {/* 3 상품 후기 */}
                             <div ref={refs.tab3Ref}>
-                                <ReviewInfo />
+                                <ReviewInfo src={product.image_url} name={product.name} />
                             </div>
                             {/* 4 상품 문의 */}
                             <div ref={refs.tab4Ref} >
