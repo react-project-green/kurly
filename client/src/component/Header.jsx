@@ -111,22 +111,20 @@ export default function Header({cartCount, productPid}) {
                 <li key={idx}
                     onMouseEnter={() => setHoverCategoryIndex(idx)}
                     onMouseLeave={() => setHoverCategoryIndex(null)}>
-                    { idx <= 4 ? ( 
-                          <Link to='' className='thin'>
-                            <img src={category.img}/>{category.title}
-                          </Link>  
-                        ) : (
-                          <span className='thin category_list_span'>
-                            <img src={category.img} />{category.title}
-                          </span>
-                        )} 
+                    { idx <= 3 ? ( 
+                        <span className='thin category_list_1' onClick={()=>{navigate('/')}}>
+                          <img src={category.img}/>{category.title}
+                        </span>  
+                      ) : (
+                        <span className='thin category_list_2'>
+                          <img src={category.img} />{category.title}
+                        </span>
+                      )} 
                     {hoverCategoryIndex === idx && (
                       <ul className='variety_list light'>
-                          {category.variety && category.variety.map((item, i)=>(
-                              <li key={i}>
-                                  <Link to=''>{item.name}</Link>
-                              </li>      
-                          ))}
+                        {category.variety && category.variety.map((item, i)=>(
+                          <li key={i} onClick={()=>{navigate('/')}}>{item.name}</li>      
+                        ))}
                       </ul>  
                     )}  
                 </li>

@@ -25,10 +25,11 @@
   justify-content: center;
 }
 .promotion_section .slick-prev{
-  left: 400px;
+  /* left: 400px; */
+  /* left: 50%; */
 }
 .promotion_section .slick-next{
-  right: 400px;
+  /* right: 400px; */
 }
 .promotion_section:hover .slick-prev,
 .promotion_section:hover .slick-next{
