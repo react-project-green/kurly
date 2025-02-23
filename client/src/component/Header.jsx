@@ -132,11 +132,18 @@ export default function Header({cartCount, productPid}) {
             </ul>
           </div>
           <ul className='menu_list'>
-            { menuList && menuList.map((menu)=>(
               <li>
-                <button onClick={()=>{navigate(`${menu.path}`)}}>{menu.title}</button>
+                <button onClick={()=>{navigate('/main/category/new')}}>신상품</button>
               </li>
-            ))}
+              <li>
+                <button onClick={()=>{navigate('/main/category/best')}}>베스트</button>
+              </li>
+              <li>
+                <button onClick={()=>{navigate('/main/category/discount')}}>알뜰쇼핑</button>
+              </li>
+              <li>
+                <button onClick={()=>{navigate('/main/category/special')}}>특가/혜택</button>
+              </li>
           </ul>
           <button type='button' className='delivery_btn_line'>
             <span>샛별·하루</span>

@@ -89,7 +89,7 @@ export const getDetail = async({pid}) => {
                     concat('http://localhost:9000/',upload_img) as image_url,
                     info_imgs,
                     detail_imgs
-            from kurly_product
+            from product
             where pid = ?
     `;
     const [result] = await db.execute(sql,[pid]);
