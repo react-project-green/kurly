@@ -18,9 +18,7 @@ export default function MainPopUp() {
               </a>
           </p>
           </div>
-          <div className='pop_up_btn'>
-            <button type='button' onClick={handleClick}>닫기</button>
-          </div>
+          <button type='button' className='pop_up_btn' onClick={handleClick}>닫기</button>
         </div>
       }
     </>

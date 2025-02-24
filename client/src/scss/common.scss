@@ -107,7 +107,9 @@
   padding: 5px 9px;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(241, 240, 240);
-  z-index: 10;
+  z-index: 51;
+  visibility: hidden;
+  pointer-events: none;
 }
 .surrport_drop_down li {
   height: 23px;
@@ -118,6 +120,8 @@
 .header_top_menu_item:last-child:hover .surrport_drop_down,
 .drop_down_icon:hover .surrport_drop_down{
   display: block;
+  visibility: visible;
+  pointer-events: auto;
 }
 .header_middle{
   height: 64px;
@@ -219,18 +223,22 @@
 .location_icon .location_info{
   position: absolute;
   right: -120px;
-  width: 250px;
-  height: 100px;
+  width: 280px;
+  height: 135px;
   border: 1px solid var(--borderlight);
   z-index: 100;
   background-color: #fff;
   font-size: 1px;
   font-family: 'Pretendard-light';
-  padding: 10px;
+  padding: 15px;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .location_icon:hover .location_info{
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 .location_info div{
   display: flex;
@@ -321,7 +329,7 @@
   top: 100%;
   left: 0;
   width: 220px;
-  z-index: 30;
+  z-index: 101;
   background-color: #fff;
 }
 .category_list::-webkit-scrollbar{
@@ -333,15 +341,15 @@
   color: var(--color-153);
   font-size: 12px;
 }
-.category_list li span{
+.category_list_2{
   padding: 0;
   font-size: 12px;
   color: var(--color-153);
   font-family: 'Pretendard-Thin';
 }
-.category_list li img,
-.category_list li span,
-.category_list li span:hover {
+.category_list_1 img,
+.category_list_2 img,
+.category_list_2{
   width: 20px;
   margin-right: 10px;
   color: var(--color-153);
@@ -351,13 +359,16 @@
   display: block;
 }
 .category_list li:hover,
-.category_list li:hover a{
+.category_list li:hover span{
   filter: none; 
   color: var(--color-main);
   background-color: rgb(240, 239, 239);
 }
-.category_list li:hover img{
+.category_list_1:hover img{
   filter: none; 
+}
+.category_list_2:hover {
+  color: var(--color-153);  
 }
 .variety_list  {
   position: absolute;
@@ -368,12 +379,9 @@
   background-color: rgb(240, 239, 239);
 }
 .variety_list li{
-  height: 20px;
+  height: 40px;
 }
-.category_list li:hover .variety_list li a {
-  color: var(--color-153) ; 
-}
-.category_list li:hover .variety_list li:hover a{
+.category_list li:hover .variety_list li:hover {
   text-decoration: underline;
   color: var(--color-main);
 }
@@ -417,6 +425,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: 50;
 }
 .delivery_btn_line span{
   height: 20px;

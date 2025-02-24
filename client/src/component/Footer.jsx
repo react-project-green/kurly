@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { NextArrow } from './main/PromoBanner';
+import { NextArrow } from './main/PromoBannerSlider';
 import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {

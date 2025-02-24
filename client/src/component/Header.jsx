@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
+import { Modal, Button} from'antd';
 
 export default function Header({cartCount, productPid}) {
   const [ topMenu, setTopMenu ] = useState([]);
@@ -11,7 +12,7 @@ export default function Header({cartCount, productPid}) {
   const [ icons, setIcons ] = useState([]);
   const [ categoryList, setCategoryList ] = useState([]);
   const [ hoverCategoryIndex, setHoverCategoryIndex ]= useState(null);
-  const [ isPopUpOpen, setIsPopUpOpen ] = useState(false);
+  const [ isOpen, setIsOpen ] = useState(false);
   const navigate = useNavigate();
 
   useEffect(()=> {
@@ -25,39 +26,16 @@ export default function Header({cartCount, productPid}) {
         })
          .catch((error)=>console.log(error))
   },[]);
-  // console.log('categoryList',categoryList);
   
   const handleTogle = () => {
-    // setIsPopUpOpen(!isPopUpOpen);
-    const popup = window.open('/address-popup','addressPopup','width=500, height=600, scrollbars=yes');
-    // const popup = window.open('"https://postcode.map.daum.net/guide"',
-                            // '주소 검색',
-                            // 'width=500, height=600, scrollbars=yes');
-    if(popup) popup.focus();
+    setIsOpen((prev)=>!prev);
   };
-
-  
-  const themeObj = {
-    bgColor: '#FFFFFF',
-    pageBgColor: '#FFFFFFF',
-    postcodeTextColor: '#C05850',
-    emphTextColor: "#222222"
+ 
+  const handleComplete = (data) => {
+    console.log('선택한 주소-->', data);
+    setIsOpen(false);
   };
-  const postCodeStyle = {
-    width: '360px',
-    height: '480px'
-  };      
-  const completeHandler = (data) =>{
-    const { address, zonecode } = data;
-  };
-
-  const closeHandler = (state) =>{
-    if(state === 'FORCE_CLOSE'){
-      setIsPopUpOpen(false);
-    }else if(state === 'COMPLETE_CLOSE'){
-      setIsPopUpOpen(false);
-    }
-  };
+ 
 
   return (
     <div className='header_outline'>
@@ -72,10 +50,8 @@ export default function Header({cartCount, productPid}) {
                   <span className='drop_down_icon'></span>
                   <ul className='surrport_drop_down'>
                     {supportMenu && supportMenu.map((menu)=>(
-                      <li>
-                        <Link to={menu.path} className='thin' >
-                          {menu.title}
-                        </Link>
+                      <li className='thin' onClick={()=>{navigate('/')}}>
+                        {menu.title}
                       </li>  
                     ))}
                   </ul> 
@@ -96,24 +72,17 @@ export default function Header({cartCount, productPid}) {
               <button className='header_top_icon location_icon'>  
                 <img src="/images/commonImage/header_icon1.svg" alt="header_icon" />
                 <div className='location_info'>
-                  <div>
-                    <span>배송지를 등록</span>
-                    <span>하고</span><br/>
-                  </div>
-                  <span>구매 가능한 상품을 확인하세요!</span>
-                  <button type='button' onClick={()=>navigate('/member/login')}>로그인</button>
-                  <button type='button' onClick={handleTogle}>
-                    <img src="/images/commonImage/search_img.svg"/>주소검색
-                  </button>
-                    {isPopUpOpen === true && (
-                      <div className='post_popup'>
-                        <DaumPostcode className='postmodal'
-                                      theme={themeObj}
-                                      style={postCodeStyle}
-                                      onComplete={completeHandler}
-                                      onClose={closeHandler}/>
-                      </div>
-                     )}
+                    <div>
+                      <span>배송지를 등록</span><span>하고</span><br/>
+                    </div>
+                    <span>구매 가능한 상품을 확인하세요!</span>
+                    <button type='button' onClick={()=>navigate('/member/login')}>로그인</button>
+                    <button type='button' onClick={handleTogle}>
+                      <img src="/images/commonImage/search_img.svg"/>주소검색
+                    </button>
+                    <Modal open={isOpen} onCancel={handleTogle} footer={null}>
+                      <DaumPostcode onComplete={handleComplete}/>
+                    </Modal>  
                 </div>
               </button>  
               <button className='header_top_icon' onClick={()=>navigate('/member/login')} >  
@@ -142,22 +111,20 @@ export default function Header({cartCount, productPid}) {
                 <li key={idx}
                     onMouseEnter={() => setHoverCategoryIndex(idx)}
                     onMouseLeave={() => setHoverCategoryIndex(null)}>
-                    { idx <= 5 ? ( 
-                          <Link to='' className='thin'>
-                            <img src={category.img}/>{category.title}
-                          </Link>  
-                        ) : (
-                          <span className='thin category_list_span'>
-                            <img src={category.img} />{category.title}
-                          </span>
-                        )} 
+                    { idx <= 3 ? ( 
+                        <span className='thin category_list_1' onClick={()=>{navigate('/')}}>
+                          <img src={category.img}/>{category.title}
+                        </span>  
+                      ) : (
+                        <span className='thin category_list_2'>
+                          <img src={category.img} />{category.title}
+                        </span>
+                      )} 
                     {hoverCategoryIndex === idx && (
                       <ul className='variety_list light'>
-                          {category.variety && category.variety.map((item, i)=>(
-                              <li key={i}>
-                                  <Link to=''>{item.name}</Link>
-                              </li>      
-                          ))}
+                        {category.variety && category.variety.map((item, i)=>(
+                          <li key={i} onClick={()=>{navigate('/')}}>{item.name}</li>      
+                        ))}
                       </ul>  
                     )}  
                 </li>
@@ -165,11 +132,18 @@ export default function Header({cartCount, productPid}) {
             </ul>
           </div>
           <ul className='menu_list'>
-            { menuList && menuList.map((menu)=>(
               <li>
-                <button onClick={()=>{navigate(`${menu.path}`)}}>{menu.title}</button>
+                <button onClick={()=>{navigate('/main/category/new')}}>신상품</button>
               </li>
-            ))}
+              <li>
+                <button onClick={()=>{navigate('/main/category/best')}}>베스트</button>
+              </li>
+              <li>
+                <button onClick={()=>{navigate('/main/category/discount')}}>알뜰쇼핑</button>
+              </li>
+              <li>
+                <button onClick={()=>{navigate('/main/category/special')}}>특가/혜택</button>
+              </li>
           </ul>
           <button type='button' className='delivery_btn_line'>
             <span>샛별·하루</span>

@@ -5,6 +5,7 @@ import Layout from'./pages/Layout.jsx';
 import KurlyMain from'./pages/KurlyMain.jsx';
 import Detail from'./pages/Detail.jsx';
 import ProductList from './pages/ProductList.jsx';
+import ProductListCategory from './pages/ProductListCategory.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import CartLayout from './component/cart/CartLayout.jsx';
@@ -24,6 +25,23 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout cartCount={cartCount} productPid={productPid}/>}>
+              <Route index element={<KurlyMain />} />
+              <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
+              <Route path="/goods/list" element={<ProductList />} />
+              <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
+              <Route path="/member/login" element={<Login />} />
+              <Route path="/member/signup" element={<Signup />} />
+              <Route path="/cart" element={<CartLayout />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/goods/new" element={<NewProduct />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+=======
       <PidProvider>
         <BrowserRouter>
           <Routes>
@@ -40,6 +58,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </PidProvider>
+>>>>>>> 79634aed0b33ee22b71e80e5a238c312a7bbc4f9
     </div>
   );
 }
