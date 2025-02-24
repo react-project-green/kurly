@@ -1,4 +1,5 @@
 import React,{useRef, useState, useEffect} from 'react';
+import WritePopup from './WritePopup.jsx';
 import { LuThumbsUp } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,19 +11,30 @@ import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
 import 'swiper/css';
 
-export default function ReviewInfo() {
+export default function ReviewInfo({src, name}) {
     const [slideImg, setSlideImg] = useState([]);
     const [dimiDisplay, setDimiDisplay] = useState(false);
+    const [isTrue, setIsTrue] = useState(false);
+    const [popupData, setPopupData] = useState({});
 
     useEffect(() => {
         axios.get('/data/productList.json')
                 .then(res => setSlideImg(res.data))
                 .catch(err => console.log(err));
     },[]);
+
+    const checkIsTrue = (check) => {
+            setIsTrue(check);
+    }
+    const getPopupData = (data) => {
+        setPopupData(data)
+    }
+    
     return (
         <div className="tab_review_info">
             <div className="tit_area"> 
                 <strong>상품 후기</strong>
+                <button type="button" onClick={()=>{setIsTrue(!isTrue)}}>문의하기</button>
             </div>
             <div className='thumb_list'>
                 <ul>
@@ -132,6 +144,7 @@ export default function ReviewInfo() {
                     </div>
                 </div>
             </div>}
+            { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} file="true" getPopupData={getPopupData} />}
         </div>
     );
 }

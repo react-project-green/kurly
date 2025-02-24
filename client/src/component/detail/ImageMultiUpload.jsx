@@ -12,7 +12,7 @@ export default function ImageMultiUpload({getMultiFilesName}) {
             formData.append('files',file);
         }
         formData.append('oldFiles',oldFiles);
-        for(const [key,value] of formData) console.log('check-->',key,value);
+        //for(const [key,value] of formData) console.log('check-->',key,value);
         
         axios.post(`http://localhost:9000/upload/multiple?maxFiles=${files.length}`,formData,{
             headers :{'Content-Type':'multipart/form-data'}
