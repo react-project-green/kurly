@@ -12,7 +12,7 @@ body {
   display: block;
   padding: 0px 10px;
   text-align: center;
-  width: 100%;
+  width: 300px;
   height: 54px;
   border-radius: 3px;
   color: rgb(255, 255, 255);
@@ -31,6 +31,7 @@ body {
   color: rgb(95, 0, 128);
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(95, 0, 128);
+  color: purple;
 }
 
 
@@ -87,10 +88,7 @@ Login
 
 /*******************
 signup
-**********************/
-.member-signup {
-  border: 1px solid green;
-}
+**********************/ 
 
 .signup-body {
   margin-top: 50px;
@@ -105,9 +103,7 @@ signup
     text-align: center;
     letter-spacing: -1px;
     color: rgb(51, 51, 51);
-  }
-
-  ;
+  }  
 
   .signup-sub-title {
     padding-bottom: 10px;
@@ -120,6 +116,12 @@ signup
     span {
       color: red;
     }
+  }
+  .button-box{
+    // border: 1px solid green;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -153,10 +155,10 @@ signup
       }
 
       .signup_input {
-        border: 1px solid gainsboro;
+        border: 1px solid gainsboro; 
         border-radius: 8px;
         width: 300px;
-        height: 20px;
+        height: 40px;
         padding: 10px;
       }
       .signup-phone-botton {
@@ -166,10 +168,10 @@ signup
         border-radius: 5px;
         margin-left: 5px;
       }
-      .member-additional {
+      .member-line-top {
         // padding: 10px 0px;
         border-bottom: 1px solid rgb(51, 51, 51);
-      }
+      } 
 
       .signup_gender {
         width: 330px;
@@ -200,7 +202,7 @@ signup
       width: 38%;
       border: 1px solid gainsboro;
       border-radius: 8px;
-      height: 20px;
+      height: 40px;
       padding: 10px;
     }
 
@@ -209,7 +211,35 @@ signup
       border-radius: 10%;
     }
   }
-
+  .address-full{  
+    // display: flex;
+    margin-left: 170px;
+    .address-zipcode{
+      width: 150px;
+      border-radius: 8px;
+      height: 40px;
+    } 
+    .address-text{
+      width: 300px;
+      border-radius: 8px;
+      height: 40px;
+      margin-bottom: 5px;
+    }
+    .address-botton { 
+      margin-left: 5px;
+      padding: 0px 10px;
+      text-align: center; 
+      width: 80px; 
+      height: 30px;
+      border-radius: 4px;
+      color: rgb(95, 0, 128);
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(95, 0, 128);
+    }
+    p{
+      margin: 10px;
+    }
+  }
   .phone-full {
 
     display: flex;
@@ -220,39 +250,25 @@ signup
       border-radius: 5px;
       margin-left: 5px;
     }
-  }
-
-  .address-botton {
-    display: inline-block;
-    padding: 0px 10px;
-    text-align: center;
-    overflow: hidden;
-    width: 320px;
-    height: 44px;
-    border-radius: 4px;
-    color: rgb(95, 0, 128);
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(95, 0, 128);
-  }
-
-  .signup_birth {
-    display: inline-block;
-  }
+  }  
 
   .signup_birth {
     display: flex;
+    
 
     div {
-      border: 1px solid gainsboro;
-      border-radius: 4px;
-
-      input {
-        border: none;
-        width: 80px;
-        text-align: center;
-        border-radius: 8px;
-        height: 20px;
-        padding: 10px;
+      // border: 1px solid rgb(95, 0, 128); 
+      border-radius: 4px; 
+      .birthdayFrame{
+        border: 1px solid rgb(221, 221, 221);
+        select {
+          border: none;
+          width: 105px;
+          text-align: center;
+          border-radius: 8px;
+          height: 35px;
+          padding: 10px;
+        }
       }
     }
   }
@@ -277,132 +293,151 @@ signup
         font-weight: bold;
       }
     }
-  }
+    .signup-notic {
+      // margin-left: 90px;  
+      div {
+        // border: 1px solid tomato;
+        font-size: 1.3rem; 
+      }
+      label{ 
+        // border: 1px solid blue;  
+        margin-top: 10px;
 
-  .signup-notic {
-    // margin-left: 90px; 
-    div {
-      // border: 1px solid tomato;
-      font-size: 1.3rem; 
-      margin-top: 0; 
+      }
+      a{
+        border: 1px solid blue;  
+      }
+      .label-box{
+        // border: 1px solid tomato;
+        margin-top: 0px
+      } 
+      .signup-notic-sub {
+        // border: 1px solid tomato;
+        font-size: x-small;
+        padding-left: 50px; 
+        color: gray;  
+      }
+      .member-radio-title{
+        // border: 1px solid tomato; 
+        display: flex;
+        margin-top: -55px;
+        left: 20px;
+      } 
     }
-    
-    .label-box{
-      border: 1px solid tomato;
-    }
-    .signup-notic-sub {
-      font-size: small;
-      padding-left: 50px;
-      margin-top: 5px;
-      color: gray;
-    }
-  }
-
-  .control-container { 
-    // display: flex;
-    // justify-content: center;
-    // position: relative; 
-
-    height: 60px; 
-    .screen-reader {
-      // Screen reader-specific styles to hide the checkbox visually
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      border: 0;
-      overflow: hidden;
-      margin: -1px;
-      clip-path: inset(50%);
-    }
-
-    .label-box {
-      // border: 1px solid salmon;
-      position: relative;
-      width: 100%;
-
-      .check-icon {
-        width: 1.4em;
-        height: 1.4em;
-        border-radius: 50%;
-        background-color: #fff;
-        border: 1px solid gray;
+  
+    .control-container { 
+      // display: flex;
+      // justify-content: center;
+      // position: relative; 
+  
+      height: 60px; 
+      .screen-reader {
+        // Screen reader-specific styles to hide the checkbox visually
         position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-
-        &::before {
-          content: "";
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        margin: -1px;
+        clip-path: inset(50%);
+      }
+  
+      .label-box {
+        // border: 1px solid salmon;
+        position: relative;
+        width: 100%;
+  
+        .check-icon {
+          width: 1.4em;
+          height: 1.4em;
+          border-radius: 50%;
+          background-color: #fff;
+          border: 1px solid gray;
           position: absolute;
-          box-sizing: border-box;
-          width: 30%;
-          height: 55%;
-          left: 50%;
+          left: 0;
           top: 50%;
-          transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
-          border-right: 1.7px solid gray;
-          border-bottom: 1.7px solid gray;
+          transform: translateY(-50%);
+  
+          &::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 30%;
+            height: 55%;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
+            border-right: 1.7px solid gray;
+            border-bottom: 1.7px solid gray;
+          }
+        }
+  
+        .signup-link {
+          // border: 1px solid blue;
+          display: block;
+          text-align: right;
+          color: rgb(95, 0, 128);
         }
       }
-
-      .signup-link {
+  
+      label {
+        width: 100%;
         // border: 1px solid blue;
-        display: block;
-        text-align: right;
-        color: rgb(95, 0, 128);
+        padding-left: 2.2em;
+        position: relative;
+        cursor: pointer;
+      }
+  
+      [type="checkbox"]:checked+.label-box .check-icon {
+        border-color: rgb(95, 0, 128);
+        background-color: rgb(95, 0, 128);
+        ;
+      }
+  
+      [type="checkbox"]:checked+.label-box .check-icon::before {
+        border-color: #fff;
       }
     }
-
-    label {
-      width: 100%;
-      // border: 1px solid blue;
-      padding-left: 2.2em;
-      position: relative;
-      cursor: pointer;
-    }
-
-    [type="checkbox"]:checked+.label-box .check-icon {
-      border-color: rgb(95, 0, 128);
-      background-color: rgb(95, 0, 128);
-      ;
-    }
-
-    [type="checkbox"]:checked+.label-box .check-icon::before {
-      border-color: #fff;
-    }
+  
+  }
+  
+  .member-radio {
+    cursor: pointer;
+    display: inline;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    vertical-align: center;
+    margin-right: 8px; 
+    // border: 1px solid blue;
+    // top: 5px;
+   
+  }
+  
+  .member-radio .radio-input {
+    
+    display: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  
+  .member-radio .icon {
+    // border: 1px solid blue; 
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  
+  .member-radio .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .member-line-bottom{
+    border-bottom: 1px solid #d6d6d6bb;
+  }
   }
 
-}
-
-.member-radio {
-  cursor: pointer;
-  display: inline;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  vertical-align: center;
-  margin-right: 8px; 
-  // border: 1px solid blue;
-  // top: 5px;
-}
-
-.member-radio .radio-input {
-  display: none;
-  padding: 0;
-  margin: 0;
-}
-
-
-.member-radio .icon {
-  position: absolute;
-  top: 5px;
-  left: 0;
-  transition: opacity 0.3s ease;
-}
-
-
-.member-radio .hidden {
-  opacity: 0;
-  pointer-events: none;
-}
