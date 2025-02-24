@@ -75,7 +75,7 @@ export const getDetail = async({pid}) => {
     console.log('pid',pid);
     const sql = `
             select  pid,
-                    brend as brand,
+                    brand,
                     cate_depth1,
                     cate_depth2,
                     subject as name,
