@@ -14,13 +14,9 @@ import NewProduct from './pages/NewProduct.jsx';
 import {PidProvider} from './context/ProductContext.js';
 
 function App() {
-  const [ productPid, setProductPid ] = useState('');
-  const [ cartCount, setCartCount ] = useState(0);
 
   const cartInfo = (data) => {
     console.log('cart data',data);
-    setProductPid(data.pid);
-    setCartCount(cartCount + data.addCount)   
   };
 
   return (
@@ -28,7 +24,7 @@ function App() {
       <PidProvider>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Layout cartCount={cartCount} productPid={productPid}/>}>
+            <Route path='/' element={<Layout/>}>
                 <Route index element={<KurlyMain />} />
                 <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
                 <Route path="/goods/list" element={<ProductList />} />

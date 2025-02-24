@@ -18,7 +18,8 @@ const CountdownToMidnight = () => {
   useEffect(() => {
     // 1초마다 남은 시간 업데이트
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      
+      (calculateTimeLeft());
     }, 1000);
 
     // 컴포넌트 언마운트시 타이머 클리어
@@ -26,7 +27,7 @@ const CountdownToMidnight = () => {
   }, []);
 
   // 밀리초를 시, 분, 초로 변환
-  const seconds = Math.floor((timeLeft / 1000) % 60);
+  const seconds = Math.floor((timeLeft / 1000) % 60);  // 밀리초 단위 ->초단위변환 / 60초 단위로 나머지(초)를 구함
   const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
   const hours = Math.floor((timeLeft / 1000 / 60 / 60));
 

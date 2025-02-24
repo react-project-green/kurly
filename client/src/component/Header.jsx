@@ -5,7 +5,7 @@ import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { Modal, Button} from'antd';
 
-export default function Header({cartCount, productPid}) {
+export default function Header() {
   const [ topMenu, setTopMenu ] = useState([]);
   const [ supportMenu, setSupportMenu ] = useState([]);
   const [ menuList, setMenuList ] = useState([]);
@@ -90,11 +90,11 @@ export default function Header({cartCount, productPid}) {
               </button>  
               <button className='header_top_icon cart_icon' onClick={()=>navigate('/cart')}>  
                 <img src="/images/commonImage/header_icon3.svg" alt="header_icon" />
-                { cartCount !==0 &&
+                {/* { cartCount !==0 &&
                   <p className='cartItem_icon_bk'>
-                    <span className='cartItmem_icon'>{cartCount}</span>
+                    <span className='cartItmem_icon'>{}</span>
                   </p>
-                }   
+                }    */}
               </button>  
             </div> {/* end of header_middle_right */}
           </div>   {/* end of header-middle */}
