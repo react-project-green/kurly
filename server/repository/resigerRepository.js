@@ -6,7 +6,7 @@ export const resigerProduct = async (formData ) => {
     
     const sql=`
                 insert into kurly_product(
-                                    brend,
+                                    brand,
                                     cate_depth1,
                                     cate_depth2,
                                     subject,
@@ -51,7 +51,7 @@ export const resigerProduct = async (formData ) => {
 export const getList = async () => {
     const sql =`
                 select  pid,
-                    brend as brand,
+                    brand,
                     cate_depth1,
                     cate_depth2,
                     subject as name,
