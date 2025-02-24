@@ -7,7 +7,7 @@ import ProductThumb from '../component/detail/ProductThumb.jsx';
 export default function ProductListCategory() {
     const {categoryName} = useParams();
     const [productList, setProductList ]= useState([]);
-
+     
     useEffect(() =>{
         axios.post('http://localhost:9000/main/category' , {category: categoryName})
                 .then(res => {
