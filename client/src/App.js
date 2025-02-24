@@ -8,10 +8,11 @@ import ProductList from './pages/ProductList.jsx';
 import ProductListCategory from './pages/ProductListCategory.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
-import CartLayout from './component/cart/CartLayout.jsx';
+import Carts from './pages/Carts.jsx';
 import Order from './component/cart/Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
-import {PidProvider} from './context/ProductContext.js';
+import { PidProvider } from './context/ProductContext.js';
+import { CartProvider } from './context/cartContext.js';
 
 function App() {
   const [ productPid, setProductPid ] = useState('');
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <div className="App">
+      <CartProvider >
       <PidProvider>
         <BrowserRouter>
           <Routes>
@@ -35,13 +37,14 @@ function App() {
                 <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
                 <Route path="/member/login" element={<Login />} />
                 <Route path="/member/signup" element={<Signup />} />
-                <Route path="/cart" element={<CartLayout />} />
+                <Route path="/cart" element={<Carts />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/goods/new" element={<NewProduct />} />
             </Route>
           </Routes>
         </BrowserRouter>
       </PidProvider>
+      </CartProvider>
     </div>
   );
 }
