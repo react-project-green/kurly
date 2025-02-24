@@ -3,11 +3,11 @@
 ********************************************/
 import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import ProductItem from './ProductItem.jsx';
-import Packaging2 from './Packaging2.jsx';
-import Packaging from './Packaging.jsx';
-import './cart.scss'
 import axios from 'axios';
+import '../component/cart/cart.scss';
+import ProductItem from '../component/cart/ProductItem.jsx';
+import Packaging2 from '../component/cart/Packaging2.jsx';
+import Packaging from '../component/cart/Packaging.jsx';
 
 
 

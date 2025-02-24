@@ -22,6 +22,7 @@ server.get('/test',(req,res) =>{
 // 상품등록
 server.use('/product', registerRouter);
 server.use('/upload', uploadRouter);
+server.use('/cart', uploadRouter);
 
 
 // 메인페이지 -> 카테고리 상품리스트
