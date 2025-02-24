@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import '../../scss/member.scss'
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { FaCircleCheck } from "react-icons/fa6";
 
 export default function Signup() {
     const [formData, setFormData] = useState({
@@ -13,7 +15,7 @@ export default function Signup() {
         birthy: '',
         birthm: '',
         birthd: '',
-        gender: 'none',
+        gender: '',
         address: ''
     });
 
@@ -22,9 +24,13 @@ export default function Signup() {
         "pwdRef": useRef(null),
         "cpwdRef": useRef(null),
         "nameRef": useRef(null),
+        "genderRef": useRef(null),
         "emailnameRef": useRef(null),
         "emaildomainRef": useRef("default"),
         "phoneRef": useRef(null),
+        "birthyRef" : useRef(null),
+        "birthmRef" : useRef(null),
+        "birthdRef" : useRef(null),
         "addressRef": useRef(null)
     }
 
@@ -32,11 +38,6 @@ export default function Signup() {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     };
-    const [id, setId] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [cpwd, setCpwd] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,26 +47,25 @@ export default function Signup() {
             alert('비밀번호가 일치하지 않습니다.');
         } else {
             alert('폼 제출 완료!');
-            console.log('폼 제출 완료!');
-            console.log('이름:', formData.cname);
-            console.log('이메일 주소:', formData.emailname);
-            console.log('이메일 도메인:', formData.emaildomain);
-            console.log('비밀번호:', pwd);
-            console.log('휴대폰 번호:', formData.phone);
-            console.log(isChecked)
+            console.log('폼 제출 완료!', formData.cname, formData.emailname, formData.emaildomain, formData.gender, 
+                formData.pwd, formData.phone, formData.birth); 
             // Add further form submission logic here (e.g., API call)
         }
     };
     const [isChecked, setIsChecked] = useState(false);
     const [allCheck, setAllCheck] = useState(false);
     const [useCheck, setUseCheck] = useState(false);
+    const [check, setCheck] = useState(false);
     const [persnalCheck, setPersonalCheck] = useState(false);
     const [persnalMktCheck, setPersonalMktCheck] = useState(false);
     const [marketingCheck, setMarketingCheck] = useState(false);
     const [ageCheck, setAgeCheck] = useState(false);
+    const [idCheckResult, setIdCheckResult, phoneCheckResult, setPhoneCheckResult] = useState('default');
+    
 
-    const handleRadioChange = () => {
+    const handleRadioChange = (checked, item) => {
         setIsChecked(!isChecked);
+        
     };
     const allBtnEvent = () => {
         if (allCheck === false) {
@@ -103,6 +103,7 @@ export default function Signup() {
                                 ref={refs.idRef}
                                 onChange={handleChangeForm}
                                 className='signup_input' />
+                                <button type='button' className='signup-phone-botton'>중복체크</button>
                         </li>
                         <li>
                             <label>비밀번호<span>*</span></label>
@@ -157,13 +158,13 @@ export default function Signup() {
                         </li>
                         <li className='phone-full'>
                             <label>휴대폰<span>*</span></label>
-                            <input type="number"
+                            <input type="text"
                                 name='phone'
                                 ref={refs.phoneRef}
                                 onChange={handleChangeForm}
-                                placeholder='숫자만 입력해주세요'
+                                placeholder='예:010-1234-1234'
                                 className='signup_input' />
-                            <button type='button' className='signup-phone-botton'>인증번호받기</button>
+                            <button type='button' className='signup-phone-botton'>중복체크</button>
                         </li>
                         <li>
                             <label>주소<span>*</span></label>
@@ -176,7 +177,8 @@ export default function Signup() {
                         </li>
                         <li>
                             <label>성별</label>
-                            <div className='signup_gender'>
+                            <div className='signup_gender'
+                                ref={refs.gender}>
                                 <input type='radio' name='gender' value='male' /> 남자
                                 <input type="radio" name='gender' value='female' /> 여자
                                 <input type="radio" name='gender' value='none' defaultChecked="checked" /> 선택 안함
@@ -187,15 +189,24 @@ export default function Signup() {
                             <div>
                                 <input type="number"
                                     name='birthy'
-                                    placeholder='YYYY' />
+                                    placeholder='YYYY' 
+                                    ref={refs.birthyRef}
+                                    onChange={handleChangeForm}
+                                    />
                                 <span>/</span>
                                 <input type="number"
                                     name='birthm'
-                                    placeholder='MM' />
+                                    placeholder='MM' 
+                                    ref={refs.birthmRef}
+                                    onChange={handleChangeForm}
+                                    />
                                 <span>/</span>
                                 <input type="number"
                                     name='birthd'
-                                    placeholder='DD' />
+                                    placeholder='DD' 
+                                    ref={refs.birthdRef}
+                                    onChange={handleChangeForm}
+                                    />
                             </div>
                         </li>
                         <li>
@@ -230,9 +241,9 @@ export default function Signup() {
                                                 className='radio-input' />
                                             <div className='radio-btn'>
                                                 {/* 라디오버튼 체크x */}
-                                                <svg className={`icon unchecked ${allCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
                                                 {/* 라디오버튼 체크o */}
-                                                <svg className={`icon checked ${allCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
                                             </div>
                                         </label>
                                         <label className='member-radio-title'>전체 동의합니다.</label>
@@ -247,11 +258,11 @@ export default function Signup() {
                                             onChange={handleRadioChange}
                                             className='radio-input' />
                                         <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${useCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${useCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
+                                                {/* 라디오버튼 체크x */}
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
+                                                {/* 라디오버튼 체크o */}
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
+                                            </div>
                                     </label>
                                     <label>이용약관 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
 
@@ -261,14 +272,14 @@ export default function Signup() {
                                     <label className='member-radio' >
                                         <input type="checkbox"
                                             checked={persnalCheck}
-                                            onChange={handleRadioChange}
+                                            onChange={(e) =>handleRadioChange(e.target.checked, e.target.value)}
                                             className='radio-input' />
                                         <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${persnalCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${persnalCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
+                                                {/* 라디오버튼 체크x */}
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
+                                                {/* 라디오버튼 체크o */}
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
+                                            </div>
                                     </label>
                                     <label>개인정보 수집·이용 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
 
@@ -278,14 +289,14 @@ export default function Signup() {
                                     <label className='member-radio' >
                                         <input type="checkbox"
                                             checked={persnalMktCheck}
-                                            onChange={handleRadioChange}
+                                            onChange={(e) =>handleRadioChange(e.target.checked, e.target.value)}
                                             className='radio-input' />
                                         <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${persnalMktCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${persnalMktCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
+                                                {/* 라디오버튼 체크x */}
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
+                                                {/* 라디오버튼 체크o */}
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
+                                            </div>
                                     </label>
                                     <span className="check-icon" aria-hidden="true"></span>
                                     <label>개인정보 수집·이용 동의(선택)<a href="#" className='signup-link'>약관보기</a></label>
@@ -296,14 +307,14 @@ export default function Signup() {
                                     <label className='member-radio' >
                                         <input type="checkbox"
                                             checked={marketingCheck}
-                                            onChange={handleRadioChange}
+                                            onChange={(e) =>handleRadioChange(e.target.checked, e.target.value)}
                                             className='radio-input' />
                                         <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${marketingCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${marketingCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
+                                                {/* 라디오버튼 체크x */}
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
+                                                {/* 라디오버튼 체크o */}
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
+                                            </div>
                                     </label>
                                     <span className="check-icon" aria-hidden="true"></span>
                                     <label>무료배송, 할인쿠폰 등 혜택/정보 수신 동의(선택)</label>
@@ -313,14 +324,14 @@ export default function Signup() {
                                     <label className='member-radio' >
                                         <input type="checkbox"
                                             checked={ageCheck}
-                                            onChange={handleRadioChange}
+                                            onChange={(e) =>handleRadioChange(e.target.checked, e.target.value)}
                                             className='radio-input' />
                                         <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${ageCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${ageCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
+                                                {/* 라디오버튼 체크x */}
+                                                <FaCircleCheck className={`icon unchecked ${allCheck ? 'hidden' : ''}`} />
+                                                {/* 라디오버튼 체크o */}
+                                                <FaRegCircleCheck className={`icon checked ${allCheck ? '' : 'hidden'}`} />
+                                            </div>
                                     </label>
                                     <span className="check-icon" aria-hidden="true"></span>
                                     <label>본인은 만 14세 이상입니다</label>

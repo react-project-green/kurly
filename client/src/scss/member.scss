@@ -159,7 +159,13 @@ signup
         height: 20px;
         padding: 10px;
       }
-
+      .signup-phone-botton {
+        border: 1px solid gainsboro; 
+        width: 150px; 
+        height: 40px;
+        border-radius: 5px;
+        margin-left: 5px;
+      }
       .member-additional {
         // padding: 10px 0px;
         border-bottom: 1px solid rgb(51, 51, 51);
@@ -275,13 +281,15 @@ signup
 
   .signup-notic {
     // margin-left: 90px; 
-
     div {
       // border: 1px solid tomato;
       font-size: 1.3rem; 
       margin-top: 0; 
     }
-
+    
+    .label-box{
+      border: 1px solid tomato;
+    }
     .signup-notic-sub {
       font-size: small;
       padding-left: 50px;
@@ -376,7 +384,7 @@ signup
   vertical-align: center;
   margin-right: 8px; 
   // border: 1px solid blue;
-  top: 8px;
+  // top: 5px;
 }
 
 .member-radio .radio-input {
@@ -388,7 +396,7 @@ signup
 
 .member-radio .icon {
   position: absolute;
-  top: 10px;
+  top: 5px;
   left: 0;
   transition: opacity 0.3s ease;
 }
