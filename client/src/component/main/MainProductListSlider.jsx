@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function MainProductListSlider() {
+export default function MainProductListSlider({category}) {
   const [ mainProductList, setMainProductList ] = useState([]);
 
   const settings = {
@@ -17,25 +17,18 @@ export default function MainProductListSlider() {
     arrows: true
   }
 
-  useEffect(()=> {
-    axios.get('/data/mainProductList.json')
-         .then((res)=> {
-          console.log(res.data);
-          setMainProductList(res.data);
-        })
-         .catch((error)=>console.log(error))
-  },[]);
+  useEffect(()=>{
+    axios.post('http://localhost:9000/main/category', {category: category})
+          .then((res)=>setMainProductList(res.data))
+          .catch((error)=>console.log(error))
+  },[mainProductList]);
 
   return (
     <div className='section_product'>
-      {/* <div className='slider-container section_product_list'> */}
-        {/* <div className='product_list main_list'> */}
         <div className='product_list main_list'>
           <Slider  {...settings}>
               {mainProductList && mainProductList.map((row, i)=>(
-                // <div className="product-slide" key={i}>
                   <ProductThumb key={i} product={row}/> 
-                // </div>
               ))}
           </Slider>
         </div>

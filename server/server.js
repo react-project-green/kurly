@@ -3,6 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import registerRouter from './router/registerRouter.js';
 import uploadRouter from './router/uploadRouter.js';
+import categoryRouter from './router/categoryRouter.js'; 
 
 const server = express();
 const port = 9000;
@@ -21,10 +22,11 @@ server.get('/test',(req,res) =>{
 // 상품등록
 server.use('/product', registerRouter);
 server.use('/upload', uploadRouter);
+server.use('/cart', uploadRouter);
 
 
-
-
+// 메인페이지 -> 카테고리 상품리스트
+server.use('/main', categoryRouter);
 
 
 server.listen(port,() => {
