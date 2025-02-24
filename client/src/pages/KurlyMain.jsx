@@ -22,7 +22,7 @@ export default function KurlyMain() {
       <MainSideBarMenu />
       <div className='content'> 
         <MainPopUp />
-        <MainSection /> {/* 1단위 ~주말특가 */}
+        <MainSection /> 
       </div>
     </div>
   );

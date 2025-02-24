@@ -86,8 +86,10 @@
 ** 2025.02.12 김다희 작성
 **************************************/
 .main_setion{
-  /* border: 1px solid red; */
   padding: 40px 0px;
+}
+.main_product_section{
+  margin-bottom: 100px;
 }
 .section_title{
   margin-bottom: 27px;
@@ -204,7 +206,15 @@
   line-height: 1.1;
   letter-spacing: -0.26px;
 }
-.today_title p {
+.today_title h3 {
+  font-size: 15px;
+  font-family: 'Pretendard-Regular';
+  color: rgb(165, 165, 165);
+  font-weight: normal;
+  line-height: 1.43;
+  letter-spacing: -0.4px;
+}
+.today_subtitle{
   padding-top: 26px;
   font-size: 14px;
   font-family: 'Pretendard-Regular';
@@ -218,7 +228,11 @@
   display: flex;
   gap: 15px;
 }
-
+.count_down p{
+  font-size: 27px;
+  font-family: 'Pretendard-ExtraBold';
+  font-weight: 900;
+}
 
  /**************************************
 ** 팝업 창 

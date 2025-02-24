@@ -364,8 +364,11 @@
   color: var(--color-main);
   background-color: rgb(240, 239, 239);
 }
-.category_list li:hover img{
+.category_list_1:hover img{
   filter: none; 
+}
+.category_list_2:hover {
+  color: var(--color-153);  
 }
 .variety_list  {
   position: absolute;
