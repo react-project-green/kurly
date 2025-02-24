@@ -20,7 +20,7 @@ export default function TodayPromotion() {
       <div className='today_title'>
         <h2>🌷뷰티 일일특가</h2>
         <h3>단 48시간 한정 특가🍀</h3>
-        {/* <Countdown /> */}
+        <Countdown />
         <p className='today_subtitle'>망설이면 늦어요!</p>
       </div>
       <div className='today_product product_list'>

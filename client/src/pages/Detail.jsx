@@ -105,6 +105,7 @@ export default function Detail({cartInfo}) {
         scrollCheck();
         
         window.addEventListener('scroll',scrollCheck);
+        return window.removeEventListener('scroll',scrollCheck);
     },[]);
 
     // cart count
