@@ -1,5 +1,9 @@
 import { db } from './db.js';
 
+
+/*************************** 
+ *  1. 프로덕트 리스트 값 가져오기 
+***************************/
 export const getProductList = async({category}) => {
   let sql =``;
   
@@ -35,3 +39,17 @@ export const getProductList = async({category}) => {
   const [result] = await db.execute(sql);
   return result;
 }
+
+
+/*************************** 
+ *  대분류 카테고리  값 가져오기
+***************************/
+export const getCategoryProductList = async() =>{
+  const sql =`
+    
+  `;
+
+  
+  const [result] = await db.execute(sql);
+  return result;
+};

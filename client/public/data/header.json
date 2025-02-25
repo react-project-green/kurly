@@ -19,6 +19,7 @@
                     {
                       "img":"/images/commonImage/category1.jpg",
                       "title":"스킨케어",
+                      "path":"",
                       "variety":[
                         {"name":"스킨·토너"},
                         {"name":"로션"},
