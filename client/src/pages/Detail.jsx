@@ -149,12 +149,12 @@ export default function Detail({cartInfo}) {
                         {/* left */}
                         <div className="img_area">
                             <div className="img">
-                                <img src={product.image_url} alt={product.name} />
+                                <img src={`http://localhost:9000/${product.image_url}`} alt={product.name} />
                                 <div className="dc">+{product.discountRate} 쿠폰</div>
                                 <div className="payback">페이백</div>
                             </div>
                             <div className="brand">
-                                <div className="thumb"><img src={product.image_url} alt={product.brand} /></div>
+                                <div className="thumb"><img src={`http://localhost:9000/${product.image_url}`} alt={product.brand} /></div> 
                                 <div className="brand_info">
                                     <strong>브랜드관</strong>
                                     <span>{product.brand} &gt;</span>

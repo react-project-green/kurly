@@ -86,7 +86,7 @@ export const getDetail = async({pid}) => {
                     format((price * (100 - dc) *0.01),0) as discountedPrice,
                     truncate((price * (100 - dc) *0.01),0) as dcPrice,
                     event_label,
-                    concat('http://localhost:9000/',upload_img) as image_url,
+                    upload_img as image_url,
                     info_imgs,
                     detail_imgs
             from product
