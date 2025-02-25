@@ -61,7 +61,7 @@ export const getList = async () => {
                     concat(dc,'%') as discountRate,
                     format((price * (100 - dc) *0.01),0) as discountedPrice,
                     event_label,
-                    concat('http://localhost:9000/',upload_img) as image_url
+                    upload_img as image_url
             from kurly_product
     `;
 

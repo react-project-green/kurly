@@ -80,6 +80,10 @@ export default function Detail({cartInfo}) {
         };
 
         setTimeout(updateOffsets,2000);
+        for (let top of offset){
+            if(top === 0) setTimeout(updateOffsets,1000);     
+            else return;        
+        }
         
         const scrollCheck = () =>{
             if(window.scrollY < offset[0]){
@@ -105,9 +109,9 @@ export default function Detail({cartInfo}) {
         scrollCheck();
         
         window.addEventListener('scroll',scrollCheck);
-        return window.removeEventListener('scroll',scrollCheck);
+        return () => window.removeEventListener('scroll',scrollCheck);
     },[]);
-
+    
     // cart count
     const buttonCartCount = (type) => {
         if(type === '+'){

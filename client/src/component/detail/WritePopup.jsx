@@ -52,7 +52,7 @@ export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) 
                     <div className="box_area" style={{height : file ? '800px' : '690px'}}>
                         <div className="tit">상품 문의하기<button type="button" onClick={() => checkIsTrue(false)}><MdClose /></button></div>
                         <div className="product">
-                            <div className="thumb"> <img src={src} alt={name} /></div>
+                            <div className="thumb"> <img src={`http://localhost:9000/${src}`} alt={name} /></div>
                             <div>{name}</div>
                         </div>
                         <form onSubmit={handleSubmit}>

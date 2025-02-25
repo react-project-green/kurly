@@ -2,24 +2,19 @@ import React,{useContext} from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineChatBubbleLeftEllipsis } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import { PidContext } from '../../context/ProductContext.js';
+// import { PidContext } from '../../context/ProductContext.js';
+import { usePid } from '../../hook/usePid.js';
 
 export default function ProductThumb({product}) {
-    const {pidArr, setPidArr} = useContext(PidContext);
-    const getPid = () => {
-        if(pidArr.length < 10){
-            setPidArr([product.pid, ...pidArr]);
-        }else{
-            setPidArr([...pidArr.slice(1), product.pid]);
-        }
-        localStorage.setItem('viewProducts',pidArr);
-    }
+    
+    // const {pidArr, setPidArr} = useContext(PidContext);
+    const {setPid} = usePid();
     
     return (
-        <div className="box">
-            <Link key={product.pid} to={`/goods/detail/${product.pid}`} onClick={getPid}>
+        <div className="box" onClick={() => setPid(product.pid)}>
+            <Link key={product.pid} to={`/goods/detail/${product.pid}`}>
                 <div className="thumb">
-                    <img src={product.image_url} alt="" />
+                    <img src={`http://localhost:9000/${product.image_url}`} alt="" />
                     { product.isLive && <div className="ban_top_left">라이브특가</div> }
                     { product.isPayback && <div className="ban_btm_line">최대혜택가 141,930원</div> }
                     { product.isPayback && <div className="ban_btm_right">페이백</div> }

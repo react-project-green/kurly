@@ -28,6 +28,8 @@ export default function ReviewInfo({src, name}) {
     }
     const getPopupData = (data) => {
         setPopupData(data)
+        console.log('data',data);
+        
     }
     
     return (
