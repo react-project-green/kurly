@@ -141,9 +141,8 @@ export default function Header() {
             <ul className='category_list'>
               {categoryList && categoryList.map((category, idx) => (
                 <li key={idx}
-<<<<<<< HEAD
                     onMouseEnter={() => setHoverCategoryIndex(idx)}
-                    onMouseLeave={() => setHoverCategoryIndex(null)}>
+                    onMouseLeave={() => setHoverCategoryIndex(null)} >
                     { idx <= 3 ? ( 
                         <span className='thin category_list_1'
                               onClick={()=>{navigate('/main/categories')}}>
@@ -164,26 +163,6 @@ export default function Header() {
                         ))}
                       </ul>  
                     )}  
-=======
-                  onMouseEnter={() => setHoverCategoryIndex(idx)}
-                  onMouseLeave={() => setHoverCategoryIndex(null)}>
-                  {idx <= 3 ? (
-                    <span className='thin category_list_1' onClick={() => { navigate('/') }}>
-                      <img src={category.img} />{category.title}
-                    </span>
-                  ) : (
-                    <span className='thin category_list_2'>
-                      <img src={category.img} />{category.title}
-                    </span>
-                  )}
-                  {hoverCategoryIndex === idx && (
-                    <ul className='variety_list light'>
-                      {category.variety && category.variety.map((item, i) => (
-                        <li key={i} onClick={() => { navigate('/') }}>{item.name}</li>
-                      ))}
-                    </ul>
-                  )}
->>>>>>> a96278fe7a7cbe8c93d1bcc0a04b0b478255bd19
                 </li>
               ))}
             </ul>
