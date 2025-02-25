@@ -28,7 +28,7 @@ export default function CartLayout() {
 
     useEffect(()=>{
         // 로직 바꾸기 => 로그인시 불러오도록
-        getCartList()
+        getCartList();
         
         // getCartList();
     },[])
