@@ -1,3 +1,39 @@
+## 250225 업데이트 내용
+
+   ### ➕ `server/mysql/kurlyDB` :
+   - `kurlyDB`파일 다시 전체 실행 해주세요 데이터 베이스 드랍, 생성 같이 진행이 됩니다. 
+   ( my sql 커넥션 다시 진행 해야 데이터 베이스 보입니다.)
+   
+   
+   ### ➕ CSV 파일 import 방법 :
+   `server/mysql/product.csv`
+
+   - 왼쪽 스키마스 탭이 나오면 kurlyDB 우클릭 -> refresh all 클릭 -> 토글 풀어서 안의 테이블 보이게 하기
+
+      ![image](https://github.com/user-attachments/assets/e3d2d1d0-723f-4c53-aac1-ec9f34cc7a0a)   
+   - product 테이블 우클릭 -> table data import wizard -> browse에서 csv 파일 선택하고 next -> kurlydb 셀렉된거 확인후 next -> 컬럼 매핑 확인후 next -> show log 클릭 후 next 하여 테이블의 값이 들어갔는지 확인하시면 됩니다.
+
+
+
+   ### ➕ 배열에서 두개 이상 경로가 있는 이미지 불러오기 
+   - 배열인 값은  쿼리에서 직접 주소를 붙이지 말고 아래처럼 태그 앞에 로컬 호스트 주소 추가하여 map을 통해 값을 추출해주세요 
+   ```bash
+<img src={`http://localhost:9000/${item}`}></img> 
+```
+
+   ### ➕ DB 데이터 추가
+      1. member test3 아이디 추가하였습니다 
+         기존 test1, test2는 장바구니 테이블 등에 값이 들어가있는데 기존 값 없이 테스트 할 수 있는 test3 아이디 추가하였습니다.
+         id : test3 / pw : 3333
+
+      2. 카테고리 테이블 삭제 - 카테고리 테스트 후 정상출력되면 그때 카테고리 테이블은 공유 예정 
+
+      3. 멤버테이블의 type은 null허용처리 했습니다 
+
+
+
+---
+
 # Kurly Clone Cording 팀프로젝트
 ## ⚙️ 설치 라이브러리 
 ### client
@@ -22,29 +58,6 @@ npm i
 - @ 클릭시 상품등록 페이지로 이동
 <br><br><br><br>
 
-### 250222 업데이트 내용
-`server/upload_files : product` 테이블 이미지 폴더 <br>
-`server/mysql/kurlydb.sql, kurly.sql` : DB파일, 테이블 조회 테스트 파일
-
-전달해야할 것 같은 내용이 많아서 우선 리드미에 적었습니다 모두 확인되면 삭제하겠습니다~  <br>
-`kurlydb` 파일로 `product`, `member` 테이블 조회 및 이미지 화면 출력 테스트 완료했습니다 <br>
-기초 데이터 추가하실 것이 있다면 db파일에 추가하여 공유 및 사용하시면 될것같아요~ 
-
-
-### 250222 업데이트 관련 참고 사항
-1. product 테이블의 
-이미지 경로 컬럼의 타입이 json일 경우 배열 안에 콤마로 구분된 문자열이 두개 이상 들어가면
-이미지 출력이 안돼서 타입 `varchar` 로 바꿔놓았습니다 문제가 있으면 말씀해주세요
-
-2. {products.map(product => (<img src={`http://localhost:9000/${parseJSON(product.info_imgs)[0]}`} />))} <br>
-db에서 쿼리 수정 없이 데이터 받아와서 이미지태그로 사용할 때 예시입니다, <br> 서버 주소와 parseJSON 메서드 사용하여야 정상 출력됩니다
-
-3. 기존에 올라가있던 upload_files 폴더는 지우지 않고 upload_files2로 폴더명 변경하였습니다!
-
-   ![image](https://github.com/user-attachments/assets/558942f4-b87c-42a9-9d6c-da9246375fe8)
-
-
----
 
 
 
