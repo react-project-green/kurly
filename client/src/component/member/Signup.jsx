@@ -1,88 +1,132 @@
 import React, { useState, useRef } from 'react';
-import '../../scss/member.scss'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { FaCircleCheck } from "react-icons/fa6";
+import { handleDuplicateIdCheck, validateSignup } from '../utils/funcValidate.js';
+import '../../scss/member.scss' 
 
 export default function Signup() {
+    const navigate = useNavigate();
+    const [idCheckResult, setIdCheckResult, phoneCheckResult, setPhoneCheckResult] = useState('default');
     const [formData, setFormData] = useState({
         id: '',
         pwd: '',
         cpwd: '',
-        cname: '',
+        name: '',
         emailname: '',
         emaildomain: '',
         phone: '',
+        gender: '',
+        zipcode: '',
+        address: '',
         birthy: '',
         birthm: '',
-        birthd: '',
-        gender: 'none',
-        address: ''
+        birthd: ''
     });
 
     const refs = {
-        "idRef": useRef(null),
-        "pwdRef": useRef(null),
-        "cpwdRef": useRef(null),
-        "nameRef": useRef(null),
-        "emailnameRef": useRef(null),
-        "emaildomainRef": useRef("default"),
-        "phoneRef": useRef(null),
-        "addressRef": useRef(null)
+        idRef: useRef(null),
+        pwdRef: useRef(null),
+        cpwdRef: useRef(null),
+        nameRef: useRef(null),
+        genderRef: useRef(null),
+        emailnameRef: useRef(null),
+        emaildomainRef: useRef("default"),
+        phoneRef: useRef(null),
+        birthyRef: useRef(null),
+        birthmRef: useRef(null),
+        birthdRef: useRef(null),
+        zipcodeRef: useRef(null),
+        addressRef: useRef(null)
     }
+    const totalRef = useRef(null)
+    const [agreeArr, setAgreeArr] = useState([])
+    const agreeRefs = {
+        memberuseRef: useRef(null),
+        memberpsnRef: useRef(null),
+        memberpsnmktRef: useRef(null),
+        membermktRef: useRef(null),
+        memberageRef: useRef(null)
+    }
+
+    const BIRTHDAY_YEAR_LIST = Array.from(
+        { length: 46 },
+        (_, i) => `${i + 1960}년`,
+    );
+    const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
+    const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => `${i + 1}일`);
 
     const handleChangeForm = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+        console.log({ ...formData, [name]: value });
     };
-    const [id, setId] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [cpwd, setCpwd] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //비밀번호 일치 확인
         const { pwd, cpwd } = formData;
-
         if (pwd !== cpwd) {
             alert('비밀번호가 일치하지 않습니다.');
-        } else {
-            alert('폼 제출 완료!');
-            console.log('폼 제출 완료!');
-            console.log('이름:', formData.cname);
-            console.log('이메일 주소:', formData.emailname);
-            console.log('이메일 도메인:', formData.emaildomain);
-            console.log('비밀번호:', pwd);
-            console.log('휴대폰 번호:', formData.phone);
-            console.log(isChecked)
-            // Add further form submission logic here (e.g., API call)
+            return;
         }
-    };
-    const [isChecked, setIsChecked] = useState(false);
-    const [allCheck, setAllCheck] = useState(false);
-    const [useCheck, setUseCheck] = useState(false);
-    const [persnalCheck, setPersonalCheck] = useState(false);
-    const [persnalMktCheck, setPersonalMktCheck] = useState(false);
-    const [marketingCheck, setMarketingCheck] = useState(false);
-    const [ageCheck, setAgeCheck] = useState(false);
+    
+        // 필수항목 동의 체크 
+        const requiredCheckboxes = ['memberuse', 'memberpsn', 'memberage'];
+        const uncheckedRequiredCheckboxes = requiredCheckboxes.filter((item) => !agreeArr.includes(item));
+        if (uncheckedRequiredCheckboxes.length > 0) {
+            alert('필수 항목에 동의해 주세요.');
+            return;
+        }
+    
+        //아이디 중복 확인 
+        if (validateSignup(refs)) { // Passing refs here, which is an object containing all refs
+            if (idCheckResult === "default") {
+                alert("중복 확인을 진행해 주세요");
+                return false;
+            } else {
+                console.log('submit ---->> ', formData);
+                axios.post('http://localhost:9000/member/signup', formData)
+                    .then(res => {
+                        if (res.data.result_rows === 1) {
+                            alert("회원가입에 성공하셨습니다.");
+    
+                            //1초후에 로그인 페이지 이동
+                            setTimeout(() => {
+                                navigate('/member/login');
+                            }, 1000);
+                        } else {
+                            alert("회원가입에 실패하셨습니다.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("회원가입에 실패하셨습니다.");
+                        console.log(error);
+                    });
+            }
+            //완료
+            alert('회원가입 완료! 로그인 페이지로 이동합니다.');
+        };
+    }
+    
 
-    const handleRadioChange = () => {
-        setIsChecked(!isChecked);
-    };
-    const allBtnEvent = () => {
-        if (allCheck === false) {
-            setAllCheck(true);
-            setUseCheck(true);
-            setPersonalCheck(true)
-            setPersonalMktCheck(true)
-            setMarketingCheck(true);
-            setAgeCheck(true);
-        } else {
-            setAllCheck(false);
-            setUseCheck(false);
-            setPersonalCheck(false);
-            setPersonalMktCheck(false);
-            setMarketingCheck(false);
-            setAgeCheck(false);
+    const handleRadioChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        const isCheck = agreeArr.includes(name)
+        console.log(`${name} 선택됨: ${value}`);
+        if (isCheck) {
+            setAgreeArr((prev) => prev.filter((el) => el !== name));
         }
+        else {
+            setAgreeArr([...agreeArr, name]);
+        }
+    };
+
+    const allBtnEvent = ({ target: { checked } }) => {
+        const refs = Object.values(agreeRefs).map((el) => el.current.name);
+        setAgreeArr(checked ? refs : []);
     };
 
     return (
@@ -103,6 +147,16 @@ export default function Signup() {
                                 ref={refs.idRef}
                                 onChange={handleChangeForm}
                                 className='signup_input' />
+                            <button type='button' className='signup-phone-botton'
+                                onClick={() => {
+                                    handleDuplicateIdCheck(
+                                        refs.idRef, // Corrected reference
+                                        refs.pwdRef, // Corrected reference
+                                        setIdCheckResult 
+                                    )
+                                }}
+
+                            >중복체크</button>
                         </li>
                         <li>
                             <label>비밀번호<span>*</span></label>
@@ -126,7 +180,7 @@ export default function Signup() {
                             <label>이름<span>*</span> </label>
                             <input type="text"
                                 placeholder='이름을 입력해주세요'
-                                name='cname'
+                                name='name'
                                 ref={refs.nameRef}
                                 onChange={handleChangeForm}
                                 className='signup_input' />
@@ -157,49 +211,100 @@ export default function Signup() {
                         </li>
                         <li className='phone-full'>
                             <label>휴대폰<span>*</span></label>
-                            <input type="number"
+                            <input type="text"
                                 name='phone'
                                 ref={refs.phoneRef}
                                 onChange={handleChangeForm}
-                                placeholder='숫자만 입력해주세요'
+                                placeholder='예:010-1234-1234'
                                 className='signup_input' />
-                            <button type='button' className='signup-phone-botton'>인증번호받기</button>
                         </li>
                         <li>
                             <label>주소<span>*</span></label>
-                            <button type="button"
-                                name='address'
-                                ref={refs.addressRef}
-                                onChange={handleChangeForm}
-                                className='address-botton'>주소검색</button>
-                            {/* <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p> */}
+                            <div className='address-full'>
+                                <div>
+                                    <input type="text"
+                                        ref={refs.zipcodeRef}
+                                        className='address-zipcode'
+                                        name='zipcode'
+                                        onChange={handleChangeForm}
+                                        placeholder='우편번호' />
+                                    <button type="button"
+                                        name='address'
+                                        ref={refs.addressRef}
+                                        onChange={handleChangeForm}
+                                        className='address-botton'>주소검색</button>
+                                    <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p>
+                                </div>
+                                <div>
+                                    <input type="text"
+                                        ref={refs.addressRef}
+                                        onChange={handleChangeForm}
+                                        className='address-text'
+                                        placeholder='도로명 주소'
+                                        name='address' />
+                                    <input type="text"
+                                        ref={refs.addressRef}
+                                        onChange={handleChangeForm}
+                                        className='address-text'
+                                        placeholder='상세 주소'
+                                        name='address' />
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <label>성별</label>
-                            <div className='signup_gender'>
-                                <input type='radio' name='gender' value='male' /> 남자
-                                <input type="radio" name='gender' value='female' /> 여자
-                                <input type="radio" name='gender' value='none' defaultChecked="checked" /> 선택 안함
+                            <div className='signup_gender'
+                                ref={refs.gender}>
+                                <input type='radio' name='gender' value='m'
+                                ref={refs.genderRef}
+                                    onChange={handleChangeForm} /> 남자
+                                <input type="radio" name='gender' value='f'
+                                ref={refs.genderRef}
+                                    onChange={handleChangeForm} /> 여자
+                                <input type="radio" name='gender' value='n' defaultChecked="checked"
+                                ref={refs.genderRef}
+                                    onChange={handleChangeForm} /> 선택 안함
                             </div>
                         </li>
                         <li className='signup_birth'>
                             <label>생년월일</label>
                             <div>
-                                <input type="number"
-                                    name='birthy'
-                                    placeholder='YYYY' />
-                                <span>/</span>
-                                <input type="number"
-                                    name='birthm'
-                                    placeholder='MM' />
-                                <span>/</span>
-                                <input type="number"
-                                    name='birthd'
-                                    placeholder='DD' />
+                                <div className="birthdayFrame"
+                                >
+                                    <select className="birthdayBox yearBox"
+                                        name='birthy'
+                                        ref={refs.birthyRef}
+                                        onChange={handleChangeForm} >
+                                        <option value="default">선택</option>
+                                        {BIRTHDAY_YEAR_LIST.map((year, index) => (
+                                            <option key={index}>{year}</option>
+                                        ))}
+                                    </select>
+                                    <select className="birthdayBox monthBox"
+                                        name='birthm'
+                                        ref={refs.birthmRef}
+                                        onChange={handleChangeForm}
+                                    >
+                                        <option value="default">선택</option>
+                                        {BIRTHDAY_MONTH_LIST.map((month, index) => (
+                                            <option key={index}>{month}</option>
+                                        ))}
+                                    </select>
+                                    <select className="birthdayBox dayBox"
+                                        name='birthd'
+                                        ref={refs.birthdRef}
+                                        onChange={handleChangeForm}
+                                    >
+                                        <option value="default">선택</option>
+                                        {BIRTHDAY_DAY_LIST.map((day, index) => (
+                                            <option key={index}>{day}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                         </li>
                         <li>
-                            <div className='member-additional'> </div>
+                            <div className='member-line-top'> </div>
                             {/* <label>추가입력사항</label>
                             <input type="radio" name="" />친구초대 추천인 아이디
                         </li>
@@ -221,116 +326,59 @@ export default function Signup() {
                                 <label>이용약관동의</label>
                             </div>
                             <div className="signup-notic">
+                                {/* 전체 동의 */}
                                 <div className="control-container">
                                     <div className="label-box">
-                                        <label className='member-radio' >
-                                            <input type="checkbox"
-                                                checked={allCheck}
+                                        <label className="member-radio">
+                                            <input
+                                                type="checkbox"
+                                                checked={agreeArr.length === 5}
+                                                ref={agreeRefs.memberuseRef}
                                                 onChange={allBtnEvent}
-                                                className='radio-input' />
-                                            <div className='radio-btn'>
-                                                {/* 라디오버튼 체크x */}
-                                                <svg className={`icon unchecked ${allCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                                {/* 라디오버튼 체크o */}
-                                                <svg className={`icon checked ${allCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                name="memberall"
+                                                className="radio-input"
+                                            />
+                                            <div className="radio-btn">
+                                                {agreeArr.length === 5 ? <FaCircleCheck style={{ fontSize: "2rem", fill: "#5f0080" }} /> : <FaRegCircleCheck style={{ fontSize: "2rem", fill: "#dddddd" }} />}
                                             </div>
                                         </label>
-                                        <label className='member-radio-title'>전체 동의합니다.</label>
+                                        <label className="member-radio-title">전체 동의합니다.</label>
+                                        <p className='signup-notic-sub'>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p>
                                     </div>
-                                    <p className='signup-notic-sub'>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p>
                                 </div>
 
-                                <div className="control-container">
-                                    <label className='member-radio' >
-                                        <input type="checkbox"
-                                            checked={useCheck}
-                                            onChange={handleRadioChange}
-                                            className='radio-input' />
-                                        <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${useCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${useCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
-                                    </label>
-                                    <label>이용약관 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
-
-                                </div>
-
-                                <div className="control-container">
-                                    <label className='member-radio' >
-                                        <input type="checkbox"
-                                            checked={persnalCheck}
-                                            onChange={handleRadioChange}
-                                            className='radio-input' />
-                                        <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${persnalCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${persnalCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
-                                    </label>
-                                    <label>개인정보 수집·이용 동의(필수)<a href="#" className='signup-link'>약관보기</a></label>
-
-                                </div>
-
-                                <div className="control-container">
-                                    <label className='member-radio' >
-                                        <input type="checkbox"
-                                            checked={persnalMktCheck}
-                                            onChange={handleRadioChange}
-                                            className='radio-input' />
-                                        <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${persnalMktCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${persnalMktCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
-                                    </label>
-                                    <span className="check-icon" aria-hidden="true"></span>
-                                    <label>개인정보 수집·이용 동의(선택)<a href="#" className='signup-link'>약관보기</a></label>
-
-                                </div>
-
-                                <div className="control-container">
-                                    <label className='member-radio' >
-                                        <input type="checkbox"
-                                            checked={marketingCheck}
-                                            onChange={handleRadioChange}
-                                            className='radio-input' />
-                                        <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${marketingCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${marketingCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
-                                    </label>
-                                    <span className="check-icon" aria-hidden="true"></span>
-                                    <label>무료배송, 할인쿠폰 등 혜택/정보 수신 동의(선택)</label>
-
-                                </div>
-                                <div className="control-container">
-                                    <label className='member-radio' >
-                                        <input type="checkbox"
-                                            checked={ageCheck}
-                                            onChange={handleRadioChange}
-                                            className='radio-input' />
-                                        <div className='radio-btn'>
-                                            {/* 라디오버튼 체크x */}
-                                            <svg className={`icon unchecked ${ageCheck ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            {/* 라디오버튼 체크o */}
-                                            <svg className={`icon checked ${ageCheck ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                        </div>
-                                    </label>
-                                    <span className="check-icon" aria-hidden="true"></span>
-                                    <label>본인은 만 14세 이상입니다</label>
-
-                                </div>
+                                {/* 개별 항목들 */}
+                                {['memberuse', 'memberpsn', 'memberpsnmkt', 'membermkt', 'memberage'].map((item, idx) => (
+                                    <div className="control-container" key={idx}>
+                                        <label className="member-radio">
+                                            <input
+                                                type="checkbox"
+                                                checked={agreeArr.includes(item)}
+                                                name={item}
+                                                ref={agreeRefs[item + 'Ref']}
+                                                onChange={handleRadioChange}
+                                                className="radio-input"
+                                            />
+                                            <div className="radio-btn">
+                                                {agreeArr.includes(item) ? <FaCircleCheck style={{ fontSize: "2rem", fill: "#5f0080" }} /> : <FaRegCircleCheck style={{ fontSize: "2rem", fill: "#dddddd" }} />}
+                                            </div>
+                                        </label>
+                                        <label className="member-radio-title">
+                                            {item === 'memberuse' && '이용약관 동의(필수)'}
+                                            {item === 'memberpsn' && '개인정보 수집·이용 동의(필수)'}
+                                            {item === 'memberpsnmkt' && '개인정보 수집·이용 동의(선택)'}
+                                            {item === 'membermkt' && '무료배송, 할인쿠폰 등 혜택/정보 수신 동의(선택)'}
+                                            {item === 'memberage' && '본인은 만 14세 이상입니다. (필수)'}
+                                        </label>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                        <div className='member-line-bottom'></div>
                         <div className='button-box'>
                             <button type="submit"
                                 className='member-true-button'
+                                
                             >가입하기</button>
                         </div>
                     </ul>{/* signup-body-end */}
