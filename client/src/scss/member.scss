@@ -197,7 +197,6 @@ signup
   .email-full {
     display: inline-block;
     width: 56%;
-
     .email-address {
       width: 38%;
       border: 1px solid gainsboro;
@@ -212,33 +211,39 @@ signup
     }
   }
   .address-full{  
+    border: 1px solid tomato;
     // display: flex;
-    margin-left: 170px;
-    .address-zipcode{
-      width: 150px;
-      border-radius: 8px;
-      height: 40px;
-    } 
-    .address-text{
-      width: 300px;
-      border-radius: 8px;
-      height: 40px;
-      margin-bottom: 5px;
+    display: inline-block;
+    // margin-left: 170px;
+    div{ 
+      .address-zipcode{
+        width: 150px;
+        border-radius: 8px;
+        height: 40px;
+      } 
+      .address-text{
+        width: 300px;
+        border-radius: 8px;
+        height: 40px;
+        margin-bottom: 5px;
+      }
+      .address-botton { 
+        margin-left: 5px;
+        padding: 0px 10px;
+        text-align: center; 
+        width: 80px; 
+        height: 30px;
+        border-radius: 4px;
+        color: rgb(95, 0, 128);
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(95, 0, 128);
+      }
+      p{
+        margin: 10px;
+      }
+      
     }
-    .address-botton { 
-      margin-left: 5px;
-      padding: 0px 10px;
-      text-align: center; 
-      width: 80px; 
-      height: 30px;
-      border-radius: 4px;
-      color: rgb(95, 0, 128);
-      background-color: rgb(255, 255, 255);
-      border: 1px solid rgb(95, 0, 128);
-    }
-    p{
-      margin: 10px;
-    }
+    
   }
   .phone-full {
 
