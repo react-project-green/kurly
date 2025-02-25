@@ -6,6 +6,7 @@ export const AuthContext = createContext();
     Login : 로그인  
 ************************************/
 export const AuthProvider = ({children})=>{
+    const [ userType, setUserType ] = useState('');
     const [isLogin, setIsLogin] = useState(()=>{
         try {
             const token = localStorage.getItem("token")
@@ -22,7 +23,7 @@ export const AuthProvider = ({children})=>{
         setIsLogin(!!token);
     }, [])
     return(
-        <AuthContext.Provider value = {{isLogin, setIsLogin}}>
+        <AuthContext.Provider value = {{isLogin, setIsLogin, userType, setUserType}}>
             {children}
         </AuthContext.Provider>
     )

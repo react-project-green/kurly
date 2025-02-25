@@ -14,7 +14,7 @@ export default function Header() {
   const [categoryList, setCategoryList] = useState([]);
   const [hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogin, setIsLogin } = useContext(AuthContext)
+  const { isLogin, setIsLogin, userType, setUserType } = useContext(AuthContext)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +44,9 @@ export default function Header() {
       if (select) {
         localStorage.removeItem("token");
         localStorage.removeItem("user_id")
+        localStorage.removeItem("user_type");
         setIsLogin(false);
+        setUserType('');
         navigate('/')
       }
     } else {
@@ -117,7 +119,8 @@ export default function Header() {
                   </Modal>
                 </div>
               </button>
-              <button className='header_top_icon' onClick={() => navigate('/member/login')} >
+              <button className='header_top_icon' 
+                      onClick={() => { isLogin ? navigate('/'): navigate('/member/login')}} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>
               <button className='header_top_icon cart_icon' onClick={() => navigate('/cart')}>
@@ -178,7 +181,10 @@ export default function Header() {
               <button onClick={() => { navigate('/main/category/discount') }}>알뜰쇼핑</button>
             </li>
             <li>
-              <button onClick={() => { navigate('/main/category/special') }}>특가/혜택</button>
+              { (userType === 'A') ?  
+                   <button onClick={() => { navigate('/goods/new') }}>상품등록</button> 
+                 : <button onClick={() => { navigate('/main/category/special') }}>특가/혜택</button>
+              }
             </li>
           </ul>
           <button type='button' className='delivery_btn_line'>
