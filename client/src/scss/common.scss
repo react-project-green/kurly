@@ -358,18 +358,19 @@
 .category:hover .category_list{
   display: block;
 }
-.category_list li:hover,
-.category_list li:hover span{
+.category_list li:hover{
   filter: none; 
-  color: var(--color-main);
   background-color: rgb(240, 239, 239);
+}
+.category_list li:hover span{
+  color: var(--color-main);
 }
 .category_list_1:hover img{
   filter: none; 
 }
-.category_list_2:hover {
-  color: var(--color-153);  
-}
+// .category_list_2:hover {
+//   color: var(--color-153);  
+// }
 .variety_list  {
   position: absolute;
   top: 0;
@@ -381,7 +382,7 @@
 .variety_list li{
   height: 40px;
 }
-.category_list li:hover .variety_list li:hover {
+.category_list li:hover .category_acitve:hover {
   text-decoration: underline;
   color: var(--color-main);
 }

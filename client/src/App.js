@@ -7,6 +7,7 @@ import KurlyMain from'./pages/KurlyMain.jsx';
 import Detail from'./pages/Detail.jsx';
 import ProductList from './pages/ProductList.jsx';
 import ProductListCategory from './pages/ProductListCategory.jsx';
+import ProductListCategoryDetail from './pages/ProductListCategoryDetail.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import Carts from './pages/Carts.jsx';
@@ -31,6 +32,7 @@ function App() {
             <Route path='/' element={<Layout/>}>
                 <Route index element={<KurlyMain />} />
                 <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
+                <Route path="/main/categories" element={<ProductListCategoryDetail />} />
                 <Route path="/goods/list" element={<ProductList />} />
                 <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
                 <Route path="/member/login" element={<Login />} />

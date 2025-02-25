@@ -141,24 +141,28 @@ export default function Header() {
             <ul className='category_list'>
               {categoryList && categoryList.map((category, idx) => (
                 <li key={idx}
-                  onMouseEnter={() => setHoverCategoryIndex(idx)}
-                  onMouseLeave={() => setHoverCategoryIndex(null)}>
-                  {idx <= 3 ? (
-                    <span className='thin category_list_1' onClick={() => { navigate('/') }}>
-                      <img src={category.img} />{category.title}
-                    </span>
-                  ) : (
-                    <span className='thin category_list_2'>
-                      <img src={category.img} />{category.title}
-                    </span>
-                  )}
-                  {hoverCategoryIndex === idx && (
-                    <ul className='variety_list light'>
-                      {category.variety && category.variety.map((item, i) => (
-                        <li key={i} onClick={() => { navigate('/') }}>{item.name}</li>
-                      ))}
-                    </ul>
-                  )}
+                    onMouseEnter={() => setHoverCategoryIndex(idx)}
+                    onMouseLeave={() => setHoverCategoryIndex(null)} >
+                    { idx <= 3 ? ( 
+                        <span className='thin category_list_1'
+                              onClick={()=>{navigate('/main/categories')}}>
+                          <img src={category.img}/>{category.title}
+                        </span>  
+                      ) : (
+                        <span className='thin category_list_2'>
+                          <img src={category.img} />{category.title}
+                        </span>
+                      )} 
+                    {hoverCategoryIndex === idx && (
+                      <ul className='variety_list light'>
+                        {category.variety && category.variety.map((item, i)=>(
+                            <li key={i} 
+                                className={ i <=1 ? 'category_acitve':'' }
+                                onClick={()=>{navigate('/')} }>{item.name}
+                            </li>      
+                        ))}
+                      </ul>  
+                    )}  
                 </li>
               ))}
             </ul>
