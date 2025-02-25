@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './component/auth/AuthContext.js';
 import React, { useEffect, useState } from 'react';
 import './scss/common.scss';
 import Layout from'./pages/Layout.jsx';
@@ -24,6 +25,7 @@ function App() {
     <div className="App">
       <CartProvider >
       <PidProvider>
+        <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Layout/>}>
@@ -39,6 +41,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        </AuthProvider>
       </PidProvider>
       </CartProvider>
     </div>

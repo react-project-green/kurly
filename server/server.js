@@ -4,6 +4,7 @@ import path from 'path';
 import registerRouter from './router/registerRouter.js';
 import uploadRouter from './router/uploadRouter.js';
 import categoryRouter from './router/categoryRouter.js'; 
+import memberRouter from './router/memberRouter.js' 
 
 const server = express();
 const port = 9000;
@@ -24,6 +25,9 @@ server.use('/product', registerRouter);
 server.use('/upload', uploadRouter);
 server.use('/cart', uploadRouter);
 
+//멤버
+server.use('/member', memberRouter);
+
 
 // 메인페이지 -> 카테고리 상품리스트
 server.use('/main', categoryRouter);
@@ -31,4 +35,4 @@ server.use('/main', categoryRouter);
 
 server.listen(port,() => {
     console.log('start ----->>', port); 
-});
+}); 

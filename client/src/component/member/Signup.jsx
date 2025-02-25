@@ -71,7 +71,7 @@ export default function Signup() {
             alert('비밀번호가 일치하지 않습니다.');
             return;
         }
-
+    
         // 필수항목 동의 체크 
         const requiredCheckboxes = ['memberuse', 'memberpsn', 'memberage'];
         const uncheckedRequiredCheckboxes = requiredCheckboxes.filter((item) => !agreeArr.includes(item));
@@ -79,9 +79,9 @@ export default function Signup() {
             alert('필수 항목에 동의해 주세요.');
             return;
         }
-
+    
         //아이디 중복 확인 
-        if (validateSignup(refs, formData)) {
+        if (validateSignup(refs)) { // Passing refs here, which is an object containing all refs
             if (idCheckResult === "default") {
                 alert("중복 확인을 진행해 주세요");
                 return false;
@@ -91,10 +91,10 @@ export default function Signup() {
                     .then(res => {
                         if (res.data.result_rows === 1) {
                             alert("회원가입에 성공하셨습니다.");
-
+    
                             //1초후에 로그인 페이지 이동
                             setTimeout(() => {
-                                navigate('/login');
+                                navigate('/member/login');
                             }, 1000);
                         } else {
                             alert("회원가입에 실패하셨습니다.");
@@ -109,6 +109,7 @@ export default function Signup() {
             alert('회원가입 완료! 로그인 페이지로 이동합니다.');
         };
     }
+    
 
     const handleRadioChange = (e) => {
         const name = e.target.name;
@@ -151,7 +152,7 @@ export default function Signup() {
                                     handleDuplicateIdCheck(
                                         refs.idRef, // Corrected reference
                                         refs.pwdRef, // Corrected reference
-                                        setIdCheckResult
+                                        setIdCheckResult 
                                     )
                                 }}
 
@@ -254,11 +255,14 @@ export default function Signup() {
                             <label>성별</label>
                             <div className='signup_gender'
                                 ref={refs.gender}>
-                                <input type='radio' name='gender' value='male'
+                                <input type='radio' name='gender' value='m'
+                                ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 남자
-                                <input type="radio" name='gender' value='female'
+                                <input type="radio" name='gender' value='f'
+                                ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 여자
-                                <input type="radio" name='gender' value='none' defaultChecked="checked"
+                                <input type="radio" name='gender' value='n' defaultChecked="checked"
+                                ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 선택 안함
                             </div>
                         </li>
@@ -374,6 +378,7 @@ export default function Signup() {
                         <div className='button-box'>
                             <button type="submit"
                                 className='member-true-button'
+                                
                             >가입하기</button>
                         </div>
                     </ul>{/* signup-body-end */}
