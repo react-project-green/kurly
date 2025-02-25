@@ -8,7 +8,7 @@ import { AuthContext } from '../auth/AuthContext.js';
 
 export default function Login() {
     const navigate = useNavigate();
-    const {isLogin, setIsLogin} = useContext(AuthContext);
+    const {isLogin, setIsLogin, setUserType } = useContext(AuthContext);
     const [formData, setFormData] = useState({ 'id' : '', 'pwd' : '', })
     const refs = {
         idRef : useRef(null),
@@ -20,29 +20,51 @@ export default function Login() {
         setFormData({ ...formData, [name]: value })
         console.log({ ...formData, [name]: value });
     };
-    const handleLoginSubmit = (e) =>{
+    const handleLoginSubmit = async(e) =>{
         e.preventDefault();
         if(validateLogin(refs)){
-            console.log('로그인 데이터==>', formData);
-
+            // console.log('로그인 데이터==>', formData);
             //서버전송
-            axios
-            .post('http://localhost:9000/member/login', formData)
-            .then(res=>{
+            try {
+                const res = await axios.post('http://localhost:9000/member/login', formData);
+
                 if(res.data.result_rows === 1){
+                    const user_type = await axios.post('http://localhost:9000/member/type',{'id': formData.id});
+                    
                     alert("로그인 성공 홈으로 이동합니다.");
                     localStorage.setItem("token", res.data.token);
                     localStorage.setItem("user_id", formData.id);
+                    localStorage.setItem("user_type", user_type.data);
                     setIsLogin(true);
+                    setUserType(user_type.data.type);
                     navigate('/')
                 } else {
                     alert("아이디와 비밀번호를 확인해주세요.")
-                }
-            })
-            .catch(error=>{
+                }   
+            } catch (error) {
+                console.log('로그인에러',error);
                 alert("로그인 실패. 서버 오류")
-                console.log(error); 
-            });
+            }
+            // axios
+            // .post('http://localhost:9000/member/login', formData)
+            // .then(res=>{
+            //     if(res.data.result_rows === 1){
+            //         const user_type = await axios.post('http://localhost:9000/member/type',{'id': formData.id});
+            //         console.log('user_type >>>',user_type);
+                    
+            //         alert("로그인 성공 홈으로 이동합니다.");
+            //         localStorage.setItem("token", res.data.token);
+            //         localStorage.setItem("user_id", formData.id);
+            //         setIsLogin(true);
+            //         navigate('/')
+            //     } else {
+            //         alert("아이디와 비밀번호를 확인해주세요.")
+            //     }
+            // })
+            // .catch(error=>{
+            //     alert("로그인 실패. 서버 오류")
+            //     console.log(error); 
+            // });
             
         }
     }
