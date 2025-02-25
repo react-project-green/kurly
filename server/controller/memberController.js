@@ -32,3 +32,17 @@ export const loginMember = async(req, res)=>{
     res.end();
     
 }
+
+/******************************
+ * Login : 로그인 유저 타입 확인 
+ * 2025.02.25 - 김다희
+ ******************************/
+export const getUserType = async(req, res) => {
+    const result =  await repository.getUserType(req.body);
+    res.json(result);
+    res.end();
+};
+
+
+
+
