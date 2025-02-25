@@ -50,6 +50,6 @@ export const getCategoryProductList = async() =>{
   `;
 
   
-  const [result] = await db.execute(sql);
-  return result;
+  // const [result] = await db.execute(sql);
+  // return result;
 };
