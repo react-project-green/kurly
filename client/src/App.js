@@ -14,7 +14,7 @@ import Carts from './pages/Carts.jsx';
 import Order from './component/cart/Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import { PidProvider } from './context/ProductContext.js';
-import { CartProvider } from './context/cartContext.js';
+import { CartProvider } from './context/CartContext.js';
 
 function App() {
 

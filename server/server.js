@@ -5,6 +5,7 @@ import registerRouter from './router/registerRouter.js';
 import uploadRouter from './router/uploadRouter.js';
 import categoryRouter from './router/categoryRouter.js'; 
 import memberRouter from './router/memberRouter.js' 
+import cartRouter from './router/cartRouter.js' 
 
 const server = express();
 const port = 9000;
@@ -23,7 +24,7 @@ server.get('/test',(req,res) =>{
 // 상품등록
 server.use('/product', registerRouter);
 server.use('/upload', uploadRouter);
-server.use('/cart', uploadRouter);
+
 
 //멤버
 server.use('/member', memberRouter);
@@ -31,6 +32,9 @@ server.use('/member', memberRouter);
 
 // 메인페이지 -> 카테고리 상품리스트
 server.use('/main', categoryRouter);
+
+// 카트 
+server.use('/cart', cartRouter);
 
 
 server.listen(port,() => {

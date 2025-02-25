@@ -1,4 +1,4 @@
-USE kurlydb22;
+USE kurlydb;
 SHOW TABLES; 
 
 CREATE TABLE `member` (
@@ -29,4 +29,32 @@ desc sub_category;
 
 select count(id) as result from member where id ="test1";
 
-delete table member 
+-- ########################################
+-- view_cart_list 뷰테이블 생성
+-- ########################################
+
+
+show tables;
+select * from product;
+select * from member;
+select * from cart;
+select * from view_cart_list;
+
+create view view_cart_list
+as 
+select  c.id as cid,
+		c.qty as qty,
+		m.id as id,
+		m.address as address,
+		p.pid as pid,
+        p.delivery as delivery ,
+		p.subject as subject,
+		p.sub_desc as sub_desc,
+		p.price as price,
+        p.dc as dc,
+		upload_img
+from cart c,
+	member m,
+	product p
+where c.id = m.id 
+		and c.pid = p.pid;

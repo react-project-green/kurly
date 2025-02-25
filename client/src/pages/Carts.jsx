@@ -1,59 +1,37 @@
-/***********************************************
-*****            장바구니 : 정서령
-********************************************/
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState, useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../component/cart/cart.scss';
+
+// contexts, custom hooks
+import { useCart } from "../hooks/useCart.js";
+// import { AuthContext } from "../auth/AuthContext";
+import { CartContext } from "../context/CartContext";
+
+// 자식 컴포넌트
 import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
 
 
 
-
-// 체크박스 컴포넌트
-const CheckBox = () => {
-
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    }
-
-    return (
-        <>
-        <input className="checkbox-input"
-                        onChange={handleCheckboxChange}
-                        type="checkbox" 
-                    />
-        <div className={ isChecked ? "checkbox-active" : "checkbox"} 
-        onClick={handleCheckboxChange}></div>
-        </>
-    );
-}
-
-
-
-// 전체선택 컴포넌트
-const SelectAll = ({CheckBox}) => {
-
-    return(
-    <div className='cart-header w-full'>
-    <div className='cart-select-all'>
-        <CheckBox />
-        <p className='f16 margin00016'>전체선택</p>
-    </div>
-    <button className='w-btn'>선택삭제</button>
-</div>
-
-    );
-}
-
-
-
 export default function CartLayout() {
     
+
+
+    const { cartList, setCartList, cartCount , totalPrice } = useContext(CartContext);
+    const { getCartList } = useCart();
+
+    console.log('Carts의 cartList',cartList);
+    
+
+    useEffect(()=>{
+        // 로직 바꾸기 => 로그인시 불러오도록
+        getCartList()
+        
+        // getCartList();
+    },[])
 
     const [productList, setProductList] = useState([]);
     const navigate = useNavigate();
@@ -206,4 +184,44 @@ export default function CartLayout() {
 }
 
 
+
+
+
+// 체크박스 컴포넌트
+const CheckBox = () => {
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+    }
+
+    return (
+        <>
+        <input className="checkbox-input"
+                        onChange={handleCheckboxChange}
+                        type="checkbox" 
+                    />
+        <div className={ isChecked ? "checkbox-active" : "checkbox"} 
+        onClick={handleCheckboxChange}></div>
+        </>
+    );
+}
+
+
+
+// 전체선택 컴포넌트
+const SelectAll = ({CheckBox}) => {
+
+    return(
+    <div className='cart-header w-full'>
+    <div className='cart-select-all'>
+        <CheckBox />
+        <p className='f16 margin00016'>전체선택</p>
+    </div>
+    <button className='w-btn'>선택삭제</button>
+</div>
+
+    );
+}
 
