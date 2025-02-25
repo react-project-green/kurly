@@ -3,10 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
+import { useAddress } from '../../hooks/useAddress.jsx';
 import { handleDuplicateIdCheck, validateSignup } from '../utils/funcValidate.js';
 import '../../scss/member.scss' 
 
 export default function Signup() {
+    const { Postcode, data } = useAddress();
+    console.log(data);
+    
     const navigate = useNavigate();
     const [idCheckResult, setIdCheckResult, phoneCheckResult, setPhoneCheckResult] = useState('default');
     const [formData, setFormData] = useState({
@@ -38,7 +42,8 @@ export default function Signup() {
         birthmRef: useRef(null),
         birthdRef: useRef(null),
         zipcodeRef: useRef(null),
-        addressRef: useRef(null)
+        addressRef: useRef(null),
+        detailaddresRef: useRef(null)
     }
     const totalRef = useRef(null)
     const [agreeArr, setAgreeArr] = useState([])
@@ -108,8 +113,7 @@ export default function Signup() {
             //완료
             alert('회원가입 완료! 로그인 페이지로 이동합니다.');
         };
-    }
-    
+    } 
 
     const handleRadioChange = (e) => {
         const name = e.target.name;
@@ -218,37 +222,39 @@ export default function Signup() {
                                 placeholder='예:010-1234-1234'
                                 className='signup_input' />
                         </li>
-                        <li>
+                        <li className='address-full'>
                             <label>주소<span>*</span></label>
-                            <div className='address-full'>
+                            <div >
                                 <div>
+                                    <Postcode />
                                     <input type="text"
                                         ref={refs.zipcodeRef}
                                         className='address-zipcode'
                                         name='zipcode'
                                         onChange={handleChangeForm}
+                                        value={data.zipcode}
                                         placeholder='우편번호' />
-                                    <button type="button"
-                                        name='address'
-                                        ref={refs.addressRef}
-                                        onChange={handleChangeForm}
-                                        className='address-botton'>주소검색</button>
-                                    <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p>
+                                    {/* <button type="button"
+                                        name='address' 
+                                        onChange={handleChangeForm} 
+                                        className='address-botton' ><Postcode />주소검색 </button> */}
                                 </div>
                                 <div>
                                     <input type="text"
                                         ref={refs.addressRef}
                                         onChange={handleChangeForm}
+                                        value={data.address}
                                         className='address-text'
                                         placeholder='도로명 주소'
                                         name='address' />
                                     <input type="text"
-                                        ref={refs.addressRef}
+                                        ref={refs.detailaddresRef}
                                         onChange={handleChangeForm}
                                         className='address-text'
                                         placeholder='상세 주소'
                                         name='address' />
                                 </div>
+                                <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p>
                             </div>
                         </li>
                         <li>
