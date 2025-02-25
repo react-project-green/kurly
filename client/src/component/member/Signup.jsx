@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
 import { handleDuplicateIdCheck, validateSignup } from '../utils/funcValidate.js';
-import '../../scss/member.scss'
+import '../../scss/member.scss' 
 
 export default function Signup() {
     const navigate = useNavigate();

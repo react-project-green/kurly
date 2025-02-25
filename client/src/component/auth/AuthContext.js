@@ -3,7 +3,7 @@ import { createContext, useState, useEffect, Children } from 'react';
 export const AuthContext = createContext();
 
 /***********************************
-    Login : 로그인 
+    Login : 로그인  
 ************************************/
 export const AuthProvider = ({children})=>{
     const [isLogin, setIsLogin] = useState(()=>{

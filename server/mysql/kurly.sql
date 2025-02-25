@@ -1,5 +1,5 @@
 USE kurlydb22;
-SHOW TABLES;
+SHOW TABLES; 
 
 CREATE TABLE `member` (
   `id` 			VARCHAR(30) 	PRIMARY KEY,

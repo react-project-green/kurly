@@ -38,5 +38,5 @@ export const loginMember = async({id, pwd})=> { // {id: 'test', pwd: '1234'}
     `; 
     const [result] = await db.execute(sql, [id, pwd]);
     return result[0]; 
-}
+} 
 

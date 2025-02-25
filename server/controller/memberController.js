@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 export const signupMember = async(req, res)=>{
     const result = await repository.signupMember(req.body);
     res.json(result);
-    res.end();
+    res.end(); 
 }
 /******************************
  * Signup : 아이디 중복체크 
