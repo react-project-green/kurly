@@ -37,7 +37,7 @@ npm i react-bootstrap
 npm i react-slick --save
 npm i slick-carousel --save
 npm i antd
-npm install react-daum-postcode
+npm i react-daum-postcode
 ```
 
 ### server
