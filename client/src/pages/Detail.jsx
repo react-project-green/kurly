@@ -20,7 +20,7 @@ import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
     const {pidArr, setPidArr, heartArr, setHeartArr} = useContext(PidContext);
-    const {setHeartList} = usePid();
+    const {setPidList, setHeartList} = usePid();
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {cartList} = useContext(CartContext);
@@ -56,10 +56,26 @@ export default function Detail({cartInfo}) {
     useEffect(() =>{
         axios.post('http://localhost:9000/product/detail',{'pid':pid})
                 .then((res) => {
-                    setProduct(res.data[0]);                   
+                    setProduct(res.data[0]);    
+                    setPidList(res.data[0].pid);  
+                    console.log('res.data[0].pid',res.data[0].pid);
+                                 
                 })
                 .catch((error) => console.log(error));
     },[]);
+
+    useEffect(()=>{
+        if(product.pid){
+            console.log('체크하는지 확인!!');
+            
+            const check = heartArr.includes(product.pid);
+            if(check) setHeart(true);
+        }
+    },[product.pid,heartArr]);
+    // heart check
+    console.log('product.pid------------------>>',product.pid);   
+    
+    console.log('setHeart',heart);
 
     // cart count
     const buttonCartCount = (type) => {
@@ -106,18 +122,14 @@ export default function Detail({cartInfo}) {
     // 찜하기
     const handleAddHeart = () => {
         setHeart(!heart);
+        setHeartList(product.pid);
         
-        if(heart){
-            console.log('체크??',heart);
-            
-            setHeartList(product.pid);
-        }
+        // if(heart === true){ 함수 실행이 안됨.   
+        // }
     }
-    console.log('heart',heart);
-    console.log(product.pid);
-            console.log('heartArr',heartArr);
-    
 
+    
+    
     return (
         <div>
             <div className="detail_area">

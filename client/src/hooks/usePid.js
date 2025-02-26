@@ -14,7 +14,16 @@ export function usePid() {
     }
     
     const setHeartList = (pid) => {
-        setHeartArr([pid, ...heartArr]);
+        const check = heartArr.includes(pid);
+        console.log('중복되는 값이 있나?',check);
+        if(check){
+             const newList = heartArr.filter((num)=> num !== pid)
+             setHeartArr(newList);
+        }else{
+            setHeartArr([...heartArr, pid]);
+        }
+        console.log('usePid heartArr ====>>',heartArr);
+        
         localStorage.setItem('viewHeartList',heartArr);      
     }
 

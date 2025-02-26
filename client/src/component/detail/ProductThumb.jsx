@@ -2,13 +2,11 @@ import React,{useContext} from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineChatBubbleLeftEllipsis } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import {usePid} from '../../hooks/usePid.js';
 
 export default function ProductThumb({product}) {
-    const {setPidList} = usePid();
     
     return (
-        <div className="box" onClick={() => setPidList(product.pid)}>
+        <div className="box">
             <Link key={product.pid} to={`/goods/detail/${product.pid}`}>
                 <div className="thumb">
                     <img src={product.image_url} alt="" />
