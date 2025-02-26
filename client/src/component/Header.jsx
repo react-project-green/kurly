@@ -122,7 +122,7 @@ export default function Header() {
               <button className='search_button' onClick={handleSearch}></button>
             </div>
             <div className='header_middle_right'>
-              <button className='header_top_icon location_icon'>
+              <div className='header_top_icon location_icon'>
                 <img src="/images/commonImage/header_icon1.svg" alt="header_icon" />
                 <div className='location_info'>
                   <div>
@@ -137,7 +137,7 @@ export default function Header() {
                     <DaumPostcode onComplete={handleComplete} />
                   </Modal>
                 </div>
-              </button>
+              </div>
               <button className='header_top_icon' 
                       onClick={() => { isLogin ? navigate('/'): navigate('/member/login')}} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
