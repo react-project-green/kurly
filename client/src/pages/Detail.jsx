@@ -1,5 +1,5 @@
 import React,{useRef, useState, useEffect, useContext} from 'react';
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { VscBell } from "react-icons/vsc";
 
@@ -8,11 +8,19 @@ import DetailInfo from '../component/detail/DetailInfo.jsx';
 import ReviewInfo from '../component/detail/ReviewInfo.jsx';
 import InquireInfo from '../component/detail/InquireInfo.jsx';
 import CartBottom from '../component/detail/CartBottom.jsx';
+import Nav from '../component/detail/Nav.jsx';
+import {useCart} from '../hooks/useCart.js';
+import {AuthContext} from '../component/auth/AuthContext.js';
+import {CartContext} from '../component/auth/CartContext.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
+    const {saveToCartList} = useCart();
+    const {isLogin} = useContext(AuthContext);
+    const {cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice} = useContext(CartContext);
+    const navigate = useNavigate();
     const scrolls = [
         {id:'상품설명', ref:useRef(null)},
         {id:'상세정보', ref:useRef(null)},
@@ -20,19 +28,11 @@ export default function Detail({cartInfo}) {
         {id:'문의', ref:useRef(null)},
     ];
     const topInfoRef = useRef(null);
-    const [activeEle, setActiveEle] = useState(scrolls[0].id);
     const [count, setCount] = useState(1);
     let { pid } = useParams();
     const [product, setProduct] = useState({});
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
-    const [offset,setOffset] = useState([]);
-
-    // tab nav click event
-    const tabActive = (ref) => {
-        //navClass(ref);
-        ref.current.scrollIntoView({behavior: "smooth", block: "start"});
-    }
 
     // btm add cart btn
     const openCart = () => {
@@ -56,24 +56,6 @@ export default function Detail({cartInfo}) {
                 .catch((error) => console.log(error));
     },[]);
 
-    useEffect(() =>{
-        const handleScroll = () => {
-            const currentScrollPos = window.scrollY; // 수직으로 스크롤 된 값
-            const currentSection = scrolls.find(({ ref }) => {
-                if(ref.current){
-                        const offsetTop = ref.current.offsetTop;
-                        const offsetBottom = offsetTop + ref.current.offsetHeight + 680;
-                        return currentScrollPos >= offsetTop && currentScrollPos < offsetBottom;
-                    }
-                return false;
-            });
-            if(currentSection) setActiveEle(currentSection.id);          
-        };
-
-        window.addEventListener('scroll',handleScroll);
-        return () => window.removeEventListener('scroll',handleScroll);
-    },[scrolls]);
-
     // cart count
     const buttonCartCount = (type) => {
         if(type === '+'){
@@ -84,27 +66,28 @@ export default function Detail({cartInfo}) {
     }
     // 장바구니 데이터
     const cartAddItem = () => {
-        // 넘어가는 정보
-        const addItem = {
-            "pid": product.pid,
-            "name": product.name,
-            "brand": product.brand,
-            "description": product.description,
-            "originalPrice": product.originalPrice,
-            "discountRate": product.discountRate,
-            "discountedPrice":product.discountedPrice ,
-            "specialPrice": product.specialPrice,
-            "delivery": {
-                "type": product.type,
-                "details": product.details
-                },
-            "seller": product.seller,
-            "packaging": product.packaging,
-            "total_price": product.discountedPrice * count,
-            "image_url": product.image_url,
-            "addCount":count
-        };   
-        cartInfo(addItem);
+        // 로그인 했을 때
+        if(isLogin){
+            const cartItem = {
+                pid:product.pid,
+                qty:count
+            }
+            console.log('cartItem',cartItem);
+
+            // 카트 아이템에 같은 pid가 있는지 검색. 있으면 qty 수정. 없으면 추가.
+            const findItem = cartList.find((item)=> item.pid === product.pid);
+            if(findItem){
+                updateCartList(findItem.cid);
+                
+            }else{
+                saveToCartList(cartItem);
+            }
+            
+        }else{
+            const loginCheck = window.confirm('로그인 서비스가 필요합니다.\n로그인 하시겠습니까?');
+            if(loginCheck) setTimeout(()=>{ navigate('/member/login')},1000);
+        }
+        
     }
 
     return (
@@ -186,15 +169,7 @@ export default function Detail({cartInfo}) {
                     </div>
                     <div className="detail_tap_area">
                         <nav>
-                            <ul>
-                                {
-                                    scrolls.map((el) =>
-                                        <li ref={el.ref}  onClick={()=>tabActive(el.ref)} className={(activeEle === el.id) ? 'on':''}>
-                                            { (el.id === '후기') ? `${el.id}(1,2300)` : el.id }
-                                        </li>
-                                    )
-                                }
-                            </ul>
+                            <Nav scrolls={scrolls} />
                         </nav>
                         <div className="tab_box">
                             {/* 1 상품설명 */}
