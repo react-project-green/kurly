@@ -5,11 +5,6 @@
    -  #### 컬리DB 실행 전 `drop database kurlydb;` 로 기존 데이터베이스 삭제 해주세요
    ( mysql 커넥션 다시 진행 해야 데이터 베이스 보입니다.)
    
-   
-   ### ➕ CSV 파일 import 방법 :
-   `server/mysql/product.csv` <br>
-   🔗링크 : https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0
-
 
    ### ➕ 배열에서 두개 이상 경로가 있는 이미지 불러오기 
    - 배열인 값은  쿼리에서 직접 주소를 붙이지 말고 아래처럼 태그 앞에 로컬 호스트 주소 추가하여 map을 통해 값을 추출해주세요 
@@ -51,6 +46,10 @@ npm i
 ```
 ## ✨ Notice
 - @ 클릭시 상품등록 페이지로 이동
+- MySQL 엑셀파일 import 방법 링크 <br>
+     🔗 https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0
+- WBS 구글 스프레드시트 링크 <br>
+     🔗 https://docs.google.com/spreadsheets/d/1efKJctb6Yvo3z2QcAqwEk18eivzJ61jYt6foYRShAQk/edit?usp=sharing
 <br><br><br><br>
 
 
