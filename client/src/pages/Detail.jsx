@@ -77,10 +77,18 @@ export default function Detail({cartInfo}) {
             // 카트 아이템에 같은 pid가 있는지 검색. 있으면 qty 수정. 없으면 추가.
             const findItem = cartList.find((item)=> item.pid === product.pid);
             if(findItem){
-                updateCartList(findItem.cid);
+                const result = updateCartList(findItem.cid, "increase");
+                result && alert("장바구니에 추가되었습니다.")
                 
             }else{
-                saveToCartList(cartItem);
+                const id = localStorage.getItem("user_id");
+
+                // formdata 형식으로 db에 보내야해서 수정했어용
+                // cartItem을 배열형식으로 보내서 서버로 map 돌릴 수 있어서
+                // 테스트 때문에 수정했습니당ㅠㅠ
+                const formData = { id: id, cartList: [cartItem] }
+                const result = saveToCartList(formData);
+                result && alert("장바구니에 추가되었습니다.")
             }
             
         }else{
@@ -89,6 +97,9 @@ export default function Detail({cartInfo}) {
         }
         
     }
+
+
+    
 
     return (
         <div>
