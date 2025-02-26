@@ -46,9 +46,9 @@ npm i
 ```
 ## ✨ Notice
 - @ 클릭시 상품등록 페이지로 이동
-- MySQL 엑셀파일 import 방법 링크
+- MySQL 엑셀파일 import 방법 링크 <br>
      🔗 https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0
-- WBS 구글 스프레드시트 링크
+- WBS 구글 스프레드시트 링크 <br>
      🔗 https://docs.google.com/spreadsheets/d/1efKJctb6Yvo3z2QcAqwEk18eivzJ61jYt6foYRShAQk/edit?usp=sharing
 <br><br><br><br>
 
