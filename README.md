@@ -7,13 +7,8 @@
    
    
    ### ➕ CSV 파일 import 방법 :
-   `server/mysql/product.csv`
-
-   - 왼쪽 스키마스 탭이 나오면 kurlyDB 우클릭 -> refresh all 클릭 -> 토글 풀어서 안의 테이블 보이게 하기
-
-      ![image](https://github.com/user-attachments/assets/e3d2d1d0-723f-4c53-aac1-ec9f34cc7a0a)   
-   - product 테이블 우클릭 -> table data import wizard -> browse에서 csv 파일 선택하고 next -> kurlydb 셀렉된거 확인후 next -> 컬럼 매핑 확인후 next -> show log 클릭 후 next 하여 테이블의 값이 들어갔는지 확인하시면 됩니다.
-
+   `server/mysql/product.csv` <br>
+   🔗링크 : https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0
 
 
    ### ➕ 배열에서 두개 이상 경로가 있는 이미지 불러오기 
@@ -42,6 +37,7 @@ npm i react-bootstrap
 npm i react-slick --save
 npm i slick-carousel --save
 npm i antd
+npm i react-daum-postcode
 ```
 
 ### server
