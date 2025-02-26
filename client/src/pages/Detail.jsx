@@ -13,19 +13,14 @@ import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
-  
-    const refs = {
-        tab1Ref:useRef(null),
-        tab2Ref:useRef(null),
-        tab3Ref:useRef(null),
-        tab4Ref:useRef(null) 
-    }
-    const tabRefs = {
-        nav1Ref:useRef(null),
-        nav2Ref:useRef(null),
-        nav3Ref:useRef(null),
-        nav4Ref:useRef(null)
-    }
+    const scrolls = [
+        {id:'상품설명', ref:useRef(null)},
+        {id:'상세정보', ref:useRef(null)},
+        {id:'후기', ref:useRef(null)},
+        {id:'문의', ref:useRef(null)},
+    ];
+    const topInfoRef = useRef(null);
+    const [activeEle, setActiveEle] = useState(scrolls[0].id);
     const [count, setCount] = useState(1);
     let { pid } = useParams();
     const [product, setProduct] = useState({});
@@ -34,17 +29,9 @@ export default function Detail({cartInfo}) {
     const [offset,setOffset] = useState([]);
 
     // tab nav click event
-    const navClass = (ref) => {
-        let children = ref.current && ref.current.parentElement ? ref.current.parentElement.children : [];
-
-        for(let tab of children){
-            tab.classList.remove('on');
-        }
-        ref.current.classList.add('on');
-    }
-    const tabActive = (ref, target) => {
-        navClass(ref);
-        if(target.current) target.current.scrollIntoView({behavior: "smooth", block: "start"});
+    const tabActive = (ref) => {
+        //navClass(ref);
+        ref.current.scrollIntoView({behavior: "smooth", block: "start"});
     }
 
     // btm add cart btn
@@ -70,43 +57,22 @@ export default function Detail({cartInfo}) {
     },[]);
 
     useEffect(() =>{
-        const updateOffsets = () => {
-            setOffset([
-                window.scrollY + refs.tab1Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab2Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab3Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab4Ref.current?.getBoundingClientRect().top
-            ]);
+        const handleScroll = () => {
+            const currentScrollPos = window.scrollY; // 수직으로 스크롤 된 값
+            const currentSection = scrolls.find(({ ref }) => {
+                if(ref.current){
+                        const offsetTop = ref.current.offsetTop;
+                        const offsetBottom = offsetTop + ref.current.offsetHeight + 680;
+                        return currentScrollPos >= offsetTop && currentScrollPos < offsetBottom;
+                    }
+                return false;
+            });
+            if(currentSection) setActiveEle(currentSection.id);          
         };
 
-        setTimeout(updateOffsets,2000);
-        
-        const scrollCheck = () =>{
-            if(window.scrollY < offset[0]){
-                navClass(tabRefs.nav1Ref);       
-            }else if(window.scrollY >= offset[0] && window.scrollY < offset[1]){
-                navClass(tabRefs.nav1Ref);               
-            }else if(window.scrollY >= offset[1] && window.scrollY < offset[2]){
-                navClass(tabRefs.nav2Ref);
-            }else if(window.scrollY >= offset[2] && window.scrollY < offset[3]){
-                navClass(tabRefs.nav3Ref);
-            }else if(window.scrollY >= offset[3] ){
-                navClass(tabRefs.nav4Ref);
-            }
-
-            if(btmCartRef.current){
-                if(window.scrollY > 400){
-                    btmCartRef.current.classList.add('scroll');
-                }else{
-                    btmCartRef.current.classList.remove('scroll');
-                }
-            }
-        }
-        scrollCheck();
-        
-        window.addEventListener('scroll',scrollCheck);
-        return window.removeEventListener('scroll',scrollCheck);
-    },[]);
+        window.addEventListener('scroll',handleScroll);
+        return () => window.removeEventListener('scroll',handleScroll);
+    },[scrolls]);
 
     // cart count
     const buttonCartCount = (type) => {
@@ -145,7 +111,7 @@ export default function Detail({cartInfo}) {
         <div>
             <div className="detail_area">
                 <div className="inner">
-                    <div className="top_info">
+                    <div className="top_info" ref={topInfoRef}>
                         {/* left */}
                         <div className="img_area">
                             <div className="img">
@@ -221,28 +187,31 @@ export default function Detail({cartInfo}) {
                     <div className="detail_tap_area">
                         <nav>
                             <ul>
-                                <li ref={tabRefs.nav1Ref} onClick={() => tabActive(tabRefs.nav1Ref,refs.tab1Ref)} className='on'>상품설명</li>
-                                <li ref={tabRefs.nav2Ref} onClick={() => tabActive(tabRefs.nav2Ref,refs.tab2Ref)}>상세정보</li>
-                                <li ref={tabRefs.nav3Ref} onClick={() => tabActive(tabRefs.nav3Ref,refs.tab3Ref)}>후기(1,234)</li>
-                                <li ref={tabRefs.nav4Ref} onClick={() => tabActive(tabRefs.nav4Ref,refs.tab4Ref)}>문의</li>
+                                {
+                                    scrolls.map((el) =>
+                                        <li ref={el.ref}  onClick={()=>tabActive(el.ref)} className={(activeEle === el.id) ? 'on':''}>
+                                            { (el.id === '후기') ? `${el.id}(1,2300)` : el.id }
+                                        </li>
+                                    )
+                                }
                             </ul>
                         </nav>
                         <div className="tab_box">
                             {/* 1 상품설명 */}
-                            <div ref={refs.tab1Ref}>
+                            <div ref={scrolls[0].ref}>
                                 <ProductInfo detailImgs={product.info_imgs}/>
                             </div>
                             {/* 2 상세정보 */}
 
-                            <div ref={refs.tab2Ref}>
+                            <div ref={scrolls[1].ref}>
                                 <DetailInfo detailImgs={product.detail_imgs} />
                             </div>
                             {/* 3 상품 후기 */}
-                            <div ref={refs.tab3Ref}>
+                            <div ref={scrolls[2].ref}>
                                 <ReviewInfo src={product.image_url} name={product.name} />
                             </div>
                             {/* 4 상품 문의 */}
-                            <div ref={refs.tab4Ref} >
+                            <div ref={scrolls[3].ref} >
                                 <InquireInfo src={product.image_url} name={product.name} />  
                             </div>
                         </div>
