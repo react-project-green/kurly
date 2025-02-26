@@ -15,10 +15,7 @@ import Order from './component/cart/Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import { PidProvider } from './context/ProductContext.js';
 import { CartProvider } from './context/CartContext.js';
-<<<<<<< HEAD
 import { SearchProvider } from './context/searchContext.js';
-=======
->>>>>>> dc8d3beb3ee993e1904d140fa7449235f5f190ee
 
 function App() {
 
