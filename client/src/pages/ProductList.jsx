@@ -7,7 +7,7 @@ export default function ProductList() {
     const [productList, setProductList ]= useState([]);
 
     useEffect(() =>{
-        axios.post('http://localhost:9000/product/all')
+        axios.post('http://localhost:9000/main/category', {category:'new'})
                 .then(res => setProductList(res.data))
                 .catch(err => console.log(err));
     },[]);

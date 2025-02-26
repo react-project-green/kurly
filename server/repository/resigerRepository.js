@@ -3,9 +3,9 @@ import {db} from './db.js';
 // 상품등록
 export const resigerProduct = async (formData ) => {
     console.log('formData',formData);
-    
+
     const sql=`
-                insert into kurly_product(
+                insert into product(
                                     brand,
                                     cate_depth1,
                                     cate_depth2,
@@ -35,8 +35,8 @@ export const resigerProduct = async (formData ) => {
         formData.dc || 0,
         formData.delivery ,
         formData.event || 0,
-        formData.uploadImg || null,
-        formData.orgImg || null,
+        JSON.stringify([formData.uploadImg]) || null,
+        JSON.stringify([formData.orgImg]) || null,
         formData.infoImgs || null,
         formData.orgInfoImgs || null,
         formData.detailImgs || null,
@@ -62,7 +62,7 @@ export const getList = async () => {
                     format((price * (100 - dc) *0.01),0) as discountedPrice,
                     event_label,
                     concat('http://localhost:9000/',upload_img) as image_url
-            from kurly_product
+            from product
     `;
 
     const [result] = await db.execute(sql);
