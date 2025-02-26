@@ -11,15 +11,15 @@ import CartBottom from '../component/detail/CartBottom.jsx';
 import Nav from '../component/detail/Nav.jsx';
 import {useCart} from '../hooks/useCart.js';
 import {AuthContext} from '../component/auth/AuthContext.js';
-import {CartContext} from '../component/auth/CartContext.js';
+import {CartContext} from '../context/CartContext.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
-    const {saveToCartList} = useCart();
+    const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
-    const {cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice} = useContext(CartContext);
+    const {cartList} = useContext(CartContext);
     const navigate = useNavigate();
     const scrolls = [
         {id:'상품설명', ref:useRef(null)},
