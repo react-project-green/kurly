@@ -43,8 +43,9 @@ export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        formData = {...formData,'images':fnames.uploadname};
+        if(fnames.uploadname) formData = {...formData,'images':fnames.uploadname};     
         getPopupData(formData);     
+        checkIsTrue(false);
     }
 
     return (
@@ -52,7 +53,7 @@ export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) 
                     <div className="box_area" style={{height : file ? '800px' : '690px'}}>
                         <div className="tit">상품 문의하기<button type="button" onClick={() => checkIsTrue(false)}><MdClose /></button></div>
                         <div className="product">
-                            <div className="thumb"> <img src={src} alt={name} /></div>
+                            <div className="thumb"> <img src={`http://localhost:9000/${src}`} alt={name} /></div>
                             <div>{name}</div>
                         </div>
                         <form onSubmit={handleSubmit}>
@@ -109,7 +110,7 @@ export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) 
                                 </div> 
                             </div>
                             <div className="btns">
-                                <button type='reset'>취소</button>
+                                <button type='reset' onClick={() => checkIsTrue(false)}>취소</button>
                                 <button type='submit'>등록</button>
                             </div>
                         </form>

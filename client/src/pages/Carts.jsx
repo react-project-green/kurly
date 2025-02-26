@@ -1,15 +1,13 @@
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../component/cart/cart.scss';
-
 // contexts, custom hooks
 import { useCart } from "../hooks/useCart.js";
-// import { AuthContext } from "../auth/AuthContext";
-import { CartContext } from "../context/CartContext";
-
-// 자식 컴포넌트
+import { CartContext } from "../context/CartContext.js";
+import { AuthContext } from "../component/auth/AuthContext.js";
+// component
 import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
@@ -18,32 +16,49 @@ import Packaging from '../component/cart/Packaging.jsx';
 
 export default function CartLayout() {
     
-
-
+    /*------------------------ 전역 ---------------------- */
     const { cartList, setCartList, cartCount , totalPrice } = useContext(CartContext);
     const { getCartList } = useCart();
+    const { isLogin } = useContext(AuthContext);
 
-    console.log('Carts의 cartList',cartList);
-    
 
-    useEffect(()=>{
-        // 로직 바꾸기 => 로그인시 불러오도록
-        getCartList();
-        
-        // getCartList();
-    },[])
-
-    const [productList, setProductList] = useState([]);
+    /* ----------------------- 로컬 ---------------------- */
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios
-            .get("/data/productList.json")
-            .then(res =>
-                setProductList(res.data)
-            )
-            .catch(error => console.log(error))
-    }, [])
+        // 로그인시 장바구니 불러오기
+            const hasCheckedLogin = useRef(false)
+            
+            useEffect(()=>{
+                if(hasCheckedLogin.current) return;
+                hasCheckedLogin.current = true;
+
+                if(isLogin) {
+                    getCartList();
+                } else {
+                    const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+                    select ? navigate('/login') : navigate('/');
+                    setCartList([])
+                }
+                
+            },[isLogin])
+
+        console.log('Carts의 cartList',cartList);
+
+
+
+
+    /* json 리스트 가져온 것 */
+        const [productList, setProductList] = useState([]);
+
+
+        useEffect(() => {
+            axios
+                .get("/data/productList.json")
+                .then(res =>
+                    setProductList(res.data)
+                )
+                .catch(error => console.log(error))
+        }, [])
 
 
     //회원정보 데이터 샘플
@@ -84,10 +99,6 @@ export default function CartLayout() {
     ];
 
 
-    /* order창으로 이동 */
-    const naviToOrder = () => {
-        navigate("../order");
-    }
 
 
 
@@ -173,7 +184,7 @@ export default function CartLayout() {
                     </div>
 
                     {/* 주문하기 버튼 */}
-                    <button className='order-btn1' onClick={naviToOrder}>
+                    <button className='order-btn1' onClick={()=>{navigate("../order")}}>
                         50,000원 주문하기
                     </button>
                 </div>
