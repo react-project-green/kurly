@@ -10,10 +10,7 @@ export default function ProductListCategory() {
      
     useEffect(() =>{
         axios.post('http://localhost:9000/main/category' , {category: categoryName})
-                .then(res => {
-                    console.log('res.jsx-->',res.data);
-                    setProductList(res.data)}
-                )
+                .then(res =>  setProductList(res.data))
                 .catch(err => console.log(err));
     },[categoryName]);
     

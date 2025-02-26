@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import registerRouter from './router/registerRouter.js';
 import uploadRouter from './router/uploadRouter.js';
-import categoryRouter from './router/categoryRouter.js'; 
+import mainRouter from './router/mainRouter.js'; 
 import memberRouter from './router/memberRouter.js' 
 import cartRouter from './router/cartRouter.js' 
 
@@ -31,7 +31,7 @@ server.use('/member', memberRouter);
 
 
 // 메인페이지 -> 카테고리 상품리스트
-server.use('/main', categoryRouter);
+server.use('/main', mainRouter);
 
 // 카트 
 server.use('/cart', cartRouter);

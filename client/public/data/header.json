@@ -4,11 +4,6 @@
                         {"no":2, "path":"/member/login", "title":"로그인"},
                         {"no":3, "path":"/", "title":"고객센터"}
                       ],
-  "header_icons" : [
-                    {"icon": "/images/commonImage/header_icon1.svg"},
-                    {"icon": "/images/commonImage/header_icon2.svg"},
-                    {"icon": "/images/commonImage/header_icon3.svg"}
-                  ],
   "support_menu" : [
                       {"path":"/", "title":"공지사항"},
                       {"path":"/", "title":"자주하는 질문"},
