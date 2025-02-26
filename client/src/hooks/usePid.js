@@ -2,7 +2,7 @@ import React,{useContext} from 'react';
 import {PidContext} from '../context/ProductContext.js';
 
 export function usePid() {
-    const {pidArr, setPidArr} = useContext(PidContext);
+    const {pidArr, setPidArr, heartArr, setHeartArr} = useContext(PidContext);
 
     const setPidList = (pid) => {
         if(pidArr.length < 10){
@@ -12,8 +12,13 @@ export function usePid() {
         }
         localStorage.setItem('viewProducts',pidArr);      
     }
+    
+    const setHeartList = (pid) => {
+        setHeartArr([pid, ...heartArr]);
+        localStorage.setItem('viewHeartList',heartArr);      
+    }
 
 
-    return { setPidList };
+    return { setPidList ,setHeartList };
 }
 

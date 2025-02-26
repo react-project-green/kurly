@@ -300,9 +300,9 @@ $common-width:1050px;
                     background-color: rgb(255, 255, 255);
                     border: 1px solid rgb(221, 221, 221);
                     font-size:24px;
-                    // .on *{
-                    //     color: rgb(246, 12, 0);
-                    // }
+                    .on *{
+                        fill: rgb(246, 12, 0);
+                    }
                 }
                 .bell{
                     border-color: rgb(221, 221, 221);
