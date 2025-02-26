@@ -41,10 +41,25 @@ export const getProductList = async({category}) => {
 }
 
 
+
 /*************************** 
- *  대분류 카테고리  값 가져오기
+ *  2. 메인화면 아이템 서치
 ***************************/
-export const getCategoryProductList = async() =>{
+export const getSearchItem = async({search}) => {
+  const searchKeyWord = `%${search}%`;
+ const sql =`
+  select * from view_categoty_pro_list where name like ? 
+ `;
+
+ const [result] = await db.execute(sql, [searchKeyWord]);
+ console.log('레파지토리>>>>>', result);
+ return result;
+}
+
+/*************************** 
+ *  3.대분류 카테고리  값 가져오기
+***************************/
+export const getCategoryProductList = async({}) =>{
   const sql =`
     
   `;

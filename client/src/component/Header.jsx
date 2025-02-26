@@ -4,17 +4,18 @@ import axios from 'axios';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { AuthContext } from './auth/AuthContext.js'
+import { SearchContext } from '../context/searchContext.js';
 import { Modal, Button } from 'antd'; 
 
 export default function Header() {
-  const [topMenu, setTopMenu] = useState([]);
-  const [supportMenu, setSupportMenu] = useState([]);
-  const [menuList, setMenuList] = useState([]);
-  const [icons, setIcons] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-  const [hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const { isLogin, setIsLogin, userType, setUserType } = useContext(AuthContext)
+  const [ topMenu, setTopMenu] = useState([]);
+  const [ supportMenu, setSupportMenu] = useState([]);
+  const [ categoryList, setCategoryList] = useState([]);
+  const [ searchValue , setSearchValue ] = useState('');
+  const [ hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
+  const [ isOpen, setIsOpen] = useState(false);
+  const { isLogin, setIsLogin, userType, setUserType } = useContext(AuthContext);
+  const { setSearchList } = useContext(SearchContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,21 +23,35 @@ export default function Header() {
       .then((res) => {
         setTopMenu(res.data["header_top_menu"])
         setSupportMenu(res.data["support_menu"])
-        setMenuList(res.data["header_middle_menu"])
-        setIcons(res.data["header_icons"])
         setCategoryList(res.data["category_list"])
       })
       .catch((error) => console.log(error))
   }, []);
 
+  const handleChange = (e) =>{
+    setSearchValue(e.target.value.trim());
+  }
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter') handleSearch();
+  }
+  const handleSearch = () =>{
+    axios.post('http://localhost:9000/main/search',{'search':searchValue})
+         .then((res)=> {
+            console.log('검색해봐!!!',res.data)
+            navigate('');
+            setSearchList(res.data);
+        })  
+         .catch((error)=>console.log(error))  
+  };
+  
+  const handleComplete = (data) => {
+    setIsOpen(false);
+  };
+  
   const handleTogle = () => {
     setIsOpen((prev) => !prev);
   };
-
-  const handleComplete = (data) => {
-    console.log('선택한 주소-->', data);
-    setIsOpen(false);
-  };
+  
   //로그인으로 헤더 버튼 바꾸기 
   const handleLoginToggle = () => {
     if (isLogin) {
@@ -99,8 +114,12 @@ export default function Header() {
               <button type='button' onClick={() => navigate('/')}>뷰티컬리</button>
             </div>
             <div className='header_middle_search'>
-              <input type="text" placeholder='검색어를 입력해주세요' />
-              <button className='search_button'></button>
+              <input type="text" 
+                     placeholder='검색어를 입력해주세요'
+                     onChange={(e)=>{handleChange(e)}}
+                     value={searchValue} 
+                     onKeyDown={handleKeyPress}/>
+              <button className='search_button' onClick={handleSearch}></button>
             </div>
             <div className='header_middle_right'>
               <button className='header_top_icon location_icon'>
