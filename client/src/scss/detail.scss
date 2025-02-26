@@ -7,6 +7,7 @@ $main-color:rgb(95, 0, 128);
 $common-width:1050px;
 .detail_area{
     position:relative;
+    padding-bottom:100px;
     .inner{
         width:1050px;
         margin:0 auto;
@@ -295,10 +296,13 @@ $common-width:1050px;
                     height: 56px;
                     line-height: 56px;
                     border-radius: 3px;
-                    color: rgb(51, 51, 51);
+                    color: red;
                     background-color: rgb(255, 255, 255);
                     border: 1px solid rgb(221, 221, 221);
                     font-size:24px;
+                    // .on *{
+                    //     color: rgb(246, 12, 0);
+                    // }
                 }
                 .bell{
                     border-color: rgb(221, 221, 221);

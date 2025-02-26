@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from 'react';
 
-export default function Nav({scrolls}) {
+export default function Nav({scrolls,topInfoRef}) {
     const [activeEle, setActiveEle] = useState(scrolls[0].id);
-
+    
     // tab nav click event
     const tabActive = (ref) => {
         ref.current.scrollIntoView({behavior: "smooth", block: "start"});
@@ -14,7 +14,7 @@ export default function Nav({scrolls}) {
             const currentSection = scrolls.find(({ ref }) => {
                 if(ref.current){
                         const offsetTop = ref.current.offsetTop;
-                        const offsetBottom = offsetTop + ref.current.offsetHeight + 680;
+                        const offsetBottom = offsetTop + ref.current.offsetHeight + topInfoRef.current.offsetHeight;
                         return currentScrollPos >= offsetTop && currentScrollPos < offsetBottom;
                     }
                 return false;

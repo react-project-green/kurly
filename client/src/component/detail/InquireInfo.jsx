@@ -2,6 +2,7 @@ import React,{useState, useRef} from 'react';
 import WritePopup from './WritePopup.jsx';
 import { SlArrowLeft } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
+import axios from 'axios';
 
 
 export default function InquireInfo({src, name}) {
@@ -10,8 +11,14 @@ export default function InquireInfo({src, name}) {
     const [popupData, setPopupData] = useState({});
 
     //test
-    const text = [1,2,3,4];
+    const text = [
+        {answer:'답변완료'},
+        {answer:'답변대기'},
+        {answer:'답변대기'},
+        {answer:'답변완료'}
+    ];
     const[clickIndex, setClickIndex] = useState(false);
+
     const handleClick = (idx) => {
         setClickIndex(idx);
     }
@@ -21,7 +28,7 @@ export default function InquireInfo({src, name}) {
     }
     // 팝업데이터
     const getPopupData = (data) => {
-        setPopupData(data)
+        console.log('data',data);
     }
     
     return (
@@ -55,12 +62,12 @@ export default function InquireInfo({src, name}) {
                     {text.map((item, idx) =>
                     <>
                     <tr>
-                        <td onClick={() => handleClick(idx)}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, unde.</td>
+                        <td onClick={() => handleClick(idx)} key={idx} style={{cursor: item.answer === '답변완료' ? 'pointer':''}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, unde.</td>
                         <td>연*연</td>
                         <td>2025.01.03</td>
-                        <td>답변완료</td>
+                        <td>{item.answer}</td>
                     </tr>
-                    { clickIndex === idx &&
+                    { (item.answer === '답변완료' && clickIndex === idx ) &&
                         <tr className='q_area'>
                             <td colSpan="4">
                                 <div><span className="icon_q">Q</span>오늘 새벽 배송으로 받았는데, 양념만 왔는데 이게 맞는건가요? </div>

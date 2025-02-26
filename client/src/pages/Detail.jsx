@@ -1,7 +1,7 @@
 import React,{useRef, useState, useEffect, useContext} from 'react';
 import { useParams ,useNavigate } from "react-router-dom";
-import { GoHeart } from "react-icons/go";
 import { VscBell } from "react-icons/vsc";
+import { AiFillHeart } from "react-icons/ai";
 
 import ProductInfo from '../component/detail/ProductInfo.jsx';
 import DetailInfo from '../component/detail/DetailInfo.jsx';
@@ -33,7 +33,9 @@ export default function Detail({cartInfo}) {
     const [product, setProduct] = useState({});
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
-
+    const [pick, setPick] = useState(false);
+    console.log('pick',pick);
+    
     // btm add cart btn
     const openCart = () => {
         if(btmCartRef.current){
@@ -160,7 +162,7 @@ export default function Detail({cartInfo}) {
                             </ul>
                             <div className="total_price"><span>총 상품금액:</span><strong>{(product.dcPrice * count).toLocaleString()}원</strong></div>
                             <div className="btns">
-                                <div className="heart"><GoHeart /></div>
+                                <div className="heart" onClick={()=> setPick(true)}><AiFillHeart style={{color:'red'}} /></div>
                                 <div className="bell"><VscBell /></div>
                                 <div className="add_cart" onClick={cartAddItem}>장바구니 담기</div>
                             </div>
@@ -169,7 +171,7 @@ export default function Detail({cartInfo}) {
                     </div>
                     <div className="detail_tap_area">
                         <nav>
-                            <Nav scrolls={scrolls} />
+                            <Nav scrolls={scrolls} topInfoRef={topInfoRef} />
                         </nav>
                         <div className="tab_box">
                             {/* 1 상품설명 */}
