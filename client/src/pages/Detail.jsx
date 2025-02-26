@@ -12,11 +12,15 @@ import Nav from '../component/detail/Nav.jsx';
 import {useCart} from '../hooks/useCart.js';
 import {AuthContext} from '../component/auth/AuthContext.js';
 import {CartContext} from '../context/CartContext.js';
+import {usePid} from '../hooks/usePid.js';
+import {PidContext} from '../context/ProductContext.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail({cartInfo}) {
+    const {pidArr, setPidArr, heartArr, setHeartArr} = useContext(PidContext);
+    const {setHeartList} = usePid();
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {cartList} = useContext(CartContext);
@@ -33,8 +37,7 @@ export default function Detail({cartInfo}) {
     const [product, setProduct] = useState({});
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
-    const [pick, setPick] = useState(false);
-    console.log('pick',pick);
+    const [heart, setHeart] = useState(false);
     
     // btm add cart btn
     const openCart = () => {
@@ -100,7 +103,19 @@ export default function Detail({cartInfo}) {
         
     }
 
-
+    // 찜하기
+    const handleAddHeart = () => {
+        setHeart(!heart);
+        
+        if(heart){
+            console.log('체크??',heart);
+            
+            setHeartList(product.pid);
+        }
+    }
+    console.log('heart',heart);
+    console.log(product.pid);
+            console.log('heartArr',heartArr);
     
 
     return (
@@ -173,7 +188,7 @@ export default function Detail({cartInfo}) {
                             </ul>
                             <div className="total_price"><span>총 상품금액:</span><strong>{(product.dcPrice * count).toLocaleString()}원</strong></div>
                             <div className="btns">
-                                <div className="heart" onClick={()=> setPick(true)}><AiFillHeart style={{color:'red'}} /></div>
+                                <div className="heart" onClick={handleAddHeart}><AiFillHeart className={heart ? 'on':''} /></div>
                                 <div className="bell"><VscBell /></div>
                                 <div className="add_cart" onClick={cartAddItem}>장바구니 담기</div>
                             </div>
