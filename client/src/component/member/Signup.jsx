@@ -225,15 +225,17 @@ export default function Signup() {
                         <li className='address-full'>
                             <label>주소<span>*</span></label>
                             <div >
-                                <div>
-                                    <Postcode />
+                                <div className='address-zipcode'> 
                                     <input type="text"
                                         ref={refs.zipcodeRef}
-                                        className='address-zipcode'
                                         name='zipcode'
                                         onChange={handleChangeForm}
                                         value={data.zipcode}
-                                        placeholder='우편번호' />
+                                        className='address-zipcode-input'
+                                        placeholder='우편번호' />  
+                                    <div>
+                                        <Postcode />
+                                    </div>
                                     {/* <button type="button"
                                         name='address' 
                                         onChange={handleChangeForm} 

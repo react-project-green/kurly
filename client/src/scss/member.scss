@@ -210,16 +210,25 @@ signup
       border-radius: 10%;
     }
   }
-  .address-full{  
-    border: 1px solid tomato;
-    // display: flex;
-    display: inline-block;
+  .address-full{ 
+    display: flex;
+    // display: inline-block;
     // margin-left: 170px;
-    div{ 
-      .address-zipcode{
+    div{
+      margin-left: 10px; 
+      margin-bottom: 5px;
+      .address-zipcode{ 
         width: 150px;
-        border-radius: 8px;
         height: 40px;
+        display: flex;
+        justify-content: space-around;
+        // border-radius: 8px;
+        .address-zipcode-input{
+          // border: 1px solid tomato; 
+          width: 150px;
+          height: 40px;
+          border-radius: 8px;
+        }
       } 
       .address-text{
         width: 300px;
@@ -228,11 +237,10 @@ signup
         margin-bottom: 5px;
       }
       .address-botton { 
-        margin-left: 5px;
         padding: 0px 10px;
         text-align: center; 
-        width: 80px; 
-        height: 30px;
+        width: 130px; 
+        height: 40px;
         border-radius: 4px;
         color: rgb(95, 0, 128);
         background-color: rgb(255, 255, 255);
