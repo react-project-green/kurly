@@ -10,6 +10,7 @@ import ProductListCategory from './pages/ProductListCategory.jsx';
 import ProductListCategoryDetail from './pages/ProductListCategoryDetail.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
+import Mypage from './component/member/Mypage.jsx';
 import Carts from './pages/Carts.jsx';
 import Order from './component/cart/Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
@@ -39,6 +40,7 @@ function App() {
               <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
               <Route path="/member/login" element={<Login />} />
               <Route path="/member/signup" element={<Signup />} />
+              <Route path="/member/mypage" element={<Mypage />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
               <Route path="/goods/new" element={<NewProduct />} />

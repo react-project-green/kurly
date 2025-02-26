@@ -7,6 +7,7 @@ router
     .post('/signup', controller.signupMember) //회원가입
     .post('/idcheck', controller.getIdCheck) //아이디중복체크
     .post('/login', controller.loginMember) //로그인
+    .post('/mypage')
     .post('/type', controller.getUserType)
 
     export default router; 

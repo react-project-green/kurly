@@ -232,7 +232,7 @@ export default function Signup() {
                                         onChange={handleChangeForm}
                                         value={data.zipcode}
                                         className='address-zipcode-input'
-                                        placeholder='우편번호' />  
+                                        placeholder='  우편번호' />  
                                     <div>
                                         <Postcode />
                                     </div>
@@ -247,13 +247,13 @@ export default function Signup() {
                                         onChange={handleChangeForm}
                                         value={data.address}
                                         className='address-text'
-                                        placeholder='도로명 주소'
+                                        placeholder='  도로명 주소'
                                         name='address' />
                                     <input type="text"
                                         ref={refs.detailaddresRef}
                                         onChange={handleChangeForm}
                                         className='address-text'
-                                        placeholder='상세 주소'
+                                        placeholder='  상세 주소'
                                         name='address' />
                                 </div>
                                 <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p>

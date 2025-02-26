@@ -1,6 +1,6 @@
-/*****************
-공통
-***************/
+/******************************
+ * member : 공통 
+ ******************************/
 /* App.css */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
@@ -35,12 +35,13 @@ body {
 }
 
 
-/*******************
-Login
-**********************/
+/******************************
+ * member : Login
+ ******************************/
 .member-form-box {
   width: 900px;
   margin: 0 auto;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
 
@@ -86,9 +87,9 @@ Login
   }
 }
 
-/*******************
-signup
-**********************/ 
+/******************************
+ * member : Signup 
+ ******************************/
 
 .signup-body {
   margin-top: 50px;
@@ -103,7 +104,7 @@ signup
     text-align: center;
     letter-spacing: -1px;
     color: rgb(51, 51, 51);
-  }  
+  }
 
   .signup-sub-title {
     padding-bottom: 10px;
@@ -117,7 +118,8 @@ signup
       color: red;
     }
   }
-  .button-box{
+
+  .button-box {
     // border: 1px solid green;
     margin-top: 20px;
     display: flex;
@@ -155,23 +157,25 @@ signup
       }
 
       .signup_input {
-        border: 1px solid gainsboro; 
+        border: 1px solid gainsboro;
         border-radius: 8px;
         width: 300px;
         height: 40px;
         padding: 10px;
       }
+
       .signup-phone-botton {
-        border: 1px solid gainsboro; 
-        width: 150px; 
+        border: 1px solid gainsboro;
+        width: 150px;
         height: 40px;
         border-radius: 5px;
         margin-left: 5px;
       }
+
       .member-line-top {
         // padding: 10px 0px;
         border-bottom: 1px solid rgb(51, 51, 51);
-      } 
+      }
 
       .signup_gender {
         width: 330px;
@@ -197,6 +201,7 @@ signup
   .email-full {
     display: inline-block;
     width: 56%;
+
     .email-address {
       width: 38%;
       border: 1px solid gainsboro;
@@ -210,49 +215,61 @@ signup
       border-radius: 10%;
     }
   }
-  .address-full{ 
+
+  .address-full {
     display: flex;
+
     // display: inline-block;
     // margin-left: 170px;
-    div{
-      margin-left: 10px; 
+    label {
+      width: 180px;
+    }
+
+    div {
+      margin-left: 10px;
       margin-bottom: 5px;
-      .address-zipcode{ 
+
+      .address-zipcode {
         width: 150px;
         height: 40px;
         display: flex;
         justify-content: space-around;
+
         // border-radius: 8px;
-        .address-zipcode-input{
+        .address-zipcode-input {
           // border: 1px solid tomato; 
           width: 150px;
           height: 40px;
           border-radius: 8px;
         }
-      } 
-      .address-text{
+      }
+
+      .address-text {
         width: 300px;
         border-radius: 8px;
         height: 40px;
         margin-bottom: 5px;
       }
-      .address-botton { 
+
+      .address-botton {
         padding: 0px 10px;
-        text-align: center; 
-        width: 130px; 
+        text-align: center;
+        width: 130px;
         height: 40px;
         border-radius: 4px;
         color: rgb(95, 0, 128);
         background-color: rgb(255, 255, 255);
         border: 1px solid rgb(95, 0, 128);
       }
-      p{
+
+      p {
         margin: 10px;
       }
-      
+
     }
-    
+
   }
+
   .phone-full {
 
     display: flex;
@@ -263,17 +280,19 @@ signup
       border-radius: 5px;
       margin-left: 5px;
     }
-  }  
+  }
 
   .signup_birth {
     display: flex;
-    
+
 
     div {
       // border: 1px solid rgb(95, 0, 128); 
-      border-radius: 4px; 
-      .birthdayFrame{
+      border-radius: 4px;
+
+      .birthdayFrame {
         border: 1px solid rgb(221, 221, 221);
+
         select {
           border: none;
           width: 105px;
@@ -306,44 +325,52 @@ signup
         font-weight: bold;
       }
     }
+
     .signup-notic {
+
       // margin-left: 90px;  
       div {
         // border: 1px solid tomato;
-        font-size: 1.3rem; 
+        font-size: 1.3rem;
       }
-      label{ 
+
+      label {
         // border: 1px solid blue;  
         margin-top: 10px;
 
       }
-      a{
-        border: 1px solid blue;  
+
+      a {
+        border: 1px solid blue;
       }
-      .label-box{
+
+      .label-box {
         // border: 1px solid tomato;
         margin-top: 0px
-      } 
+      }
+
       .signup-notic-sub {
         // border: 1px solid tomato;
         font-size: x-small;
-        padding-left: 50px; 
-        color: gray;  
+        padding-left: 50px;
+        color: gray;
       }
-      .member-radio-title{
+
+      .member-radio-title {
         // border: 1px solid tomato; 
         display: flex;
         margin-top: -55px;
         left: 20px;
-      } 
+      }
     }
-  
-    .control-container { 
+
+    .control-container {
       // display: flex;
       // justify-content: center;
       // position: relative; 
-  
-      height: 60px; 
+
+      height: 60px;
+
       .screen-reader {
         // Screen reader-specific styles to hide the checkbox visually
         position: absolute;
@@ -355,12 +382,12 @@ signup
         margin: -1px;
         clip-path: inset(50%);
       }
-  
+
       .label-box {
         // border: 1px solid salmon;
         position: relative;
         width: 100%;
-  
+
         .check-icon {
           width: 1.4em;
           height: 1.4em;
@@ -371,7 +398,7 @@ signup
           left: 0;
           top: 50%;
           transform: translateY(-50%);
-  
+
           &::before {
             content: "";
             position: absolute;
@@ -385,7 +412,7 @@ signup
             border-bottom: 1.7px solid gray;
           }
         }
-  
+
         .signup-link {
           // border: 1px solid blue;
           display: block;
@@ -393,7 +420,7 @@ signup
           color: rgb(95, 0, 128);
         }
       }
-  
+
       label {
         width: 100%;
         // border: 1px solid blue;
@@ -401,20 +428,20 @@ signup
         position: relative;
         cursor: pointer;
       }
-  
+
       [type="checkbox"]:checked+.label-box .check-icon {
         border-color: rgb(95, 0, 128);
         background-color: rgb(95, 0, 128);
         ;
       }
-  
+
       [type="checkbox"]:checked+.label-box .check-icon::before {
         border-color: #fff;
       }
     }
-  
+
   }
-  
+
   .member-radio {
     cursor: pointer;
     display: inline;
@@ -422,20 +449,20 @@ signup
     height: 24px;
     position: relative;
     vertical-align: center;
-    margin-right: 8px; 
+    margin-right: 8px;
     // border: 1px solid blue;
     // top: 5px;
-   
+
   }
-  
+
   .member-radio .radio-input {
-    
+
     display: none;
     padding: 0;
     margin: 0;
   }
-  
-  
+
+
   .member-radio .icon {
     // border: 1px solid blue; 
     position: absolute;
@@ -443,14 +470,81 @@ signup
     left: 0;
     transition: opacity 0.3s ease;
   }
-  
-  
+
+
   .member-radio .hidden {
     opacity: 0;
     pointer-events: none;
   }
-  .member-line-bottom{
+
+  .member-line-bottom {
     border-bottom: 1px solid #d6d6d6bb;
   }
-  }
+}
 
+/******************************
+ * member : My Page 
+ ******************************/
+.member-content-outline {
+  width: 100%;
+  background-color: #f2f5f8;
+
+  .member-content {
+    width: 1050px;
+    position: relative;
+    margin: 0px auto;
+    .member-my-page{
+      display: flex;
+      .member-popup{
+        width: 370px;
+      }
+      .member-my-side {
+        width: 375px;
+        margin: 30px 0 30px 0;
+        background-color: #fff;
+        border-radius: 8px;
+        div{
+          height: 50px;
+          p{
+            margin-bottom: 20px;
+          }
+          span{ 
+            font-size: 1.2rem;
+          }
+          label{
+            font-size: 1.5rem;
+          }
+        }
+        .member-my-side-1{ 
+          height: 250px;  
+          padding: 50px;
+          .member-my-side-point{
+            border: 1px solid #d6d6d6bb;
+            border-radius: 8px; 
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            label{
+              padding: 5px;
+              display: block;
+              justify-content: center;
+            }
+          }
+        }
+        .member-my-sand{
+          // border: 1px solid blue; 
+          height: 15px;
+          background-color: #f2f5f8;
+        }
+        .member-my-side-2{
+          height: 300px;  
+          padding: 30px 50px 50px 50px;
+        }
+        .member-my-side-3{ 
+          height: 250px; 
+          padding: 50px;
+        }
+      }
+    }
+  }
+}
