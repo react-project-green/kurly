@@ -58,3 +58,4 @@ from cart c,
 	product p
 where c.id = m.id 
 		and c.pid = p.pid;
+        
