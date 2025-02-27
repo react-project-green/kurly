@@ -500,7 +500,11 @@ body {
       .member-popup {   
         display: flex;
         justify-content: center;
-        margin: auto;
+        margin: auto;   
+        img{
+          cursor: pointer;
+
+        }
       }
 
       .member-my-side {
