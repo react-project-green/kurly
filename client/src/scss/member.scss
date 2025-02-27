@@ -493,56 +493,135 @@ body {
     width: 1050px;
     position: relative;
     margin: 0px auto;
-    .member-my-page{
+
+    .member-my-page {
       display: flex;
-      .member-popup{
-        width: 370px;
+
+      .member-popup {   
+        display: flex;
+        justify-content: center;
+        margin: auto;
       }
+
       .member-my-side {
         width: 375px;
         margin: 30px 0 30px 0;
         background-color: #fff;
         border-radius: 8px;
-        div{
+
+        div {
           height: 50px;
-          p{
+
+          p {
             margin-bottom: 20px;
+            color: #b5b5b5;
           }
-          span{ 
+
+          span {
             font-size: 1.2rem;
           }
-          label{
+
+          label {
             font-size: 1.5rem;
+            color: #333333;
+            text-align: center;
+            top: 20px;
+            font-weight: 700;
+            font-size: 16px;
           }
         }
-        .member-my-side-1{ 
-          height: 250px;  
-          padding: 50px;
-          .member-my-side-point{
-            border: 1px solid #d6d6d6bb;
-            border-radius: 8px; 
+
+        .member-my-side-1 {
+          height: 250px;
+          padding: 40px;
+          span{
+            font-weight: 600;
+            font-size: 1.5rem;
+          }
+
+          .member-my-side-point {
+            border: 1px solid #d6d6d6bb; 
+            border-radius: 8px;
             height: 100px;
             display: flex;
             justify-content: space-around;
-            label{
+
+            label {
               padding: 5px;
               display: block;
-              justify-content: center;
+              justify-content: center;  
+            } 
+            label:first-child{
+              // border: 1px solid blue;
+              margin-top: 20px;
             }
           }
         }
-        .member-my-sand{
+
+        .member-my-sand {
           // border: 1px solid blue; 
           height: 15px;
           background-color: #f2f5f8;
         }
-        .member-my-side-2{
-          height: 300px;  
-          padding: 30px 50px 50px 50px;
+        .member-click{
+          cursor: pointer;
+          label{
+            cursor: pointer;
+          }
         }
-        .member-my-side-3{ 
-          height: 250px; 
+
+        .member-my-side-2 {
+          height: 300px;
+          padding: 30px 50px 50px 50px;
+          div {
+            display: flex;
+            margin-right: 10px;
+
+            // border: 1px solid blue;
+            span {
+              // border: 1px solid blue;
+              display: inline-block;
+              margin-left: auto;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .member-my-side-3 {
+          height: 250px;
           padding: 50px;
+        }
+      }
+      .memever-my-right{
+        width: 650px;
+        margin-left: 40px;
+        .member-my-right-1{ 
+          // border: 1px solid tomato;
+          margin-top: 30px;
+          background-color: #fff;
+          border-radius: 8px;
+          height: 150px;
+          .member-my-right-title{
+            width: 600px;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 2rem;
+            display: flex;
+            margin: auto;
+            border-bottom: 3px solid #333333;
+          }
+          .member-my-button{
+            // border: 1px solid tomato;
+            display: flex;
+            justify-content: space-around;
+            button{
+              margin: 20px 0 20px 0; 
+              width: 120px;
+              height: 40px;
+              border-radius: 20px;
+              background-color: #f2f5f8;
+            }
+          }
         }
       }
     }
