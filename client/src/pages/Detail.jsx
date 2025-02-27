@@ -130,14 +130,18 @@ export default function Detail() {
 
     // 찜하기
     const handleAddHeart = () => {
-        // console.log('pid 확인',typeof pid);
         
         setHeart(!heart);
+
         let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
         const samePid = heartList.includes(product.pid);
-        if(!samePid){
+        
+        if(heart && !samePid){
             heartList.unshift(Number(pid));       
             localStorage.setItem('heartList',JSON.stringify(heartList)); 
+        }else if(heart && samePid){
+            let newList = heartList.filter((num) => num !== product.pid);
+            localStorage.setItem('heartList',JSON.stringify(newList)); 
         }
     }  
     
