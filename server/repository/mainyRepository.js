@@ -9,8 +9,9 @@ export const getProductList = async({category}) => {
   
   if(category === 'new'){
     sql =`select  *, concat(dc, '%') as discountRate
-            from    view_categoty_pro_list 
-           where   pdate = (select max(pdate) from view_categoty_pro_list)`;
+          from    view_categoty_pro_list 
+          where   pdate between date_sub((select max(pdate) from view_categoty_pro_list), interval 10 day) 
+                        and (select max(pdate) from view_categoty_pro_list);`;
   }else if(category === 'best'){
      sql=`
      select vw.* , concat(dc, '%') as discountRate
@@ -41,18 +42,19 @@ export const getProductList = async({category}) => {
 }
 
 
-
 /*************************** 
  *  2. 메인화면 아이템 서치
 ***************************/
 export const getSearchItem = async({search}) => {
   const searchKeyWord = `%${search}%`;
- const sql =`
-  select * from view_categoty_pro_list where name like ? 
- `;
+  console.log('searchKeyWord', searchKeyWord);
+  
+  const sql =`
+    select * from view_categoty_pro_list where name like ? 
+  `;
 
  const [result] = await db.execute(sql, [searchKeyWord]);
- console.log('레파지토리>>>>>', result);
+ console.log('result레파지토리', result);
  return result;
 }
 

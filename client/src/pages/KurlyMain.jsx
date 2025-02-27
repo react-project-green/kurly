@@ -5,6 +5,7 @@ import MainSection from'../component/main/MainSection.jsx';
 import MainPopUp from'../component/main/MainPopUp.jsx';
 
 export default function KurlyMain() {
+
   useEffect(() => {
    const handleScroll = () => {
     (window.scrollY > 200)
@@ -15,7 +16,7 @@ export default function KurlyMain() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+  
   return (
     <div className='content-outline'>
       <PromoBannerSlider />

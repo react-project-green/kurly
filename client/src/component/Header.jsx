@@ -6,17 +6,18 @@ import DaumPostcode from 'react-daum-postcode';
 import { AuthContext } from './auth/AuthContext.js'
 import { SearchContext } from '../context/searchContext.js';
 import { Modal, Button } from 'antd'; 
+import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
 
 export default function Header() {
   const [ topMenu, setTopMenu] = useState([]);
   const [ supportMenu, setSupportMenu] = useState([]);
   const [ categoryList, setCategoryList] = useState([]);
-  const [ searchValue , setSearchValue ] = useState('');
   const [ hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
-  const [ isOpen, setIsOpen] = useState(false);
-  const { isLogin, setIsLogin, userType, setUserType } = useContext(AuthContext);
-  const { setSearchList } = useContext(SearchContext);
+  // const [ isOpen, setIsOpen] = useState(false);
+  const { isLogin, userType, setUserType } = useContext(AuthContext);
+  const { searchKeyword, setSearchKeyword} = useContext(SearchContext);
   const navigate = useNavigate();
+  const { handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, isOpen  } = useHeaderHandler();
 
   useEffect(() => {
     axios.get('/data/header.json')
@@ -27,48 +28,7 @@ export default function Header() {
       })
       .catch((error) => console.log(error))
   }, []);
-
-  const handleChange = (e) =>{
-    setSearchValue(e.target.value.trim());
-  }
-  const handleKeyPress = (e) => {
-    if(e.key === 'Enter') handleSearch();
-  }
-  const handleSearch = () =>{
-    axios.post('http://localhost:9000/main/search',{'search':searchValue})
-         .then((res)=> {
-            console.log('검색해봐!!!',res.data)
-            navigate('');
-            setSearchList(res.data);
-        })  
-         .catch((error)=>console.log(error))  
-  };
-  
-  const handleComplete = (data) => {
-    setIsOpen(false);
-  };
-  
-  const handleTogle = () => {
-    setIsOpen((prev) => !prev);
-  };
-  
-  //로그인으로 헤더 버튼 바꾸기 
-  const handleLoginToggle = () => {
-    if (isLogin) {
-      const select = window.confirm("로그아웃 하시겠습니까?")
-      if (select) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_id")
-        localStorage.removeItem("user_type");
-        setIsLogin(false);
-        setUserType('');
-        navigate('/')
-      }
-    } else {
-      navigate('/login')
-    }
-  }
-
+ 
   return (
     <div className='header_outline'>
       <HeaderPromotionBanner />
@@ -95,7 +55,7 @@ export default function Header() {
                           <span className='drop_down_icon'></span>
                           <ul className='surrport_drop_down'>
                             {supportMenu && supportMenu.map((support) => (
-                              <li className='thin' onClick={() => { navigate('/') }}>
+                              <li className='thin' onClick={() =>handleCateNavigate('/')}>
                                 {support.title}
                               </li>
                             ))}
@@ -111,15 +71,15 @@ export default function Header() {
           <div className='header_middle'>
             <div className='header_middle_left'>
               <img src="/images/commonImage/Logo.svg" alt="image Logo" />
-              <button type='button' onClick={() => navigate('/')}>뷰티컬리</button>
+              <button type='button' onClick={() => handleCateNavigate('/')}>뷰티컬리</button>
             </div>
             <div className='header_middle_search'>
               <input type="text" 
                      placeholder='검색어를 입력해주세요'
-                     onChange={(e)=>{handleChange(e)}}
-                     value={searchValue} 
+                     onChange={(e)=>setSearchKeyword(e.target.value.trim())}
+                     value={searchKeyword} 
                      onKeyDown={handleKeyPress}/>
-              <button className='search_button' onClick={handleSearch}></button>
+              <button className='search_button' onClick={()=>handleSearch()}></button>
             </div>
             <div className='header_middle_right'>
               <div className='header_top_icon location_icon'>
@@ -129,7 +89,7 @@ export default function Header() {
                     <span>배송지를 등록</span><span>하고</span><br />
                   </div>
                   <span>구매 가능한 상품을 확인하세요!</span>
-                  <button type='button' onClick={() => navigate('/member/login')}>로그인</button>
+                  <button type='button' onClick={() => handleCateNavigate('/member/login')}>로그인</button>
                   <button type='button' onClick={handleTogle}>
                     <img src="/images/commonImage/search_img.svg" />주소검색
                   </button>
@@ -139,10 +99,10 @@ export default function Header() {
                 </div>
               </div>
               <button className='header_top_icon' 
-                      onClick={() => { isLogin ? navigate('/'): navigate('/member/login')}} >
+                      onClick={() => { isLogin ? handleCateNavigate('/'): handleCateNavigate('/member/login')}} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>
-              <button className='header_top_icon cart_icon' onClick={() => navigate('/cart')}>
+              <button className='header_top_icon cart_icon' onClick={() => handleCateNavigate('/cart')}>
                 <img src="/images/commonImage/header_icon3.svg" alt="header_icon" />
                 {/* { cartCount !==0 &&
                   <p className='cartItem_icon_bk'>
@@ -167,7 +127,7 @@ export default function Header() {
                     onMouseLeave={() => setHoverCategoryIndex(null)} >
                     { idx <= 3 ? ( 
                         <span className='thin category_list_1'
-                              onClick={()=>{navigate('/main/categories')}}>
+                              onClick={()=>{handleCateNavigate('/main/categories')}}>
                           <img src={category.img}/>{category.title}
                         </span>  
                       ) : (
@@ -180,7 +140,7 @@ export default function Header() {
                         {category.variety && category.variety.map((item, i)=>(
                             <li key={i} 
                                 className={ i <=1 ? 'category_acitve':'' }
-                                onClick={()=>{navigate('/')} }>{item.name}
+                                onClick={()=>{handleCateNavigate('/')} }>{item.name}
                             </li>      
                         ))}
                       </ul>  
@@ -191,18 +151,18 @@ export default function Header() {
           </div>
           <ul className='menu_list'>
             <li>
-              <button onClick={() => { navigate('/main/category/new') }}>신상품</button>
+              <button onClick={() => handleCateNavigate('/main/category/new')}>신상품</button>
             </li>
             <li>
-              <button onClick={() => { navigate('/main/category/best') }}>베스트</button>
+              <button onClick={() => handleCateNavigate('/main/category/best')}>베스트</button>
             </li>
             <li>
-              <button onClick={() => { navigate('/main/category/discount') }}>알뜰쇼핑</button>
+              <button onClick={() => handleCateNavigate('/main/category/discount')}>알뜰쇼핑</button>
             </li>
             <li>
               { (userType === 'A') ?  
-                   <button onClick={() => { navigate('/goods/new') }}>상품등록</button> 
-                 : <button onClick={() => { navigate('/main/category/special') }}>특가/혜택</button>
+                   <button onClick={() => handleCateNavigate('/goods/new')}>상품등록</button> 
+                 : <button onClick={() => handleCateNavigate('/main/category/special')}>특가/혜택</button>
               }
             </li>
           </ul>

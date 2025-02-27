@@ -117,7 +117,7 @@ export default function NewProduct() {
         if(validator() ) {
            console.log('formData',formData);
             
-            axios.post('http://localhost:9000/product/new',formData)
+            axios.post('http://localhost:9000/main/category/new',formData)
                     .then(res =>{
                             if(res.data.affectedRows === 1){
                                 alert(`상품이 등록되었습니다.\n리스트화면으로 이동합니다.`);

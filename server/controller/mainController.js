@@ -4,7 +4,9 @@ import * as repository from '../repository/mainyRepository.js';
  *  1. 프로덕트 리스트 값 가져오기 
 ***************************/
 export const getProductList = async(req, res) => { 
-  const result = await repository.getProductList(req.body);
+  let result = [];
+  (req.body.category === 'search') ? result = await getSearchItem(req.body.searchKeyword) 
+    : result = await repository.getProductList(req.body);
   res.json(result);
   res.end();
 };
@@ -12,12 +14,11 @@ export const getProductList = async(req, res) => {
 /*************************** 
  *  2. 메인화면 아이템 서치
 ***************************/
-export const getSearchItem = async(req, res) => {
-  console.log('req.bod>>>', req.body);
-  const result = await repository.getSearchItem(req.body); 
-  res.json(result);
-  res.end();
+const getSearchItem = async(search) => {
+  const result = await repository.getSearchItem({search}); 
+  return result;
 };
+
 
 /*************************** 
  *  3. 대분류 카테고리  값 가져오기
