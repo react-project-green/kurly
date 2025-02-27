@@ -5,15 +5,15 @@ import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { AuthContext } from './auth/AuthContext.js'
 import { SearchContext } from '../context/searchContext.js';
-import { Modal, Button } from 'antd'; 
+import { Modal, Button } from 'antd';
 
 export default function Header() {
-  const [ topMenu, setTopMenu] = useState([]);
-  const [ supportMenu, setSupportMenu] = useState([]);
-  const [ categoryList, setCategoryList] = useState([]);
-  const [ searchValue , setSearchValue ] = useState('');
-  const [ hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
-  const [ isOpen, setIsOpen] = useState(false);
+  const [topMenu, setTopMenu] = useState([]);
+  const [supportMenu, setSupportMenu] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { isLogin, setIsLogin, userType, setUserType } = useContext(AuthContext);
   const { setSearchList } = useContext(SearchContext);
   const navigate = useNavigate();
@@ -28,46 +28,48 @@ export default function Header() {
       .catch((error) => console.log(error))
   }, []);
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     setSearchValue(e.target.value.trim());
   }
   const handleKeyPress = (e) => {
-    if(e.key === 'Enter') handleSearch();
+    if (e.key === 'Enter') handleSearch();
   }
-  const handleSearch = () =>{
-    axios.post('http://localhost:9000/main/search',{'search':searchValue})
-         .then((res)=> {
-            console.log('검색해봐!!!',res.data)
-            navigate('');
-            setSearchList(res.data);
-        })  
-         .catch((error)=>console.log(error))  
+  const handleSearch = () => {
+    axios.post('http://localhost:9000/main/search', { 'search': searchValue })
+      .then((res) => {
+        console.log('검색해봐!!!', res.data)
+        navigate('');
+        setSearchList(res.data);
+      })
+      .catch((error) => console.log(error))
   };
-  
+
   const handleComplete = (data) => {
     setIsOpen(false);
   };
-  
+
   const handleTogle = () => {
     setIsOpen((prev) => !prev);
   };
-  
-  //로그인으로 헤더 버튼 바꾸기 
+
+  //로그인으로 헤더 버튼 변경
   const handleLoginToggle = () => {
     if (isLogin) {
-      const select = window.confirm("로그아웃 하시겠습니까?")
+      const select = window.confirm("로그아웃 하시겠습니까?");
       if (select) {
         localStorage.removeItem("token");
-        localStorage.removeItem("user_id")
+        localStorage.removeItem("user_id");
         localStorage.removeItem("user_type");
         setIsLogin(false);
         setUserType('');
-        navigate('/')
+        navigate('/member/login');
+        alert("로그아웃되었습니다.");
       }
     } else {
-      navigate('/login')
+      navigate('/member/login');
     }
-  }
+  };
+
 
   return (
     <div className='header_outline'>
@@ -76,12 +78,27 @@ export default function Header() {
         <div className='header_top'>
           <div className='header_top_menu'>
             {/* 로그인 상태에 따른 Header-topMenu 변경 */}
-          {topMenu && topMenu.map((menu) => (
-            //로그인 => 로그아웃
+            {topMenu && topMenu.map((menu) => (
+              // 로그인 => 로그아웃
               menu.path === "/member/login" ? (
-                <Link to={menu.path} className='thin header_top_menu_item' onClick={handleLoginToggle}>
-                  {isLogin ? "로그아웃" : "로그인"}
-                </Link>
+                isLogin ? (
+                  // 로그아웃 상태일 때
+                  <button
+                    className='thin header_top_menu_item'
+                    onClick={handleLoginToggle} // 로그아웃 처리 함수
+                  >
+                    로그아웃
+                  </button>
+                ) : (
+                  // 로그인 상태가 아닐 때
+                  <Link
+                    to={menu.path}
+                    className='thin header_top_menu_item'
+                    onClick={handleLoginToggle}
+                  >
+                    로그인
+                  </Link>
+                )
               ) : (
                 // token이 없으면 회원가입
                 menu.path === "/member/signup" && !localStorage.getItem("token") ? (
@@ -89,7 +106,7 @@ export default function Header() {
                     {menu.title}
                   </Link>
                 ) : (
-                  // token이 없으면 있으면 MyPage
+                  // token이 있으면 MyPage
                   menu.path === "/member/signup" && localStorage.getItem("token") ? (
                     <Link to="/member/mypage" className='thin header_top_menu_item'>
                       MyPage
@@ -123,11 +140,11 @@ export default function Header() {
               <button type='button' onClick={() => navigate('/')}>뷰티컬리</button>
             </div>
             <div className='header_middle_search'>
-              <input type="text" 
-                     placeholder='검색어를 입력해주세요'
-                     onChange={(e)=>{handleChange(e)}}
-                     value={searchValue} 
-                     onKeyDown={handleKeyPress}/>
+              <input type="text"
+                placeholder='검색어를 입력해주세요'
+                onChange={(e) => { handleChange(e) }}
+                value={searchValue}
+                onKeyDown={handleKeyPress} />
               <button className='search_button' onClick={handleSearch}></button>
             </div>
             <div className='header_middle_right'>
@@ -147,8 +164,8 @@ export default function Header() {
                   </Modal>
                 </div>
               </div>
-              <button className='header_top_icon' 
-                      onClick={() => { isLogin ? navigate('/'): navigate('/member/login')}} >
+              <button className='header_top_icon'
+                onClick={() => { isLogin ? navigate('/') : navigate('/member/login') }} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>
               <button className='header_top_icon cart_icon' onClick={() => navigate('/cart')}>
@@ -172,28 +189,28 @@ export default function Header() {
             <ul className='category_list'>
               {categoryList && categoryList.map((category, idx) => (
                 <li key={idx}
-                    onMouseEnter={() => setHoverCategoryIndex(idx)}
-                    onMouseLeave={() => setHoverCategoryIndex(null)} >
-                    { idx <= 3 ? ( 
-                        <span className='thin category_list_1'
-                              onClick={()=>{navigate('/main/categories')}}>
-                          <img src={category.img}/>{category.title}
-                        </span>  
-                      ) : (
-                        <span className='thin category_list_2'>
-                          <img src={category.img} />{category.title}
-                        </span>
-                      )} 
-                    {hoverCategoryIndex === idx && (
-                      <ul className='variety_list light'>
-                        {category.variety && category.variety.map((item, i)=>(
-                            <li key={i} 
-                                className={ i <=1 ? 'category_acitve':'' }
-                                onClick={()=>{navigate('/')} }>{item.name}
-                            </li>      
-                        ))}
-                      </ul>  
-                    )}  
+                  onMouseEnter={() => setHoverCategoryIndex(idx)}
+                  onMouseLeave={() => setHoverCategoryIndex(null)} >
+                  {idx <= 3 ? (
+                    <span className='thin category_list_1'
+                      onClick={() => { navigate('/main/categories') }}>
+                      <img src={category.img} />{category.title}
+                    </span>
+                  ) : (
+                    <span className='thin category_list_2'>
+                      <img src={category.img} />{category.title}
+                    </span>
+                  )}
+                  {hoverCategoryIndex === idx && (
+                    <ul className='variety_list light'>
+                      {category.variety && category.variety.map((item, i) => (
+                        <li key={i}
+                          className={i <= 1 ? 'category_acitve' : ''}
+                          onClick={() => { navigate('/') }}>{item.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>
@@ -209,9 +226,9 @@ export default function Header() {
               <button onClick={() => { navigate('/main/category/discount') }}>알뜰쇼핑</button>
             </li>
             <li>
-              { (userType === 'A') ?  
-                   <button onClick={() => { navigate('/goods/new') }}>상품등록</button> 
-                 : <button onClick={() => { navigate('/main/category/special') }}>특가/혜택</button>
+              {(userType === 'A') ?
+                <button onClick={() => { navigate('/goods/new') }}>상품등록</button>
+                : <button onClick={() => { navigate('/main/category/special') }}>특가/혜택</button>
               }
             </li>
           </ul>
