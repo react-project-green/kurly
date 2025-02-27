@@ -1,7 +1,9 @@
 import React from 'react';
 import { CiMemoPad, CiGift, CiHeart, CiDeliveryTruck } from "react-icons/ci";
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Mypage() {
+    const navigate =useNavigate();
     const memberClick = () => {
         alert("보유하고 있는 쿠폰이 없습니다")
     }
@@ -69,9 +71,15 @@ export default function Mypage() {
                             </div>
                         </div>
                         <div className='member-popup'>
-                            <img src="https://product-image.kurly.com/hdims/resize/%5E%3E350x/cropcenter/1150x/quality/85/format/jpg/src/banner/da-banner/5b045588-641b-4276-b98c-27711d762d59.jpg" alt="" />
+                            <div>
+                            <img  
+                            onClick={()=>navigate("/main/category/special")}
+                            src="https://product-image.kurly.com/hdims/resize/%5E%3E350x/cropcenter/1150x/quality/85/format/jpg/src/banner/da-banner/5b045588-641b-4276-b98c-27711d762d59.jpg" 
+                            alt="" />
+                            </div>
                         </div>
                         <div className='member-my-side-3'>
+                            <div>
                             <p>내 정보 관리</p>
                             <div>
                                 <label>개인정보 수정
@@ -80,6 +88,7 @@ export default function Mypage() {
                             <div>
                                 <label>1:1문의
                                 </label>
+                            </div>
                             </div>
                         </div>
                     </div>
