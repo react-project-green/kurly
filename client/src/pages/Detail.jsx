@@ -136,12 +136,9 @@ export default function Detail() {
         let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
         const samePid = heartList.includes(product.pid);
         
-        if(heart && !samePid){
+        if(!samePid){
             heartList.unshift(Number(pid));       
             localStorage.setItem('heartList',JSON.stringify(heartList)); 
-        }else if(heart && samePid){
-            let newList = heartList.filter((num) => num !== product.pid);
-            localStorage.setItem('heartList',JSON.stringify(newList)); 
         }
     }  
     
