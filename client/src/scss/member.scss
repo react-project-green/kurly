@@ -1,12 +1,8 @@
 /******************************
  * member : 공통 
  ******************************/
-/* App.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
 
 .member-true-button {
   display: block;
@@ -488,6 +484,7 @@ body {
 .member-content-outline {
   width: 100%;
   background-color: #f2f5f8;
+  font-family: 'Roboto', sans-serif;
 
   .member-content {
     width: 1050px;
@@ -497,11 +494,12 @@ body {
     .member-my-page {
       display: flex;
 
-      .member-popup {   
+      .member-popup {
         display: flex;
         justify-content: center;
-        margin: auto;   
-        img{
+        margin: auto;
+
+        img {
           cursor: pointer;
 
         }
@@ -538,13 +536,34 @@ body {
         .member-my-side-1 {
           height: 250px;
           padding: 40px;
-          span{
-            font-weight: 600;
-            font-size: 1.5rem;
+          .member-my-customer{
+            span {
+              font-weight: 600;
+              font-size: 1.5rem;
+            }
+            .shimmer-text { 
+              font-size: 24px;
+              font-weight: bold;
+              background: linear-gradient(to right, #767ae4 0%, #5ba7db 100%);
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-size: 300% auto;
+              animation: textShine 1s ease-in-out infinite alternate;
           }
+  
+          @keyframes textShine {
+              0% {
+                  background-position: 0% 0%;
+              }
+              100% {
+                  background-position: 100% 100%;
+              }
+          }
+          }
+          
 
           .member-my-side-point {
-            border: 1px solid #d6d6d6bb; 
+            border: 1px solid #d6d6d6bb;
             border-radius: 8px;
             height: 100px;
             display: flex;
@@ -553,9 +572,10 @@ body {
             label {
               padding: 5px;
               display: block;
-              justify-content: center;  
-            } 
-            label:first-child{
+              justify-content: center;
+            }
+
+            label:first-child {
               // border: 1px solid blue;
               margin-top: 20px;
             }
@@ -567,9 +587,11 @@ body {
           height: 15px;
           background-color: #f2f5f8;
         }
-        .member-click{
+
+        .member-click {
           cursor: pointer;
-          label{
+
+          label {
             cursor: pointer;
           }
         }
@@ -577,16 +599,20 @@ body {
         .member-my-side-2 {
           height: 300px;
           padding: 30px 50px 50px 50px;
+
           div {
             display: flex;
             margin-right: 10px;
 
-            // border: 1px solid blue;
             span {
-              // border: 1px solid blue;
+              // 
               display: inline-block;
               margin-left: auto;
               font-weight: bold;
+            }
+
+            label {
+              margin-top: 5px;
             }
           }
         }
@@ -596,16 +622,19 @@ body {
           padding: 50px;
         }
       }
-      .memever-my-right{
+
+      .memever-my-right {
         width: 650px;
         margin-left: 40px;
-        .member-my-right-1{ 
+
+        .member-my-right-1 {
           // border: 1px solid tomato;
           margin-top: 30px;
           background-color: #fff;
           border-radius: 8px;
-          height: 150px;
-          .member-my-right-title{
+          height: auto;
+
+          .member-my-right-title {
             width: 600px;
             padding: 20px;
             font-weight: 600;
@@ -613,13 +642,33 @@ body {
             display: flex;
             margin: auto;
             border-bottom: 3px solid #333333;
+            span{
+              // border: 1px solid tomato;
+              margin-top: 10px;
+              padding-left: 8px;
+              font-size: 13px;
+              line-height: 20px;
+              letter-spacing: -0.2px;
+              color: rgb(153, 153, 153);
+            }
+            p{
+              display: flex ;
+              justify-content: flex-end;
+                  align-items: center;
+                  height: 24px;
+                  font-weight: 500;
+                  font-size: 16px;
+                  line-height: 24px;
+                  letter-spacing: -0.4px;
+            } 
           }
-          .member-my-button{
-            // border: 1px solid tomato;
+
+          .member-my-button { 
             display: flex;
             justify-content: space-around;
-            button{
-              margin: 20px 0 20px 0; 
+
+            button {
+              margin: 20px 0 20px 0;
               width: 120px;
               height: 40px;
               border-radius: 20px;
