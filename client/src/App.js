@@ -14,20 +14,14 @@ import Mypage from './component/member/Mypage.jsx';
 import Carts from './pages/Carts.jsx';
 import Order from './component/cart/Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
-import { PidProvider } from './context/ProductContext.js';
 import { CartProvider } from './context/CartContext.js';
 import { SearchProvider } from './context/searchContext.js';
 
 function App() {
 
-  const cartInfo = (data) => {
-    console.log('cart data',data);
-  };
-
   return (
     <div className="App">
       <CartProvider >
-      <PidProvider>
       <SearchProvider>
       <AuthProvider>
       <BrowserRouter>
@@ -37,7 +31,7 @@ function App() {
               <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
               <Route path="/main/categories" element={<ProductListCategoryDetail />} />
               <Route path="/goods/list" element={<ProductList />} />
-              <Route path="/goods/detail/:pid" element={<Detail cartInfo={cartInfo} />} />
+              <Route path="/goods/detail/:pid" element={<Detail />} />
               <Route path="/member/login" element={<Login />} />
               <Route path="/member/signup" element={<Signup />} />
               <Route path="/member/mypage" element={<Mypage />} />
@@ -49,7 +43,6 @@ function App() {
       </BrowserRouter>
       </AuthProvider>
       </SearchProvider>
-      </PidProvider>
       </CartProvider>
     </div>
   );

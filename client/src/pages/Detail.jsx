@@ -12,15 +12,11 @@ import Nav from '../component/detail/Nav.jsx';
 import {useCart} from '../hooks/useCart.js';
 import {AuthContext} from '../component/auth/AuthContext.js';
 import {CartContext} from '../context/CartContext.js';
-import {usePid} from '../hooks/usePid.js';
-import {PidContext} from '../context/ProductContext.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
 
-export default function Detail({cartInfo}) {
-    const {pidArr, setPidArr, heartArr, setHeartArr} = useContext(PidContext);
-    const {setPidList, setHeartList} = usePid();
+export default function Detail() {
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {cartList} = useContext(CartContext);
@@ -56,26 +52,39 @@ export default function Detail({cartInfo}) {
     useEffect(() =>{
         axios.post('http://localhost:9000/product/detail',{'pid':pid})
                 .then((res) => {
-                    setProduct(res.data[0]);    
-                    setPidList(res.data[0].pid);  
-                    console.log('res.data[0].pid',res.data[0].pid);
-                                 
+                    setProduct(res.data[0]);                                    
                 })
                 .catch((error) => console.log(error));
     },[]);
 
     useEffect(()=>{
-        if(product.pid){
-            console.log('체크하는지 확인!!');
+        if(product.pid){   
+            const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
+            if(checkArray && product.pid){
+                const samePid = checkArray.includes(product.pid);
+                if(samePid) setHeart(true);
+            }
             
-            const check = heartArr.includes(product.pid);
-            if(check) setHeart(true);
         }
-    },[product.pid,heartArr]);
-    // heart check
-    console.log('product.pid------------------>>',product.pid);   
-    
-    console.log('setHeart',heart);
+    },[product.pid]);
+
+    useEffect(()=>{
+        const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
+        
+        if(pidArray && product.pid){  
+            const samePid = pidArray.includes(product.pid);
+            if(!samePid){
+                if(pidArray.length < 10){
+                    pidArray.unshift(product.pid);
+                }else{
+                    pidArray.unshift(product.pid);
+                    pidArray.pop();
+                }
+            }
+        }
+        localStorage.setItem('viewProducts', JSON.stringify(pidArray));   
+        
+    },[product.pid]); // pid
 
     // cart count
     const buttonCartCount = (type) => {
@@ -121,14 +130,16 @@ export default function Detail({cartInfo}) {
 
     // 찜하기
     const handleAddHeart = () => {
-        setHeart(!heart);
-        setHeartList(product.pid);
+        // console.log('pid 확인',typeof pid);
         
-        // if(heart === true){ 함수 실행이 안됨.   
-        // }
-    }
-
-    
+        setHeart(!heart);
+        let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
+        const samePid = heartList.includes(product.pid);
+        if(!samePid){
+            heartList.unshift(Number(pid));       
+            localStorage.setItem('heartList',JSON.stringify(heartList)); 
+        }
+    }  
     
     return (
         <div>
