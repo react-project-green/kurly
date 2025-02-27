@@ -1,21 +1,20 @@
-import React,{useRef, useState, useEffect} from 'react';
+import React,{useRef, useState, useEffect, useContext} from 'react';
 import WritePopup from './WritePopup.jsx';
 import { LuThumbsUp } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination} from 'swiper/modules';
 import { IoMdClose } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
+import axios from 'axios';
 import 'swiper/css';
 
 export default function ReviewInfo({src, name}) {
     const [slideImg, setSlideImg] = useState([]);
     const [dimiDisplay, setDimiDisplay] = useState(false);
     const [isTrue, setIsTrue] = useState(false);
-    const [popupData, setPopupData] = useState({});
 
     useEffect(() => {
         axios.get('/data/productList.json')
@@ -25,9 +24,6 @@ export default function ReviewInfo({src, name}) {
 
     const checkIsTrue = (check) => {
             setIsTrue(check);
-    }
-    const getPopupData = (data) => {
-        setPopupData(data)
     }
     
     return (
@@ -144,7 +140,7 @@ export default function ReviewInfo({src, name}) {
                     </div>
                 </div>
             </div>}
-            { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} file="true" getPopupData={getPopupData} />}
+            { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} file="true" />}
         </div>
     );
 }
