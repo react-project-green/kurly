@@ -130,17 +130,28 @@ export default function Detail() {
 
     // 찜하기
     const handleAddHeart = () => {
-        
-        setHeart(!heart);
-
-        let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
-        const samePid = heartList.includes(product.pid);
-        
-        if(!samePid){
-            heartList.unshift(Number(pid));       
-            localStorage.setItem('heartList',JSON.stringify(heartList)); 
+        if(isLogin){
+            let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
+            const samePid = heartList.includes(product.pid);
+            
+            if(!samePid){
+                heartList.unshift(Number(pid));       
+                localStorage.setItem('heartList',JSON.stringify(heartList)); 
+                setHeart(true);
+            }else{
+                const newArray = heartList.filter((item)=> item !== product.pid);
+                localStorage.setItem('heartList',JSON.stringify(newArray)); 
+                setHeart(false);
+            }
+        }else{
+            alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.');
+            navigate('/member/login');
         }
+        
+
+        
     }  
+    console.log('heart---->>',heart);
     
     return (
         <div>
