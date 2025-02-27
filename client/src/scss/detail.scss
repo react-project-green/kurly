@@ -1,13 +1,15 @@
 @import 'common';
-button > *{
-    display:inline;
-}
-*{box-sizing: border-box;}
+
+
 $main-color:rgb(95, 0, 128);
 $common-width:1050px;
 .detail_area{
     position:relative;
     padding-bottom:100px;
+    *{box-sizing: border-box;}
+    button > *{
+        display:inline;
+    }
     .inner{
         width:1050px;
         margin:0 auto;
