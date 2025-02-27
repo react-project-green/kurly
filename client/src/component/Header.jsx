@@ -75,34 +75,43 @@ export default function Header() {
       <div className='header'>
         <div className='header_top'>
           <div className='header_top_menu'>
-            {topMenu && topMenu.map((menu) => (
+            {/* 로그인 상태에 따른 Header-topMenu 변경 */}
+          {topMenu && topMenu.map((menu) => (
+            //로그인 => 로그아웃
               menu.path === "/member/login" ? (
                 <Link to={menu.path} className='thin header_top_menu_item' onClick={handleLoginToggle}>
-                  {isLogin ? "로그아웃" : "로그인"} 
-                </Link> 
+                  {isLogin ? "로그아웃" : "로그인"}
+                </Link>
               ) : (
-                // Check for "member/signup" path and token in localStorage
+                // token이 없으면 회원가입
                 menu.path === "/member/signup" && !localStorage.getItem("token") ? (
                   <Link to={menu.path} className='thin header_top_menu_item'>
                     {menu.title}
                   </Link>
                 ) : (
-                  menu.path !== "/member/signup" && (
-                    <Link to={menu.path} className='thin header_top_menu_item'>
-                      {menu.title}
-                      {menu.no === 3 && (
-                        <>
-                          <span className='drop_down_icon'></span>
-                          <ul className='surrport_drop_down'>
-                            {supportMenu && supportMenu.map((support) => (
-                              <li className='thin' onClick={() => { navigate('/') }}>
-                                {support.title}
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      )}
+                  // token이 없으면 있으면 MyPage
+                  menu.path === "/member/signup" && localStorage.getItem("token") ? (
+                    <Link to="/member/mypage" className='thin header_top_menu_item'>
+                      MyPage
                     </Link>
+                  ) : (
+                    menu.path !== "/member/signup" && (
+                      <Link to={menu.path} className='thin header_top_menu_item'>
+                        {menu.title}
+                        {menu.no === 3 && (
+                          <>
+                            <span className='drop_down_icon'></span>
+                            <ul className='surrport_drop_down'>
+                              {supportMenu && supportMenu.map((support) => (
+                                <li className='thin' onClick={() => { navigate('/') }}>
+                                  {support.title}
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
+                      </Link>
+                    )
                   )
                 )
               )
