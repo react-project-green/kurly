@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export function useCart() {
-    const { cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice } = useContext(CartContext);
+    const { cartList, setCartList, cartCount, setCartCount } = useContext(CartContext);
 
 
 /********************************************
@@ -26,14 +26,24 @@ export function useCart() {
 ********************************************/
     const saveToCartList = async (formData) => {
         const result = await axios.post("http://localhost:9000/cart/add", formData);
-        
+        if (result.data.result_rows) {
+            setCartCount(cartCount + 1);
+            getCartList();
+        }
+        return result.data.result_rows;
+
     }
 
 /********************************************
         장바구니 아이템 수량 저장
         사용처 : Detail, Carts
 ********************************************/
-    const updateCartList = async () => {
+    const updateCartList = async (no, type, qty) => {
+        console.log("보낼데이터->", { no, type, qty });
+        const result = await axios.put('http://localhost:9000/cart/updateQty', 
+        { "no": no, 'type': type, 'qty' : qty });
+        result.data.result_rows && getCartList();
+        return result.data.result_rows;
     }
 
 
@@ -43,14 +53,13 @@ export function useCart() {
 ********************************************/
     const getCount = async () => {
         
-        
     };
 
 
 
 /********************************************
- 장바구니 카운트 초기화
- 사용처 : Header
+    장바구니 카운트 초기화
+    사용처 : Header
  ********************************************/
 
 const setCount = () => { setCartCount();}
@@ -61,23 +70,26 @@ const setCount = () => { setCartCount();}
         사용처 : Carts
 ********************************************/
 
-    const deleteCartItem = async() => { 
-
+    const deleteCartItem = async(no) => { 
+        const result = await axios.delete("http://localhost:9000/cart/deleteItem",{data :{ "no": no}})
+        // 삭제 성공 후 장바구니 리스트 재호출
+        result.data.result_rows && getCartList();
 }
 
 
 /********************************************
-        장바구니 총 주문금액 계산하기
-        사용처 : useOrder
+        장바구니 결제금액 계산
+        사용처 : Carts, useOrder
 ********************************************/
 
-    const calculateTotalPrice = () => {
-    
-}; 
+// const calculateTotalPrice = (cartList) => {
+//     const totalPrice = cartList.reduce((sum, item) => {
+//         const dcPrice = item.price * (1 - item.dc / 100);
+//         return sum + dcPrice * item.qty;
+//     }, 0 )
+//     setTotalPrice(totalPrice);
+// }; 
 
 
-
-
-
-return { saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem, calculateTotalPrice };
+return { saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem };
 }

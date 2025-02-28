@@ -1,22 +1,36 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { CartContext } from "../../context/CartContext.js";
+import { useCart } from "../../hooks/useCart.js";
 
-export default function ProductItem({ name, originalPrice, discountedPrice, img, packaging, icons,Packaging2, CheckBox }) {
+export default function ProductItem({no, name, price, dc, img, packaging, icons,Packaging2, CheckBox}) {
 
 
-    /* 장바구니 수량 카운트 */
-    const [quanCount, setQuanCount] = useState(0);
+    const { cartList, cartCount, setCartCount, totalPrice } = useContext(CartContext);
+    const { updateCartList, deleteCartItem, calculateTotalPrice } = useCart();
+    const [qty, setQty] = useState(1);
 
-    const deQuan = () => {
-        if(quanCount > 0 ) {
-            setQuanCount(quanCount - 1)
+    console.log(cartList);
+    
+
+
+    /* carts페이지 접속시 view_cart_list 테이블  */
+    useEffect(() => {
+        const cartItem = cartList.find(item => item.no === no);
+        if (cartItem) {
+            setQty(cartItem.qty);
         }
-    }
+    }, [cartList, no]);
 
-    const inQuan = () => {
-        setQuanCount(quanCount + 1)
-    }
 
+    /* 장바구니 수량 증가 cart 테이블의 qty 업뎃 */
+    const handleQtyChange = (type) => {
+        const updatedQty = type === "increase" ? qty + 1 : qty - 1;
+        if (updatedQty < 1) return; 
+
+        setQty(updatedQty);
+        setCartCount(updatedQty);
+        updateCartList(no, type, 1);
+    }; 
 
     return (
         <>
@@ -24,26 +38,27 @@ export default function ProductItem({ name, originalPrice, discountedPrice, img,
                         <div className='product-item-title'>
                             <CheckBox />
                             <p>{name}</p>
-                            <button>
+                            <button onClick={()=>{deleteCartItem(no)}}>
                             {icons.find(icon => icon.label === "xmark")?.icon || "실패"} 
                             </button>
                         </div>
                         <div className='product-bottom'>
                             <Packaging2 packaging={packaging} />
                             <div className='product-item-center'>
-                                <img src={img} alt="상품 미리보기 이미지" />
+                                <img src={`http://localhost:9000/${img}`} alt="상품 미리보기 이미지" />
                                 <div className='product-item-center2'>
                                     <div>
                                         <p className="product-price f16 w600">
-                                        {`${originalPrice.toLocaleString()}원`} </p>
-                                        <p className='discount' style={{ fontSize: "13px", textDecoration: "line-through", color: "#bcc4cc" }}>{`${discountedPrice.toLocaleString()}원`}</p>
+                                        {`${((price * (1 - dc / 100)) * qty).toLocaleString()}원`} </p>
+                                        <p className='discount' style={{ fontSize: "13px", textDecoration: "line-through", color: "#bcc4cc" }}>{`${(price * qty).toLocaleString()}원`}</p>
                                     </div>
                                     <div className='quantity-selector'>
-                                        <button className='decrease' onClick={deQuan}>
+                                        <button className='decrease' onClick={()=>{handleQtyChange( "decrease")}}> 
                                         {icons.find(icon => icon.label === "decrease")?.icon || "실패"} 
                                             </button>
-                                        <div className='quantitiy-count'>{quanCount}</div>
-                                        <button className="increase" onClick={inQuan}> 
+                                        <div className='quantitiy-count'>{qty}</div>
+                                        <button className="increase" onClick={()=>{
+                                            handleQtyChange("increase")}}> 
                                         {icons.find(icon => icon.label === "increase")?.icon || "실패"} 
             
                                         </button>

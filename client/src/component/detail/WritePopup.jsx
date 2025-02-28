@@ -3,7 +3,7 @@ import ImageMultiUpload from './ImageMultiUpload.jsx';
 import { MdClose } from "react-icons/md";
 import axios from 'axios';
 
-export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) {
+export default function WritePopup({src, name,pid, checkIsTrue, file}) {
     const titleRef = useRef(null);
     const textareaRef = useRef(null);
     let [textCount, setTextCount] = useState(0);
@@ -43,15 +43,22 @@ export default function WritePopup({src, name, checkIsTrue, file,getPopupData}) 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(fnames.uploadname) formData = {...formData,'images':fnames.uploadname};     
-        getPopupData(formData);     
+        const id = localStorage.getItem('user_id');
+        
+       if(fnames.uploadname){
+            formData = {...formData,'images':fnames.uploadname, 'id':id, 'pid':pid};      
+            axios.post('http://localhost:9000/review',formData)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err));
+       } 
+        
         checkIsTrue(false);
     }
 
     return (
          <div className="inquire_area">
                     <div className="box_area" style={{height : file ? '800px' : '690px'}}>
-                        <div className="tit">상품 문의하기<button type="button" onClick={() => checkIsTrue(false)}><MdClose /></button></div>
+                        <div className="tit">{ file ? '상품 리뷰 쓰기' : '상품 문의하기' }<button type="button" onClick={() => checkIsTrue(false)}><MdClose /></button></div>
                         <div className="product">
                             <div className="thumb"> <img src={`http://localhost:9000/${src}`} alt={name} /></div>
                             <div>{name}</div>
