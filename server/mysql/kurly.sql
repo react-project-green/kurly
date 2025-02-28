@@ -58,4 +58,14 @@ from cart c,
 	product p
 where c.id = m.id 
 		and c.pid = p.pid;
-        
+   
+-- detail review
+create table reviews(
+	rid			int 			primary key 	auto_increment,
+    subject		varchar(50)		not null,
+    detail_txt	varchar(1000)	not null,
+    images		json,
+	date		datetime		not null,
+	id			VARCHAR(30) 	not null,
+    pid 		int 			not null
+);

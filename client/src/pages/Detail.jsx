@@ -107,7 +107,7 @@ export default function Detail() {
             // 카트 아이템에 같은 pid가 있는지 검색. 있으면 qty 수정. 없으면 추가.
             const findItem = cartList.find((item)=> item.pid === product.pid);
             if(findItem){
-                const result = updateCartList(findItem.cid, "increase");
+                const result = updateCartList(findItem.no, "increase", count);
                 result && alert("장바구니에 추가되었습니다.")
                 
             }else{
@@ -151,7 +151,6 @@ export default function Detail() {
 
         
     }  
-    console.log('heart---->>',heart);
     
     return (
         <div>
@@ -246,7 +245,7 @@ export default function Detail() {
                             </div>
                             {/* 3 상품 후기 */}
                             <div ref={scrolls[2].ref}>
-                                <ReviewInfo src={product.image_url} name={product.name} />
+                                <ReviewInfo src={product.image_url} name={product.name} pid={pid} />
                             </div>
                             {/* 4 상품 문의 */}
                             <div ref={scrolls[3].ref} >
