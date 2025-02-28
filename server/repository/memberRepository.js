@@ -39,6 +39,17 @@ export const loginMember = async({id, pwd})=> { // {id: 'test', pwd: '1234'}
     const [result] = await db.execute(sql, [id, pwd]);
     return result[0]; 
 } 
+/******************************
+ * MyPage : 이름 호출  
+ ******************************/ 
+export const getUserName =  async({id}) => {
+    const sql =`
+        select name from member where id = ?
+    `;
+
+    const [result] = await db.execute(sql, [id]);
+    return result[0];
+}
 
 /******************************
  * Login : 로그인 유저 타입 확인 
