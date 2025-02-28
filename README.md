@@ -14,11 +14,11 @@ npm i react-daum-postcode
 
 ### server
 ```bash
-npm init --yes : 프로젝트 초기화 -Node 모듈 설치
-npm i express --save : 익스프레스 서버 라이브러리 설치
-npm i mysql2 : mysql연동 라이브러리 설치
-npm i cors   : 리엑트 연동시 특정 도메인 허용
-npm i nodemon --save-dev : 
+npm init --yes
+npm i express --save
+npm i mysql2
+npm i cors
+npm i nodemon --save-dev
 npm i
 ```
 ## ✨ Notice
