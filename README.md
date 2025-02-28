@@ -1,6 +1,21 @@
 
 
 # Kurly Clone Cording 팀프로젝트
+
+## 25.02.28 참고사항 
+1. `App.js / login` 경로 수정 <br>
+     - 로그인 페이지 네비게이션 연결하신 분들은  `/login`  -> `/member/login`으로 경로 수정 해야 로그인 페이지로 넘어갑니다
+2. kurlyDB 및 테스트 테이블 관련 
+     - `server/mysql/kurlyDB.sql`
+          - 추후 팀원들 변경사항 반영하여 업데이트 예정
+          - 업데이트 후에 기존 kurlyDB 드랍과 새로운 DB 생성은 모두 함께 있을 때 진행하면 좋을 것 같아용~ 
+     
+     - `server/mysql/kurly.sql` 
+          - 테이블 조회, 구조 확인
+          - 팀원 각자 필요한 테이블 생성 및 변경 테스트 하는 공간으로 만들었어요 확정이 된 후 kuryDB로 통합하는 것이 좋을 것 같습니당
+          - 상품상세페이지의 review 탭 테스트, 장바구니 페이지 진입 해보고 싶다면 여기서 테이블 생성하시면 됩니다~ 
+
+
 ## ⚙️ 설치 라이브러리 
 ### client
 ```bash
@@ -33,12 +48,9 @@ npm i
    <img src={`http://localhost:9000/${item}`}></img> 
    ```
    <br>
+- 
 
-
-
- <br>
-  <br>
-   <br>
+<br><br><br>
    
 
 ---
