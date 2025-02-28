@@ -6,6 +6,7 @@ const router = express.Router();
 router
     .post('/', controller.registerReview)
     .post('/getList', controller.getReviewList)
-    .post('/getImages', controller.getTotalImages);
+    .post('/getImages', controller.getTotalImages)
+    .post('/getDateList', controller.getReviewDateList);
 
 export default router;

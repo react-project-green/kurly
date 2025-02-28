@@ -3,7 +3,7 @@ import ImageMultiUpload from './ImageMultiUpload.jsx';
 import { MdClose } from "react-icons/md";
 import axios from 'axios';
 
-export default function WritePopup({src, name,pid, checkIsTrue, file}) {
+export default function WritePopup({src, name,pid, checkIsTrue, file, setUpdate}) {
     const titleRef = useRef(null);
     const textareaRef = useRef(null);
     let [textCount, setTextCount] = useState(0);
@@ -48,7 +48,9 @@ export default function WritePopup({src, name,pid, checkIsTrue, file}) {
        if(fnames.uploadname){
             formData = {...formData,'images':fnames.uploadname, 'id':id, 'pid':pid};      
             axios.post('http://localhost:9000/review',formData)
-                .then(res => console.log(res.data))
+                .then(res =>{
+                    if(res.data.affectedRows === 1)  setUpdate(1)
+                })
                 .catch(err => console.log(err));
        } 
         

@@ -34,6 +34,7 @@ export default function Detail() {
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
     const [heart, setHeart] = useState(false);
+    const [reviewCount, setReviewCount] = useState(0);
     
     // btm add cart btn
     const openCart = () => {
@@ -152,6 +153,7 @@ export default function Detail() {
         
     }  
     
+
     return (
         <div>
             <div className="detail_area">
@@ -231,7 +233,7 @@ export default function Detail() {
                     </div>
                     <div className="detail_tap_area">
                         <nav>
-                            <Nav scrolls={scrolls} topInfoRef={topInfoRef} />
+                            <Nav scrolls={scrolls} topInfoRef={topInfoRef} reviewCount={reviewCount} />
                         </nav>
                         <div className="tab_box">
                             {/* 1 상품설명 */}
@@ -245,7 +247,7 @@ export default function Detail() {
                             </div>
                             {/* 3 상품 후기 */}
                             <div ref={scrolls[2].ref}>
-                                <ReviewInfo src={product.image_url} name={product.name} pid={pid} />
+                                <ReviewInfo src={product.image_url} name={product.name} pid={pid} setReviewCount={setReviewCount} />
                             </div>
                             {/* 4 상품 문의 */}
                             <div ref={scrolls[3].ref} >

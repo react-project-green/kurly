@@ -20,3 +20,10 @@ export const getTotalImages = async (req,res) => {
     res.json(result);
     res.end();
 }
+
+// review 리스트 최신순 가져오기
+export const getReviewDateList = async (req,res) => {  
+    const result = await repository.getReviewDateList(req.body);
+    res.json(result);
+    res.end();
+}

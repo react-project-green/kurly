@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 
-export default function Nav({scrolls,topInfoRef}) {
+export default function Nav({scrolls,topInfoRef, reviewCount}) {
     const [activeEle, setActiveEle] = useState(scrolls[0].id);
     
     // tab nav click event
@@ -41,7 +41,7 @@ export default function Nav({scrolls,topInfoRef}) {
             {
                 scrolls.map((el,i) =>
                     <li ref={el.ref}  onClick={()=>tabActive(el.ref)} className={(activeEle === el.id) ? 'on':''} key={i}>
-                        { (el.id === '후기') ? `${el.id}(1,2300)` : el.id }
+                        { (el.id === '후기') ? `${el.id}(${reviewCount})` : el.id }
                     </li>
                 )
             }

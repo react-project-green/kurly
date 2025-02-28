@@ -67,5 +67,6 @@ create table reviews(
     images		json,
 	date		datetime		not null,
 	id			VARCHAR(30) 	not null,
-    pid 		int 			not null
+    pid 		int 			not null,
+    count 		int
 );
