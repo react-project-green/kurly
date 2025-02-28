@@ -2,9 +2,10 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import '../component/cart/cart.scss';
+import '../scss/cart.scss';
 // contexts, custom hooks
 import { useCart } from "../hooks/useCart.js";
+import { useCalculate } from "../hooks/useCalculate.js";
 import { CartContext } from "../context/CartContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
 // component
@@ -14,18 +15,20 @@ import Packaging from '../component/cart/Packaging.jsx';
 
 
 
-export default function CartLayout() {
+export default function Carts() {
     
     /*------------------------ 전역 ---------------------- */
-    const { cartList, setCartList, cartCount , totalPrice } = useContext(CartContext);
+    const { cartList } = useContext(CartContext);
+    const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const { getCartList } = useCart();
     const { isLogin } = useContext(AuthContext);
-
-
-    /* ----------------------- 로컬 ---------------------- */
     const navigate = useNavigate();
 
-        // 로그인시 장바구니 불러오기
+
+
+
+    
+    /*---- 로그인 했을 때 장바구니 담긴 정보 가져오기 ---- */
             const hasCheckedLogin = useRef(false)
             
             useEffect(()=>{
@@ -36,39 +39,14 @@ export default function CartLayout() {
                     getCartList();
                 } else {
                     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
-                    select ? navigate('/login') : navigate('/');
-                    setCartList([])
+                    select ? navigate('/member/login') : navigate('/');
+                    // setCartList([])
                 }
                 
             },[isLogin])
 
-        console.log('Carts의 cartList',cartList);
 
 
-
-
-    /* json 리스트 가져온 것 */
-        const [productList, setProductList] = useState([]);
-
-
-        useEffect(() => {
-            axios
-                .get("/data/productList.json")
-                .then(res =>
-                    setProductList(res.data)
-                )
-                .catch(error => console.log(error))
-        }, [])
-
-
-    //회원정보 데이터 샘플
-    const customerInfo = {
-        "customerId": "test",
-        "userName": "홍길동",
-        "phoneNumber": "010-0000-0000",
-        "address": "서울 강남구 강남대로 78길 8 한국빌딩 4층,8층",
-        "emaildomian": ""
-    }
 
     /* svg 아이콘들 */
     const icons = [
@@ -98,7 +76,8 @@ export default function CartLayout() {
         },
     ];
 
-
+    console.log('cartList', cartList);
+    
 
 
 
@@ -116,21 +95,22 @@ export default function CartLayout() {
                             <p className='f18 w600'>샛별배송</p>
                         </div>
                         <ul className='cart-product-list'> {/* 상품리스트 반복 */}
-                            {productList.map((product) =>
-                                <li className='cart-product-item' key={product.pid}>
+                            {cartList && cartList.map((item) =>
+                                <li className='cart-product-item' key={item.cid}>
                                     <div className='cart-product-pacakaging'>
-                                        <Packaging packaging={product.packaging} />
+                                        <Packaging packaging={item.delivery} />
                                     </div>
 
                                     <ProductItem
-                                        name={product.name}
-                                        originalPrice={product.originalPrice}
-                                        discountedPrice={product.discountedPrice}
-                                        img={product.image_url}
-                                        packaging={product.packaging}
+                                        name={item.subject}
+                                        price={item.price}
+                                        dc={item.dc}
+                                        img={item.upload_img}
+                                        packaging={item.delivery}
                                         icons={icons}
                                         Packaging2={Packaging2}
                                         CheckBox={CheckBox}
+                                        no={item.no}
 
                                     />
                                 </li>
@@ -155,7 +135,7 @@ export default function CartLayout() {
                         </div>
                         <p className='delivery-type f13 w600' style={{ color: "var(--kurlypurple)" }}>샛별배송</p>
                         <div className='delivery-bottom flex space-between '>
-                            <p className='f14'>{customerInfo.address}</p>
+                            <p className='f14'>{cartList[0]?.address ?? '주소 정보 없음'}</p>
                             <button className='w-btn'>변경</button>
                         </div>
                     </div>
@@ -166,11 +146,11 @@ export default function CartLayout() {
                         <p className='f18'>결제금액</p>
                         <div className='flex space-between margin1200 '>
                             <p>상품금액</p>
-                            <p className='w600'>67,900원</p>
+                            <p className='w600'>{`${totalPriceAll.toLocaleString()}원`}</p>
                         </div>
                         <div className='flex space-between margin1200 '>
                             <p>상품할인금액</p>
-                            <p className='w600' style={{ color: "#fa622f" }}>-15,510원</p>
+                            <p className='w600' style={{ color: "#fa622f" }}>{`${totalPriceDc.toLocaleString()}원`}</p>
                         </div>
                         <div className='flex space-between margin1200 '>
                             <p>배송비</p>
@@ -178,14 +158,16 @@ export default function CartLayout() {
                         </div>
                         <div className='total-price-summury flex space-between align-center'>
                             <p>결제예정금액</p>
-                            <p className='f24 w600 margin1200'>52,390원</p>
+                            <p className='f24 w600 margin1200'>
+                            {`${totalPriceCal.toLocaleString()}원`}
+                            </p>
                         </div>
                         <p className='f12'>쿠폰/적립금은 주문서에서 사용 가능합니다.</p>
                     </div>
 
                     {/* 주문하기 버튼 */}
                     <button className='order-btn1' onClick={()=>{navigate("../order")}}>
-                        50,000원 주문하기
+                    {`${totalPriceCal.toLocaleString()}원`} 주문하기
                     </button>
                 </div>
 

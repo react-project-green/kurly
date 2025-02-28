@@ -52,14 +52,19 @@ export const addCart = async({id, cartList }) => {
 *************************************/
 
 
-export const updateQty = async() => {
+export const updateQty = async({no, type, qty}) => {
+    
+
+    const qtyChange = type === "increase" ? `qty=qty+${qty}` : `qty=qty-${qty}`
     const sql = `
-        
+        update cart
+            set ${qtyChange}
+            where no = ?
     `;
 
-    const [result] =  await db.execute(sql);
+    const [result] =  await db.execute(sql, [no]);
 
-    return result; 
+    return { "result_rows": result.affectedRows };
 }
 
 
@@ -72,27 +77,27 @@ export const updateQty = async() => {
 
 export const getCount = async() => {
     const sql = `
-        
+       
     `;
 
 
     const [result] =  await db.execute(sql);
-
+    
     return result; 
 }
 
 
 /*************************************
-        장바구니 아이템 삭제
-*************************************/
+ 장바구니 아이템 삭제
+ *************************************/
 
 
-export const deleteItem = async() => {
+export const deleteItem = async({no}) => {
     const sql = `
-        
+    delete from cart where no = ?
     `;
-
-    const [result] =  await db.execute(sql);
-
-    return result; 
+    
+    const [result] =  await db.execute(sql, [no]);
+    
+    return {"result_rows": result.affectedRows }
 }

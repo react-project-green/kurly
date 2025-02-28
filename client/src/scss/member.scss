@@ -14,6 +14,7 @@
   color: rgb(255, 255, 255);
   background-color: rgb(95, 0, 128);
   border: 0px none;
+  margin-bottom: 10px;
 }
 
 .member-none-button {
@@ -21,7 +22,7 @@
   padding: 0px 10px;
   text-align: center;
   overflow: hidden;
-  width: 100%;
+  width: 300px;
   height: 54px;
   border-radius: 3px;
   color: rgb(95, 0, 128);
@@ -483,8 +484,7 @@
  ******************************/
 .member-content-outline {
   width: 100%;
-  background-color: #f2f5f8;
-  font-family: 'Roboto', sans-serif;
+  background-color: #f2f5f8; 
 
   .member-content {
     width: 1050px;
@@ -534,14 +534,16 @@
         }
 
         .member-my-side-1 {
-          height: 250px;
+          height: 180px;
           padding: 40px;
-          .member-my-customer{
+
+          .member-my-customer {
             span {
               font-weight: 600;
               font-size: 1.5rem;
             }
-            .shimmer-text { 
+
+            .shimmer-text {
               font-size: 24px;
               font-weight: bold;
               background: linear-gradient(to right, #767ae4 0%, #5ba7db 100%);
@@ -549,18 +551,19 @@
               -webkit-text-fill-color: transparent;
               background-size: 300% auto;
               animation: textShine 1s ease-in-out infinite alternate;
-          }
-  
-          @keyframes textShine {
+            }
+
+            @keyframes textShine {
               0% {
-                  background-position: 0% 0%;
+                background-position: 0% 0%;
               }
+
               100% {
-                  background-position: 100% 100%;
+                background-position: 100% 100%;
               }
+            }
           }
-          }
-          
+
 
           .member-my-side-point {
             border: 1px solid #d6d6d6bb;
@@ -597,7 +600,7 @@
         }
 
         .member-my-side-2 {
-          height: 300px;
+          height: 220px;
           padding: 30px 50px 50px 50px;
 
           div {
@@ -618,7 +621,7 @@
         }
 
         .member-my-side-3 {
-          height: 250px;
+          height: 180px;
           padding: 50px;
         }
       }
@@ -635,14 +638,15 @@
           height: auto;
 
           .member-my-right-title {
-            width: 600px;
+            width: 550px;
             padding: 20px;
             font-weight: 600;
             font-size: 2rem;
             display: flex;
             margin: auto;
             border-bottom: 3px solid #333333;
-            span{
+
+            span {
               // border: 1px solid tomato;
               margin-top: 10px;
               padding-left: 8px;
@@ -651,19 +655,20 @@
               letter-spacing: -0.2px;
               color: rgb(153, 153, 153);
             }
-            p{
-              display: flex ;
+
+            p {
+              display: flex;
               justify-content: flex-end;
-                  align-items: center;
-                  height: 24px;
-                  font-weight: 500;
-                  font-size: 16px;
-                  line-height: 24px;
-                  letter-spacing: -0.4px;
-            } 
+              align-items: center;
+              height: 24px;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 24px;
+              letter-spacing: -0.4px;
+            }
           }
 
-          .member-my-button { 
+          .member-my-button {
             display: flex;
             justify-content: space-around;
 
