@@ -39,7 +39,7 @@ export default function Carts() {
                     getCartList();
                 } else {
                     const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
-                    select ? navigate('/login') : navigate('/');
+                    select ? navigate('/member/login') : navigate('/');
                     // setCartList([])
                 }
                 
