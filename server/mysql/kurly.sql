@@ -83,5 +83,3 @@ create table inquire(
     answer 			boolean,
     answer_txt 		varchar(1000)
 );
-
-select * from inquire;
