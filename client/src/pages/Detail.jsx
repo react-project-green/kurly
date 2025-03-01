@@ -12,6 +12,7 @@ import Nav from '../component/detail/Nav.jsx';
 import {useCart} from '../hooks/useCart.js';
 import {AuthContext} from '../component/auth/AuthContext.js';
 import {CartContext} from '../context/CartContext.js';
+import {useLogin} from '../hooks/useLogin.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
@@ -19,6 +20,7 @@ import '../scss/detail.scss';
 export default function Detail() {
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
+    const {loginCheck} = useLogin();
     const {cartList} = useContext(CartContext);
     const navigate = useNavigate();
     const scrolls = [
@@ -123,8 +125,7 @@ export default function Detail() {
             }
             
         }else{
-            const loginCheck = window.confirm('로그인 서비스가 필요합니다.\n로그인 하시겠습니까?');
-            if(loginCheck) setTimeout(()=>{ navigate('/member/login')},1000);
+            loginCheck();
         }
         
     }
@@ -145,11 +146,8 @@ export default function Detail() {
                 setHeart(false);
             }
         }else{
-            alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.');
-            navigate('/member/login');
+            loginCheck();
         }
-        
-
         
     }  
     

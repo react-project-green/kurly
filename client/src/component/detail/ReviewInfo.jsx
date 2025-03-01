@@ -1,5 +1,7 @@
 import React,{useRef, useState, useEffect, useContext} from 'react';
 import WritePopup from './WritePopup.jsx';
+import {AuthContext} from '../auth/AuthContext.js';
+import {useLogin} from '../../hooks/useLogin.js';
 import { LuThumbsUp } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -8,14 +10,17 @@ import { Navigation, Pagination} from 'swiper/modules';
 import { IoMdClose } from "react-icons/io";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import axios from 'axios';
 import 'swiper/css';
 
 export default function ReviewInfo({src, name, pid, setReviewCount}) {
-
+    const {isLogin} = useContext(AuthContext);
+    const {loginCheck} = useLogin();
     const [data, setData] = useState([]);
     const [dimiDisplay, setDimiDisplay] = useState(false);
     const [isTrue, setIsTrue] = useState(false);
+    const [isPopTrue, setIsPopTrue] = useState(false);
     const [slideImgs, setSlideImgs] = useState([]);
     const [totalImages, setTotalImages] = useState([]);
     const [update, setUpdate] = useState(0);
@@ -52,6 +57,10 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
         setDimiDisplay(true);
         setSlideImgs(totalImages);
     }
+    const handlePopHide = () => {
+        setIsPopTrue(false);
+        openTotalSlider();
+    }
     const orderByDate = () => {       
         axios.post('http://localhost:9000/review/getDateList',{'pid':pid})
                 .then(res => setData(res.data))
@@ -60,11 +69,19 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
     const increment = (count, index) => {
         setCount({'index':index, 'count':count+1});
     }
+    const openPopup = () => {
+        if(isLogin) {
+            setIsTrue(true);
+        }else{
+            loginCheck();
+        }
+    }
+
     return (
         <div className="tab_review_info">
             <div className="tit_area"> 
                 <strong>상품 후기</strong>
-                <button type="button" onClick={()=>{setIsTrue(!isTrue)}}>등록하기</button>
+                <button type="button" onClick={openPopup}>등록하기</button>
             </div>
             <div className='thumb_list'>
                 <ul>
@@ -75,7 +92,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                     }
 
                 </ul>
-                {totalImages.length >= 8 && <a href="">+ 더보기</a>}
+                {totalImages.length >= 8 && <button typ="button" onClick={()=>setIsPopTrue(!isPopTrue)}>+ 더보기</button>}
             </div>
             <div className="table_area">
                 <div className='top'>
@@ -157,6 +174,20 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                 </div>
             </div>}
             { isTrue && <WritePopup src={src} name={name} pid={pid} checkIsTrue={checkIsTrue} file="true" setUpdate={setUpdate} />}
+            { isPopTrue && <div className='total_img_list_area'>
+                <div className="box_area">
+                    <div className="tit">사진 후기 전체보기 <button onClick={()=>setIsPopTrue(!isPopTrue)}><MdClose /></button></div>
+                    <div className="list_area">
+                        <ul>
+                            {
+                                totalImages && totalImages.map((img, i)=>
+                                    <li onClick={handlePopHide}><img src={img} alt="" /></li>
+                                )
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div> }
         </div>
     );
 }

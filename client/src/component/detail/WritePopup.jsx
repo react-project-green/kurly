@@ -1,9 +1,11 @@
-import React,{useRef, useState} from 'react';
+import React,{useContext, useRef, useState} from 'react';
 import ImageMultiUpload from './ImageMultiUpload.jsx';
+import {AuthContext} from '../auth/AuthContext.js';
 import { MdClose } from "react-icons/md";
 import axios from 'axios';
 
 export default function WritePopup({src, name,pid, checkIsTrue, file, setUpdate}) {
+    const {isLogin} = useContext(AuthContext);
     const titleRef = useRef(null);
     const textareaRef = useRef(null);
     let [textCount, setTextCount] = useState(0);
