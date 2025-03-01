@@ -1,4 +1,4 @@
-import React,{useState, useRef, useContext} from 'react';
+import React,{useState, useRef, useContext, useEffect} from 'react';
 import WritePopup from './WritePopup.jsx';
 import {useLogin} from '../../hooks/useLogin.js';
 import {AuthContext} from '../auth/AuthContext.js';
@@ -7,11 +7,14 @@ import { SlArrowRight } from "react-icons/sl";
 import axios from 'axios';
 
 
-export default function InquireInfo({src, name}) {
+export default function InquireInfo({src, name, pid}) {
     const {loginCheck} = useLogin();
     const {isLogin} = useContext(AuthContext);
     const [isTrue, setIsTrue] = useState(false);
-    const [popupData, setPopupData] = useState({});
+    const [data, setData] = useState([]);
+    const [update, setUpdate] = useState(0);
+    let [id, setId] = useState('');
+    const textRef = useRef(null);
 
     //test
     const text = [
@@ -37,11 +40,31 @@ export default function InquireInfo({src, name}) {
         if(isLogin) {
             setIsTrue(true);
         }else{
-            // alert('로그인하셔야 본 서비스를 이용하실 수 있습니다.');
-            // navigate('/member/login');
             loginCheck();
         }
     }
+    useEffect(() => {
+        setId(localStorage.getItem('user_id'));
+        axios.post('http://localhost:9000/inquire/getList',{'pid':pid})
+                .then(res => setData(res.data))
+                .catch(err => console.log(err));
+    },[update]);
+
+    const reloadData = () => {
+        axios.post('http://localhost:9000/inquire/getList',{'pid':pid})
+                .then(res => setData(res.data))
+                .catch(err => console.log(err));
+    }
+    const handleAnswer = async (iid) => {
+        if(textRef.current.value === ''){
+            textRef.current.focus();
+        }else{
+            const result = await axios.post('http://localhost:9000/inquire/answer',{'iid':iid,'text':textRef.current.value})
+            if(result.data.affectedRows === 1) reloadData();
+        }
+    }
+    
+    
     return (
         <>
         <div className="tab_inquire_info">
@@ -70,29 +93,29 @@ export default function InquireInfo({src, name}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {text.map((item, idx) =>
+                    {data && data.map((item, idx) =>
                     <>
                     <tr>
-                        <td onClick={() => handleClick(idx)} key={idx} style={{cursor: item.answer === '답변완료' ? 'pointer':''}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, unde.</td>
+                        <td onClick={() => handleClick(idx)} key={idx} style={{cursor: item.answer === '답변완료' ? 'pointer':''}}>{item.subject}</td>
                         <td>연*연</td>
                         <td>2025.01.03</td>
-                        <td>{item.answer}</td>
+                        <td>{item.answer ? '답변완료' : '답변대기'}</td>
                     </tr>
-                    { (item.answer === '답변완료' && clickIndex === idx ) &&
+                    { (clickIndex === idx ) &&
                         <tr className='q_area'>
                             <td colSpan="4">
-                                <div><span className="icon_q">Q</span>오늘 새벽 배송으로 받았는데, 양념만 왔는데 이게 맞는건가요? </div>
+                                <div><span className="icon_q">Q</span>{item.subject}</div>
                                 <div><span className="icon">A</span>
-                                    안녕하세요. 고객님<br/><br/>
-                                    고객님께서 문의하신 내용은 현재 이전 상담사를 통해 안내받으신 것으로 확인됩니다.<br/><br/>
-                                    상품 불량이 확인되는 사진을 첨부해주시면 보다 정확하고 신속한 안내 도움 드리도록 하겠습니다.<br/><br/>
-                                    이전 상담사가 해당 건에 대해 익익 전화 예정으로 문의하신 내용 처리까지 시간양해 부탁드리겠습니다.<br/><br/>
-                                    늘 신선하고 최고의 상품을 제공 드릴 수 있도록 최선을 다하는 컬리가 함께하겠습니다.<br/><br/>
-                                    고객님, 이루고자 하시는 모든 일들 건승하시고 항상 건강과 행운이 가득하시길 기원드립니다.<br/><br/>
-                                    감사합니다.<br />
-                                    Better Life for All. Kurly
+                                    {
+                                        (!item.answer && id === 'admin') ?
+                                        <>
+                                            <textarea ref={textRef}></textarea> 
+                                            <button onClick={() => handleAnswer(item.iid)}>답변등록</button>
+                                        </> :
+                                        <> {item.answer_txt} </>
+                                    }
                                 </div>
-                                <div>2025.02.20</div>
+                                <div></div>
                             </td>
                         </tr>}
                     </>
@@ -106,7 +129,7 @@ export default function InquireInfo({src, name}) {
             </div>
         </div>
 
-        { isTrue && <WritePopup src={src} name={name} checkIsTrue={checkIsTrue} getPopupData={getPopupData} />}
+        { isTrue && <WritePopup src={src} name={name} pid={pid} checkIsTrue={checkIsTrue} getPopupData={getPopupData} setUpdate={setUpdate} />}
         </>
     );
 }

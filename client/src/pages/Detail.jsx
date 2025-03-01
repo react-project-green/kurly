@@ -249,7 +249,7 @@ export default function Detail() {
                             </div>
                             {/* 4 상품 문의 */}
                             <div ref={scrolls[3].ref} >
-                                <InquireInfo src={product.image_url} name={product.name} />  
+                                <InquireInfo src={product.image_url} name={product.name} pid={pid} />  
                             </div>
                         </div>
                     </div>

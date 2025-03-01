@@ -73,3 +73,15 @@ create table reviews(
     pid 		int 			not null,
     count 		int
 );
+create table inquire(
+	iid				int 				primary key		auto_increment,
+    pid 			int 				not null,
+    subject			varchar(100)		not null,
+    detail_txt		varchar(1000)		not null,   
+    id				varchar(30)			not null,
+    date 			datetime 			not null,
+    answer 			boolean,
+    answer_txt 		varchar(1000)
+);
+
+select * from inquire;

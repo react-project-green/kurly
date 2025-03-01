@@ -41,22 +41,30 @@ export default function WritePopup({src, name,pid, checkIsTrue, file, setUpdate}
             textareaRef.current.focus();
             return false;
         }
+        return true;
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const id = localStorage.getItem('user_id');
-        
-       if(fnames.uploadname){
-            formData = {...formData,'images':fnames.uploadname, 'id':id, 'pid':pid};      
-            axios.post('http://localhost:9000/review',formData)
-                .then(res =>{
-                    if(res.data.affectedRows === 1)  setUpdate(1)
-                })
-                .catch(err => console.log(err));
-       } 
-        
-        checkIsTrue(false);
+        if(validator()){
+            if(fnames.uploadname){
+                formData = {...formData,'images':fnames.uploadname, 'id':id, 'pid':pid};      
+                axios.post('http://localhost:9000/review',formData)
+                    .then(res =>{
+                        if(res.data.affectedRows === 1)  setUpdate(1)
+                    })
+                    .catch(err => console.log(err));
+           } else{
+                formData = {...formData, 'id':id, 'pid':pid};                 
+                axios.post('http://localhost:9000/inquire',formData)
+                    .then(res =>{
+                        if(res.data.affectedRows === 1)  setUpdate(1)
+                    })
+                    .catch(err => console.log(err));
+           }
+           checkIsTrue(false);
+        }
     }
 
     return (

@@ -14,7 +14,6 @@ export const registerReview =  async(data) => {
         data.pid,
     ];
     const [result] = await db.execute(sql,values);
-    console.log('result',result);
     
     return result;
 }
@@ -23,7 +22,8 @@ export const registerReview =  async(data) => {
 // review 리스트 가져오기
 export const getReviewList =  async({pid}) => { 
     const sql = `
-                select  subject,
+                select  rid,
+                        subject,
                         detail_txt,
                         images,
                         date,
@@ -37,7 +37,6 @@ export const getReviewList =  async({pid}) => {
     `;
 
     const [result] = await db.execute(sql,[pid]);
-    console.log('result',result);
     
     return result;
 }
@@ -51,7 +50,6 @@ export const getTotalImages =  async() => {
     `;
     
     const [result] = await db.execute(sql);
-    console.log('result',result);
     
     return result;
 }
@@ -59,7 +57,8 @@ export const getTotalImages =  async() => {
 // review 리스트 최신순 가져오기
 export const getReviewDateList =  async({pid}) => { 
     const sql = `
-                select  subject,
+                select  rid,
+                        subject,
                         detail_txt,
                         images,
                         date,
@@ -70,11 +69,34 @@ export const getReviewDateList =  async({pid}) => {
                      member
                 where reviews.id = member.id
                     and reviews.pid = ?
-                order by date desc;
+                order by date desc
     `;
 
     const [result] = await db.execute(sql,[pid]);
-    console.log('result',result);
     
     return result;
+}
+
+// count 증가 등록하기
+export const getPlusCount = async({rid}) => {
+    const sql = `
+                update reviews
+                    set count = ifnull(count,0) + 1
+                    where rid = ? 
+    `;
+    const [result] = await db.execute(sql,[rid]);
+    
+    return {"result_rows": result.affectedRows };
+}
+
+// count 감소 등록하기
+export const getMinusCount = async({rid}) => {
+    const sql = `
+                update reviews
+                    set count = ifnull(count,0) - 1
+                    where rid = ? 
+    `;
+    const [result] = await db.execute(sql,[rid]);
+    
+    return {"result_rows": result.affectedRows };
 }

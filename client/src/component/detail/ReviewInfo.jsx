@@ -24,7 +24,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
     const [slideImgs, setSlideImgs] = useState([]);
     const [totalImages, setTotalImages] = useState([]);
     const [update, setUpdate] = useState(0);
-    const [count, setCount] = useState({'index':'', 'count':''});
+    const [countCheck, setCountCheck] = useState([]);
 
     useEffect(() => {
         axios.post('http://localhost:9000/review/getList',{'pid':pid})
@@ -42,10 +42,16 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                     } 
                     setTotalImages(newList);
                 })
-                .catch(err => console.log(err));
-        
+                .catch(err => console.log(err));   
     },[update]);
-
+    const reloadData = () => {
+        axios.post('http://localhost:9000/review/getList',{'pid':pid})
+                .then(res => {
+                    setData(res.data);
+                    setReviewCount(res.data.length);
+                })
+                .catch(err => console.log(err));
+    }
     const checkIsTrue = (check) => {
             setIsTrue(check);
     }
@@ -66,9 +72,36 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                 .then(res => setData(res.data))
                 .catch(err => console.log(err));
     }
-    const increment = (count, index) => {
-        setCount({'index':index, 'count':count+1});
+    // count check
+    const handleCount = (rid,index) =>{
+        if(!countCheck[index]){
+            setCountCheck((prev) => {
+                const updateArray = [...prev];
+                updateArray[index] = true;
+                return updateArray;
+            });
+            increment(rid);
+        }else{
+            setCountCheck((prev) => {
+                const updateArray = [...prev];
+                updateArray[index] = false;
+                return updateArray;
+            });
+            if(rid !== 0) decrement(rid);
+        }
+        
+        
     }
+    // count
+    const increment = async (rid) => {
+        const result = await axios.post('http://localhost:9000/review/getPlusCount',{'rid':rid})
+        if(result.data.result_rows === 1) reloadData();
+    }
+    const decrement = async (rid) => {
+        const result = await axios.post('http://localhost:9000/review/getMinusCount',{'rid':rid})
+        if(result.data.result_rows === 1) reloadData();
+    }
+    
     const openPopup = () => {
         if(isLogin) {
             setIsTrue(true);
@@ -76,7 +109,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
             loginCheck();
         }
     }
-
+    
     return (
         <div className="tab_review_info">
             <div className="tit_area"> 
@@ -124,11 +157,10 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                                                     <li onClick={() => openSlider(index)}><img src={img} alt="" /></li>
                                                 )}
                                             </ul>
-                                            <a href="">+ 더보기</a>
                                         </div>
                                         <div className="t_btm_area">
                                             <div className="date">{item.date.substr(0,10)}</div>
-                                            <button type="button" onClick={() => increment(item.count, index)}><LuThumbsUp/> 도움돼요 {count.index === index ? count.count : 0}</button>
+                                            <button type="button" onClick={() => handleCount(item.rid, index)} className={countCheck[index] ? 'on' : ''}><LuThumbsUp/> 도움돼요 {item.count}</button>
                                         </div>
                                     </td>
                                 </tr>

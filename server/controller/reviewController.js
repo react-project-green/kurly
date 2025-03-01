@@ -27,3 +27,21 @@ export const getReviewDateList = async (req,res) => {
     res.json(result);
     res.end();
 }
+
+// count 증가 등록하기
+export const getPlusCount = async (req,res) => { 
+    console.log('count---->>',req.body);
+     
+    const result = await repository.getPlusCount(req.body);
+    res.json(result);
+    res.end();
+}
+
+// count 감소 등록하기
+export const getMinusCount = async (req,res) => { 
+    console.log('count---->>',req.body);
+     
+    const result = await repository.getMinusCount(req.body);
+    res.json(result);
+    res.end();
+}
