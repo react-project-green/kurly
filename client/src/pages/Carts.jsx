@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
 import '../scss/cart.scss';
 // contexts, custom hooks
 import { useCart } from "../hooks/useCart.js";
@@ -117,8 +116,8 @@ export default function Carts() {
                             )}
                         </ul>
                         <div className='g-full price-summury1 ' > {/* 결제정보1 */}
-                            <p className='f14' style={{ color: "#848f9a" }}>상품 52,390원 + 배송비 무료</p>
-                            <p className='f18 total-price-summury w600'>52,390원</p>
+                            <p className='f14' style={{ color: "#848f9a" }}>상품 {`${totalPriceCal.toLocaleString()}원`} + 배송비 무료</p>
+                            <p className='f18 total-price-summury w600'>{`${totalPriceCal.toLocaleString()}원`}</p>
                         </div>
                     </div> {/* 장바구니 상품 리스트, OrderSummary 끝  */}
                 </div>
