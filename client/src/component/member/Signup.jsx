@@ -135,13 +135,13 @@ export default function Signup() {
 
     return (
         <div className='content'>
-            <div className='signup-body'>
+            <div className='signup_body'>
                 <div>
-                    <div className='signup-title'>회원가입</div>
-                    <div className='signup-sub-title'><span>*</span>필수입력사항</div>
+                    <div className='signup_title'>회원가입</div>
+                    <div className='signup_sub_title'><span>*</span>필수입력사항</div>
                 </div>
-                <div className='member-signup-form'></div>
-                <form className='signup-form' onSubmit={handleSubmit}>
+                <div className='member_signup_form'></div>
+                <form className='signup_form' onSubmit={handleSubmit}>
                     <ul>
                         <li>
                             <label className='signup_con_title'>아이디<span>*</span> </label>
@@ -151,7 +151,7 @@ export default function Signup() {
                                 ref={refs.idRef}
                                 onChange={handleChangeForm}
                                 className='signup_input' />
-                            <button type='button' className='signup-phone-botton'
+                            <button type='button' className='signup_phone_botton'
                                 onClick={() => {
                                     handleDuplicateIdCheck(
                                         refs.idRef, // Corrected reference
@@ -191,19 +191,19 @@ export default function Signup() {
                         </li>
                         <li>
                             <label>이메일<span>*</span></label>
-                            <div className='email-full'>
+                            <div className='email_full'>
                                 <input type="text"
                                     placeholder='예:marketkurly'
                                     name='emailname'
                                     ref={refs.emailnameRef}
                                     onChange={handleChangeForm}
-                                    className='email-address' />
+                                    className='email_address' />
                                 <span>@</span>
                                 <select
                                     name="emaildomain"
                                     ref={refs.emaildomainRef}
                                     onChange={handleChangeForm}
-                                    className='email-domain'>
+                                    className='email_domain'>
                                     <option value="default">선택</option>
                                     <option value="naver">naver.com</option>
                                     <option value="google">gmail.com</option>
@@ -213,7 +213,7 @@ export default function Signup() {
                                 </select>
                             </div>
                         </li>
-                        <li className='phone-full'>
+                        <li className='phone_full'>
                             <label>휴대폰<span>*</span></label>
                             <input type="text"
                                 name='phone'
@@ -222,16 +222,16 @@ export default function Signup() {
                                 placeholder='예:010-1234-1234'
                                 className='signup_input' />
                         </li>
-                        <li className='address-full'>
+                        <li className='address_full'>
                             <label>주소<span>*</span></label>
                             <div >
-                                <div className='address-zipcode'> 
+                                <div className='address_zipcode'> 
                                     <input type="text"
                                         ref={refs.zipcodeRef}
                                         name='zipcode'
                                         onChange={handleChangeForm}
                                         value={data.zipcode}
-                                        className='address-zipcode-input'
+                                        className='address_zipcode_input'
                                         placeholder='  우편번호' />  
                                     <div>
                                         <Postcode />
@@ -246,13 +246,13 @@ export default function Signup() {
                                         ref={refs.addressRef}
                                         onChange={handleChangeForm}
                                         value={data.address}
-                                        className='address-text'
+                                        className='address_text'
                                         placeholder='  도로명 주소'
                                         name='address' />
                                     <input type="text"
                                         ref={refs.detailaddresRef}
                                         onChange={handleChangeForm}
-                                        className='address-text'
+                                        className='address_text'
                                         placeholder='  상세 주소'
                                         name='address' />
                                 </div>
@@ -312,7 +312,7 @@ export default function Signup() {
                             </div>
                         </li>
                         <li>
-                            <div className='member-line-top'> </div>
+                            <div className='member_line_top'> </div>
                             {/* <label>추가입력사항</label>
                             <input type="radio" name="" />친구초대 추천인 아이디
                         </li>
@@ -329,49 +329,49 @@ export default function Signup() {
                                 <p>· 가입 이후 수정이 불가능합니다.</p>
                             </div> */}
                         </li>
-                        <div className='signup-bottom'>
-                            <div className='signup-bottom-title'>
+                        <div className='signup_bottom'>
+                            <div className='signup_bottom_title'>
                                 <label>이용약관동의</label>
                             </div>
-                            <div className="signup-notic">
+                            <div className="signup_notic">
                                 {/* 전체 동의 */}
-                                <div className="control-container">
-                                    <div className="label-box">
-                                        <label className="member-radio">
+                                <div className="control_container">
+                                    <div className="label_box">
+                                        <label className="member_radio">
                                             <input
                                                 type="checkbox"
                                                 checked={agreeArr.length === 5}
                                                 ref={agreeRefs.memberuseRef}
                                                 onChange={allBtnEvent}
                                                 name="memberall"
-                                                className="radio-input"
+                                                className="radio_input"
                                             />
-                                            <div className="radio-btn">
+                                            <div className="radio_btn">
                                                 {agreeArr.length === 5 ? <FaCircleCheck style={{ fontSize: "2rem", fill: "#5f0080" }} /> : <FaRegCircleCheck style={{ fontSize: "2rem", fill: "#dddddd" }} />}
                                             </div>
                                         </label>
-                                        <label className="member-radio-title">전체 동의합니다.</label>
-                                        <p className='signup-notic-sub'>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p>
+                                        <label className="member_radio_title">전체 동의합니다.</label>
+                                        <p className='signup_notic_sub'>선택항목에 동의하지 않은 경우도 회원가입 및 일반적인 서비스를 이용할 수 있습니다.</p>
                                     </div>
                                 </div>
 
                                 {/* 개별 항목들 */}
                                 {['memberuse', 'memberpsn', 'memberpsnmkt', 'membermkt', 'memberage'].map((item, idx) => (
-                                    <div className="control-container" key={idx}>
-                                        <label className="member-radio">
+                                    <div className="control_container" key={idx}>
+                                        <label className="member_radio">
                                             <input
                                                 type="checkbox"
                                                 checked={agreeArr.includes(item)}
                                                 name={item}
                                                 ref={agreeRefs[item + 'Ref']}
                                                 onChange={handleRadioChange}
-                                                className="radio-input"
+                                                className="radio_input"
                                             />
-                                            <div className="radio-btn">
+                                            <div className="radio_btn">
                                                 {agreeArr.includes(item) ? <FaCircleCheck style={{ fontSize: "2rem", fill: "#5f0080" }} /> : <FaRegCircleCheck style={{ fontSize: "2rem", fill: "#dddddd" }} />}
                                             </div>
                                         </label>
-                                        <label className="member-radio-title">
+                                        <label className="member_radio_title">
                                             {item === 'memberuse' && '이용약관 동의(필수)'}
                                             {item === 'memberpsn' && '개인정보 수집·이용 동의(필수)'}
                                             {item === 'memberpsnmkt' && '개인정보 수집·이용 동의(선택)'}
@@ -382,17 +382,17 @@ export default function Signup() {
                                 ))}
                             </div>
                         </div>
-                        <div className='member-line-bottom'></div>
-                        <div className='button-box'>
+                        <div className='member_line_bottom'></div>
+                        <div className='button_box'>
                             <button type="submit"
-                                className='member-true-button'
+                                className='member_true_button'
                                 
                             >가입하기</button>
                         </div>
-                    </ul>{/* signup-body-end */}
+                    </ul>{/* signup_body_end */}
                 </form>
             </div>
-        </div>// signup-end
+        </div>// signup_end
 
     );
 }
