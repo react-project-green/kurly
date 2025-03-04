@@ -66,7 +66,7 @@ export default function CheckoutPage() {
 
 
     return (
-        <div className="wrapper w-100">
+        <div className="payments-wrapper w-100">
             <div className="max-w-540 w-100">
                 <div id="payment-method" className="w-100" />
                 <div id="agreement" className="w-100" />

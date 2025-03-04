@@ -31,7 +31,7 @@ export default function SuccessPage() {
     }
 
     return (
-        <div className="wrapper w-100">
+        <div className="payments-wrapper w-100">
             {isConfirmed ? (
                 <div
                     className="flex-column align-center confirm-success w-100 max-w-540"
