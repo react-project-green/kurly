@@ -48,7 +48,7 @@ INSERT INTO `MEMBER` (`ID`, `PWD`, `NAME`,`gender`,`PHONE`, `emailname`, `emaild
 -- UNLOCK TABLES;
 
 -- ########################################
--- Dumping data for table `category` 2.카테고리 테이블
+-- Dumping data for table `category` 2.카텍고리 테이블
 -- ########################################
 DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -191,8 +191,8 @@ create table reviews(
 	id				VARCHAR(30) 		not null,
     pid 			int 				not null,
     count 			int,
-   CONSTRAINT `REVIEW_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `REVIEW_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+   CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `REVIEWS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -267,7 +267,9 @@ create table inquire(
     id				varchar(30)			not null,
     date 			datetime 			not null,
     answer 			boolean,
-    answer_txt 		varchar(1000)
+    answer_txt 		varchar(1000),
+   CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
