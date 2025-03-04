@@ -1,3 +1,6 @@
+/***********************************
+ ****** 장바구니 : 정서령
+ **********************************/
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
@@ -190,7 +193,7 @@ export default function Order() {
                         <div className='flex110'>
                             <div>
                                 <button className='coupon1'>
-                                    사용가능 쿠폰 1장 / 전체 1장
+                                    사용가능 쿠폰 0장 / 전체 0장
                                     <span></span>
                                 </button>
                             </div>

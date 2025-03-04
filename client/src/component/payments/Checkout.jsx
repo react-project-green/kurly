@@ -84,7 +84,7 @@ export default function CheckoutPage({totalPriceCal}) {
                                  */
                                 await widgets?.requestPayment({
                                     orderId: generateRandomString(),
-                                    orderName: "[바비브라운] 수딩 클렌징 오일 200ml 외 5건",
+                                    orderName: "[테스트] 테스트 결제 중입니다.",
                                     customerName: "정컬리",
                                     customerEmail: "customer123@gmail.com",
                                     successUrl: window.location.origin + "/sandbox/success" + window.location.search,
