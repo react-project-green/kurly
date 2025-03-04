@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext.js";
+import { useCalculate } from "../hooks/useCalculate.js";
 import axios from "axios";
-
 
 export function useCart() {
     const { cartList, setCartList, cartCount, setCartCount, setAllChecked, setUserInfo } = useContext(CartContext);
