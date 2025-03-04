@@ -11,6 +11,7 @@ import ProductListCategoryDetail from './pages/ProductListCategoryDetail.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import Mypage from './component/member/Mypage.jsx';
+import ScrollToTop from './context/ScrollToTop.js'
 import Carts from './pages/Carts.jsx';
 import Order from './pages//Order.jsx';
 import CheckoutPage from './component/payments/Checkout.jsx';
@@ -28,6 +29,8 @@ function App() {
       <SearchProvider>
       <AuthProvider>
       <BrowserRouter>
+      <ScrollToTop />
+      {/* 스크롤을 최상단으로 유지하는 기능을 삽입하는 것이므로 <></>로 감싸주면 화면에 null을 리턴함.*/}
         <Routes>
           <Route path='/' element={<Layout/>}>
               <Route index element={<KurlyMain />} />

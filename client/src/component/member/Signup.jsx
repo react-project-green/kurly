@@ -8,8 +8,7 @@ import { handleDuplicateIdCheck, validateSignup } from '../utils/funcValidate.js
 import '../../scss/member.scss' 
 
 export default function Signup() {
-    const { Postcode, data } = useAddress();
-    console.log(data);
+    const { Postcode, data } = useAddress(); 
     
     const navigate = useNavigate();
     const [idCheckResult, setIdCheckResult, phoneCheckResult, setPhoneCheckResult] = useState('default');
@@ -64,8 +63,7 @@ export default function Signup() {
 
     const handleChangeForm = (e) => {
         const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
-        console.log({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
@@ -91,7 +89,6 @@ export default function Signup() {
                 alert("중복 확인을 진행해 주세요");
                 return false;
             } else {
-                console.log('submit ---->> ', formData);
                 axios.post('http://localhost:9000/member/signup', formData)
                     .then(res => {
                         if (res.data.result_rows === 1) {
@@ -119,7 +116,6 @@ export default function Signup() {
         const name = e.target.name;
         const value = e.target.value;
         const isCheck = agreeArr.includes(name)
-        console.log(`${name} 선택됨: ${value}`);
         if (isCheck) {
             setAgreeArr((prev) => prev.filter((el) => el !== name));
         }

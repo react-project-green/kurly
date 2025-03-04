@@ -205,7 +205,7 @@ export default function Header() {
               }
             </li>
           </ul>
-          <button type='button' className='delivery_btn_line'>
+          <button type='button' className='delivery_btn_line'  onClick={() => handleCateNavigate('/member/delivery')}>
             <span>샛별·하루</span>
             <span>배송안내</span>
           </button>

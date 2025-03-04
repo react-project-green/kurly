@@ -40,6 +40,14 @@ export const getUserName = async(req, res) => {
     res.json(result);
     res.end();
 };
+/******************************
+ * MyPage : 정보 변경
+ ******************************/
+export const update = async(req, res) => {
+    const result =  await repository.getUserName(req.body);
+    res.json(result);
+    res.end();
+};
 
 /******************************
  * Login : 로그인 유저 타입 확인 

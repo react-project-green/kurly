@@ -270,8 +270,8 @@
     display: flex;
 
     .signup_phone_botton {
-      border: 1px solid gainsboro;
       width: 150px;
+      border: 1px solid gainsboro;
       border-radius: 5px;
       margin-left: 5px;
     }
@@ -483,7 +483,6 @@
 .member_content_outline {
   width: 100%;
   background-color: #f2f5f8;
-  font-family: 'Roboto', sans-serif;
 
   .member_content {
     width: 1050px;
@@ -591,6 +590,21 @@
             label:first-child {
               margin-top: 20px;
             }
+          }
+        }
+
+        .activeTab {
+          background-color: #f2f5f8;
+          border-radius: 8px;
+
+          label {
+            color: rgb(95, 0, 128);
+            font-weight: bold;
+          }
+
+          span {
+            color: rgb(95, 0, 128);
+            font-weight: bold;
           }
         }
 
@@ -706,6 +720,40 @@
           }
         }
       }
+    }
+  }
+}
+
+/******************************
+ * delivery : 새벽배송 안내 
+ ******************************/
+.member_delivery {
+  position: relative;
+  margin: 0px auto;
+
+  .delivery_top {
+    width: 100%;  
+    background-color: #d8d1df; 
+    text-align: center;
+  }
+  .delivery_content {
+    min-width: 1050px;
+    margin: 0px auto; 
+    .delivery_1 {
+      width: 100%;
+      background-color: #eae6e2;
+      text-align: center;
+    }
+
+    .delivery_2 {
+      width: 100%;
+      text-align: center;
+    }
+
+    .delivery_3 {
+      width: 100%;
+      background-color: #e9e7f1;
+      text-align: center;
     }
   }
 }

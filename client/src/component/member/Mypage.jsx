@@ -6,26 +6,29 @@ import { AuthContext } from '../auth/AuthContext.js';
 import MypageOrder from './MypageOrder.jsx';
 import MypageCoupon from './MypageCoupon.jsx';
 import MypageHeart from './MypageHeart.jsx';
+import MemberUpdate from './MemberUpdate.jsx'
 import MemberError from './MemberError.jsx';
 import KakaoTalkButton from './KakaoTalkButton.jsx'
 
 export default function Mypage() {
     const navigate = useNavigate();
+    
 
     // AuthContext에서 로그인 상태(isLogin)와 userId를 가져옴
     const { isLogin, setIsLogin, userType } = useContext(AuthContext);
 
-    // State for storing user name and user ID
+    // userName의 기본값
     const [userName, setUserName] = useState('');
+
+    //Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
     const [activeTab, setActiveTab] = useState('order');
 
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {
         setActiveTab(tab);
     } 
-    
 
-// 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
+    // 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
     useEffect(() => {
         const id = localStorage.getItem("user_id");
         axios
@@ -49,7 +52,7 @@ export default function Mypage() {
                         <div className='member_my_side_1'>
                             <div className='member_my_customer'>
                                 <span className='shimmer_text'>반가워요!</span>
-                                <span>{userName ? `${userName}님!` : '이름을 불러올 수 없습니다.'}</span>
+                                <span>{userName ? `     ${userName}님!` : '이름을 불러올 수 없습니다.'}</span>
                             </div>
                             <div className='member_my_side_point'>
                                 <div>
@@ -65,26 +68,22 @@ export default function Mypage() {
                         <div className='member_my_sand'></div>
                         <div className='member_my_side_2'>
                             <p>자주찾는 메뉴</p>
-                            <div className='member_click'>
+                            <div className={`member_click ${activeTab === 'order' ? 'activeTab' : ''}`}  onClick={() => handleMenuClick('order')}>
                                 <div>
-                                    <CiMemoPad size={30} />
+                                    <CiMemoPad size={30} style={{ fill: activeTab === 'order' ? '#5f0080' : '' }} />
                                 </div>
-                                <label onClick={() => handleMenuClick('order')}>주문내역</label>
+                                <label>주문내역</label>
                             </div>
-                            <div className='member_click' onClick={() => handleMenuClick('coupon')}>
-                                <div><CiGift size={30} /></div>
+                            <div className={`member_click ${activeTab === 'coupon' ? 'activeTab' : ''}`}   onClick={() => handleMenuClick('coupon')}>
+                                <div><CiGift size={30} style={{ fill: activeTab === 'coupon' ? '#5f0080' : '' }} /></div>
                                 <label>쿠폰</label>
                                 <span>0</span>
                             </div>
-                            <div className='member_click' onClick={() => handleMenuClick('heart')}>
-                                <div><CiHeart size={30} /></div>
+                            <div className={`member_click ${activeTab === 'heart' ? 'activeTab' : ''}`}   onClick={() => handleMenuClick('heart')}>
+                                <div><CiHeart size={30} style={{ fill: activeTab === 'heart' ? '#5f0080' : '' }} /></div>
                                 <label>찜한 상품</label>
                                 <span>0</span>
                             </div>
-                            {/* <div>
-                                <div><CiDeliveryTruck size={30} /></div>
-                                <label className='member-click'>자주 구매</label>
-                            </div> */}
                         </div>
                         <div className='member_popup'>
                             <div>
@@ -94,7 +93,7 @@ export default function Mypage() {
                         <div className='member_my_side_3'>
                             <div>
                                 <p>내 정보 관리</p>
-                                <div>
+                                <div className={`member_click ${activeTab === 'update' ? 'activeTab' : ''}`}  onClick={() => handleMenuClick('update')}>
                                     <label>개인정보 수정
                                     </label>
                                 </div>
@@ -110,6 +109,7 @@ export default function Mypage() {
                             {activeTab === 'order' && <MypageOrder />}
                             {activeTab === 'coupon' && <MypageCoupon />}
                             {activeTab === 'heart' && <MypageHeart />}
+                            {activeTab === 'update' && <MemberUpdate />}
                         </div>
                     </div>
                 </div>
