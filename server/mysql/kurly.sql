@@ -41,21 +41,21 @@ desc view_cart_list;
 create view view_cart_list
 as 
 select  c.no as no,
-		c.qty as qty,
-		m.id as id,
-		m.address as address,
-		p.pid as pid,
+				c.qty as qty,
+				m.id as id,
+				m.address as address,
+				p.pid as pid,
         p.delivery as delivery ,
-		p.subject as subject,
-		p.sub_desc as sub_desc,
-		p.price as price,
+				p.subject as subject,
+				p.sub_desc as sub_desc,
+				p.price as price,
         p.dc as dc,
-		upload_img
+				upload_img
 from cart c,
-	member m,
-	product p
+		 member m,
+	   product p
 where c.id = m.id 
-		and c.pid = p.pid;
+	and c.pid = p.pid;
 
 
 -- detail review 테이블
@@ -64,22 +64,22 @@ where c.id = m.id
 
 
 create table reviews(
-	rid			int 			primary key 	auto_increment,
-    subject		varchar(50)		not null,
+	  rid					int 					primary key 	auto_increment,
+    subject			varchar(50)		not null,
     detail_txt	varchar(1000)	not null,
-    images		json,
-	date		datetime		not null,
-	id			VARCHAR(30) 	not null,
-    pid 		int 			not null,
-    count 		int
+    images			json,
+		date				datetime			not null,
+		id					VARCHAR(30) 	not null,
+    pid 				int 					not null,
+    count 			int
 );
 create table inquire(
-	iid				int 				primary key		auto_increment,
-    pid 			int 				not null,
-    subject			varchar(100)		not null,
+		iid						int 						primary key		auto_increment,
+    pid 					int 						not null,
+    subject				varchar(100)		not null,
     detail_txt		varchar(1000)		not null,   
-    id				varchar(30)			not null,
-    date 			datetime 			not null,
-    answer 			boolean,
+    id						varchar(30)			not null,
+    date 					datetime 				not null,
+    answer 				boolean,
     answer_txt 		varchar(1000)
 );
