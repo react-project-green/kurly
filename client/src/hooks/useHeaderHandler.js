@@ -50,11 +50,12 @@ export function useHeaderHandler() {
         setIsLogin(false);
         setUserType('');
         setSearchKeyword('');
-        navigate('/')
+        navigate('/member/login');
+        alert("로그아웃되었습니다.");
       }
     } else {
       setSearchKeyword('');
-      navigate('/login')
+      navigate('/member/login');
     }
   }
 
