@@ -70,9 +70,9 @@ export default function Login() {
     }
     return (
         <div className='content'>
-            <div className='member-form-box'>
-                <div className='login-box'>
-                    <div className='member-title-box'>
+            <div className='member_form_box'>
+                <div className='login_box'>
+                    <div className='member_title_box'>
                         <span>
                             로그인
                         </span>
@@ -82,7 +82,7 @@ export default function Login() {
                             <li>
                                 <div>
                                     <input
-                                        className='loginform-input'
+                                        className='loginform_input'
                                         type="text"
                                         name='id'
                                         placeholder='아이디를 입력해주세요'
@@ -94,7 +94,7 @@ export default function Login() {
                             <li>
                                 <div>
                                     <input
-                                        className='loginform-input'
+                                        className='loginform_input'
                                         type="password"
                                         name='pwd'
                                         placeholder='비밀번호를 입력해주세요'
@@ -104,7 +104,7 @@ export default function Login() {
                                 </div>
                             </li>
                             <li>
-                                <div className='login-founder'>
+                                <div className='login_founder'>
                                     <a href="#">아이디 찾기</a>
                                     <span>&gt;</span>
                                     <a href="#">패스워드 찾기</a>
@@ -112,10 +112,10 @@ export default function Login() {
                                 </div>
                             </li>
                             <li>
-                                <button className='member-true-button'>로그인</button>
+                                <button className='member_true_button'>로그인</button>
                             </li>
                             <li>
-                                <button className='member-none-button'>
+                                <button className='member_none_button'>
                                     <Link to={'/member/signup'}>
                                         회원가입
                                     </Link>

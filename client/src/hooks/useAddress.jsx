@@ -43,7 +43,7 @@ export function useAddress() {
     return {
         Postcode: () => (
             <div>
-                <button type='button' onClick={handleClick} className='address-botton'>
+                <button type='button' onClick={handleClick} className='address_botton'>
                     주소검색
                 </button>
             </div>
