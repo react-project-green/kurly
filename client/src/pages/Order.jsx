@@ -1,3 +1,6 @@
+/***********************************
+ ****** 장바구니 : 정서령
+ **********************************/
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
@@ -7,9 +10,10 @@ import { useCalculate } from "../hooks/useCalculate.js";
 import { CartContext } from "../context/CartContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
 
+// toss payments 컴포넌트
 import CheckoutPage from '../component/payments/Checkout.jsx';
-import SuccessPage from '../component/payments/Success.jsx';
-import FailPage from '../component/payments/Fail.jsx';
+// import SuccessPage from '../component/payments/Success.jsx';
+// import FailPage from '../component/payments/Fail.jsx';
 
 
 export default function Order() {
@@ -76,11 +80,6 @@ export default function Order() {
             icon: (<svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>)
         }
     ]
-
-
-    /* pg사 연동 */
-    
-
 
 
 
@@ -194,7 +193,7 @@ export default function Order() {
                         <div className='flex110'>
                             <div>
                                 <button className='coupon1'>
-                                    사용가능 쿠폰 1장 / 전체 1장
+                                    사용가능 쿠폰 0장 / 전체 0장
                                     <span></span>
                                 </button>
                             </div>
@@ -284,18 +283,17 @@ export default function Order() {
                     <div className='order-page-title'>
                         <p className='f20 w500'>결제수단</p>
                     </div>
-                    <div className='order-miles-content flex'>
+                    <div className='order-miles-content'>
                         <span className='order-mt'>결제수단 선택</span>
-                        <div className='flex110'>
+                        {/* <div className='flex110'> */}
                             <div className='order-payment-content'>
-                                <div><CheckoutPage/></div>
+                                <CheckoutPage totalPriceCal={totalPriceCal}/>
                             </div>
-                        </div>
                     </div>
 
 
-                    {/* 개인정보 및 결제 동의 */}
-                    <div className='order-page-title'>
+                    {/* 개인정보 및 결제 동의 - 이전 */}
+                    {/* <div className='order-page-title'>
                         <p className='f20 w500'>개인정보 및 결제 동의</p>
                     </div>
                     <div className='privacy-policy'>
@@ -317,7 +315,7 @@ export default function Order() {
                     <p className='privacy-policy-des'>컬리 내 개별 판매자가 등록한 오픈마켓 상품의 경우 컬리는 통신판매중개자로서 주문, 품질, 교환/환불 등 의무와 책임을 부담하지 않습니다.</p>
                     <div>
                         <button className='order-btn3'>{`${totalPriceCal.toLocaleString()}원`} 결제하기</button>
-                    </div>
+                    </div> */}
 
 
 

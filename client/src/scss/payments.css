@@ -4,6 +4,8 @@
     align-items: center;
     padding: 24px;
     overflow: auto;
+    width: 700px;
+    overflow-x: hidden;
 }
 .payments-wrapper .w-100 {
     width: 100%;
@@ -25,6 +27,7 @@
 
 .payments-wrapper .btn-wrapper {
     padding: 0 24px;
+    text-align: center;
 }
 
 .payments-wrapper .btn {
@@ -40,8 +43,10 @@
 }
 
 .payments-wrapper .btn.primary {
-    background-color: #3282f6;
+    width: 420px;
+    background-color: #672092;
     color: #f9fcff;
+    margin: 20px 20px;
 }
 
 .payments-wrapper .text-center {

@@ -599,12 +599,18 @@ body {
 
 
 .delivery-content,
-.order-miles-content,
 .order-card-content
     {
     padding: 20px 0;
     display: flex;
     justify-content: space-between; // 
+}
+
+.order-miles-content
+    {
+    padding: 20px 0;
+    // display: flex;
+    justify-content: center;
 }
 
 .flex110 {
@@ -840,14 +846,11 @@ body {
 /* 결제 수단  */
 
 .order-payment-content {
-    width: 500px;
-    // height: 740px;
-    // background-color: rgb(231, 231, 231);
+    width: 600px;
 }
 
 
 /** 개인정보 */
-
 
 .privacy-policy {
     margin: 0 0 20px;
