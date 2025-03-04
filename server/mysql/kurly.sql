@@ -83,13 +83,3 @@ create table inquire(
     answer 				boolean,
     answer_txt 		varchar(1000)
 );
--- 스칼라, 유니온 테스트
-select * from reviews;
-select pr.pid,
-		pr.brand,
-        pr.price,
-        pr.dc,
-        (select count(*) as count from reviews where pid='4' group by pid) as count
-from product pr,
-	reviews re
-    where pr.pid = re.pid;
