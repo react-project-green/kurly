@@ -5,11 +5,11 @@ import { useCart } from "../../hooks/useCart.js";
 export default function ProductItem({no, name, price, dc, img, packaging, icons,Packaging2, CheckBox}) {
 
 
-    const { cartList, cartCount, setCartCount, totalPrice } = useContext(CartContext);
-    const { updateCartList, deleteCartItem, calculateTotalPrice } = useCart();
+    const { cartList, setCartCount, checkProduct, setCheckProduct } = useContext(CartContext);
+    const { updateCartList, deleteCartItem } = useCart();
     const [qty, setQty] = useState(1);
 
-    console.log(cartList);
+    // console.log(cartList);
     
 
 
@@ -32,11 +32,27 @@ export default function ProductItem({no, name, price, dc, img, packaging, icons,
         updateCartList(no, type, 1);
     }; 
 
+    /* 체크 박스 이벤트 */
+    const handleCheck = () => {
+        setCheckProduct( item => {
+            const newSet = new Set(item);
+            if(newSet.has(no)) {
+                // 이미 체크 -> 체크 해제
+                newSet.delete(no);
+            } else {
+                // 체크 아닐 경우 set에 해당상품 추가
+                newSet.add(no);
+            }
+            return newSet;
+        })
+    }; 
+
+
     return (
         <>
               <div className="product-item">  {/* 패키징에 따른 아이템 1개 정보 */}
                         <div className='product-item-title'>
-                            <CheckBox />
+                            <CheckBox checked={checkProduct.has(no)} onChange={handleCheck} />
                             <p>{name}</p>
                             <button onClick={()=>{deleteCartItem(no)}}>
                             {icons.find(icon => icon.label === "xmark")?.icon || "실패"} 
