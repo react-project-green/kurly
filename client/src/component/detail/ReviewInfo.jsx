@@ -111,7 +111,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
     }
     
     return (
-        <div className="tab_review_info">
+        <div className="tab_review_info" key="tab3">
             <div className="tit_area"> 
                 <strong>상품 후기</strong>
                 <button type="button" onClick={openPopup}>등록하기</button>
@@ -120,7 +120,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                 <ul>
                     {
                         totalImages && totalImages.map((img, i)=>
-                            (i  < 8 ) ? <li onClick={openTotalSlider}><img src={img} alt="" /></li> :''
+                            (i  < 8 ) ? <li onClick={openTotalSlider} key={i}><img src={img} alt="" /></li> :''
                         )
                     }
 
@@ -153,8 +153,8 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                                         <p>{item.detail_txt}</p>
                                         <div className='thumb_list'>
                                             <ul>
-                                                {item.images && item.images.map((img)=>
-                                                    <li onClick={() => openSlider(index)}><img src={img} alt="" /></li>
+                                                {item.images && item.images.map((img, idx)=>
+                                                    <li onClick={() => openSlider(index)} key={idx}><img src={img} alt="" /></li>
                                                 )}
                                             </ul>
                                         </div>
