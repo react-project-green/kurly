@@ -61,12 +61,19 @@ export const getSearchItem = async({search}) => {
 /*************************** 
  *  3.대분류 카테고리  값 가져오기
 ***************************/
-export const getCategoryProductList = async({}) =>{
-  const sql =`
-    
-  `;
+export const getCategoryProductList = async() =>{
+  const sql =`select * from category`;
 
-  
-  // const [result] = await db.execute(sql);
-  // return result;
+  const [result] = await db.execute(sql);
+  return result;
+};
+
+/*************************** 
+ *  4. 소분류 카테고리  값 가져오기
+***************************/
+export const getSubCategoryProductList = async(req, res) =>{
+  const sql =`select * from sub_category`;
+
+  const [result] = await db.execute(sql);
+  return result;
 };

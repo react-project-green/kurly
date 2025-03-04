@@ -12,7 +12,8 @@ export default function Header() {
   const [ topMenu, setTopMenu] = useState([]);
   const [ supportMenu, setSupportMenu] = useState([]);
   const [ categoryList, setCategoryList] = useState([]);
-  const [ hoverCategoryIndex, setHoverCategoryIndex] = useState(null);
+  const [ subCategoryList, setSubCategoryList] = useState([]);
+  const [ hoverCategoryCid , setHoverCategoryCid ] = useState(null);
   // const [ isOpen, setIsOpen] = useState(false);
   const { isLogin, userType, setUserType } = useContext(AuthContext);
   const { searchKeyword, setSearchKeyword} = useContext(SearchContext);
@@ -24,11 +25,25 @@ export default function Header() {
       .then((res) => {
         setTopMenu(res.data["header_top_menu"])
         setSupportMenu(res.data["support_menu"])
-        setCategoryList(res.data["category_list"])
       })
       .catch((error) => console.log(error))
   }, []);
  
+  useEffect(()=>{
+    const fetchCategory = async () =>{
+      try {
+        const category = await axios.post('http://localhost:9000/main/categories');
+        const sub_cate = await axios.post('http://localhost:9000/main/subcategories');
+        setCategoryList(category.data);
+        console.log(sub_cate.data);
+        setSubCategoryList(sub_cate.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchCategory();     
+  },[]);
+
   return (
     <div className='header_outline'>
       <HeaderPromotionBanner />
@@ -123,26 +138,28 @@ export default function Header() {
             <ul className='category_list'>
               {categoryList && categoryList.map((category, idx) => (
                 <li key={idx}
-                    onMouseEnter={() => setHoverCategoryIndex(idx)}
-                    onMouseLeave={() => setHoverCategoryIndex(null)} >
+                    onMouseEnter={() => setHoverCategoryCid(category.cid)}
+                    onMouseLeave={() => setHoverCategoryCid(null)} >
                     { idx <= 3 ? ( 
                         <span className='thin category_list_1'
                               onClick={()=>{handleCateNavigate('/main/categories')}}>
-                          <img src={category.img}/>{category.title}
+                          <img src={category.image}/>{category.title}
                         </span>  
                       ) : (
                         <span className='thin category_list_2'>
-                          <img src={category.img} />{category.title}
+                          <img src={category.image} />{category.title}
                         </span>
                       )} 
-                    {hoverCategoryIndex === idx && (
+                    {hoverCategoryCid === category.cid && (
                       <ul className='variety_list light'>
-                        {category.variety && category.variety.map((item, i)=>(
-                            <li key={i} 
-                                className={ i <=1 ? 'category_acitve':'' }
-                                onClick={()=>{handleCateNavigate('/')} }>{item.name}
+                        {subCategoryList && subCategoryList.filter((sub)=>sub.cid === category.cid)
+                        .map((item)=>(
+                            <li key={item.sid} 
+                                className={ item.sid <= '002' ? 'category_acitve':'' }
+                                onClick={()=>{handleCateNavigate('/main/categories')} }>{item.title}
                             </li>      
-                        ))}
+                        )    
+                        )}
                       </ul>  
                     )}  
                 </li>

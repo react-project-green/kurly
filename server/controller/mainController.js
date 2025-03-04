@@ -21,7 +21,7 @@ const getSearchItem = async(search) => {
 
 
 /*************************** 
- *  3. 대분류 카테고리  값 가져오기
+ *  3. 대분류 카테고리 리스트 가져오기
 ***************************/
 export const getCategoryProductList = async(req, res) =>{
   const result = await repository.getCategoryProductList();
@@ -29,3 +29,19 @@ export const getCategoryProductList = async(req, res) =>{
   res.end();
 };
 
+/*************************** 
+ *  4. 소분류 카테고리 리스트 가져오기
+***************************/
+export const getSubCategoryProductList = async(req, res) =>{
+  const result = await repository.getSubCategoryProductList();
+  res.json(result);
+  res.end();
+};
+
+/*************************** 
+ *  5. 대분류 카테고리 상품 리스트 가져오기
+***************************/
+
+/*************************** 
+ *  6. 소분류 카테고리 상품 리스트 가져오기
+***************************/
