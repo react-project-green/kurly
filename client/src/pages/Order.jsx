@@ -1,16 +1,77 @@
-import React from 'react';
-import { useState } from 'react';
-import './cart.scss'
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../scss/cart.scss';
+
+import { useCart } from "../hooks/useCart.js";
+import { useCalculate } from "../hooks/useCalculate.js";
+import { CartContext } from "../context/CartContext.js";
+import { AuthContext } from "../component/auth/AuthContext.js";
 
 export default function Order() {
 
+    const { cartList, checkProduct } = useContext(CartContext);
+    const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
+    const { getCartList } = useCart();
+    const { isLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (isLogin) {
+            getCartList();
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+            select ? navigate('/member/login') : navigate('/');
+        }
+
+    }, [isLogin])
+
+
+    const checkedList = cartList.filter(item => checkProduct.has(item.no));
+
+    /* radio button */
     const [isChecked, setIsChecked] = useState(false);
 
     const handleRadioChange = () => {
         setIsChecked(!isChecked);
     };
 
+    /* cartlist toggle */
+    const [isToggled, setIsToggled] = useState(false)
+
+    const toggleList = () => {
+        setIsToggled(isToggled => !isToggled);
+    };
+
+
+    /* svg icons */
+    const icons = [
+        {
+            label: "toggle",
+            icon: (<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke="#333" strokeWidth="2" strokeLinecap="square" transform="rotate(135 15.5 16.5)">
+                    <path d="M11 12h9v9"></path>
+                </g>
+            </svg>)
+        },
+        {
+            label: "fold-toggle",
+            icon: (<svg width="30" height="30" viewBox="0 0 30 30">
+                <defs>
+                    <path id="7a02qqg3ja" d="M11 12h9v9"></path>
+                </defs>
+                <g fill="none" fillRule="evenodd">
+                    <path d="M0 0h30v30H0z"></path>
+                    <use stroke="#333" strokeWidth="2" strokeLinecap="square" transform="rotate(-45 15.5 16.5)" href="#7a02qqg3ja"></use>
+                </g>
+            </svg>)
+        },
+        {
+            label: "reply",
+            icon: (<svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>)
+        }
+    ]
+
+    console.log('결제창 카트리스트', checkedList);
 
 
 
@@ -22,18 +83,47 @@ export default function Order() {
             {/* 주문상품 */}
             <div className='order-page-title-n space-between'>
                 <p className='order-title f20 w500 flex'>주문 상품</p>
-                <span>
-                    <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="none" stroke="#333" strokeWidth="2" strokeLinecap="square" transform="rotate(135 15.5 16.5)">
-                            <path d="M11 12h9v9"></path>
-                        </g>
-                    </svg>
+                <button type='button' onClick={() => { toggleList() }}>
+                    {isToggled
+                        ? (icons.find(icon => icon.label === "toggle")?.icon || "실패")
+                        : (icons.find(icon => icon.label === "fold-toggle")?.icon || "실패")
+                    }
+                </button>
+            </div>
+            {/* <div className='order-list'> */}
+            <div className={isToggled ? 'order-list' : 'hide-list'}>
 
-                </span>
+                {isToggled ? (
+                    <div className='order-list-wrap'>
+                        <p className='f16 w600' style={{padding:"16px 0px 0px 16px"}} >샛별배송</p>
+                        <div className='order-list-bar'></div>
+                        <ul>
+                            {checkedList.map(item => (
+                                    <li key={item.no}>
+                                    <div className='order-item flex'>
+                                        <img style={{width : "56px", borderRadius:"10px"}} src={`http://localhost:9000/${item.upload_img
+}`} alt="" />
+                                        <div className='order-item-text' >
+                                            <p>{item.subject}</p>
+                                            <p  style={{ fontSize: "13px", color: "#bcc4cc" }}>{item.sub_desc}</p>
+                                            <div className='flex'>
+
+                                        <p className="product-price f16 w600">
+                                        {`${((item.price * (1 - item.dc / 100)) * item.qty).toLocaleString()}원`} </p>
+                                        <p className='discount' style={{ fontSize: "13px", textDecoration: "line-through", color: "#bcc4cc" }}>{`${(item.price * item.qty).toLocaleString()}원`}</p>
+                                            </div>
+                                    </div>
+                                    </div>
+                                    </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                ) : (
+                    <p className='f16'>{checkedList[0]?.subject}</p>
+                )}
             </div>
-            <div className='order-list'>
-                <p className='w500 f16'>[KF365] 노르웨이 생연어회 200g (냉장) 외 2개 상품을 주문합니다.</p>
-            </div>
+            {/* </div> */}
             {/* 주문자 정보 */}
             <div className='order-page-title flex'>
                 <p className='f20 w500'>주문자 정보</p>
@@ -41,16 +131,16 @@ export default function Order() {
             <div className='orderer-info-content'>
                 <div className='orderer-info-row flex '>
                     <span className='w500 order-mt'>보내는 분</span>
-                    <div className='flex110'>홍길동</div>
+                    <div className='flex110'>이름</div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>휴대폰</span>
-                    <div className='flex110'>010-0000-0000</div>
+                    <div className='flex110'>번호</div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>이메일</span>
                     <div className='flex110'>
-                        abcdef12@google.com
+                        {checkedList[0]?.phone}
                         <div>
 
                             <p className='f12' style={{ color: "#666666" }}>이메일을 통해 주문처리 과정을 보내드립니다.</p>
@@ -155,7 +245,7 @@ export default function Order() {
                                 </div>
                                 <div className='space-between miles-left-row'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>적립금</span>
 
                                     </div>
@@ -163,7 +253,7 @@ export default function Order() {
                                 </div>
                                 <div className='order-miles-detail-row space-between'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>컬리캐쉬</span>
 
                                     </div>
@@ -234,11 +324,11 @@ export default function Order() {
                                     <span>49,790원</span>
                                 </div>
                             </div>
-                        
+
                             <div>
                                 <div className='flex space-between smallgrayf'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>상품금액</span>
 
                                     </div>
@@ -251,7 +341,7 @@ export default function Order() {
                             <div>
                                 <div className='flex space-between smallgrayf'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>상품할인금액</span>
 
                                     </div>
@@ -291,7 +381,7 @@ export default function Order() {
                             <div>
                                 <div className='flex space-between smallgrayf'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>적립금</span>
 
                                     </div>
@@ -303,7 +393,7 @@ export default function Order() {
                             <div>
                                 <div className='flex space-between smallgrayf'>
                                     <div>
-                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>
+                                        {icons.find(icon => icon.label === "reply")?.icon || "실패"}
                                         <span>컬리캐시</span>
 
                                     </div>
@@ -319,12 +409,12 @@ export default function Order() {
                                     <span>원</span>
                                 </div>
                             </div>
-                            <div className='f12 flex' style={{color:"#8D4CC4", justifyContent:"flex-end"}}>컬리카드 결제 시 최대 2,490원 추가 적립
+                            <div className='f12 flex' style={{ color: "#8D4CC4", justifyContent: "flex-end" }}>컬리카드 결제 시 최대 2,490원 추가 적립
 
                             </div>
 
                         </div>
-                            <img className='sticky-summury-img' src="https://product-image.kurly.com/banner/da-banner/3ba822e8-a989-46a4-8b6b-9ddbc3d1fadb.png" alt="" />
+                        <img className='sticky-summury-img' src="https://product-image.kurly.com/banner/da-banner/3ba822e8-a989-46a4-8b6b-9ddbc3d1fadb.png" alt="" />
                     </div>
                 </div>
             </div>

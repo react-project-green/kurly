@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export function useCart() {
-    const { cartList, setCartList, cartCount, setCartCount } = useContext(CartContext);
+    const { cartList, setCartList, cartCount, setCartCount, setAllChecked } = useContext(CartContext);
 
 
 /********************************************
@@ -17,6 +17,7 @@ export function useCart() {
         const result = await axios.post("http://localhost:9000/cart/items", { "id": id });
         setCartList(result.data);
         setCartCount(result.data.length);
+        setAllChecked(result.data);
     };
 
 
