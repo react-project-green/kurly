@@ -5,8 +5,8 @@ import * as controller from '../controller/mainController.js';
 const router = express.Router();
 
 router.post('/category', controller.getProductList)
-      .post('/search', controller.getSearchItem)
-      .post('/categories', controller.getCategoryProductList);
+      .post('/categories', controller.getCategoryProductList)
+      .post('/subcategories', controller.getSubCategoryProductList);
 
 export default router;
 

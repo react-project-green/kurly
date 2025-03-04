@@ -29,7 +29,8 @@ function App() {
           <Route path='/' element={<Layout/>}>
               <Route index element={<KurlyMain />} />
               <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
-              <Route path="/main/categories" element={<ProductListCategoryDetail />} />
+              <Route path="/main/categories/:categoryCid" element={<ProductListCategoryDetail />} />
+              <Route path="/main/subcategories/:categoryCid/:categorySid" element={<ProductListCategoryDetail />} />
               <Route path="/goods/list" element={<ProductList />} />
               <Route path="/goods/detail/:pid" element={<Detail />} />
               <Route path="/member/login" element={<Login />} />
