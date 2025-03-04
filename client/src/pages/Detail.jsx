@@ -1,4 +1,4 @@
-import React,{useRef, useState, useEffect, useContext} from 'react';
+import React,{useRef, useState, useEffect, useContext, useCallback} from 'react';
 import { useParams ,useNavigate } from "react-router-dom";
 import { VscBell } from "react-icons/vsc";
 import { AiFillHeart } from "react-icons/ai";
@@ -130,8 +130,8 @@ export default function Detail() {
         
     }
 
-    // 찜하기
-    const handleAddHeart = () => {
+    // 찜하기 
+    const handleAddHeart = useCallback(() => {
         if(isLogin){
             let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
             const samePid = heartList.includes(product.pid);
@@ -148,9 +148,7 @@ export default function Detail() {
         }else{
             loginCheck();
         }
-        
-    }  
-    
+    }, [isLogin, pid, product.pid, loginCheck]);
 
     return (
         <div>
@@ -208,7 +206,7 @@ export default function Detail() {
                                 <li>
                                     <span>상품선택</span>
                                     <div className='box_wrap'>
-                                        <span class="product_name">{product.name}</span>
+                                        <span className="product_name">{product.name}</span>
                                         <div className="count_box">
                                             <div className="count">
                                                 <button type="button"onClick={()=>{buttonCartCount('-')}}>-</button>

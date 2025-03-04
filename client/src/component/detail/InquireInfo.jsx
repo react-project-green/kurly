@@ -67,7 +67,7 @@ export default function InquireInfo({src, name, pid}) {
     
     return (
         <>
-        <div className="tab_inquire_info">
+        <div className="tab_inquire_info" key="tab4">
             <div className="tit_area"> 
                 <strong>상품 문의</strong>
                 <ul>
@@ -86,39 +86,39 @@ export default function InquireInfo({src, name, pid}) {
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>답변상태</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">답변상태</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data && data.map((item, idx) =>
-                    <>
-                    <tr>
-                        <td onClick={() => handleClick(idx)} key={idx} style={{cursor: item.answer === '답변완료' ? 'pointer':''}}>{item.subject}</td>
-                        <td>연*연</td>
-                        <td>2025.01.03</td>
-                        <td>{item.answer ? '답변완료' : '답변대기'}</td>
-                    </tr>
-                    { (clickIndex === idx ) &&
-                        <tr className='q_area'>
-                            <td colSpan="4">
-                                <div><span className="icon_q">Q</span>{item.subject}</div>
-                                <div><span className="icon">A</span>
-                                    {
-                                        (!item.answer && id === 'admin') ?
-                                        <>
-                                            <textarea ref={textRef}></textarea> 
-                                            <button onClick={() => handleAnswer(item.iid)}>답변등록</button>
-                                        </> :
-                                        <> {item.answer_txt} </>
-                                    }
-                                </div>
-                                <div></div>
-                            </td>
-                        </tr>}
-                    </>
+                    <React.Fragment key={idx}>
+                        <tr>
+                            <td onClick={() => handleClick(idx)} style={{cursor: item.answer === '답변완료' ? 'pointer':''}}>{item.subject}</td>
+                            <td>연*연</td>
+                            <td>2025.01.03</td>
+                            <td>{item.answer ? '답변완료' : '답변대기'}</td>
+                        </tr>
+                        { (clickIndex === idx ) &&
+                            <tr className='q_area'>
+                                <td colSpan="4">
+                                    <div><span className="icon_q">Q</span>{item.subject}</div>
+                                    <div><span className="icon">A</span>
+                                        {
+                                            (!item.answer && id === 'admin') ?
+                                            <>
+                                                <textarea ref={textRef}></textarea> 
+                                                <button onClick={() => handleAnswer(item.iid)}>답변등록</button>
+                                            </> :
+                                            <> {item.answer_txt} </>
+                                        }
+                                    </div>
+                                    <div></div>
+                                </td>
+                            </tr>}
+                    </React.Fragment>
                     )
                     }
                 </tbody>

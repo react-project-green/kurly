@@ -5,12 +5,13 @@ import { HiOutlineEmojiHappy } from "react-icons/hi";
 export default function DetailInfo({detailImgs}) {
     const [toggleBtn1, setToggleBtn1] = useState(true);
     const [toggleBtn2, setToggleBtn2] = useState(true);
+    
     return (
-        <div className="tab_detail_info">
+        <div className="tab_detail_info" key="tab2">
             <ul className='product_img'>
                 {
                     detailImgs && detailImgs.map((img,i) =>
-                        <li><img src={`http://localhost:9000/${img}`}  key={i} alt="" /></li>
+                        <li key={`image-${i}`}><img src={`http://localhost:9000/${img}`} alt="" /></li>
                 )}
 
             </ul>
