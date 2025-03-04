@@ -1,48 +1,46 @@
 USE kurlydb;
 SHOW TABLES; 
 
-CREATE TABLE `member` (
-  `id` 			VARCHAR(30) 	PRIMARY KEY,
-  `pwd` 		VARCHAR(50) 	NOT NULL,
-  `name` 		VARCHAR(10) 	NOT NULL,
-  `phone`		CHAR(13) 		NOT NULL,
-  `emailname`   VARCHAR(20) 	NOT NULL,
-  `emaildomain` VARCHAR(20) 	NOT NULL,
-  `gender`		CHAR(1)			NOT NULL,
-  `address` 	VARCHAR(80),
-  `reg_date` 	DATETIME		NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+-- 각 테이블 조회
 select * from product;
 select * from member;
+select * from qna;
+select * from wish;
+select * from cart;
+select * from review;
+select * from notice;
+select * from payments;
+select * from view_categoty_pro_list;
+select * from view_cart_list;
 
+
+-- 각 테이블 구조
+
+desc product;
+desc member;
 desc qna;
 desc wish;
-desc qna;
 desc cart;
 desc review;
 desc notice;
 desc payments;
-desc category;
-desc sub_category;
+desc view_categoty_pro_list;
+desc view_cart_list;
 
-select count(id) as result from member where id ="test1";
+
+
 
 -- ########################################
--- view_cart_list 뷰테이블 생성
+-- 팀원별로 테이블 생성하고 테스트 하기 위해 생성한 것입니다. 
+-- 수정 있을 수 있으니 확정되면 kurlyDB에 추가될 예정
 -- ########################################
 
-
-show tables;
-select * from product;
-select * from member;
-select * from cart;
-select * from view_cart_list;
+-- view_cart_list 테이블
+	-- 장바구니 페이지 진입시 필요한 테이블 입니다!! 
 
 create view view_cart_list
 as 
-select  c.id as cid,
+select  c.no as no,
 		c.qty as qty,
 		m.id as id,
 		m.address as address,
@@ -58,3 +56,30 @@ from cart c,
 	product p
 where c.id = m.id 
 		and c.pid = p.pid;
+
+
+-- detail review 테이블
+	-- 수정 있을 수 있으니 kurlydb에 추가해야 할 때 말할 예정
+	-- detail에서 리뷰 테스트 해보고 싶으신 분들은 여기서 별도로 생성 부탁드립니다!! 
+
+
+create table reviews(
+	rid			int 			primary key 	auto_increment,
+    subject		varchar(50)		not null,
+    detail_txt	varchar(1000)	not null,
+    images		json,
+	date		datetime		not null,
+	id			VARCHAR(30) 	not null,
+    pid 		int 			not null,
+    count 		int
+);
+create table inquire(
+	iid				int 				primary key		auto_increment,
+    pid 			int 				not null,
+    subject			varchar(100)		not null,
+    detail_txt		varchar(1000)		not null,   
+    id				varchar(30)			not null,
+    date 			datetime 			not null,
+    answer 			boolean,
+    answer_txt 		varchar(1000)
+);

@@ -1,59 +1,69 @@
 
-import React, { useEffect, useState, useContext } from 'react';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import '../component/cart/cart.scss';
-
+import React, { useEffect, useState, useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../scss/cart.scss';
 // contexts, custom hooks
 import { useCart } from "../hooks/useCart.js";
-// import { AuthContext } from "../auth/AuthContext";
-import { CartContext } from "../context/CartContext";
-
-// 자식 컴포넌트
+import { useCalculate } from "../hooks/useCalculate.js";
+import { CartContext } from "../context/CartContext.js";
+import { AuthContext } from "../component/auth/AuthContext.js";
+// component
 import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
+//library
+import DaumPostcode from 'react-daum-postcode';
+import { Modal, Button } from 'antd';
 
+export default function Carts() {
 
-
-export default function CartLayout() {
-    
-
-
-    const { cartList, setCartList, cartCount , totalPrice } = useContext(CartContext);
+    /*------------------------ 전역 ---------------------- */
+    const { cartList, checkProduct, setCheckProduct } = useContext(CartContext);
+    const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const { getCartList } = useCart();
-
-    console.log('Carts의 cartList',cartList);
-    
-
-    useEffect(()=>{
-        // 로직 바꾸기 => 로그인시 불러오도록
-        getCartList();
-        
-        // getCartList();
-    },[])
-
-    const [productList, setProductList] = useState([]);
+    const { isLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
+
+
+
+
+    /*---- 로그인 했을 때 장바구니 담긴 정보 가져오기 ---- */
+    const hasCheckedLogin = useRef(false)
+
     useEffect(() => {
-        axios
-            .get("/data/productList.json")
-            .then(res =>
-                setProductList(res.data)
-            )
-            .catch(error => console.log(error))
-    }, [])
+        if (hasCheckedLogin.current) return;
+        hasCheckedLogin.current = true;
 
+        if (isLogin) {
+            getCartList();
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+            select ? navigate('/member/login') : navigate('/');
+            // setCartList([])
+        }
 
-    //회원정보 데이터 샘플
-    const customerInfo = {
-        "customerId": "test",
-        "userName": "홍길동",
-        "phoneNumber": "010-0000-0000",
-        "address": "서울 강남구 강남대로 78길 8 한국빌딩 4층,8층",
-        "emaildomian": ""
+    }, [isLogin])
+
+    /*---- 체크박스 전체 선택 ---- */
+    const isAllChecked = cartList.length > 0 && cartList.every(item => checkProduct.has(item.no));
+
+    const handleAllCheck = () => {
+        (isAllChecked) ? (setCheckProduct(new Set())) : setCheckProduct(new Set(cartList.map(item => item.no)));
     }
+
+
+    /* daumpotscode */
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleComplete = (data) => {
+        setIsOpen(false);
+    };
+
+    const handleTogle = () => {
+        setIsOpen((prev) => !prev);
+    };
+
 
     /* svg 아이콘들 */
     const icons = [
@@ -83,11 +93,8 @@ export default function CartLayout() {
         },
     ];
 
+    // console.log('cartList', cartList);
 
-    /* order창으로 이동 */
-    const naviToOrder = () => {
-        navigate("../order");
-    }
 
 
 
@@ -96,38 +103,39 @@ export default function CartLayout() {
             <p className='c-title'>장바구니</p>
             <div className='c-content'>
                 <div className='cart-left-side '>
-                    <SelectAll CheckBox={CheckBox}  />
+                    <SelectAll CheckBox={CheckBox} checked={isAllChecked} onChange={handleAllCheck} />
 
                     {/* 장바구니 상품 리스트, OrderSummary 시작 */}
                     <div className='cart-product w-full'>
                         <div className='cart-product-top'>
-                            <CheckBox />
+                            <CheckBox checked={isAllChecked} onChange={handleAllCheck} />
                             <p className='f18 w600'>샛별배송</p>
                         </div>
                         <ul className='cart-product-list'> {/* 상품리스트 반복 */}
-                            {productList.map((product) =>
-                                <li className='cart-product-item' key={product.pid}>
+                            {cartList && cartList.map((item) =>
+                                <li className='cart-product-item' key={item.cid}>
                                     <div className='cart-product-pacakaging'>
-                                        <Packaging packaging={product.packaging} />
+                                        <Packaging packaging={item.delivery} />
                                     </div>
 
                                     <ProductItem
-                                        name={product.name}
-                                        originalPrice={product.originalPrice}
-                                        discountedPrice={product.discountedPrice}
-                                        img={product.image_url}
-                                        packaging={product.packaging}
+                                        name={item.subject}
+                                        price={item.price}
+                                        dc={item.dc}
+                                        img={item.upload_img}
+                                        packaging={item.delivery}
                                         icons={icons}
                                         Packaging2={Packaging2}
                                         CheckBox={CheckBox}
+                                        no={item.no}
 
                                     />
                                 </li>
                             )}
                         </ul>
                         <div className='g-full price-summury1 ' > {/* 결제정보1 */}
-                            <p className='f14' style={{ color: "#848f9a" }}>상품 52,390원 + 배송비 무료</p>
-                            <p className='f18 total-price-summury w600'>52,390원</p>
+                            <p className='f14' style={{ color: "#848f9a" }}>상품 {`${totalPriceCal.toLocaleString()}원`} + 배송비 무료</p>
+                            <p className='f18 total-price-summury w600'>{`${totalPriceCal.toLocaleString()}원`}</p>
                         </div>
                     </div> {/* 장바구니 상품 리스트, OrderSummary 끝  */}
                 </div>
@@ -139,13 +147,16 @@ export default function CartLayout() {
                     {/* 배송지 정보 */}
                     <div className='delivery-address w-full'>
                         <div className='delivery-title flex'>
-                        {icons.find(icon => icon.label === "delivery")?.icon || "실패"}
+                            {icons.find(icon => icon.label === "delivery")?.icon || "실패"}
                             <p className='f18'>배송지</p>
                         </div>
                         <p className='delivery-type f13 w600' style={{ color: "var(--kurlypurple)" }}>샛별배송</p>
                         <div className='delivery-bottom flex space-between '>
-                            <p className='f14'>{customerInfo.address}</p>
-                            <button className='w-btn'>변경</button>
+                            <p className='f14'>{cartList[0]?.address ?? '주소 정보 없음'}</p>
+                            <button className='w-btn' type='button' onClick={handleTogle}>변경</button>
+                            <Modal open={isOpen} onCancel={handleTogle} footer={null}>
+                                <DaumPostcode onComplete={handleComplete} />
+                            </Modal>
                         </div>
                     </div>
 
@@ -155,11 +166,11 @@ export default function CartLayout() {
                         <p className='f18'>결제금액</p>
                         <div className='flex space-between margin1200 '>
                             <p>상품금액</p>
-                            <p className='w600'>67,900원</p>
+                            <p className='w600'>{`${totalPriceAll.toLocaleString()}원`}</p>
                         </div>
                         <div className='flex space-between margin1200 '>
                             <p>상품할인금액</p>
-                            <p className='w600' style={{ color: "#fa622f" }}>-15,510원</p>
+                            <p className='w600' style={{ color: "#fa622f" }}>{`${totalPriceDc.toLocaleString()}원`}</p>
                         </div>
                         <div className='flex space-between margin1200 '>
                             <p>배송비</p>
@@ -167,14 +178,16 @@ export default function CartLayout() {
                         </div>
                         <div className='total-price-summury flex space-between align-center'>
                             <p>결제예정금액</p>
-                            <p className='f24 w600 margin1200'>52,390원</p>
+                            <p className='f24 w600 margin1200'>
+                                {`${totalPriceCal.toLocaleString()}원`}
+                            </p>
                         </div>
                         <p className='f12'>쿠폰/적립금은 주문서에서 사용 가능합니다.</p>
                     </div>
 
                     {/* 주문하기 버튼 */}
-                    <button className='order-btn1' onClick={naviToOrder}>
-                        50,000원 주문하기
+                    <button className='order-btn1' onClick={() => { navigate("../order") }}>
+                        {`${totalPriceCal.toLocaleString()}원`} 주문하기
                     </button>
                 </div>
 
@@ -188,22 +201,17 @@ export default function CartLayout() {
 
 
 // 체크박스 컴포넌트
-const CheckBox = () => {
-
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    }
+const CheckBox = ({ checked, onChange }) => {
 
     return (
         <>
-        <input className="checkbox-input"
-                        onChange={handleCheckboxChange}
-                        type="checkbox" 
-                    />
-        <div className={ isChecked ? "checkbox-active" : "checkbox"} 
-        onClick={handleCheckboxChange}></div>
+            <input className="checkbox-input"
+                type="checkbox"
+                checked={checked}
+                onChange={onChange}
+            />
+            <div className={checked ? "checkbox-active" : "checkbox"}
+                onClick={onChange}></div>
         </>
     );
 }
@@ -211,16 +219,16 @@ const CheckBox = () => {
 
 
 // 전체선택 컴포넌트
-const SelectAll = ({CheckBox}) => {
+const SelectAll = ({ CheckBox, checked, onChange }) => {
 
-    return(
-    <div className='cart-header w-full'>
-    <div className='cart-select-all'>
-        <CheckBox />
-        <p className='f16 margin00016'>전체선택</p>
-    </div>
-    <button className='w-btn'>선택삭제</button>
-</div>
+    return (
+        <div className='cart-header w-full'>
+            <div className='cart-select-all'>
+                <CheckBox checked={checked} onChange={onChange} />
+                <p className='f16 margin00016'>전체선택</p>
+            </div>
+            <button className='w-btn'>선택삭제</button>
+        </div>
 
     );
 }

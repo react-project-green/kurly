@@ -1,52 +1,43 @@
 import React,{useRef, useState, useEffect, useContext} from 'react';
-import { useParams } from "react-router-dom";
-import { GoHeart } from "react-icons/go";
+import { useParams ,useNavigate } from "react-router-dom";
 import { VscBell } from "react-icons/vsc";
+import { AiFillHeart } from "react-icons/ai";
 
 import ProductInfo from '../component/detail/ProductInfo.jsx';
 import DetailInfo from '../component/detail/DetailInfo.jsx';
 import ReviewInfo from '../component/detail/ReviewInfo.jsx';
 import InquireInfo from '../component/detail/InquireInfo.jsx';
 import CartBottom from '../component/detail/CartBottom.jsx';
+import Nav from '../component/detail/Nav.jsx';
+import {useCart} from '../hooks/useCart.js';
+import {AuthContext} from '../component/auth/AuthContext.js';
+import {CartContext} from '../context/CartContext.js';
+import {useLogin} from '../hooks/useLogin.js';
 
 import axios from 'axios';
 import '../scss/detail.scss';
 
-export default function Detail({cartInfo}) {
-  
-    const refs = {
-        tab1Ref:useRef(null),
-        tab2Ref:useRef(null),
-        tab3Ref:useRef(null),
-        tab4Ref:useRef(null) 
-    }
-    const tabRefs = {
-        nav1Ref:useRef(null),
-        nav2Ref:useRef(null),
-        nav3Ref:useRef(null),
-        nav4Ref:useRef(null)
-    }
+export default function Detail() {
+    const {saveToCartList,updateCartList} = useCart();
+    const {isLogin} = useContext(AuthContext);
+    const {loginCheck} = useLogin();
+    const {cartList} = useContext(CartContext);
+    const navigate = useNavigate();
+    const scrolls = [
+        {id:'상품설명', ref:useRef(null)},
+        {id:'상세정보', ref:useRef(null)},
+        {id:'후기', ref:useRef(null)},
+        {id:'문의', ref:useRef(null)},
+    ];
+    const topInfoRef = useRef(null);
     const [count, setCount] = useState(1);
     let { pid } = useParams();
     const [product, setProduct] = useState({});
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
-    const [offset,setOffset] = useState([]);
-
-    // tab nav click event
-    const navClass = (ref) => {
-        let children = ref.current && ref.current.parentElement ? ref.current.parentElement.children : [];
-
-        for(let tab of children){
-            tab.classList.remove('on');
-        }
-        ref.current.classList.add('on');
-    }
-    const tabActive = (ref, target) => {
-        navClass(ref);
-        if(target.current) target.current.scrollIntoView({behavior: "smooth", block: "start"});
-    }
-
+    const [heart, setHeart] = useState(false);
+    const [reviewCount, setReviewCount] = useState(0);
+    
     // btm add cart btn
     const openCart = () => {
         if(btmCartRef.current){
@@ -64,49 +55,39 @@ export default function Detail({cartInfo}) {
     useEffect(() =>{
         axios.post('http://localhost:9000/product/detail',{'pid':pid})
                 .then((res) => {
-                    setProduct(res.data[0]);                   
+                    setProduct(res.data[0]);                                    
                 })
                 .catch((error) => console.log(error));
     },[]);
 
-    useEffect(() =>{
-        const updateOffsets = () => {
-            setOffset([
-                window.scrollY + refs.tab1Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab2Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab3Ref.current?.getBoundingClientRect().top,
-                window.scrollY + refs.tab4Ref.current?.getBoundingClientRect().top
-            ]);
-        };
-
-        setTimeout(updateOffsets,2000);
-        
-        const scrollCheck = () =>{
-            if(window.scrollY < offset[0]){
-                navClass(tabRefs.nav1Ref);       
-            }else if(window.scrollY >= offset[0] && window.scrollY < offset[1]){
-                navClass(tabRefs.nav1Ref);               
-            }else if(window.scrollY >= offset[1] && window.scrollY < offset[2]){
-                navClass(tabRefs.nav2Ref);
-            }else if(window.scrollY >= offset[2] && window.scrollY < offset[3]){
-                navClass(tabRefs.nav3Ref);
-            }else if(window.scrollY >= offset[3] ){
-                navClass(tabRefs.nav4Ref);
+    useEffect(()=>{
+        if(product.pid){   
+            const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
+            if(checkArray && product.pid){
+                const samePid = checkArray.includes(product.pid);
+                if(samePid) setHeart(true);
             }
+            
+        }
+    },[product.pid]);
 
-            if(btmCartRef.current){
-                if(window.scrollY > 400){
-                    btmCartRef.current.classList.add('scroll');
+    useEffect(()=>{
+        const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
+        
+        if(pidArray && product.pid){  
+            const samePid = pidArray.includes(product.pid);
+            if(!samePid){
+                if(pidArray.length < 10){
+                    pidArray.unshift(product.pid);
                 }else{
-                    btmCartRef.current.classList.remove('scroll');
+                    pidArray.unshift(product.pid);
+                    pidArray.pop();
                 }
             }
         }
-        scrollCheck();
+        localStorage.setItem('viewProducts', JSON.stringify(pidArray));   
         
-        window.addEventListener('scroll',scrollCheck);
-        return window.removeEventListener('scroll',scrollCheck);
-    },[]);
+    },[product.pid]); // pid
 
     // cart count
     const buttonCartCount = (type) => {
@@ -118,34 +99,64 @@ export default function Detail({cartInfo}) {
     }
     // 장바구니 데이터
     const cartAddItem = () => {
-        // 넘어가는 정보
-        const addItem = {
-            "pid": product.pid,
-            "name": product.name,
-            "brand": product.brand,
-            "description": product.description,
-            "originalPrice": product.originalPrice,
-            "discountRate": product.discountRate,
-            "discountedPrice":product.discountedPrice ,
-            "specialPrice": product.specialPrice,
-            "delivery": {
-                "type": product.type,
-                "details": product.details
-                },
-            "seller": product.seller,
-            "packaging": product.packaging,
-            "total_price": product.discountedPrice * count,
-            "image_url": product.image_url,
-            "addCount":count
-        };   
-        cartInfo(addItem);
+        // 로그인 했을 때
+        if(isLogin){
+            const cartItem = {
+                pid:product.pid,
+                qty:count
+            }
+            console.log('cartItem',cartItem);
+
+            // 카트 아이템에 같은 pid가 있는지 검색. 있으면 qty 수정. 없으면 추가.
+            const findItem = cartList.find((item)=> item.pid === product.pid);
+            if(findItem){
+                const result = updateCartList(findItem.no, "increase", count);
+                result && alert("장바구니에 추가되었습니다.")
+                
+            }else{
+                const id = localStorage.getItem("user_id");
+
+                // formdata 형식으로 db에 보내야해서 수정했어용
+                // cartItem을 배열형식으로 보내서 서버로 map 돌릴 수 있어서
+                // 테스트 때문에 수정했습니당ㅠㅠ
+                const formData = { id: id, cartList: [cartItem] }
+                const result = saveToCartList(formData);
+                result && alert("장바구니에 추가되었습니다.")
+            }
+            
+        }else{
+            loginCheck();
+        }
+        
     }
+
+    // 찜하기
+    const handleAddHeart = () => {
+        if(isLogin){
+            let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
+            const samePid = heartList.includes(product.pid);
+            
+            if(!samePid){
+                heartList.unshift(Number(pid));       
+                localStorage.setItem('heartList',JSON.stringify(heartList)); 
+                setHeart(true);
+            }else{
+                const newArray = heartList.filter((item)=> item !== product.pid);
+                localStorage.setItem('heartList',JSON.stringify(newArray)); 
+                setHeart(false);
+            }
+        }else{
+            loginCheck();
+        }
+        
+    }  
+    
 
     return (
         <div>
             <div className="detail_area">
                 <div className="inner">
-                    <div className="top_info">
+                    <div className="top_info" ref={topInfoRef}>
                         {/* left */}
                         <div className="img_area">
                             <div className="img">
@@ -211,7 +222,7 @@ export default function Detail({cartInfo}) {
                             </ul>
                             <div className="total_price"><span>총 상품금액:</span><strong>{(product.dcPrice * count).toLocaleString()}원</strong></div>
                             <div className="btns">
-                                <div className="heart"><GoHeart /></div>
+                                <div className="heart" onClick={handleAddHeart}><AiFillHeart className={heart ? 'on':''} /></div>
                                 <div className="bell"><VscBell /></div>
                                 <div className="add_cart" onClick={cartAddItem}>장바구니 담기</div>
                             </div>
@@ -220,30 +231,25 @@ export default function Detail({cartInfo}) {
                     </div>
                     <div className="detail_tap_area">
                         <nav>
-                            <ul>
-                                <li ref={tabRefs.nav1Ref} onClick={() => tabActive(tabRefs.nav1Ref,refs.tab1Ref)} className='on'>상품설명</li>
-                                <li ref={tabRefs.nav2Ref} onClick={() => tabActive(tabRefs.nav2Ref,refs.tab2Ref)}>상세정보</li>
-                                <li ref={tabRefs.nav3Ref} onClick={() => tabActive(tabRefs.nav3Ref,refs.tab3Ref)}>후기(1,234)</li>
-                                <li ref={tabRefs.nav4Ref} onClick={() => tabActive(tabRefs.nav4Ref,refs.tab4Ref)}>문의</li>
-                            </ul>
+                            <Nav scrolls={scrolls} topInfoRef={topInfoRef} reviewCount={reviewCount} />
                         </nav>
                         <div className="tab_box">
                             {/* 1 상품설명 */}
-                            <div ref={refs.tab1Ref}>
+                            <div ref={scrolls[0].ref}>
                                 <ProductInfo detailImgs={product.info_imgs}/>
                             </div>
                             {/* 2 상세정보 */}
 
-                            <div ref={refs.tab2Ref}>
+                            <div ref={scrolls[1].ref}>
                                 <DetailInfo detailImgs={product.detail_imgs} />
                             </div>
                             {/* 3 상품 후기 */}
-                            <div ref={refs.tab3Ref}>
-                                <ReviewInfo src={product.image_url} name={product.name} />
+                            <div ref={scrolls[2].ref}>
+                                <ReviewInfo src={product.image_url} name={product.name} pid={pid} setReviewCount={setReviewCount} />
                             </div>
                             {/* 4 상품 문의 */}
-                            <div ref={refs.tab4Ref} >
-                                <InquireInfo src={product.image_url} name={product.name} />  
+                            <div ref={scrolls[3].ref} >
+                                <InquireInfo src={product.image_url} name={product.name} pid={pid} />  
                             </div>
                         </div>
                     </div>
