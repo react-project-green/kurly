@@ -11,9 +11,15 @@ export const CartProvider = ({children}) => {
     const setAllChecked = (list) => {
         setCheckProduct(new Set(list.map(item => item.no)));
     }
+    const [userInfo, setUserInfo] = useState({
+        name: "",
+        phone: "",
+        address: "",
+        email: ""
+    });
 
     return (
-        <CartContext.Provider value={{cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, checkProduct, setCheckProduct, setAllChecked }}> 
+        <CartContext.Provider value={{cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, checkProduct, setCheckProduct, setAllChecked, userInfo, setUserInfo }}> 
         {children}
         </CartContext.Provider>
     )

@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 export function useCart() {
-    const { cartList, setCartList, cartCount, setCartCount, setAllChecked } = useContext(CartContext);
+    const { cartList, setCartList, cartCount, setCartCount, setAllChecked, setUserInfo } = useContext(CartContext);
 
 
 /********************************************
@@ -19,6 +19,21 @@ export function useCart() {
         setCartCount(result.data.length);
         setAllChecked(result.data);
     };
+
+/********************************************
+        결제창 회원 정보 조회 (cartList와 id 대조)
+        사용처 : Order
+********************************************/
+const getUserInfo = async () => {
+    const id = localStorage.getItem("user_id");
+    const result = await axios.post("http://localhost:9000/member/mypage", { id });
+      setUserInfo({
+            name: result.data.name,
+            phone: result.data.phone,
+            address: result.data.address,
+            email: result.data.email
+        });
+};
 
 
 /********************************************
@@ -92,5 +107,5 @@ const setCount = () => { setCartCount();}
 // }; 
 
 
-return { saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem };
+return { saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem, getUserInfo  };
 }

@@ -40,11 +40,16 @@ export const loginMember = async({id, pwd})=> { // {id: 'test', pwd: '1234'}
     return result[0]; 
 } 
 /******************************
- * MyPage : 이름 호출  
+ * MyPage : 이름 호출
+ * Order : 이름, 핸드폰번호, 주소, 이메일
  ******************************/ 
 export const getUserName =  async({id}) => {
     const sql =`
-        select name from member where id = ?
+        select name,
+        phone,
+        address,
+        concat(emailname,'@',emaildomain) as email
+        from member where id = ?
     `;
 
     const [result] = await db.execute(sql, [id]);

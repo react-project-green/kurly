@@ -13,6 +13,9 @@ import Signup from './component/member/Signup.jsx';
 import Mypage from './component/member/Mypage.jsx';
 import Carts from './pages/Carts.jsx';
 import Order from './pages//Order.jsx';
+import CheckoutPage from './component/payments/Checkout.jsx';
+import SuccessPage from './component/payments/Success.jsx';
+import FailPage from './component/payments/Fail.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import { CartProvider } from './context/CartContext.js';
 import { SearchProvider } from './context/searchContext.js';
@@ -38,6 +41,9 @@ function App() {
               <Route path="/member/mypage" element={<Mypage />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/sandbox" element={<CheckoutPage />} />
+              <Route path="/sandbox/success" element={<SuccessPage />} />
+              <Route path="/sandbox/fail" element={<FailPage />} />
               <Route path="/goods/new" element={<NewProduct />} />
           </Route>
         </Routes>

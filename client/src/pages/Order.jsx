@@ -7,17 +7,23 @@ import { useCalculate } from "../hooks/useCalculate.js";
 import { CartContext } from "../context/CartContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
 
+import CheckoutPage from '../component/payments/Checkout.jsx';
+import SuccessPage from '../component/payments/Success.jsx';
+import FailPage from '../component/payments/Fail.jsx';
+
+
 export default function Order() {
 
-    const { cartList, checkProduct } = useContext(CartContext);
+    const { cartList, checkProduct, userInfo } = useContext(CartContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
-    const { getCartList } = useCart();
+    const { getCartList, getUserInfo } = useCart();
     const { isLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (isLogin) {
             getCartList();
+            getUserInfo();
         } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
             select ? navigate('/member/login') : navigate('/');
@@ -71,8 +77,9 @@ export default function Order() {
         }
     ]
 
-    console.log('결제창 카트리스트', checkedList);
 
+    /* pg사 연동 */
+    
 
 
 
@@ -131,16 +138,16 @@ export default function Order() {
             <div className='orderer-info-content'>
                 <div className='orderer-info-row flex '>
                     <span className='w500 order-mt'>보내는 분</span>
-                    <div className='flex110'>이름</div>
+                    <div className='flex110'>{userInfo.name}</div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>휴대폰</span>
-                    <div className='flex110'>번호</div>
+                    <div className='flex110'>{userInfo.phone}</div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>이메일</span>
-                    <div className='flex110'>
-                        {checkedList[0]?.phone}
+                    <div className='flex110 order-email'>
+                    {userInfo.email}
                         <div>
 
                             <p className='f12' style={{ color: "#666666" }}>이메일을 통해 주문처리 과정을 보내드립니다.</p>
@@ -157,8 +164,10 @@ export default function Order() {
                 <span className='order-mt'>배송지</span>
                 <div className='delivery-detail flex110'>
                     <span className='delivery-default'>기본배송지</span>
-                    <p className>서울 강남구 강남대로 78길 8 한국빌딩 4층,8층</p>
-                    <button className='w-btn2'>변경</button>
+                    <p className>{userInfo.address}</p>
+                    <button className='w-btn2' onClick={()=>{ 
+                        alert('장바구니로 이동하시어 다른 배송지로 변경하시겠습니까?')
+                        navigate("../cart")}}>변경</button>
                 </div>
             </div>
             <div className='delivery-content flex'>
@@ -169,7 +178,7 @@ export default function Order() {
                         <span className='line'></span>
                         <span>자유 출입 가능</span>
                     </div>
-                    <div>홍길동, 010-0000-0000</div>
+                    <div>{userInfo.name}, {userInfo.phone}</div>
                     <button className='w-btn2'>수정</button>
                 </div>
             </div>
@@ -198,16 +207,16 @@ export default function Order() {
                             </div>
                         </div>
                     </div>
-                    {/* 컬리카드 시작 */}
+                    {/* 첫결제 시작 */}
 
                     <div className='order-page-title'>
-                        <p className='f20 w500'>컬리카드 혜택</p>
+                        <p className='f20 w500'>첫 결제 혜택</p>
                     </div>
                     <div className='order-card-content flex'>
                         <span className='order-mt'>즉시할인</span>
                         <div className='flex110'>
                             <div className='order-card-row'>
-                                <div><p>[컬리카드] 첫 결제 3만원 할인</p>
+                                <div><p>첫 결제 1만원 할인</p>
                                     <div>
                                         <label className='coupon-radio' >
                                             <input type="checkbox"
@@ -221,10 +230,10 @@ export default function Order() {
                                                 <svg className={`icon checked ${isChecked ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                             </div>
                                         </label>
-                                        <span style={{ color: "rgb(153, 153, 153)" }}>-30,000원 즉시할인 적용</span>
+                                        <span style={{ color: "rgb(153, 153, 153)" }}>-10,000원 즉시할인 적용</span>
                                     </div>
                                 </div>
-                                <button className='order-btn2'>카드발급</button>
+                                <button className='order-btn2' onClick={()=>alert('준비중')}>카드발급</button>
                             </div>
                         </div>
 
@@ -279,7 +288,7 @@ export default function Order() {
                         <span className='order-mt'>결제수단 선택</span>
                         <div className='flex110'>
                             <div className='order-payment-content'>
-                                <div></div>
+                                <div><CheckoutPage/></div>
                             </div>
                         </div>
                     </div>
@@ -307,7 +316,7 @@ export default function Order() {
                     <p className='privacy-policy-des'>주문완료 상태일 경우에만 주문 취소가 가능하며, 상품 미배송 시 결제하신 수단으로 환불됩니다.</p>
                     <p className='privacy-policy-des'>컬리 내 개별 판매자가 등록한 오픈마켓 상품의 경우 컬리는 통신판매중개자로서 주문, 품질, 교환/환불 등 의무와 책임을 부담하지 않습니다.</p>
                     <div>
-                        <button className='order-btn3'>49,790원 결제하기</button>
+                        <button className='order-btn3'>{`${totalPriceCal.toLocaleString()}원`} 결제하기</button>
                     </div>
 
 
@@ -321,7 +330,7 @@ export default function Order() {
                             <div className='flex space-between pmfont1'>
                                 <div>주문금액</div>
                                 <div>
-                                    <span>49,790원</span>
+                                    <span>{`${totalPriceCal.toLocaleString()}원`}</span>
                                 </div>
                             </div>
 
@@ -332,7 +341,7 @@ export default function Order() {
                                         <span>상품금액</span>
 
                                     </div>
-                                    <span>59,900원</span>
+                                    <span>{`${totalPriceAll.toLocaleString()}원`}</span>
 
                                 </div>
                             </div>
@@ -345,7 +354,7 @@ export default function Order() {
                                         <span>상품할인금액</span>
 
                                     </div>
-                                    <span>-10,110원</span>
+                                    <span>{`-${totalPriceDc.toLocaleString()}원`}</span>
 
                                 </div>
                             </div>
@@ -405,7 +414,7 @@ export default function Order() {
                             <div className='flex space-between order-total-sum'>
                                 <div >최종결제금액</div>
                                 <div>
-                                    <span className='f22 w600'>49,790</span>
+                                    <span className='f22 w600'>{totalPriceCal.toLocaleString()}</span>
                                     <span>원</span>
                                 </div>
                             </div>
@@ -422,19 +431,3 @@ export default function Order() {
     );
 }
 
-
-/* 주문상품  컴포넌트 */
-const OrderProducts = () => {
-
-}
-
-/* 주문자 정보 */
-const OrdererInfo = () => {
-
-}
-
-
-const DeliveryInfo = () => {
-
-
-}

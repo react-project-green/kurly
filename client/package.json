@@ -5,6 +5,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^3.8.1",
+    "@tosspayments/tosspayments-sdk": "^2.3.4",
     "antd": "^5.24.1",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
