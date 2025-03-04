@@ -61,7 +61,7 @@ export default function Detail() {
     },[]);
 
     useEffect(()=>{
-        if(product.pid){   
+        if(product.pid && !heart){   
             const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
             if(checkArray && product.pid){
                 const samePid = checkArray.includes(product.pid);
@@ -69,7 +69,7 @@ export default function Detail() {
             }
             
         }
-    },[product.pid]);
+    },[product.pid, heart]);
 
     useEffect(()=>{
         const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
