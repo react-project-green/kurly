@@ -1,4 +1,7 @@
 
+/***********************************
+ ****** 장바구니 : 정서령
+ **********************************/
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
@@ -7,11 +10,11 @@ import { useCart } from "../hooks/useCart.js";
 import { useCalculate } from "../hooks/useCalculate.js";
 import { CartContext } from "../context/CartContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
-// component
+// components
 import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
-//library
+//librarys
 import DaumPostcode from 'react-daum-postcode';
 import { Modal, Button } from 'antd';
 
@@ -93,7 +96,6 @@ export default function Carts() {
         },
     ];
 
-    // console.log('cartList', cartList);
 
 
 

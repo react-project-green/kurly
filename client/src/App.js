@@ -12,7 +12,7 @@ import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import Mypage from './component/member/Mypage.jsx';
 import Carts from './pages/Carts.jsx';
-import Order from './component/cart/Order.jsx';
+import Order from './pages//Order.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import { CartProvider } from './context/CartContext.js';
 import { SearchProvider } from './context/searchContext.js';
