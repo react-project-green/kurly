@@ -16,12 +16,12 @@ import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
 //librarys
 import DaumPostcode from 'react-daum-postcode';
-import { Modal, Button } from 'antd';
+import { Modal} from 'antd';
 
 export default function Carts() {
 
     /*------------------------ 전역 ---------------------- */
-    const { cartList, checkProduct, setCheckProduct } = useContext(CartContext);
+    const { cartList, setCartList, checkProduct, setCheckProduct } = useContext(CartContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const { getCartList } = useCart();
     const { isLogin } = useContext(AuthContext);
@@ -119,7 +119,6 @@ export default function Carts() {
                                     <div className='cart-product-pacakaging'>
                                         <Packaging packaging={item.delivery} />
                                     </div>
-
                                     <ProductItem
                                         name={item.subject}
                                         price={item.price}
