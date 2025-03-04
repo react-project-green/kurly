@@ -18,6 +18,7 @@ import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail() {
+    const [hasCheckedLogin, setHasCheckedLogin] = useState(false);
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {loginCheck} = useLogin();
@@ -125,7 +126,10 @@ export default function Detail() {
             }
             
         }else{
-            loginCheck();
+            if (!hasCheckedLogin) {
+                setHasCheckedLogin(true);
+                loginCheck();
+            }
         }
         
     }
