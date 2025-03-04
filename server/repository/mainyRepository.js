@@ -61,7 +61,7 @@ export const getSearchItem = async({search}) => {
 /*************************** 
  *  3.대분류 카테고리  값 가져오기
 ***************************/
-export const getCategoryProductList = async() =>{
+export const getCategoryTitleList = async() =>{
   const sql =`select * from category`;
 
   const [result] = await db.execute(sql);
@@ -69,11 +69,40 @@ export const getCategoryProductList = async() =>{
 };
 
 /*************************** 
+ *  3-1. 대분류 카테고리 상품 리스트 가져오기
+***************************/
+export const getCategoryProductList = async({cid}) =>{
+  const sql =`
+        select *, concat(dc, '%') as discountRate 
+        from view_categoty_pro_list 
+        where cate_depth1 = ?`;
+
+  const [result] = await db.execute(sql, [cid]);
+  return result;
+};
+
+
+/*************************** 
  *  4. 소분류 카테고리  값 가져오기
 ***************************/
-export const getSubCategoryProductList = async(req, res) =>{
+export const getSubCategoryTitleList = async(req, res) =>{
   const sql =`select * from sub_category`;
 
   const [result] = await db.execute(sql);
+  return result;
+};
+
+/*************************** 
+ *  4-1. 소분류 카테고리 상품 리스트 가져오기
+***************************/
+export const getSubCategoryProductList = async({cid, sid}) =>{
+  const sql =`
+    select * , concat(dc, '%') as discountRate 
+      from   view_categoty_pro_list 
+     where   cate_depth1 = ?
+       and   cate_depth2 = ?
+  `;
+
+  const [result] = await db.execute(sql, [cid, sid]);
   return result;
 };

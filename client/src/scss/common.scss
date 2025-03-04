@@ -224,14 +224,14 @@
 .location_icon .location_info{
   position: absolute;
   right: -120px;
-  width: 280px;
-  height: 135px;
+  width: 250px;
+  height: 100px;
   border: 1px solid var(--borderlight);
   z-index: 100;
   background-color: #fff;
   font-size: 1px;
   font-family: 'Pretendard-light';
-  padding: 15px;
+  padding: 15px 5px 15px 15px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -381,7 +381,7 @@
   background-color: rgb(240, 239, 239);
 }
 .variety_list li{
-  height: 40px;
+  height: 20px;
 }
 .category_list li:hover .category_acitve:hover {
   text-decoration: underline;

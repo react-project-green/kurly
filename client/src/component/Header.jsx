@@ -16,7 +16,7 @@ export default function Header() {
   const [ hoverCategoryCid , setHoverCategoryCid ] = useState(null);
   // const [ isOpen, setIsOpen] = useState(false);
   const { isLogin, userType, setUserType } = useContext(AuthContext);
-  const { searchKeyword, setSearchKeyword} = useContext(SearchContext);
+  const { searchKeyword, setSearchKeyword, setCategoryNum} = useContext(SearchContext);
   const navigate = useNavigate();
   const { handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, isOpen  } = useHeaderHandler();
 
@@ -35,7 +35,6 @@ export default function Header() {
         const category = await axios.post('http://localhost:9000/main/categories');
         const sub_cate = await axios.post('http://localhost:9000/main/subcategories');
         setCategoryList(category.data);
-        console.log(sub_cate.data);
         setSubCategoryList(sub_cate.data);
       } catch (error) {
         console.log(error);
@@ -160,27 +159,26 @@ export default function Header() {
               <span className='category_title'>카테고리</span>
             </div>
             <ul className='category_list'>
-              {categoryList && categoryList.map((category, idx) => (
-                <li key={idx}
+              {categoryList && categoryList.map((category) => (
+                <li key={category.cid}
                     onMouseEnter={() => setHoverCategoryCid(category.cid)}
                     onMouseLeave={() => setHoverCategoryCid(null)} >
-                    { idx <= 3 ? ( 
+                    { category.cid <= 104 ? ( 
                         <span className='thin category_list_1'
-                              onClick={()=>{handleCateNavigate('/main/categories')}}>
+                              onClick={()=> handleCateNavigate(`/main/categories/${category.cid}`)}>
                           <img src={category.image}/>{category.title}
                         </span>  
                       ) : (
                         <span className='thin category_list_2'>
                           <img src={category.image} />{category.title}
                         </span>
-                      )} 
+                    )} 
                     {hoverCategoryCid === category.cid && (
                       <ul className='variety_list light'>
-                        {subCategoryList && subCategoryList.filter((sub)=>sub.cid === category.cid)
-                        .map((item)=>(
+                        {subCategoryList && subCategoryList.filter((sub)=>sub.cid === category.cid).map((item)=>(
                             <li key={item.sid} 
                                 className={ item.sid <= '002' ? 'category_acitve':'' }
-                                onClick={()=>{handleCateNavigate('/main/categories')} }>{item.title}
+                                onClick={()=>{handleCateNavigate(`/main/subcategories/${item.cid}/${item.sid}`)} }>{item.title}
                             </li>      
                         )    
                         )}

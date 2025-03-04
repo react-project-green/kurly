@@ -7,7 +7,7 @@ export const SearchProvider = ({children}) => {
   const [ search, setSearch ] = useState('');
 
   return (
-    <SearchContext.Provider value={{ searchKeyword, setSearchKeyword, search, setSearch }}>
+    <SearchContext.Provider value={{ searchKeyword, setSearchKeyword, search, setSearch}}>
       {children}
     </SearchContext.Provider>
   );
