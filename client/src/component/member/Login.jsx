@@ -17,21 +17,17 @@ export default function Login() {
 
     const handleChangeForm = (e) => {
         const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
-        console.log({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: value }); 
     };
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        if (validateLogin(refs)) {
-            // console.log('로그인 데이터==>', formData);
+        if (validateLogin(refs)) { 
             //서버전송
             try {
                 const res = await axios.post('http://localhost:9000/member/login', formData);
 
                 if (res.data.result_rows === 1) {
                     const user_type = await axios.post('http://localhost:9000/member/type', { 'id': formData.id });
-
-                    alert("로그인 성공 홈으로 이동합니다.");
                     localStorage.setItem("token", res.data.token);
                     localStorage.setItem("user_id", formData.id);
                     localStorage.setItem("user_type", user_type.data);

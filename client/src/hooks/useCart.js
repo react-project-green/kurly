@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext.js";
+import { useCalculate } from "../hooks/useCalculate.js";
 import axios from "axios";
-
 
 export function useCart() {
     const { cartList, setCartList, cartCount, setCartCount, setAllChecked, setUserInfo } = useContext(CartContext);
@@ -68,7 +68,10 @@ const getUserInfo = async () => {
         사용처 : Header
 ********************************************/
     const getCount = async () => {
-        
+        const id = localStorage.getItem("user_id");
+        const result = await axios.post("http://localhost:9000/cart/count", {"id":id})
+        setCartCount(result.data.counnt)
+        return result.data.count;
     };
 
 
@@ -78,7 +81,7 @@ const getUserInfo = async () => {
     사용처 : Header
  ********************************************/
 
-const setCount = () => { setCartCount();}
+const setCount = (value) => { setCartCount(value);}
 
 
 /********************************************

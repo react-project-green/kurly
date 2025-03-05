@@ -10,9 +10,7 @@ export default function ProductThumb({product}) {
             <Link key={product.pid} to={`/goods/detail/${product.pid}`}>
                 <div className="thumb">
                     <img src={product.image_url} alt="" />
-                    { product.isLive && <div className="ban_top_left">라이브특가</div> }
-                    { product.isPayback && <div className="ban_btm_line">최대혜택가 141,930원</div> }
-                    { product.isPayback && <div className="ban_btm_right">페이백</div> }
+                    <div className="ban_top_left">{product.discountRate}</div>
                 </div>
                 <div className="product_detail_area">
                     <button type="button" className='cart'><BsCart2 className='icon' />담기</button>
@@ -24,7 +22,7 @@ export default function ProductThumb({product}) {
                         <em>{product.originalPrice}</em>
                         <div><span>{product.discountRate}</span><strong>{product.discountedPrice}</strong></div>
                     </div>
-                    <div className="review_num"><HiOutlineChatBubbleLeftEllipsis className='icon' />999+</div>
+                    {/* <div className="review_num"><HiOutlineChatBubbleLeftEllipsis className='icon' />999+</div> */}
                 </div>
             </Link>
         </div>

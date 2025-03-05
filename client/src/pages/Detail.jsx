@@ -18,6 +18,7 @@ import axios from 'axios';
 import '../scss/detail.scss';
 
 export default function Detail() {
+    const [hasCheckedLogin, setHasCheckedLogin] = useState(false);
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {loginCheck} = useLogin();
@@ -61,7 +62,7 @@ export default function Detail() {
     },[]);
 
     useEffect(()=>{
-        if(product.pid){   
+        if(product.pid && !heart){   
             const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
             if(checkArray && product.pid){
                 const samePid = checkArray.includes(product.pid);
@@ -69,7 +70,7 @@ export default function Detail() {
             }
             
         }
-    },[product.pid]);
+    },[product.pid, heart]);
 
     useEffect(()=>{
         const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
@@ -125,7 +126,10 @@ export default function Detail() {
             }
             
         }else{
-            loginCheck();
+            if (!hasCheckedLogin) {
+                setHasCheckedLogin(true);
+                loginCheck();
+            }
         }
         
     }
