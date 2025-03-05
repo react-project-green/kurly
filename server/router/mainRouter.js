@@ -4,11 +4,12 @@ import * as controller from '../controller/mainController.js';
 
 const router = express.Router();
 
-router.post('/category',      controller.getProductList)
-      .post('/categories',    controller.getCategoryProductList)
-      .post('/subcategories', controller.getSubCategoryProductList)
-      .post('/userinfo',      controller.getUserInfo)
-      .post('/addressUpdate', controller.getUserAddressUpdate);
+router.post('/category',         controller.getProductList)
+      .post('/categories',       controller.getCategoryProductList)
+      .post('/subcategories',    controller.getSubCategoryProductList)
+      .post('/userinfo',         controller.getUserInfo)
+      .post('/addressUpdate',    controller.getUserAddressUpdate)
+      .post('/recentlyViewItem', controller.getRecentlyViewItem);
 
 export default router;
 

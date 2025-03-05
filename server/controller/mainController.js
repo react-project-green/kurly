@@ -62,3 +62,12 @@ export const getUserAddressUpdate = async(req, res) => {
   res.json(result);
   res.end();
 };
+
+/*************************** 
+ *  7. 최근 본 상품 가져오기 
+***************************/
+export const getRecentlyViewItem = async(req, res) =>{
+  const result = await repository.getRecentlyViewItem(req.body);
+  res.json(result);
+  res.end();
+};
