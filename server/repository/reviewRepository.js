@@ -3,8 +3,8 @@ import {db} from './db.js';
 // review 등록
 export const registerReview =  async(data) => { 
     const sql = `
-        insert into reviews(subject, detail_txt, images, id, pid, date)
-	                        values(?, ?, ?, ?, ?,  now());
+        insert into reviews(subject, detail_txt, images, id, pid, count, date)
+	                        values(?, ?, ?, ?, ?, ?,  now());
     `;
     const values=[
         data.title,
@@ -12,12 +12,12 @@ export const registerReview =  async(data) => {
         data.images,
         data.id,
         data.pid,
+        data.count || 0
     ];
     const [result] = await db.execute(sql,values);
     
     return result;
 }
-
 
 // review 리스트 가져오기
 export const getReviewList =  async({pid}) => { 
