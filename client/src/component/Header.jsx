@@ -4,9 +4,11 @@ import axios from 'axios';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { AuthContext } from './auth/AuthContext.js'
+import { CartContext } from '../context/CartContext.js'
 import { SearchContext } from '../context/searchContext.js';
 import { Modal, Button } from 'antd'; 
 import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
+import { useCart } from '../hooks/useCart.js';
 
 export default function Header() {
   const [ topMenu, setTopMenu] = useState([]);
@@ -17,8 +19,15 @@ export default function Header() {
   // const [ isOpen, setIsOpen] = useState(false);
   const { isLogin, userType, setUserType } = useContext(AuthContext);
   const { searchKeyword, setSearchKeyword, setCategoryNum} = useContext(SearchContext);
+  const { cartCount } = useContext(CartContext);
+  const {getCount, setCount} = useCart();
   const navigate = useNavigate();
   const { handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, isOpen  } = useHeaderHandler();
+
+  //로그인 시 카트카운트 변경
+  useEffect(()=>{
+    isLogin ? getCount() : setCount(0);
+  },[isLogin])
 
   useEffect(() => {
     axios.get('/data/header.json')
@@ -142,11 +151,11 @@ export default function Header() {
               </button>
               <button className='header_top_icon cart_icon' onClick={() => handleCateNavigate('/cart')}>
                 <img src="/images/commonImage/header_icon3.svg" alt="header_icon" />
-                {/* { cartCount !==0 &&
+                { cartCount !==0 &&
                   <p className='cartItem_icon_bk'>
-                    <span className='cartItmem_icon'>{}</span>
+                    <span className='cartItmem_icon'>{cartCount}</span>
                   </p>
-                }    */}
+                }   
               </button>
             </div> {/* end of header_middle_right */}
           </div>   {/* end of header-middle */}

@@ -18,7 +18,7 @@ import CheckoutPage from '../component/payments/Checkout.jsx';
 
 export default function Order() {
 
-    const { cartList, checkProduct, userInfo } = useContext(CartContext);
+    const { cartList, checkProduct, userInfo, cartCount } = useContext(CartContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const { getCartList, getUserInfo } = useCart();
     const { isLogin } = useContext(AuthContext);
@@ -126,7 +126,7 @@ export default function Order() {
                     </div>
 
                 ) : (
-                    <p className='f16'>{checkedList[0]?.subject}</p>
+                    <p className='f16'>{checkedList[0]?.subject} 외 {cartCount}개 상품을 주문합니다 </p>
                 )}
             </div>
             {/* </div> */}
