@@ -280,6 +280,27 @@
   left: 29px;
   width: 20px;
 }
+.location_info .user_address{
+  display: block;
+  margin-top: 5px;
+}
+
+.location_info .user_address span{ 
+  text-align: left;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: #000;
+  font-family: 'Pretendard-Regular';
+ 
+}  
+.delivery_changebtn{
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  margin: 10px;
+  width: 230px;
+  height: 40px;
+}
 
  /**************************************
 ** HEADER - BOTTOM
