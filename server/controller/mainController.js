@@ -42,3 +42,23 @@ export const getSubCategoryProductList = async(req, res) =>{
   res.end();
 };
 
+/*************************** 
+ *  5. 유저 정보 가져오기 - address
+***************************/
+export const getUserInfo = async(req, res) => {
+  const result = await repository.getUserInfo(req.body);
+  res.json(result);
+  res.end();
+};
+
+/*************************** 
+ *  6. 유저 address 업데이트
+***************************/
+export const getUserAddressUpdate = async(req, res) => {
+  let result;
+  
+  result = await repository.getUserAddressUpdate(req.body);
+  if(result)  result = await repository.getUserInfo(req.body);
+  res.json(result);
+  res.end();
+};

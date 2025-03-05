@@ -1,47 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
+import { Modal} from 'antd'; 
 import { AuthContext } from './auth/AuthContext.js'
-import { SearchContext } from '../context/searchContext.js';
-import { Modal, Button } from 'antd'; 
 import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
+import { SearchContext } from '../context/searchContext.js';
 
 export default function Header() {
-  const [ topMenu, setTopMenu] = useState([]);
-  const [ supportMenu, setSupportMenu] = useState([]);
-  const [ categoryList, setCategoryList] = useState([]);
-  const [ subCategoryList, setSubCategoryList] = useState([]);
+  
   const [ hoverCategoryCid , setHoverCategoryCid ] = useState(null);
-  // const [ isOpen, setIsOpen] = useState(false);
-  const { isLogin, userType, setUserType } = useContext(AuthContext);
-  const { searchKeyword, setSearchKeyword, setCategoryNum} = useContext(SearchContext);
+  const { isLogin, userType } = useContext(AuthContext);
+  const { searchKeyword, setSearchKeyword} = useContext(SearchContext);
   const navigate = useNavigate();
-  const { handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, isOpen  } = useHeaderHandler();
-
-  useEffect(() => {
-    axios.get('/data/header.json')
-      .then((res) => {
-        setTopMenu(res.data["header_top_menu"])
-        setSupportMenu(res.data["support_menu"])
-      })
-      .catch((error) => console.log(error))
-  }, []);
+  const user_address = localStorage.getItem('address');
+  const { handleComplete, handleTogle, handleKeyPress, 
+          handleSearch, handleCateNavigate, handleLoginToggle, 
+          isOpen, categoryList, subCategoryList, userAddress, 
+          topMenu, supportMenu } = useHeaderHandler();
  
-  useEffect(()=>{
-    const fetchCategory = async () =>{
-      try {
-        const category = await axios.post('http://localhost:9000/main/categories');
-        const sub_cate = await axios.post('http://localhost:9000/main/subcategories');
-        setCategoryList(category.data);
-        setSubCategoryList(sub_cate.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchCategory();     
-  },[]);
 
   return (
     <div className='header_outline'>
@@ -55,30 +32,22 @@ export default function Header() {
               menu.path === "/member/login" ? (
                 isLogin ? (
                   // 로그아웃 상태일 때
-                  <button
-                    className='thin header_top_menu_item'
-                    onClick={handleLoginToggle} // 로그아웃 처리 함수
-                  >
-                    로그아웃
-                  </button>
+                  <button className='thin header_top_menu_item'
+                          onClick={handleLoginToggle}>로그아웃
+                  </button> // 로그아웃 처리 함수
                 ) : (
                   // 로그인 상태가 아닐 때
-                  <Link
-                    to={menu.path}
-                    className='thin header_top_menu_item'
-                    onClick={handleLoginToggle}
-                  >
-                    로그인
+                  <Link to={menu.path}
+                        className='thin header_top_menu_item'
+                        onClick={handleLoginToggle}>로그인
                   </Link>
                 )
-              ) : (
-                // token이 없으면 회원가입
+              ) : ( // token이 없으면 회원가입
                 menu.path === "/member/signup" && !localStorage.getItem("token") ? (
                   <Link to={menu.path} className='thin header_top_menu_item'>
                     {menu.title}
                   </Link>
-                ) : (
-                  // token이 있으면 MyPage
+                ) : ( // token이 있으면 MyPage
                   menu.path === "/member/signup" && localStorage.getItem("token") ? (
                     <Link to="/member/mypage" className='thin header_top_menu_item'>
                       MyPage
@@ -100,10 +69,7 @@ export default function Header() {
                         </>
                       )}
                     </Link>
-                    )
-                  )
-                )
-              )
+              ))))
             ))}
           </div>{/* end header top menu */}
           <div className='header_middle'>
@@ -122,18 +88,44 @@ export default function Header() {
             <div className='header_middle_right'>
               <div className='header_top_icon location_icon'>
                 <img src="/images/commonImage/header_icon1.svg" alt="header_icon" />
-                <div className='location_info'>
-                  <div>
-                    <span>배송지를 등록</span><span>하고</span><br />
-                  </div>
-                  <span>구매 가능한 상품을 확인하세요!</span>
-                  <button type='button' onClick={() => handleCateNavigate('/member/login')}>로그인</button>
-                  <button type='button' onClick={handleTogle}>
-                    <img src="/images/commonImage/search_img.svg" />주소검색
-                  </button>
-                  <Modal open={isOpen} onCancel={handleTogle} footer={null}>
-                    <DaumPostcode onComplete={handleComplete} />
-                  </Modal>
+                  <div className='location_info'>
+                  { isLogin ? (
+                    <>
+                      <div className='user_address'>
+                        <span>{userAddress.address}</span>
+                      </div>
+                      <button type='button' className='delivery_changebtn' onClick={handleTogle}>배송지 변경</button>
+                      <Modal open={isOpen} onCancel={handleTogle} footer={null} destroyOnClose={true}>
+                        <DaumPostcode onComplete={handleComplete} />
+                      </Modal>
+                    </>
+                    ) : ( 
+                      user_address ? (
+                        <>
+                          <div className='user_address'>
+                            <span>{user_address}</span>
+                          </div>
+                          <button type='button' className='delivery_changebtn' onClick={handleTogle}>배송지 변경</button>
+                          <Modal open={isOpen} onCancel={handleTogle} footer={null} destroyOnClose={true}>
+                            <DaumPostcode onComplete={handleComplete} />
+                          </Modal>
+                        </>
+                      ):(
+                        <>
+                          <div>
+                            <span>배송지를 등록</span><span>하고</span><br />
+                          </div>
+                          <span>구매 가능한 상품을 확인하세요!</span>
+                          <button type='button' onClick={() => handleCateNavigate('/member/login')}>로그인</button>
+                          <button type='button' onClick={handleTogle}>
+                            <img src="/images/commonImage/search_img.svg" />주소검색
+                          </button>
+                          <Modal open={isOpen} onCancel={handleTogle} footer={null}>
+                            <DaumPostcode onComplete={handleComplete} />
+                          </Modal>
+                        </>
+                      )
+                )}
                 </div>
               </div>
               <button className='header_top_icon' 

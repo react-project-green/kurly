@@ -103,3 +103,24 @@ export const getSubCategoryProductList = async({cid, sid}) =>{
   const [result] = await db.execute(sql, [cid, sid]);
   return result;
 };
+
+/*************************** 
+ *  5. 유저 정보 가져오기 - address
+***************************/
+export const getUserInfo = async({id}) => {
+  const sql =`
+    select address from member where id = ?
+  `;
+  const [result] = await db.execute(sql, [id]);
+  return result[0]; 
+};
+
+/*************************** 
+ *  6. 유저 address 업데이트
+***************************/
+export const getUserAddressUpdate = async({address, id}) => {
+  const sql = `update member set address = ? where id = ?`;
+
+  const [result] = await db.execute(sql, [address,id]);
+  return result.affectedRows;
+}  
