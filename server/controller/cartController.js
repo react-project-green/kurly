@@ -40,7 +40,7 @@ export const updateQty = async(req, res) => {
 *************************************/
 
 export const getCount = async(req, res) => {
-    const result = await repository.updateQty(req.body);
+    const result = await repository.getCount(req.body);
     res.json(result);
     res.end();
 };
