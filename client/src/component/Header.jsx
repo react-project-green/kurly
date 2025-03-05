@@ -4,54 +4,22 @@ import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { Modal} from 'antd'; 
 import { AuthContext } from './auth/AuthContext.js'
-<<<<<<< HEAD
 import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
 import { SearchContext } from '../context/searchContext.js';
-=======
 import { CartContext } from '../context/CartContext.js'
-import { SearchContext } from '../context/searchContext.js';
-import { Modal, Button } from 'antd'; 
-import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
-import { useCart } from '../hooks/useCart.js';
->>>>>>> 65e40316d20c821687b3ebf0e1f3e375304cc547
-
 export default function Header() {
   
   const [ hoverCategoryCid , setHoverCategoryCid ] = useState(null);
-<<<<<<< HEAD
   const { isLogin, userType } = useContext(AuthContext);
   const { searchKeyword, setSearchKeyword} = useContext(SearchContext);
+  const { cartCount } = useContext(CartContext);
   const navigate = useNavigate();
   const user_address = localStorage.getItem('address');
   const { handleComplete, handleTogle, handleKeyPress, 
           handleSearch, handleCateNavigate, handleLoginToggle, 
           isOpen, categoryList, subCategoryList, userAddress, 
           topMenu, supportMenu } = useHeaderHandler();
-=======
-  // const [ isOpen, setIsOpen] = useState(false);
-  const { isLogin, userType, setUserType } = useContext(AuthContext);
-  const { searchKeyword, setSearchKeyword, setCategoryNum} = useContext(SearchContext);
-  const { cartCount } = useContext(CartContext);
-  const {getCount, setCount} = useCart();
-  const navigate = useNavigate();
-  const { handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, isOpen  } = useHeaderHandler();
-
-  //로그인 시 카트카운트 변경
-  useEffect(()=>{
-    isLogin ? getCount() : setCount(0);
-  },[isLogin])
-
-  useEffect(() => {
-    axios.get('/data/header.json')
-      .then((res) => {
-        setTopMenu(res.data["header_top_menu"])
-        setSupportMenu(res.data["support_menu"])
-      })
-      .catch((error) => console.log(error))
-  }, []);
->>>>>>> 65e40316d20c821687b3ebf0e1f3e375304cc547
  
-
   return (
     <div className='header_outline'>
       <HeaderPromotionBanner />
