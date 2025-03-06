@@ -193,7 +193,8 @@ export default function Header() {
             <li>
               { (userType === 'A') ?  
                    <button onClick={() => handleCateNavigate('/goods/new')}>상품등록</button> 
-                 : <button onClick={() => handleCateNavigate('/main/category/special')}>특가/혜택</button>
+                 : <button onClick={() => handleCateNavigate('/main/special')}>특가/혜택</button>
+                //  : <button onClick={() => handleCateNavigate('/main/category/special')}>특가/혜택</button>
               }
             </li>
           </ul>

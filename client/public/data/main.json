@@ -45,6 +45,17 @@
       "path":"/main/category/new",
       "category":"new"
     }
-    
+  ],
+  "special_category":[
+    {"img":"/images/commonImage/event1.jpg"},
+    {"img":"/images/commonImage/event2.jpg"},
+    {"img":"/images/commonImage/event3.jpg"},
+    {"img":"/images/commonImage/event4.jpg"},
+    {"img":"/images/commonImage/event5.jpg"},
+    {"img":"/images/commonImage/event6.jpg"},
+    {"img":"/images/commonImage/event7.jpg"},
+    {"img":"/images/commonImage/event8.jpg"},
+    {"img":"/images/commonImage/event9.jpg"},
+    {"img":"/images/commonImage/event10.jpg"}
   ]
 }

@@ -18,6 +18,7 @@ import CheckoutPage from './component/payments/Checkout.jsx';
 import SuccessPage from './component/payments/Success.jsx';
 import FailPage from './component/payments/Fail.jsx';
 import NewProduct from './pages/NewProduct.jsx';
+import MainSpecialCategory from './component/main/MainSpecialCategory.jsx';
 import { CartProvider } from './context/CartContext.js';
 import { SearchProvider } from './context/searchContext.js';
 
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
               <Route index element={<KurlyMain />} />
+              <Route path="/main/special" element={<MainSpecialCategory />} />
               <Route path="/main/category/:categoryName" element={<ProductListCategory />} />
               <Route path="/main/categories/:categoryCid" element={<ProductListCategoryDetail />} />
               <Route path="/main/subcategories/:categoryCid/:categorySid" element={<ProductListCategoryDetail />} />
