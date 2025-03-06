@@ -24,8 +24,8 @@ export default function TodayPromotion() {
         <p className='today_subtitle'>망설이면 늦어요!</p>
       </div>
       <div className='today_product product_list'>
-        {rows && rows.map((row)=>
-           <ProductThumb product={row}/> 
+        {rows && rows.map((row, i)=>
+           <ProductThumb product={row} key={i}/> 
         )}
       </div>
     </div>
