@@ -3,11 +3,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { BsCart2 } from "react-icons/bs";
 import {CartContext} from '../../context/CartContext.js';
 import {useCart} from '../../hooks/useCart.js';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function MypageHeart() {
   const [ pidArray, setPidArray ] = useState([]);
   const [count, setCount] = useState(1);
+  const navigate = useNavigate();
   const {cartList, wishListCnt, setWishListCnt} = useContext(CartContext);
   const {saveToCartList,updateCartList} = useCart();
 
@@ -60,13 +61,13 @@ export default function MypageHeart() {
                 </div>
                 {pidArray && pidArray.map((item, i )=>(
                   <div className='wish_list_porduct1'>
-                    <div className='wish_image'>
-                      <img src={item.image_url} alt="product img" />
+                    <div className='wish_image' >
+                      <img src={item.image_url} alt="product img" onClick={()=>navigate(`/goods/detail/${item.pid}`)}/>
                     </div>
                     <div className='wish_list_porduct2'>
                       <div className='wish_list_porduct_info'>
                         <div className='wish_list_porduct_info1'>
-                          <div>{item.name}</div>
+                          <div  onClick={()=>navigate(`/goods/detail/${item.pid}`)}>{item.name}</div>
                           <div className='wish_list_porduct_info2'>
                             <span>{item.dc}%</span>
                             <span>{item.discountedPrice}</span>

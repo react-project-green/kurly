@@ -126,7 +126,7 @@ export const getUserAddressUpdate = async({address, id}) => {
 ***************************/
 export const getRecentlyViewItem = async({pidArray}) =>{
   const pidList = pidArray.map(()=>'?').join(",");
-  const sql = `select concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
+  const sql = `select pid, concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
                from product 
                where pid in (${pidList}) `;
 

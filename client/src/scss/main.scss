@@ -314,6 +314,7 @@
   height: 70px;
   object-fit: cover;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 .custom-arrow {
   position: absolute;
@@ -369,6 +370,10 @@
   background-color: rgb(245, 245, 245);
   z-index: 100;
   border-radius: 4px;
+  cursor: pointer;
+}
+.wish_list_porduct_info1 div:first-child{
+  cursor: pointer;
 }
 .wish_list_porduct_info{
   display: flex;

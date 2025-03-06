@@ -24,7 +24,7 @@ export default function Mypage() {
     const [userName, setUserName] = useState('');
 
     //Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
-    const [activeTab, setActiveTab] = useState('heart');
+    const [activeTab, setActiveTab] = useState('order');
 
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {

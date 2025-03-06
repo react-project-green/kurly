@@ -3,10 +3,12 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecentlyViewItemSlider() {
   const [ recentlyItems, setRecentlyItem ] =useState([]);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
   
   const getLocalPid = () =>{
     try {
@@ -59,7 +61,7 @@ export default function RecentlyViewItemSlider() {
           <Slider ref={sliderRef} {...settings}>
             {recentlyItems && recentlyItems.map((item, i)=>(
               <div key={i}>
-                <img src={item.upload_img} alt="recently view img" className='recently_img'/>
+                <img src={item.upload_img} alt="recently view img" className='recently_img'  onClick={()=>navigate(`/goods/detail/${item.pid}`)}/>
               </div>
             ))}
           </Slider>
