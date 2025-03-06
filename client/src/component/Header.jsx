@@ -27,41 +27,43 @@ export default function Header() {
         <div className='header_top'>
           <div className='header_top_menu'>
             {/* 로그인 상태에 따른 Header-topMenu 변경 */}
-            {topMenu && topMenu.map((menu) => (
+            {topMenu && topMenu.map((menu, i) => (
               // 로그인 => 로그아웃
               menu.path === "/member/login" ? (
                 isLogin ? (
                   // 로그아웃 상태일 때
-                  <button className='thin header_top_menu_item'
+                  <button key={i}
+                          className='thin header_top_menu_item'
                           onClick={handleLoginToggle}>로그아웃
                   </button> // 로그아웃 처리 함수
                 ) : (
                   // 로그인 상태가 아닐 때
                   <Link to={menu.path}
+                        key={i}
                         className='thin header_top_menu_item'
                         onClick={handleLoginToggle}>로그인
                   </Link>
                 )
               ) : ( // token이 없으면 회원가입
                 menu.path === "/member/signup" && !localStorage.getItem("token") ? (
-                  <Link to={menu.path} className='thin header_top_menu_item'>
+                  <Link to={menu.path} key={i} className='thin header_top_menu_item'>
                     {menu.title}
                   </Link>
                 ) : ( // token이 있으면 MyPage
                   menu.path === "/member/signup" && localStorage.getItem("token") ? (
-                    <Link to="/member/mypage" className='thin header_top_menu_item'>
+                    <Link to="/member/mypage" key={i} className='thin header_top_menu_item'>
                       MyPage
                     </Link>
                 ) : (
                   menu.path !== "/member/signup" && (
-                    <Link to={menu.path} className='thin header_top_menu_item'>
+                    <Link to={menu.path} key={i} className='thin header_top_menu_item'>
                       {menu.title}
                       {menu.no === 3 && (
                         <>
                           <span className='drop_down_icon'></span>
                           <ul className='surrport_drop_down'>
-                            {supportMenu && supportMenu.map((support) => (
-                              <li className='thin' onClick={() =>handleCateNavigate('/')}>
+                            {supportMenu && supportMenu.map((support, i) => (
+                              <li className='thin' key={i} onClick={() =>handleCateNavigate('/')}>
                                 {support.title}
                               </li>
                             ))}

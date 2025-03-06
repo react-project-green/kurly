@@ -13,8 +13,8 @@ export default function MainSpecialCategory() {
   return (
     <div className='content_outline'>
       <ul className='content'>
-        {specialEvent && specialEvent.map((event)=>(
-          <li className='special_category'>
+        {specialEvent && specialEvent.map((event, i)=>(
+          <li key={i} className='special_category'>
             <img src={event.img} alt="image" />
           </li>
         ))
