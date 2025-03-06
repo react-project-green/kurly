@@ -1,5 +1,6 @@
 import React from 'react';
-
+import RecentlyViewItemSlider from './RecentlyViewItemSlider.jsx';
+import '../../scss/main.scss'
 export default function MainSideBarMenu() {
   return (
     <>
@@ -16,8 +17,11 @@ export default function MainSideBarMenu() {
             <li>레시피</li>
           </ul>
         </div>
+        <RecentlyViewItemSlider/> 
       </div>
     </>
   );
 }
+
+
 

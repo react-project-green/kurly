@@ -133,21 +133,26 @@ export default function Detail() {
         }
         
     }
-
+    
     // 찜하기 
     const handleAddHeart = useCallback(() => {
         if(isLogin){
             let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
             const samePid = heartList.includes(product.pid);
+            const wishListCnt = heartList.length;
             
-            if(!samePid){
-                heartList.unshift(Number(pid));       
-                localStorage.setItem('heartList',JSON.stringify(heartList)); 
-                setHeart(true);
+            if(wishListCnt <=9){
+                if(!samePid){
+                    heartList.unshift(Number(pid));       
+                    localStorage.setItem('heartList',JSON.stringify(heartList)); 
+                    setHeart(true);
+                }else{
+                    const newArray = heartList.filter((item)=> item !== product.pid);
+                    localStorage.setItem('heartList',JSON.stringify(newArray)); 
+                    setHeart(false);
+                }
             }else{
-                const newArray = heartList.filter((item)=> item !== product.pid);
-                localStorage.setItem('heartList',JSON.stringify(newArray)); 
-                setHeart(false);
+                alert('찜한 상품은 최대 10개까지 저장됩니다.');
             }
         }else{
             loginCheck();
