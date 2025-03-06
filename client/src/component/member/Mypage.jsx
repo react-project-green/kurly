@@ -9,10 +9,13 @@ import MypageHeart from './MypageHeart.jsx';
 import MemberUpdate from './MemberUpdate.jsx'
 import MemberError from './MemberError.jsx';
 import KakaoTalkButton from './KakaoTalkButton.jsx'
+import {CartContext} from '../../context/CartContext.js';
+
+
 
 export default function Mypage() {
     const navigate = useNavigate();
-    
+    const {wishListCnt, setWishListCnt} = useContext(CartContext);
 
     // AuthContext에서 로그인 상태(isLogin)와 userId를 가져옴
     const { isLogin, setIsLogin, userType } = useContext(AuthContext);
@@ -21,7 +24,7 @@ export default function Mypage() {
     const [userName, setUserName] = useState('');
 
     //Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
-    const [activeTab, setActiveTab] = useState('order');
+    const [activeTab, setActiveTab] = useState('heart');
 
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {
@@ -82,7 +85,7 @@ export default function Mypage() {
                             <div className={`member_click ${activeTab === 'heart' ? 'activeTab' : ''}`}   onClick={() => handleMenuClick('heart')}>
                                 <div><CiHeart size={30} style={{ fill: activeTab === 'heart' ? '#5f0080' : '' }} /></div>
                                 <label>찜한 상품</label>
-                                <span>0</span>
+                                <span>{wishListCnt}</span>
                             </div>
                         </div>
                         <div className='member_popup'>

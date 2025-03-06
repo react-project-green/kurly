@@ -131,6 +131,26 @@ export const getRecentlyViewItem = async({pidArray}) =>{
                where pid in (${pidList}) `;
 
   const [result] = await db.execute(sql, pidArray);
-  console.log('레파지토리 result',result);
   return result;
 }
+
+/*************************** 
+ *  8. 위시리스트 상품 정보 가져오기 
+***************************/
+export const getWishListInfo = async({pidArray})=>{
+  const pidList = pidArray.map(()=> '?').join(",");
+  const sql =`
+    select pid
+          , subject as name
+          , sub_desc as description
+          , price as originalPrice
+          , dc 
+          , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
+          , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
+      from  product
+     where pid in (${pidList})
+  `;
+
+  const [result] = await db.execute(sql, pidArray);
+  return result;
+}  

@@ -129,7 +129,7 @@ export default function Header() {
                 </div>
               </div>
               <button className='header_top_icon' 
-                      onClick={() => { isLogin ? handleCateNavigate('/'): handleCateNavigate('/member/login')}} >
+                      onClick={() => { isLogin ? handleCateNavigate('/member/mypage'): handleCateNavigate('/member/login')}} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>
               <button className='header_top_icon cart_icon' onClick={() => handleCateNavigate('/cart')}>

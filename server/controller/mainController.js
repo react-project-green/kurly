@@ -71,3 +71,12 @@ export const getRecentlyViewItem = async(req, res) =>{
   res.json(result);
   res.end();
 };
+
+/*************************** 
+ *  8. 위시리스트 상품 정보 가져오기 
+***************************/
+export const getWishListInfo = async(req, res)=>{
+  const result = await repository.getWishListInfo(req.body);
+  res.json(result);
+  res.end();
+};

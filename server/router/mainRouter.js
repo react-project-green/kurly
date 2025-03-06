@@ -9,7 +9,8 @@ router.post('/category',         controller.getProductList)
       .post('/subcategories',    controller.getSubCategoryProductList)
       .post('/userinfo',         controller.getUserInfo)
       .post('/addressUpdate',    controller.getUserAddressUpdate)
-      .post('/recentlyViewItem', controller.getRecentlyViewItem);
+      .post('/recentlyViewItem', controller.getRecentlyViewItem)
+      .post('/wishList',         controller.getWishListInfo);
 
 export default router;
 

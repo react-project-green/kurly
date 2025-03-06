@@ -13,6 +13,7 @@ export function useHeaderHandler() {
   const [ supportMenu, setSupportMenu] = useState([]);
   const [ categoryList, setCategoryList] = useState([]);
   const [ subCategoryList, setSubCategoryList] = useState([]);
+  const [ wishListCnt, setWishListCnt ] = useState(0);
   const [ userAddress, setUserAddress] = useState('');
   const user_id = localStorage.getItem('user_id');
 
@@ -114,7 +115,7 @@ export function useHeaderHandler() {
   }
 
 
-  return {  handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle, 
+  return {  handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle,
             isOpen, categoryList, subCategoryList, userAddress, topMenu, supportMenu  }
 
 };
