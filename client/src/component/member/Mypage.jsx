@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { CiMemoPad, CiGift, CiHeart, CiDeliveryTruck } from "react-icons/ci";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../auth/AuthContext.js';
 import MypageOrder from './MypageOrder.jsx';
@@ -12,9 +12,9 @@ import KakaoTalkButton from './KakaoTalkButton.jsx'
 import {CartContext} from '../../context/CartContext.js';
 
 
-
 export default function Mypage() {
     const navigate = useNavigate();
+    const { active } = useParams();
     const {wishListCnt, setWishListCnt} = useContext(CartContext);
 
     // AuthContext에서 로그인 상태(isLogin)와 userId를 가져옴
@@ -24,13 +24,12 @@ export default function Mypage() {
     const [userName, setUserName] = useState('');
 
     //Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
-    const [activeTab, setActiveTab] = useState('order');
+    const [activeTab, setActiveTab] = useState(active);
 
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {
         setActiveTab(tab);
     } 
-
     // 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
     useEffect(() => {
         const id = localStorage.getItem("user_id");

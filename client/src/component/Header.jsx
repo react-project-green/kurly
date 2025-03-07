@@ -51,7 +51,7 @@ export default function Header() {
                   </Link>
                 ) : ( // token이 있으면 MyPage
                   menu.path === "/member/signup" && localStorage.getItem("token") ? (
-                    <Link to="/member/mypage" key={i} className='thin header_top_menu_item'>
+                    <Link to="/member/mypage/order" key={i} className='thin header_top_menu_item'>
                       MyPage
                     </Link>
                 ) : (
@@ -131,7 +131,7 @@ export default function Header() {
                 </div>
               </div>
               <button className='header_top_icon' 
-                      onClick={() => { isLogin ? handleCateNavigate('/member/mypage'): handleCateNavigate('/member/login')}} >
+                      onClick={() => { isLogin ? handleCateNavigate('/member/mypage/heart'): handleCateNavigate('/member/login')}} >
                 <img src="/images/commonImage/header_icon2.svg" alt="header_icon" />
               </button>
               <button className='header_top_icon cart_icon' onClick={() => handleCateNavigate('/cart')}>
