@@ -1,21 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
-export function useAddress(test) {
+export default function Postcode({ addAddress }) {
     const [data, setData] = useState({ zipcode: '', address: '' });
     const scriptUrl = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
     const refs = {
-        zipcodeRef: useRef(null), 
-        addressRef: useRef(null) 
+        zipcodeRef: useRef(null),
+        addressRef: useRef(null)
     };
 
     const open = useDaumPostcodePopup(scriptUrl);
 
-    const handleComplete = (data) => { 
+    const handleComplete = (data) => {
         let fullAddress = data.address;
         let extraAddress = '';
-    console.log(data.zonecode, data.address);
-    
+        console.log(data.zonecode, data.address);
+
         if (data.addressType === 'R') {
             if (data.bname !== '') {
                 extraAddress += data.bname;
@@ -26,24 +26,18 @@ export function useAddress(test) {
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
 
-        // setData({ zipcode: data.zonecode, address: fullAddress });
-        test({zipcode: data.zonecode, address: fullAddress }); 
+        addAddress({ zipcode: data.zonecode, address: fullAddress });
+
     };
 
     const handleClick = () => {
         open({ onComplete: handleComplete });
     };
 
-    return {
-        Postcode: (test) => (
-            <div>
-                <button type='button' onClick={handleClick} className='address_botton'>
-                    주소검색
-                </button>
-            </div>
-        ),
-        refs, 
-        data,
-        handleComplete
-    };
+    return (
+        <button type='button' onClick={handleClick} className='address_botton'>
+            주소검색
+        </button>
+    );
 }
+
