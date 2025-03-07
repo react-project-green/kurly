@@ -5,6 +5,8 @@ import {CartContext} from '../../context/CartContext.js';
 import {useCart} from '../../hooks/useCart.js';
 import { useNavigate } from 'react-router-dom';
 
+
+
 export default function MypageHeart() {
   const [ pidArray, setPidArray ] = useState([]);
   const [count, setCount] = useState(1);
@@ -60,7 +62,7 @@ export default function MypageHeart() {
                   전체 <strong>{wishListCnt}</strong>개
                 </div>
                 {pidArray && pidArray.map((item, i )=>(
-                  <div className='wish_list_porduct1'>
+                  <div className='wish_list_porduct1' key={i}>
                     <div className='wish_image' >
                       <img src={item.image_url} alt="product img" onClick={()=>navigate(`/goods/detail/${item.pid}`)}/>
                     </div>

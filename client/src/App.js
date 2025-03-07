@@ -43,7 +43,7 @@ function App() {
               <Route path="/goods/detail/:pid" element={<Detail />} />
               <Route path="/member/login" element={<Login />} />
               <Route path="/member/signup" element={<Signup />} />
-              <Route path="/member/mypage" element={<Mypage />} />
+              <Route path="/member/mypage/:active" element={<Mypage />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
               <Route path="/sandbox" element={<CheckoutPage />} />
