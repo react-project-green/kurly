@@ -42,3 +42,41 @@ export const getSubCategoryProductList = async(req, res) =>{
   res.end();
 };
 
+/*************************** 
+ *  5. 유저 정보 가져오기 - address
+***************************/
+export const getUserInfo = async(req, res) => {
+  const result = await repository.getUserInfo(req.body);
+  res.json(result);
+  res.end();
+};
+
+/*************************** 
+ *  6. 유저 address 업데이트
+***************************/
+export const getUserAddressUpdate = async(req, res) => {
+  let result;
+  
+  result = await repository.getUserAddressUpdate(req.body);
+  if(result)  result = await repository.getUserInfo(req.body);
+  res.json(result);
+  res.end();
+};
+
+/*************************** 
+ *  7. 최근 본 상품 가져오기 
+***************************/
+export const getRecentlyViewItem = async(req, res) =>{
+  const result = await repository.getRecentlyViewItem(req.body);
+  res.json(result);
+  res.end();
+};
+
+/*************************** 
+ *  8. 위시리스트 상품 정보 가져오기 
+***************************/
+export const getWishListInfo = async(req, res)=>{
+  const result = await repository.getWishListInfo(req.body);
+  res.json(result);
+  res.end();
+};

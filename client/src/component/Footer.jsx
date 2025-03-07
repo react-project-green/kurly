@@ -67,8 +67,8 @@ export default function Footer() {
           </div> {/* end of footer_top_left */}
           <div className='footer_top_right'>
             <ul className='footer_links'>
-                {footerLinks && footerLinks.map((link)=>(
-                  <li>{link.title}</li>
+                {footerLinks && footerLinks.map((link,i)=>(
+                  <li key={i}>{link.title}</li>
                 ))}
             </ul>
             <div className='company_info'>
@@ -93,8 +93,8 @@ export default function Footer() {
               </p>
             </div>
             <ul className='sns_info'>
-              {companySnsInfo && companySnsInfo.map((sns)=>(
-                <li>
+              {companySnsInfo && companySnsInfo.map((sns,i)=>(
+                <li key={i}>
                   <a href={sns.link}>
                     <img src={sns.img} alt="img" />
                   </a>
@@ -105,8 +105,8 @@ export default function Footer() {
         </div> {/* end of footer_top */}
 
         <div className='footer_middle'>
-          {certifiedList && certifiedList.map((item)=>(
-            <button>
+          {certifiedList && certifiedList.map((item, i)=>(
+            <button key={i}>
               <img src={item.path} alt="logoImage" />
               <p>
                 {item.desc1}

@@ -26,8 +26,8 @@ export default function ProductListCategoryDetail() {
   return (
     <div className='product_list'>
       <div className="inner">
-        { cateProductList.map((item)=>(
-          <ProductThumb  product={item} />
+        { cateProductList.map((item, i)=>(
+          <ProductThumb  product={item} key={i}/>
         ))
         }
     </div>     

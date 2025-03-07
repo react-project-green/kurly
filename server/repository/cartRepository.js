@@ -75,15 +75,16 @@ export const updateQty = async({no, type, qty}) => {
         장바구니 전체 카운트 조회
 *************************************/
 
-export const getCount = async() => {
+export const getCount = async({id}) => {
     const sql = `
-       
+        select count(*) as count from cart
+            where id = ?
     `;
 
 
-    const [result] =  await db.execute(sql);
+    const [result] =  await db.execute(sql, [id]);
     
-    return result; 
+    return result[0]; 
 }
 
 

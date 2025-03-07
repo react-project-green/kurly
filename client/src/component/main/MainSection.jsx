@@ -15,10 +15,10 @@ export default function MainSection() {
   return (
     <div className='main_setion'>
       {productList && productList.map((item, i)=>(
-        <>
+        <div key={i}>
           <MainProductList {...item}/>
           {i ===1 && <TodayPromotion /> }
-        </>
+        </div>
       ))} 
     </div>
   );

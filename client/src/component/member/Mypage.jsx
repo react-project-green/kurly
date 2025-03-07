@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { CiMemoPad, CiGift, CiHeart } from "react-icons/ci";
-import { useNavigate } from 'react-router-dom';
+import { CiMemoPad, CiGift, CiHeart, CiDeliveryTruck } from "react-icons/ci";
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../auth/AuthContext.js';
 import MypageOrder from './MypageOrder.jsx';
@@ -8,32 +8,30 @@ import MypageCoupon from './MypageCoupon.jsx';
 import MypageHeart from './MypageHeart.jsx';
 import MemberUpdate from './MemberUpdate.jsx';
 import MemberError from './MemberError.jsx';
-import KakaoTalkButton from './KakaoTalkButton.jsx';
-import { CartContext } from '../../context/CartContext.js';
+import KakaoTalkButton from './KakaoTalkButton.jsx'
+import {CartContext} from '../../context/CartContext.js';
+
 
 export default function Mypage() {
     const navigate = useNavigate();
-    const { wishListCnt, setWishListCnt } = useContext(CartContext);
-
+    const { active } = useParams();
+    const {wishListCnt, setWishListCnt} = useContext(CartContext);
     // AuthContext에서 로그인 상태(isLogin)와 userId를 가져옴
     const { isLogin, setIsLogin, userType } = useContext(AuthContext);
 
     // userName의 기본값
     const [userName, setUserName] = useState('');
 
-    // Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
-    const [activeTab, setActiveTab] = useState('order');
+
+    //Mypage 클릭시 가장 먼저 노출되는 탭 : 주문내역
+    const [activeTab, setActiveTab] = useState(active);
+
 
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {
         setActiveTab(tab);
-    }
 
-    // 1:1문의 클릭 이벤트
-    const memberClick = () => {
-        alert('현재는 톡상담 서비스 이용시간입니다.');
-    }
-
+    } 
     // 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
     useEffect(() => {
         const id = localStorage.getItem("user_id");

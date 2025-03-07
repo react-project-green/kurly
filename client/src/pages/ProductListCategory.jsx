@@ -28,8 +28,8 @@ export default function ProductListCategory() {
             </p> 
             { (productList.length > 0)  ? (
                 <div className="inner">
-                    {productList.map((item) =>
-                            <ProductThumb product={item} />
+                    {productList.map((item, i) =>
+                            <ProductThumb product={item} key={i}/>
                      ) }
                 </div>     
                ) : (

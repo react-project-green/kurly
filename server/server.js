@@ -32,7 +32,6 @@ server.use('/upload', uploadRouter);
 //멤버
 server.use('/member', memberRouter);
 
-
 // 메인페이지 -> 카테고리 상품리스트
 server.use('/main', mainRouter);
 

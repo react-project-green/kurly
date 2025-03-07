@@ -22,7 +22,7 @@ export default function ProductThumb({product}) {
                         <em>{product.originalPrice}</em>
                         <div><span>{product.discountRate}</span><strong>{product.discountedPrice}</strong></div>
                     </div>
-                    <div className="review_num"><HiOutlineChatBubbleLeftEllipsis className='icon' />999+</div>
+                    {/* <div className="review_num"><HiOutlineChatBubbleLeftEllipsis className='icon' />999+</div> */}
                 </div>
             </Link>
         </div>
