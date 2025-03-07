@@ -26,7 +26,7 @@ const KakaoTalkButton = () => {
     };
 
     return (
-        <button onClick={handleClick}>
+        <button onClick={handleClick} style={{marginLeft:"15px"}}>
             <img src="https://developers.kakao.com/tool/resource/static/img/button/channel/consult/consult_small_yellow_pc.png" alt="" />
         </button>
     );
