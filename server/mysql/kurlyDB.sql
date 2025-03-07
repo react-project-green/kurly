@@ -55,8 +55,8 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-  `cid` 			char(3)			    PRIMARY KEY ,
-  `title`			varchar(20)		  NOT NULL,
+  `cid` 			char(3)			PRIMARY KEY ,
+  `title`			varchar(20)		NOT NULL,
   `image`			varchar(50)	    NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -76,9 +76,9 @@ DROP TABLE IF EXISTS `sub_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sub_category` (
-  `sid` 			char(3)		 	  NOT NULL,
+  `sid` 			char(3)		 	NOT NULL,
   `title`			varchar(20)		NOT NULL,
-  `cid`				char(3)			  NOT NULL,
+  `cid`				char(3)			NOT NULL,
    PRIMARY KEY (`cid`, `sid`), 
    CONSTRAINT `SUB_CATEGORY_FK_ID` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -101,9 +101,9 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `pid`               int           PRIMARY KEY    auto_increment,
   `brand`             varchar(100)  NOT NULL,
-  `cate_depth1`       char(3)	 	    NOT NULL,
-  `cate_depth2`       char(3)	  	  NOT NULL,
-  `subject`           text    		  NOT NULL,
+  `cate_depth1`       char(3)	 	NOT NULL,
+  `cate_depth2`       char(3)	  	NOT NULL,
+  `subject`           text    		NOT NULL,
   `sub_desc`          text,
   `price`             int           NOT NULL,
   `dc`                int,
@@ -129,11 +129,11 @@ DROP TABLE IF EXISTS `qna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qna` (
-  `no` 				int 		 	        PRIMARY KEY 	auto_increment,
-  `id` 				varchar(20) 	    NOT NULL,
-  `pid` 			int  			        NOT NULL,
-  `title`			varchar(20)		    NOT NULL,
-  `content` 	varchar(1000) 	NOT NULL,
+  `no` 				int 		 	PRIMARY KEY 	auto_increment,
+  `id` 				varchar(20) 	NOT NULL,
+  `pid` 			int  			NOT NULL,
+  `title`			varchar(20)		NOT NULL,
+  `content` 		varchar(1000) 	NOT NULL,
    CONSTRAINT `QNA_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `QNA_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -147,9 +147,9 @@ DROP TABLE IF EXISTS `wish`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wish` (
-  `no` 				int 		 	    PRIMARY KEY 	auto_increment,
+  `no` 				int 		 	PRIMARY KEY 	auto_increment,
   `id`				varchar(20)		NOT NULL,
-  `pid` 			int				    NOT NULL,
+  `pid` 			int				NOT NULL,
    CONSTRAINT `WISH_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `WISH_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -166,7 +166,7 @@ CREATE TABLE `cart` (
   `id`            varchar(20)    NOT NULL,
   `pid`           int             NOT NULL,
   `qty`           int             NOT NULL,
-  `checked`       boolean         NOT NULL DEFAULT true,
+--  `checked`       boolean         NOT NULL DEFAULT true,
    CONSTRAINT `CART_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `CART_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -187,15 +187,15 @@ DROP TABLE IF EXISTS `reviews`;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table reviews(
 	rid				int 				primary key 	auto_increment,
-  subject			varchar(50)			not null,
-  detail_txt		varchar(1000)		not null,
-  images			json,
+    subject			varchar(50)			not null,
+    detail_txt		varchar(1000)		not null,
+    images			json,
 	date			datetime			not null,
 	id				VARCHAR(30) 		not null,
-  pid 			int 				not null,
-  count 			int,
-  CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-  CONSTRAINT `REVIEWS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+    pid 			int 				not null,
+    count 			int,
+   CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `REVIEWS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,25 +217,25 @@ CREATE TABLE `notice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 -- ########################################
--- Dumping data for table `payments` 10.결제 테이블
+-- Dumping data for table `orderList` 10.결제 테이블
 -- ########################################
-DROP TABLE IF EXISTS `payments`;
+DROP TABLE IF EXISTS `orderList`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `payments` (
-  `oid` 			int		 		PRIMARY KEY 	auto_increment,
-  `id`				varchar(20)		NOT NULL,
-  `pid`				int				NOT NULL,
-  `tid` 			varchar(50)		NOT NULL,
-  `qty`				int 			NOT NULL,
-  `total_price` 	int				NOT NULL,
-  `type` 			varchar(30)		NOT NULL,
-  `odate` 			datetime		NOT NULL,
-  `zipcode`			varchar(10)     NOT NULL,
+CREATE TABLE `orderList` (
+  `oid` 			int		 		 PRIMARY KEY 	auto_increment,
+  `id`				varchar(20)		 NOT NULL,
+  `pid`				int				 NOT NULL,
+  `tid` 			varchar(50)		 NOT NULL,
+  `qty`				int 			 NOT NULL,
+  `total_price` 	int				 NOT NULL,
+  `type` 			varchar(30)		 NOT NULL,
+  `odate` 			datetime		 NOT NULL,
+  `zipcode`			varchar(10)      NOT NULL,
   `address`			varchar(200)     NOT NULL,
   `address_detail`  varchar(200)     NOT NULL,
+  `onum`	 		varchar(40) 	 NOT NULL,
    CONSTRAINT `PAYMENTS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `PAYMENTS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -263,16 +263,16 @@ DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table inquire(
-	 iid				int 	primary key		auto_increment,
-    pid 			int 				not null,
-    subject			varchar(100)		not null,
+	  iid				    int 	          primary key		auto_increment,
+    pid 			    int 				    not null,
+    subject			  varchar(100)		not null,
     detail_txt		varchar(1000)		not null,   
-    id				varchar(30)			not null,
-    date 			datetime 			not null,
-    answer 			boolean,
+    id				    varchar(30)			not null,
+    date 			    datetime 			  not null,
+    answer 			  boolean,
     answer_txt 		varchar(1000),
-    CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-    CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+   CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,15 +284,15 @@ create table inquire(
 create view view_category_pro_list 
 as
 select pid
-	 , subject as name
-	 , sub_desc as description
-	 , price as originalPrice
-	 , dc 
-	 , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
-	 , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-   , pdate
-   , cate_depth1
-   , cate_depth2
+	    , subject as name
+	    , sub_desc as description
+	    , price as originalPrice
+	    , dc 
+	    , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
+	    , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
+      , pdate
+      , cate_depth1
+      , cate_depth2
 from product; 
 
 -- ########################################
@@ -302,20 +302,20 @@ from product;
 create view view_cart_list
 as 
 select  c.no as no,
-      c.qty as qty,
-      c.checked as checked,
-      m.id as id,
-      m.address as address,
-      p.pid as pid,
-	    p.delivery as delivery ,
-      p.subject as subject,
-      p.sub_desc as sub_desc,
-      p.price as price,
-      p.dc as dc,
-      upload_img
+		    c.qty as qty,
+--      c.checked as checked,
+		    m.id as id,
+		    m.address as address,
+		    p.pid as pid,
+		    p.delivery as delivery ,
+		    p.subject as subject,
+		    p.sub_desc as sub_desc,
+		    p.price as price,
+		    p.dc as dc,
+		    upload_img
 from cart c, member m, product p
 where c.id = m.id 
-and c.pid = p.pid;
+and   c.pid = p.pid;
 
 
 -- #######################################

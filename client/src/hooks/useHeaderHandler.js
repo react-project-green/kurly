@@ -92,6 +92,10 @@ export function useHeaderHandler() {
     navigate(path);
   };
 
+  const handleKywordDelete = () => {
+    setSearchKeyword('');
+  };
+
   /* 로그인으로 헤더 버튼 바꾸기 */
   const handleLoginToggle = () => {
     if (isLogin) {
@@ -116,6 +120,6 @@ export function useHeaderHandler() {
 
 
   return {  handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle,
-            isOpen, categoryList, subCategoryList, userAddress, topMenu, supportMenu  }
+            isOpen, categoryList, subCategoryList, userAddress, topMenu, supportMenu, handleKywordDelete  }
 
 };

@@ -44,7 +44,9 @@ export const getProductList = async({category}) => {
 export const getSearchItem = async({search}) => {
   const searchKeyWord = `%${search}%`;
   const sql =`
-    select * from view_category_pro_list where name like ? 
+    select *, concat(dc, '%') as discountRate
+      from view_category_pro_list 
+     where name like ? 
   `;
 
  const [result] = await db.execute(sql, [searchKeyWord]);
@@ -90,7 +92,7 @@ export const getSubCategoryTitleList = async(req, res) =>{
 ***************************/
 export const getSubCategoryProductList = async({cid, sid}) =>{
   const sql =`
-    select * , concat(dc, '%') as discountRate 
+    select * , concat(dc, '%') as discountRate
       from   view_category_pro_list 
      where   cate_depth1 = ?
        and   cate_depth2 = ?
