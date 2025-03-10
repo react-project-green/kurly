@@ -28,7 +28,7 @@ export default function RecentlyViewItemSlider() {
            .then((res)=> setRecentlyItem(res.data))
            .catch((error)=>console.log(error))
     }
-  },[]); //pidArray
+  }, [pidArray]);
 
   const settings= {
     infinite:false,
