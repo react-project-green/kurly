@@ -46,17 +46,17 @@ export default function Header() {
                 )
               ) : ( // token이 없으면 회원가입
                 menu.path === "/member/signup" && !localStorage.getItem("token") ? (
-                  <Link to={menu.path} key={i} className='thin header_top_menu_item'>
+                  <Link to={menu.path} key={i} className='thin header_top_menu_item'  onClick={() =>handleCateNavigate('/')}>
                     {menu.title}
                   </Link>
                 ) : ( // token이 있으면 MyPage
                   menu.path === "/member/signup" && localStorage.getItem("token") ? (
-                    <Link to="/member/mypage/order" key={i} className='thin header_top_menu_item'>
+                    <Link to="/member/mypage/order" key={i} className='thin header_top_menu_item' onClick={() =>handleCateNavigate('/')}>
                       MyPage
                     </Link>
                 ) : (
                   menu.path !== "/member/signup" && (
-                    <Link to={menu.path} key={i} className='thin header_top_menu_item'>
+                    <Link to={menu.path} key={i}  className='thin header_top_menu_item' onClick={() =>handleCateNavigate('/')}>
                       {menu.title}
                       {menu.no === 3 && (
                         <>
