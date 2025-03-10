@@ -1,7 +1,7 @@
 /******************************
  * member : 공통 
  ******************************/
- @font-face {
+@font-face {
   font-family: 'Pretendard-Regular';
   font-weight: 300 400 500 600 700 800 900;
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -41,9 +41,10 @@
  * member : Login
  ******************************/
 .member_form_box {
-  span{
+  span {
     font-family: 'Pretendard-Regular';
   }
+
   width: 900px;
   margin: 0 auto;
   margin-bottom: 40px;
@@ -52,10 +53,10 @@
 
   ul {
     text-align: center;
-    
+
     li {
       padding: 5px;
-      
+
 
       .loginform_input {
         font-family: 'Pretendard-Regular';
@@ -73,7 +74,7 @@
       }
     }
 
-    .login_founder { 
+    .login_founder {
       text-align: right;
       font-size: 12px;
       padding: 0;
@@ -85,7 +86,7 @@
     text-align: center;
     margin: 90px 0px 30px 0px;
 
-    span { 
+    span {
       font-size: 1.6rem;
       font-weight: bold;
     }
@@ -224,7 +225,7 @@
 
     label {
       width: 180px;
-      
+
     }
 
     div {
@@ -442,7 +443,7 @@
   }
 
   .member_radio .radio_input {
-    
+
     display: none;
     padding: 0;
     margin: 0;
@@ -574,7 +575,7 @@
             display: flex;
             justify-content: space-around;
 
-            label { 
+            label {
               padding: 5px;
               display: block;
               justify-content: center;
@@ -642,10 +643,12 @@
       .memever_my_right {
         width: 650px;
         margin-left: 40px;
+
         label,
-        span{
+        span {
           font-family: 'Pretendard-Regular';
         }
+
         .member_coupon_box {
           height: 500px;
           margin: auto;
@@ -677,7 +680,7 @@
             margin: auto;
             border-bottom: 3px solid #333333;
 
-            span { 
+            span {
               margin-top: 10px;
               padding-left: 8px;
               font-size: 13px;
@@ -721,6 +724,7 @@
  ******************************/
 .member_update_form {
   padding-bottom: 40px;
+  width: 640px;
 
   .update_form {
     ul {
@@ -843,6 +847,76 @@
         margin-right: 20px;
       }
     }
+  }
+}
+
+/******************************
+ * mypage : 주문내역
+ ******************************/
+.member_order {
+  padding: 20px;
+  ul{
+    li{
+      cursor: pointer;
+    }
+  }
+  .member_order_num {
+    p {
+      padding-bottom: 2px;
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+
+    label,
+    span {
+      color: #848f9a;
+
+    }
+  }
+
+  .member_order_border {
+    min-width: 100%;
+    min-height: 1px;
+    background-color: #eceff3;
+    margin: 15px 0 15px 0;
+  }
+
+  .member_order_list {
+    margin: 15px 0 15px 0;
+
+    .member_order_detail {
+      display: flex;
+
+      .member_order_sub {
+        
+        font-family: 'Pretendard-Regular';
+        margin-left: 10px;
+
+        .member_order_pname { 
+          font-family: 'Pretendard-Regular';
+          color: #222;
+          font-size: 13px;
+        }
+
+        span { 
+          color: #848f9a;
+          font-weight: lighter; 
+        }
+        .member_order_price{ 
+          display: flex;
+          margin-top: 10px;
+          p{
+            font-family: 'Pretendard-Regular';
+            color: #222;
+            font-weight: bold;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  .member_order_price{
+    font-family: 'Pretendard-Regular';
   }
 }
 

@@ -56,14 +56,18 @@ export default function InquireInfo({src, name, pid}) {
                 .catch(err => console.log(err));
     }
     const handleAnswer = async (iid) => {
-        if(textRef.current.value === ''){
+        if (!textRef.current.value.trim()) {
             textRef.current.focus();
         }else{
-            const result = await axios.post('http://localhost:9000/inquire/answer',{'iid':iid,'text':textRef.current.value})
-            if(result.data.affectedRows === 1) reloadData();
+            try{
+                const result = await axios.post('http://localhost:9000/inquire/answer',{'iid':iid,'text':textRef.current.value})
+                if(result.data.affectedRows === 1) reloadData();
+            }catch(err){
+                console.error('Error while posting answer:', err);
+            }
+            
         }
     }
-    
     
     return (
         <>

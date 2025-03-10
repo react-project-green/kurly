@@ -18,10 +18,10 @@ export default function MainProductListSlider({category}) {
   }
 
   useEffect(()=>{
-    axios.post('http://localhost:9000/main/category', {category: category})
+    axios.post('http://localhost:9000/main/category', {'category': category})
           .then((res)=>setMainProductList(res.data))
           .catch((error)=>console.log(error))
-  },[mainProductList]);
+  },[category]);
 
   return (
     <div className='section_product'>

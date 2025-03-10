@@ -36,14 +36,15 @@ export function useHeaderHandler() {
 
   /* 헤더 정보 값 가져오기  */
   const fetchCategory = async() =>{
-    if(!user_id) return;
     try {
+      if(user_id) {
+        const user_info = await axios.post('http://localhost:9000/main/userinfo', {id: user_id});
+        setUserAddress(user_info.data);
+      }
       const category = await axios.post('http://localhost:9000/main/categories');
       const sub_cate = await axios.post('http://localhost:9000/main/subcategories');
-      const user_info = await axios.post('http://localhost:9000/main/userinfo', {id: user_id});
       setCategoryList(category.data);
       setSubCategoryList(sub_cate.data);
-      setUserAddress(user_info.data);
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +93,10 @@ export function useHeaderHandler() {
     navigate(path);
   };
 
+  const handleKywordDelete = () => {
+    setSearchKeyword('');
+  };
+
   /* 로그인으로 헤더 버튼 바꾸기 */
   const handleLoginToggle = () => {
     if (isLogin) {
@@ -116,6 +121,6 @@ export function useHeaderHandler() {
 
 
   return {  handleComplete, handleTogle, handleKeyPress, handleSearch, handleCateNavigate, handleLoginToggle,
-            isOpen, categoryList, subCategoryList, userAddress, topMenu, supportMenu  }
+            isOpen, categoryList, subCategoryList, userAddress, topMenu, supportMenu, handleKywordDelete  }
 
 };

@@ -1,5 +1,5 @@
 import React,{useRef, useState, useEffect, useContext, useCallback} from 'react';
-import { useParams ,useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { VscBell } from "react-icons/vsc";
 import { AiFillHeart } from "react-icons/ai";
 
@@ -23,7 +23,6 @@ export default function Detail() {
     const {isLogin} = useContext(AuthContext);
     const {loginCheck} = useLogin();
     const {cartList} = useContext(CartContext);
-    const navigate = useNavigate();
     const scrolls = [
         {id:'상품설명', ref:useRef(null)},
         {id:'상세정보', ref:useRef(null)},

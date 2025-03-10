@@ -28,6 +28,10 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
     const [isUpdating, setIsUpdating] = useState(false); 
 
     useEffect(() => {
+        if(isUpdating) return;
+
+        setIsUpdating(true);
+
         axios.post('http://localhost:9000/review/getList',{'pid':pid})
                 .then(res => {
                     setData(res.data);
@@ -43,8 +47,10 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                     } 
                     setTotalImages(newList);
                 })
-                .catch(err => console.log(err));   
-    },[update]);
+                .catch(err => console.log(err))
+                .finally(() => setIsUpdating(false));
+    },[update, pid]);
+
     useEffect(() => {
         reloadData();
     },[pid]);
@@ -60,6 +66,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                 .catch(err => console.log(err))
                 .finally(() => setIsUpdating(false));
     }
+
     const checkIsTrue = (check) => {
             setIsTrue(check);
     }
@@ -100,6 +107,7 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
             }
         }
     };
+    
     // count
     const increment = async (rid) => {
         const result = await axios.post('http://localhost:9000/review/getPlusCount',{'rid':rid})
@@ -193,12 +201,12 @@ export default function ReviewInfo({src, name, pid, setReviewCount}) {
                             slidesPerView= {1}
                             centeredSlides = {true}
                             speed = {500}
-                            loop = {true}
+                            loop = {false}
                             className = {"slider"}
                             navigation = {{nextEl: '.pop_slide .swiper-next', prevEl: '.pop_slide .swiper-prev'} }  
                         >
-                            {slideImgs && slideImgs.map((img) =>
-                                <SwiperSlide><a href='' target='_blank'><img src={img} alt="" /></a></SwiperSlide>
+                            {slideImgs && slideImgs.map((img,i) =>
+                                <SwiperSlide key={`${img}_${i}`}><a href='' target='_blank'><img src={img} alt="" /></a></SwiperSlide>
                             )}
                         </Swiper>
                         {
