@@ -13,7 +13,7 @@ export default function MainPopUp() {
         <div className='pop_up_outline'>
           <div className='pop_up_content'>
             <p>
-              <a href="https://www.kurly.com/shop/event/kurlyEventV2.php?lego=event/2023/0911/join/coupon">
+              <a href="/">
                 <img src="/images/commonImage/popup.jpg" alt="" />
               </a>
           </p>
