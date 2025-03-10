@@ -1,23 +1,47 @@
+### <div align=center>![header](https://capsule-render.vercel.app/api?type=waving&color=0:672092,100:ECCDFF&width=1000&height=200&section=header&text=Kurly%20Clone%20Cording%20Team%20Project&fontSize=30&fontColor=FFFFFF&fontAlignY=35)</div>
 
 
-# Kurly Clone Cording 팀프로젝트
+## 프로젝트 소개
 
-## 25.02.28 참고사항 
-1. `App.js / login` 경로 수정 <br>
-     - 로그인 페이지 네비게이션 연결하신 분들은  `/login`  -> `/member/login`으로 경로 수정 해야 로그인 페이지로 넘어갑니다
-2. kurlyDB 및 테스트 테이블 관련 
-     - `server/mysql/kurlyDB.sql`
-          - 추후 팀원들 변경사항 반영하여 업데이트 예정
-          - 업데이트 후에 기존 kurlyDB 드랍과 새로운 DB 생성은 모두 함께 있을 때 진행하면 좋을 것 같아용~ 
-     
-     - `server/mysql/kurly.sql` 
-          - 테이블 조회, 구조 확인
-          - 팀원 각자 필요한 테이블 생성 및 변경 테스트 하는 공간으로 만들었어요 확정이 된 후 kuryDB로 통합하는 것이 좋을 것 같습니당
-          - 상품상세페이지의 review 탭 테스트, 장바구니 페이지 진입 해보고 싶다면 여기서 테이블 생성하시면 됩니다~ 
+### 📄 개요
+
+### 📆 프로젝트 기간
+- 2025.02.24 ~ 2025.03.07
+### 🙋‍♀️ 팀구성
+
+<br>
+
+## 프로젝트 설명
+### 설계단계 - ERD 
+- 추후 업데이트
+<br>
+
+### 📚기술 스택
+
+<div align=left> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+  <br>
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
+  <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+  <br>
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white">
+  <br>
+</div>
 
 
-## ⚙️ 설치 라이브러리 
-### client
+
+## 프로젝트 시연 & 기능 설명
+### ☑️ 설치 라이브러리  
+
+<b>client</b>
+  
 ```bash
 npm i
 npm i react-bootstrap
@@ -27,7 +51,7 @@ npm i antd
 npm i react-daum-postcode
 ```
 
-### server
+<b>server</b>
 ```bash
 npm init --yes
 npm i express --save
@@ -36,8 +60,17 @@ npm i cors
 npm i nodemon --save-dev
 npm i
 ```
+### ☑️footer
+- @ 누르면 상품등록으로 이동
+
+<br>
+
+## 😨trouble shooting
+
+<br>
+
+
 ## ✨ Notice
-- @ 클릭시 상품등록 페이지로 이동
 - MySQL 엑셀파일 import 방법 링크 <br>
      🔗 https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0  <br>
 - WBS 구글 스프레드시트 링크 <br>
@@ -48,33 +81,6 @@ npm i
    <img src={`http://localhost:9000/${item}`}></img> 
    ```
    <br>
-- 
 
 <br><br><br>
-   
-
----
-
-### <p align="center">🚧공사중🚧</p>
-
-
-## 프로젝트 소개
-### 📆 프로젝트 기간
-- 2025.02.24 ~ 진행중
-### 🙋‍♀️ 팀구성
-
-<br>
-
-## 프로젝트 설명
-### 설계 - ERD 
-- 추후 업데이트
-<br>
-
-## 프로젝트 시연
-- 추후 업데이트
-<br>
-
-## 😨trouble shooting
-
-
 
