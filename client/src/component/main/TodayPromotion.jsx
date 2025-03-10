@@ -25,7 +25,7 @@ export default function TodayPromotion() {
       </div>
       <div className='today_product product_list'>
         {rows && rows.map((row, i)=>
-           <ProductThumb product={row} key={i}/> 
+           <ProductThumb product={row} key={`${row.pid}_${i}`}/> 
         )}
       </div>
     </div>
