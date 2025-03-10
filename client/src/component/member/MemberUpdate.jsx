@@ -142,18 +142,30 @@ export default function MemberUpdate() {
     // 회원 정보 수정 폼 제출
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    
         if (validateMember(refs)) {
             // 유효성 검사를 통과하면 서버로 데이터 전송
             axios
                 .post('http://localhost:9000/member/update', formData)
                 .then((res) => {
                     if (res.data.result_rows) {
-                        alert('업데이트 완료!');
-                        navigate('/member/mypage');
-                        // window.location.replace('/member/mypage');
-                        // console.log(formData);
-
+                        alert('업데이트 완료!');  
+                        // 업데이트가 성공한 후, 수정 모드 비활성화
+                        setIsEditing({
+                            pwd: false,
+                            emailname: false,
+                            emaildomain: false,
+                            phone: false,
+                            zipcode: false,
+                            address: false,
+                            detailaddress: false
+                        });
+    
+                        // formData를 업데이트된 값으로 설정
+                        setOriginalFormData({ ...formData });
+    
+                        // formData에 최신 값을 반영하여 화면에 업데이트된 정보 표시
+                        setFormData({ ...formData });
                     } else {
                         alert('업데이트 실패!');
                     }
@@ -163,10 +175,11 @@ export default function MemberUpdate() {
                     alert('정보 수정 실패!');
                 });
         } else {
-            // alert('유효성 검사 실패');
+            // 유효성 검사 실패
             return false;
         }
     };
+    
 
     // 취소 버튼 클릭 시 원래의 데이터로 되돌리기
     const handleCancelClick = () => {

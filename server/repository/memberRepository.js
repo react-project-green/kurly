@@ -97,8 +97,7 @@ export const getMypage = async ({ id }) => {
 /******************************
  * MyPage : 비밀번호, 핸드폰번호, 주소, 이메일 수정
  ******************************/
-export const updateMember = async (formData) => {
-    console.log(formData);
+export const updateMember = async (formData) => { 
     
     const sql = `
         UPDATE member 
