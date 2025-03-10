@@ -40,7 +40,7 @@ export default function MypageOrder() {
     const { isLogin } = useContext(AuthContext);
 
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     return (

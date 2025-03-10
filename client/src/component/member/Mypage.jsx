@@ -45,7 +45,7 @@ export default function Mypage() {
     }, []); // 의존성 배열 추가
 
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     // 로그인 상태일 때만 아래 코드 실행
