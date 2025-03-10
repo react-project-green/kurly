@@ -153,8 +153,8 @@ export default function Header() {
               <span className='category_title'>카테고리</span>
             </div>
             <ul className='category_list'>
-              {categoryList && categoryList.map((category) => (
-                <li key={category.cid}
+              {categoryList && categoryList.map((category, i) => (
+                <li key={i}
                     onMouseEnter={() => setHoverCategoryCid(category.cid)}
                     onMouseLeave={() => setHoverCategoryCid(null)} >
                     { category.cid <= 104 ? ( 
