@@ -83,3 +83,36 @@ export const validateLogin = ({ idRef, pwdRef }) => {
     }
     return result;
 } 
+/***********************************
+    mypage : 마이페이지 정보 업데이트
+************************************/
+export const validateMember = ({ pwdRef, phoneRef, zipcodeRef, detailaddresRef, emailnameRef, emaildomainRef}) => {
+    let result = true;
+
+    if (pwdRef.current.value === '') {
+        alert("비밀번호를 입력해주세요")
+        pwdRef.current.focus(); 
+        result = false;
+    } else if (phoneRef.current.value === '') {
+        phoneRef.current.focus(); 
+        alert("휴대폰 번호를 입력해주세요")
+        result = false;
+    } else if (zipcodeRef.current.value === '') {
+        zipcodeRef.current.focus(); 
+        alert("주소를 입력해주세요")
+        result = false;
+    } else if (detailaddresRef.current.value === '') {
+        detailaddresRef.current.focus(); 
+        alert("상세 주소를 입력해주세요")
+        result = false;
+    } else if (emailnameRef.current.value === '') {
+        emailnameRef.current.focus(); 
+        alert("이메일 주소를 입력해주세요")
+        result = false;
+    } else if (emaildomainRef.current.value === 'default') {
+        emaildomainRef.current.focus(); 
+        alert("이메일 도메인을 선택해주세요")
+        result = false;
+    }
+    return result;
+} 

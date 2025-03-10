@@ -10,7 +10,7 @@ export default function MemberError() {
                     <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ad0bd6106586491.Y3JvcCw4MDgsNjMyLDAsMA.png"
                         alt="Welcome to Kurly" style={{ margin: "50px 0px 50px 0px" }} /> 
                     <div style={{ marginLeft: "50px" }}>
-                        <button className='member_true_button' style={{width:"300px"}}>
+                        <button className='member_true_button' style={{width:"300px", marginBottom:"10px"}}>
                             <Link to={'/member/login'} style={{ color: "#ffff" }} >
                                 로그인
                             </Link>

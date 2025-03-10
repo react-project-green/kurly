@@ -40,27 +40,7 @@ export default function Login() {
             } catch (error) {
                 console.log('로그인에러', error);
                 alert("로그인 실패. 서버 오류")
-            }
-            // axios
-            // .post('http://localhost:9000/member/login', formData)
-            // .then(res=>{
-            //     if(res.data.result_rows === 1){
-            //         const user_type = await axios.post('http://localhost:9000/member/type',{'id': formData.id});
-            //         console.log('user_type >>>',user_type);
-
-            //         alert("로그인 성공 홈으로 이동합니다.");
-            //         localStorage.setItem("token", res.data.token);
-            //         localStorage.setItem("user_id", formData.id);
-            //         setIsLogin(true);
-            //         navigate('/')
-            //     } else {
-            //         alert("아이디와 비밀번호를 확인해주세요.")
-            //     }
-            // })
-            // .catch(error=>{
-            //     alert("로그인 실패. 서버 오류")
-            //     console.log(error); 
-            // });
+            } 
 
         }
     }

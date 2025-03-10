@@ -3,15 +3,28 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
-import { useAddress } from '../../hooks/useAddress.jsx';
+import Postcode from './Postcode.jsx';
 import { handleDuplicateIdCheck, validateSignup } from '../utils/funcValidate.js';
-import '../../scss/member.scss' 
+import '../../scss/member.scss'
 
 export default function Signup() {
-    const { Postcode, data } = useAddress(); 
-    
+
+    //다음 api를 통한 주소값 호출
+    const [addressData, setAddressData] = useState({});
+    const addAddress = (data) => {
+        setAddressData(data);
+        setFormData({
+            ...formData,
+            "zipcode": data.zipcode,
+            "address": data.address
+        });
+    };
+
+    //네비게이트
     const navigate = useNavigate();
-    const [idCheckResult, setIdCheckResult, phoneCheckResult, setPhoneCheckResult] = useState('default');
+    // id중복체크
+    const [idCheckResult, setIdCheckResult] = useState('default');
+
     const [formData, setFormData] = useState({
         id: '',
         pwd: '',
@@ -23,6 +36,7 @@ export default function Signup() {
         gender: '',
         zipcode: '',
         address: '',
+        detailaddress: '',
         birthy: '',
         birthm: '',
         birthd: ''
@@ -44,6 +58,8 @@ export default function Signup() {
         addressRef: useRef(null),
         detailaddresRef: useRef(null)
     }
+
+    //이용약관 동의
     const totalRef = useRef(null)
     const [agreeArr, setAgreeArr] = useState([])
     const agreeRefs = {
@@ -54,6 +70,7 @@ export default function Signup() {
         memberageRef: useRef(null)
     }
 
+    //생년월일 select
     const BIRTHDAY_YEAR_LIST = Array.from(
         { length: 46 },
         (_, i) => `${i + 1960}년`,
@@ -61,11 +78,14 @@ export default function Signup() {
     const BIRTHDAY_MONTH_LIST = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
     const BIRTHDAY_DAY_LIST = Array.from({ length: 31 }, (_, i) => `${i + 1}일`);
 
+    //폼 입력 정보
     const handleChangeForm = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+
+    //회원가입 이벤트
     const handleSubmit = (e) => {
         e.preventDefault();
         //비밀번호 일치 확인
@@ -74,7 +94,7 @@ export default function Signup() {
             alert('비밀번호가 일치하지 않습니다.');
             return;
         }
-    
+
         // 필수항목 동의 체크 
         const requiredCheckboxes = ['memberuse', 'memberpsn', 'memberage'];
         const uncheckedRequiredCheckboxes = requiredCheckboxes.filter((item) => !agreeArr.includes(item));
@@ -82,9 +102,9 @@ export default function Signup() {
             alert('필수 항목에 동의해 주세요.');
             return;
         }
-    
-        //아이디 중복 확인 
-        if (validateSignup(refs)) { // Passing refs here, which is an object containing all refs
+
+        //회원가입 정보 전달
+        if (validateSignup(refs)) {
             if (idCheckResult === "default") {
                 alert("중복 확인을 진행해 주세요");
                 return false;
@@ -93,7 +113,7 @@ export default function Signup() {
                     .then(res => {
                         if (res.data.result_rows === 1) {
                             alert("회원가입에 성공하셨습니다.");
-    
+
                             //1초후에 로그인 페이지 이동
                             setTimeout(() => {
                                 navigate('/member/login');
@@ -109,8 +129,9 @@ export default function Signup() {
             }
             //완료
             alert('회원가입 완료! 로그인 페이지로 이동합니다.');
+
         };
-    } 
+    }
 
     const handleRadioChange = (e) => {
         const name = e.target.name;
@@ -152,7 +173,7 @@ export default function Signup() {
                                     handleDuplicateIdCheck(
                                         refs.idRef, // Corrected reference
                                         refs.pwdRef, // Corrected reference
-                                        setIdCheckResult 
+                                        setIdCheckResult
                                     )
                                 }}
 
@@ -201,11 +222,11 @@ export default function Signup() {
                                     onChange={handleChangeForm}
                                     className='email_domain'>
                                     <option value="default">선택</option>
-                                    <option value="naver">naver.com</option>
-                                    <option value="google">gmail.com</option>
-                                    <option value="hanmail">hanmail.net</option>
-                                    <option value="kakao">kakao.com</option>
-                                    <option value="daum">daum.net</option>
+                                    <option value="@naver.com">naver.com</option>
+                                    <option value="@google.com">gmail.com</option>
+                                    <option value="@hanmail.net">hanmail.net</option>
+                                    <option value="@kakao.com">kakao.com</option>
+                                    <option value="@daum.com">daum.net</option>
                                 </select>
                             </div>
                         </li>
@@ -221,27 +242,24 @@ export default function Signup() {
                         <li className='address_full'>
                             <label>주소<span>*</span></label>
                             <div >
-                                <div className='address_zipcode'> 
+                                <div className='address_zipcode'>
                                     <input type="text"
                                         ref={refs.zipcodeRef}
-                                        name='zipcode'
                                         onChange={handleChangeForm}
-                                        value={data.zipcode}
+                                        value={addressData.zipcode}
+                                        name='zipcode'
                                         className='address_zipcode_input'
-                                        placeholder='  우편번호' />  
-                                    <div>
-                                        <Postcode />
+                                        placeholder='  우편번호' />
+                                    <div className='address_botton'>
+                                        <Postcode
+                                            addAddress={addAddress} />
                                     </div>
-                                    {/* <button type="button"
-                                        name='address' 
-                                        onChange={handleChangeForm} 
-                                        className='address-botton' ><Postcode />주소검색 </button> */}
                                 </div>
                                 <div>
                                     <input type="text"
                                         ref={refs.addressRef}
                                         onChange={handleChangeForm}
-                                        value={data.address}
+                                        value={addressData.address}
                                         className='address_text'
                                         placeholder='  도로명 주소'
                                         name='address' />
@@ -250,7 +268,7 @@ export default function Signup() {
                                         onChange={handleChangeForm}
                                         className='address_text'
                                         placeholder='  상세 주소'
-                                        name='address' />
+                                        name='detailaddress' />
                                 </div>
                                 <p> 배송지에 따라 상품 정보가 달라질 수 있습니다.</p>
                             </div>
@@ -260,13 +278,13 @@ export default function Signup() {
                             <div className='signup_gender'
                                 ref={refs.gender}>
                                 <input type='radio' name='gender' value='m'
-                                ref={refs.genderRef}
+                                    ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 남자
                                 <input type="radio" name='gender' value='f'
-                                ref={refs.genderRef}
+                                    ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 여자
                                 <input type="radio" name='gender' value='n' defaultChecked="checked"
-                                ref={refs.genderRef}
+                                    ref={refs.genderRef}
                                     onChange={handleChangeForm} /> 선택 안함
                             </div>
                         </li>
@@ -309,21 +327,6 @@ export default function Signup() {
                         </li>
                         <li>
                             <div className='member_line_top'> </div>
-                            {/* <label>추가입력사항</label>
-                            <input type="radio" name="" />친구초대 추천인 아이디
-                        </li>
-                        <li>
-                            <input type="text" 
-                            placeholder='추천인 아이디 입력'
-                            className='signup_input'/>
-                            <button type='button' className='member-id-founder'>아이디 확인</button>
-                        </li>
-                        <li>
-                            <div className='member-additional'>
-                                <p>· 가입 후 7일 이내 첫 주문 배송 완료 시, 친구초대 적립금이 지급됩니다.</p>
-                                <p>· ID입력시, 대소문자 및 띄어쓰기에 유의 부탁드립니다.</p>
-                                <p>· 가입 이후 수정이 불가능합니다.</p>
-                            </div> */}
                         </li>
                         <div className='signup_bottom'>
                             <div className='signup_bottom_title'>
@@ -382,7 +385,7 @@ export default function Signup() {
                         <div className='button_box'>
                             <button type="submit"
                                 className='member_true_button'
-                                
+
                             >가입하기</button>
                         </div>
                     </ul>{/* signup_body_end */}

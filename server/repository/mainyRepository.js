@@ -14,7 +14,7 @@ export const getProductList = async({category}) => {
                         and (select max(pdate) from view_category_pro_list);`;
   }else if(category === 'best'){
      sql=`select vw.* , concat(dc, '%') as discountRate
-            from  view_category_pro_list as vw, payments as py
+            from  view_category_pro_list as vw, orderList as py
            where vw.pid = py.pid
              and   py.qty >= 8
      `; 

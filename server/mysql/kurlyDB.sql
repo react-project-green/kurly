@@ -108,7 +108,7 @@ CREATE TABLE `product` (
   `price`             int           NOT NULL,
   `dc`                int,
   `delivery`      	  char(2),
-  `event_label`       TINYINT(1) DEFAULT 0,
+  `event_label`       TINYINT(1)    DEFAULT 0,
   `upload_img`        json,
   `org_img`           json,
   `info_imgs`         json,
@@ -162,8 +162,8 @@ DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
-  `no`             int           PRIMARY KEY    auto_increment,
-  `id`            varchar(20)    NOT NULL,
+  `no`            int            PRIMARY KEY    auto_increment,
+  `id`            varchar(20)     NOT NULL,
   `pid`           int             NOT NULL,
   `qty`           int             NOT NULL,
 --  `checked`       boolean         NOT NULL DEFAULT true,
@@ -186,12 +186,12 @@ DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table reviews(
-	rid				int 				primary key 	auto_increment,
+	  rid				int 				primary key 	auto_increment,
     subject			varchar(50)			not null,
     detail_txt		varchar(1000)		not null,
     images			json,
-	date			datetime			not null,
-	id				VARCHAR(30) 		not null,
+	  date			datetime			not null,
+	  id				VARCHAR(30) 		not null,
     pid 			int 				not null,
     count 			int,
    CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
@@ -207,8 +207,8 @@ DROP TABLE IF EXISTS `notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notice` (
-  `no` 				int		 		PRIMARY KEY 	auto_increment,
-  `id`				varchar(20)		NOT NULL,
+  `no` 				  int		 		    PRIMARY KEY 	auto_increment,
+  `id`				  varchar(20)		NOT NULL,
   `title` 			varchar(20)		NOT NULL,
   `content` 		varchar(1000)	NOT NULL,
   `reg_date`		datetime,
@@ -263,13 +263,13 @@ DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table inquire(
-	iid				int 	primary key		auto_increment,
+	  iid				int 	primary key		auto_increment,
     pid 			int 				not null,
     subject			varchar(100)		not null,
     detail_txt		varchar(1000)		not null,   
-    id				varchar(30)			not null,
-    date 			datetime 			not null,
-    answer 			boolean,
+    id				    varchar(30)			not null,
+    date 			    datetime 			  not null,
+    answer 			  boolean,
     answer_txt 		varchar(1000),
    CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
@@ -290,9 +290,9 @@ select pid
 	 , dc 
 	 , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
 	 , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-     , pdate
-     , cate_depth1
-     , cate_depth2
+   , pdate
+   , cate_depth1
+   , cate_depth2
 from product; 
 
 -- ########################################
@@ -303,7 +303,6 @@ create view view_cart_list
 as 
 select  c.no as no,
 		c.qty as qty,
---    	c.checked as checked,
 		m.id as id,
 		m.address as address,
 		p.pid as pid,

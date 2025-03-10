@@ -1,9 +1,15 @@
 /******************************
  * member : 공통 
  ******************************/
-
+ @font-face {
+  font-family: 'Pretendard-Regular';
+  font-weight: 300 400 500 600 700 800 900;
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-style: normal;
+}
 
 .member_true_button {
+  font-family: 'Pretendard-Regular';
   display: block;
   padding: 0px 10px;
   text-align: center;
@@ -16,6 +22,7 @@
 }
 
 .member_none_button {
+  font-family: 'Pretendard-Regular';
   display: block;
   padding: 0px 10px;
   text-align: center;
@@ -34,6 +41,9 @@
  * member : Login
  ******************************/
 .member_form_box {
+  span{
+    font-family: 'Pretendard-Regular';
+  }
   width: 900px;
   margin: 0 auto;
   margin-bottom: 40px;
@@ -42,12 +52,13 @@
 
   ul {
     text-align: center;
-
+    
     li {
       padding: 5px;
+      
 
-      // border: 1px solid tomato;
       .loginform_input {
+        font-family: 'Pretendard-Regular';
         width: 300px;
         height: 46px;
         padding: 0px 11px 1px 15px;
@@ -62,7 +73,7 @@
       }
     }
 
-    .login_founder {
+    .login_founder { 
       text-align: right;
       font-size: 12px;
       padding: 0;
@@ -71,11 +82,10 @@
   }
 
   .member_title_box {
-    // border: 1px solid blue;
     text-align: center;
     margin: 90px 0px 30px 0px;
 
-    span {
+    span { 
       font-size: 1.6rem;
       font-weight: bold;
     }
@@ -92,6 +102,7 @@
   margin-left: 200px;
 
   .signup_title {
+    font-family: 'Pretendard-Regular';
     margin-bottom: 50px;
     font-size: 28px;
     line-height: 35px;
@@ -102,6 +113,7 @@
   }
 
   .signup_sub_title {
+    font-family: 'Pretendard-Regular';
     padding-bottom: 10px;
     border-bottom: 2px solid rgb(51, 51, 51);
     font-size: 12px;
@@ -115,7 +127,6 @@
   }
 
   .button_box {
-    // border: 1px solid green;
     margin-top: 20px;
     display: flex;
     justify-content: center;
@@ -134,10 +145,8 @@
       width: 700px;
       padding: 20px;
 
-      // height: 44px;
-      // border: 1px solid green;
       label {
-
+        font-family: 'Pretendard-Regular';
         display: inline-block;
         font-size: 1.1em;
         font-weight: 700;
@@ -145,9 +154,9 @@
         margin: 0 0 6px 10px;
         width: 25%;
 
-        // border: 1px solid red;
         span {
           color: red;
+          font-family: 'Pretendard-Regular';
         }
       }
 
@@ -168,7 +177,6 @@
       }
 
       .member_line_top {
-        // padding: 10px 0px;
         border-bottom: 1px solid rgb(51, 51, 51);
       }
 
@@ -176,6 +184,7 @@
         width: 330px;
         display: inline-flex;
         justify-content: space-around;
+        font-family: 'Pretendard-Regular';
 
         input[type=radio] {
           appearance: none;
@@ -183,7 +192,6 @@
           border-radius: 50%;
           width: 1.5em;
           height: 1.5em;
-          // transition: border 0.5s ease-in-out;
         }
 
         input[type=radio]:checked {
@@ -201,8 +209,8 @@
       width: 38%;
       border: 1px solid gainsboro;
       border-radius: 8px;
+      padding-left: 10px;
       height: 40px;
-      padding: 10px;
     }
 
     .email_domain {
@@ -214,10 +222,9 @@
   .address_full {
     display: flex;
 
-    // display: inline-block;
-    // margin-left: 170px;
     label {
       width: 180px;
+      
     }
 
     div {
@@ -230,9 +237,7 @@
         display: flex;
         justify-content: space-around;
 
-        // border-radius: 8px;
         .address_zipcode_input {
-          // border: 1px solid tomato; 
           width: 150px;
           height: 40px;
           border-radius: 8px;
@@ -247,7 +252,6 @@
       }
 
       .address_botton {
-        padding: 0px 10px;
         text-align: center;
         width: 130px;
         height: 40px;
@@ -259,6 +263,7 @@
 
       p {
         margin: 10px;
+        font-family: 'Pretendard-Regular';
       }
 
     }
@@ -282,7 +287,6 @@
 
 
     div {
-      // border: 1px solid rgb(95, 0, 128); 
       border-radius: 4px;
 
       .birthdayFrame {
@@ -308,51 +312,47 @@
   .signup_bottom {
     margin-left: 30px;
     display: inline-flex;
-    // border: 1px solid tomato;
     height: 380px;
 
     .signup_bottom_title {
-      // border: 1px solid tomato;
       width: 150px;
       font-size: 1.3rem;
 
       label {
         font-weight: bold;
+        font-family: 'Pretendard-Regular';
       }
     }
 
     .signup_notic {
 
-      // margin-left: 90px;  
       div {
-        // border: 1px solid tomato;
         font-size: 1.3rem;
       }
 
       label {
-        // border: 1px solid blue;  
         margin-top: 10px;
+        font-family: 'Pretendard-Regular';
 
       }
 
       a {
         border: 1px solid blue;
+        font-family: 'Pretendard-Regular';
       }
 
       .label_box {
-        // border: 1px solid tomato;
         margin-top: 0px
       }
 
       .signup_notic_sub {
-        // border: 1px solid tomato;
         font-size: x-small;
+        font-family: 'Pretendard-Regular';
         padding-left: 50px;
         color: gray;
       }
 
       .member_radio_title {
-        // border: 1px solid tomato; 
         display: flex;
         margin-top: -55px;
         left: 20px;
@@ -360,14 +360,9 @@
     }
 
     .control_container {
-      // display: flex;
-      // justify-content: center;
-      // position: relative; 
-
       height: 60px;
 
       .screen_reader {
-        // Screen reader-specific styles to hide the checkbox visually
         position: absolute;
         width: 1px;
         height: 1px;
@@ -379,9 +374,9 @@
       }
 
       .label_box {
-        // border: 1px solid salmon;
         position: relative;
         width: 100%;
+        font-family: 'Pretendard-Regular';
 
         .check_icon {
           width: 1.4em;
@@ -409,7 +404,6 @@
         }
 
         .signup_link {
-          // border: 1px solid blue;
           display: block;
           text-align: right;
           color: rgb(95, 0, 128);
@@ -418,10 +412,10 @@
 
       label {
         width: 100%;
-        // border: 1px solid blue;
         padding-left: 2.2em;
         position: relative;
         cursor: pointer;
+        font-family: 'Pretendard-Regular';
       }
 
       [type="checkbox"]:checked+.label-box .check-icon {
@@ -445,13 +439,10 @@
     position: relative;
     vertical-align: center;
     margin-right: 8px;
-    // border: 1px solid blue;
-    // top: 5px;
-
   }
 
   .member_radio .radio_input {
-
+    
     display: none;
     padding: 0;
     margin: 0;
@@ -459,7 +450,6 @@
 
 
   .member_radio .icon {
-    // border: 1px solid blue; 
     position: absolute;
     top: 5px;
     left: 0;
@@ -493,9 +483,7 @@
       display: flex;
 
       img {
-        // border: 1px solid blue; 
         width: 80px;
-        // margin-left: 20px; 
         margin-bottom: 20px;
       }
     }
@@ -525,14 +513,17 @@
 
           p {
             margin-bottom: 20px;
+            font-family: 'Pretendard-Regular';
             color: #b5b5b5;
           }
 
           span {
             font-size: 1.2rem;
+            font-family: 'Pretendard-Regular';
           }
 
           label {
+            font-family: 'Pretendard-Regular';
             font-size: 1.5rem;
             color: #333333;
             text-align: center;
@@ -543,16 +534,18 @@
         }
 
         .member_my_side_1 {
-          height: 200px;
+          height: 150px;
           padding: 40px;
 
           .member_my_customer {
             span {
+              font-family: 'Pretendard-Regular';
               font-weight: 600;
               font-size: 1.5rem;
             }
 
             .shimmer_text {
+              font-family: 'Pretendard-Regular';
               font-size: 24px;
               font-weight: bold;
               background: linear-gradient(to right, #767ae4 0%, #5ba7db 100%);
@@ -581,7 +574,7 @@
             display: flex;
             justify-content: space-around;
 
-            label {
+            label { 
               padding: 5px;
               display: block;
               justify-content: center;
@@ -594,7 +587,6 @@
         }
 
         .activeTab {
-          background-color: #f2f5f8;
           border-radius: 8px;
 
           label {
@@ -609,7 +601,6 @@
         }
 
         .member_my_sand {
-          // border: 1px solid blue; 
           height: 15px;
           background-color: #f2f5f8;
         }
@@ -623,7 +614,7 @@
         }
 
         .member_my_side_2 {
-          height: 200px;
+          height: 180px;
           padding: 30px 50px 50px 50px;
 
           div {
@@ -631,7 +622,6 @@
             margin-right: 10px;
 
             span {
-              // 
               display: inline-block;
               margin-left: auto;
               font-weight: bold;
@@ -652,13 +642,15 @@
       .memever_my_right {
         width: 650px;
         margin-left: 40px;
-
+        label,
+        span{
+          font-family: 'Pretendard-Regular';
+        }
         .member_coupon_box {
           height: 500px;
           margin: auto;
 
           div {
-            // border: 1px solid tomato;
             display: flex;
             -webkit-box-pack: center;
             justify-content: center;
@@ -676,6 +668,7 @@
           height: auto;
 
           .member_my_right_title {
+            font-family: 'Pretendard-Regular';
             width: 600px;
             padding: 20px;
             font-weight: 600;
@@ -684,8 +677,7 @@
             margin: auto;
             border-bottom: 3px solid #333333;
 
-            span {
-              // border: 1px solid tomato;
+            span { 
               margin-top: 10px;
               padding-left: 8px;
               font-size: 13px;
@@ -725,6 +717,136 @@
 }
 
 /******************************
+ * member : update 
+ ******************************/
+.member_update_form {
+  padding-bottom: 40px;
+
+  .update_form {
+    ul {
+      li {
+        width: 700px;
+        padding: 20px;
+
+        label {
+          display: inline-block;
+          font-size: 1.1em;
+          font-weight: 700;
+          text-indent: 3px;
+          margin: 0 0 6px 10px;
+          width: 25%;
+        }
+
+        .member_address {
+          margin-left: 180px;
+          width: 350px;
+        }
+
+        .update_full_input {
+          display: inline-block;
+          border: 1px solid gainsboro;
+          border-radius: 8px;
+          width: 200px;
+          height: 30px;
+          padding-left: 10px;
+        }
+
+        .email_full {
+          display: inline-block;
+
+          .emailname {
+            border-radius: 8px;
+            width: 200px;
+            height: 30px;
+            padding-left: 10px;
+          }
+
+          .emaildomain {
+            border-radius: 8px;
+            width: 150px;
+            height: 30px;
+            padding-left: 10px;
+          }
+        }
+
+
+        .address_full {
+          display: flex;
+
+          .address_label {
+            width: 170px;
+            // border: 1px solid tomato; 
+
+          }
+
+          div {
+            margin-bottom: 10px;
+
+          }
+
+          .address_top {
+            margin: auto;
+            display: flex;
+
+            .address_zipcode {
+              input {
+                width: 150px;
+                height: 40px;
+                border-radius: 8px;
+              }
+            }
+          }
+
+          .address_bottom {
+            .address_zipcode_input {
+              width: 150px;
+              height: 40px;
+              border-radius: 8px;
+            }
+          }
+
+          .address_text {
+            display: block;
+            width: 370px;
+            border-radius: 8px;
+            height: 40px;
+            margin-bottom: 5px;
+          }
+
+          .address_botton {
+
+            margin-left: 10px;
+            text-align: center;
+            width: 140px;
+            height: 40px;
+            border-radius: 4px;
+            color: rgb(95, 0, 128);
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(95, 0, 128);
+          }
+        }
+      }
+    }
+
+    .member_update_button {
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+    }
+
+    .member_update_button2 {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+
+      .member_true_button {
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+/******************************
  * delivery : 새벽배송 안내 
  ******************************/
 .member_delivery {
@@ -732,13 +854,15 @@
   margin: 0px auto;
 
   .delivery_top {
-    width: 100%;  
-    background-color: #d8d1df; 
+    width: 100%;
+    background-color: #d8d1df;
     text-align: center;
   }
+
   .delivery_content {
     min-width: 1050px;
-    margin: 0px auto; 
+    margin: 0px auto;
+
     .delivery_1 {
       width: 100%;
       background-color: #eae6e2;
