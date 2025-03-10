@@ -236,12 +236,12 @@ CREATE TABLE `orderList` (
   `address`			varchar(200)     NOT NULL,
   `address_detail`  varchar(200)     NOT NULL,
   `onum`	 		varchar(40) 	 NOT NULL,
-   CONSTRAINT `PAYMENTS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `PAYMENTS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+   CONSTRAINT `ORDERLIST_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `ORDERLIST_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO payments (id, pid, tid, qty, total_price, type, odate, zipcode, address, address_detail)
+INSERT INTO orderList (id, pid, tid, qty, total_price, type, odate, zipcode, address, address_detail)
 VALUES 
 ('test1', 1,  'TID001', 10, 10000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
 ('test2', 2,  'TID002', 8, 20000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
@@ -263,13 +263,13 @@ DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table inquire(
-	  iid				    int 	          primary key		auto_increment,
-    pid 			    int 				    not null,
-    subject			  varchar(100)		not null,
+	iid				int 	primary key		auto_increment,
+    pid 			int 				not null,
+    subject			varchar(100)		not null,
     detail_txt		varchar(1000)		not null,   
-    id				    varchar(30)			not null,
-    date 			    datetime 			  not null,
-    answer 			  boolean,
+    id				varchar(30)			not null,
+    date 			datetime 			not null,
+    answer 			boolean,
     answer_txt 		varchar(1000),
    CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
@@ -284,15 +284,15 @@ create table inquire(
 create view view_category_pro_list 
 as
 select pid
-	    , subject as name
-	    , sub_desc as description
-	    , price as originalPrice
-	    , dc 
-	    , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
-	    , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-      , pdate
-      , cate_depth1
-      , cate_depth2
+	 , subject as name
+	 , sub_desc as description
+	 , price as originalPrice
+	 , dc 
+	 , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
+	 , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
+     , pdate
+     , cate_depth1
+     , cate_depth2
 from product; 
 
 -- ########################################
@@ -302,20 +302,20 @@ from product;
 create view view_cart_list
 as 
 select  c.no as no,
-		    c.qty as qty,
---      c.checked as checked,
-		    m.id as id,
-		    m.address as address,
-		    p.pid as pid,
-		    p.delivery as delivery ,
-		    p.subject as subject,
-		    p.sub_desc as sub_desc,
-		    p.price as price,
-		    p.dc as dc,
-		    upload_img
+		c.qty as qty,
+--    	c.checked as checked,
+		m.id as id,
+		m.address as address,
+		p.pid as pid,
+		p.delivery as delivery ,
+		p.subject as subject,
+		p.sub_desc as sub_desc,
+		p.price as price,
+		p.dc as dc,
+		upload_img
 from cart c, member m, product p
 where c.id = m.id 
-and   c.pid = p.pid;
+and c.pid = p.pid;
 
 
 -- #######################################
