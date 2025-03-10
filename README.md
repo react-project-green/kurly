@@ -38,6 +38,16 @@
 
 
 ## 프로젝트 시연 & 기능 설명
+
+gif
+![2025-03-10-17-29-33](https://github.com/user-attachments/assets/593dbf57-3109-4dcf-91d6-7917db5d4e4c)
+
+mp4
+https://github.com/user-attachments/assets/e70eda96-c411-4831-b411-4e1e7c683fd1
+
+
+
+
 ### ☑️ 설치 라이브러리  
 
 <b>client</b>
