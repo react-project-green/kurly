@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import MainSideBarMenu  from '../main/MainSideBarMenu.jsx';
 
 export default function MainSpecialCategory() {
   const [specialEvent, setSpecialEvent] = useState([]);
@@ -12,6 +13,7 @@ export default function MainSpecialCategory() {
 
   return (
     <div className='content_outline'>
+      <MainSideBarMenu />
       <ul className='content'>
         {specialEvent && specialEvent.map((event, i)=>(
           <li key={i} className='special_category'>
