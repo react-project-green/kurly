@@ -6,6 +6,7 @@ import uploadRouter from './router/uploadRouter.js';
 import mainRouter from './router/mainRouter.js'; 
 import memberRouter from './router/memberRouter.js'; 
 import cartRouter from './router/cartRouter.js';
+import orderRouter from './router/orderRouter.js';
 import paymentsRouter from './router/paymentsRouter.js';
 import reviewRouter from './router/reviewRouter.js'; 
 import inquireRouter from './router/inquireRouter.js'; 
@@ -40,6 +41,9 @@ server.use('/cart', cartRouter);
 
 // 결제
 server.use('/sandbox-dev/api/v1/payments', paymentsRouter);
+
+// 주문확인
+server.use('/order', orderRouter);
 
 // 리뷰
 server.use('/review', reviewRouter);

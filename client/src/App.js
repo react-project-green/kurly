@@ -20,6 +20,7 @@ import FailPage from './component/payments/Fail.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import MainSpecialCategory from './component/main/MainSpecialCategory.jsx';
 import { CartProvider } from './context/CartContext.js';
+import { OrderProvider } from './context/orderContext.js';
 import { SearchProvider } from './context/searchContext.js';
 import Delivery from './component/member/Delivery.jsx';
 
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <div className="App">
+      <OrderProvider>
       <CartProvider >
       <SearchProvider>
       <AuthProvider>
@@ -58,6 +60,7 @@ function App() {
       </AuthProvider>
       </SearchProvider>
       </CartProvider>
+      </OrderProvider>
     </div>
   );
 }

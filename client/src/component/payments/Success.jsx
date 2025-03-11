@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
+import { CartContext } from "../../context/CartContext.js";
 import '../../scss/payments.css';
 
 export default function SuccessPage() {
+    const {checkProduct, setCheckProduct } = useContext(CartContext);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [searchParams] = useSearchParams();
     const paymentKey = searchParams.get("paymentKey");
@@ -13,12 +15,12 @@ export default function SuccessPage() {
         // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
         // 서버에선 해당 데이터를 가지고 승인 API를 호출하면 결제가 완료됩니다.
         // https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8
-        const response = await fetch("/sandbox-dev/api/v1/payments/confirm", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await fetch("http://localhost:9000/sandbox-dev/api/v1/payments/confirm", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
                 paymentKey,
                 orderId,
                 amount
@@ -26,12 +28,28 @@ export default function SuccessPage() {
         });
 
         if (response.ok) {
-            setIsConfirmed(true);
+            // 결제 성공 후 장바구니 체크된 아이템 삭제 요청
+            const deleteResponse = await fetch("http://localhost:9000/cart/successOrder", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    checkedItems: Array.from(checkProduct) // 장바구니 체크된 상품 번호 배열
+                })
+            });
+    
+            const deleteResult = await deleteResponse.json();
+            console.log("삭제 결과:", deleteResult);
+    
+            if (deleteResult.result_rows > 0) {
+                setCheckProduct(new Set());  // 성공 시 초기화
+                setIsConfirmed(true);}
         }
     }
 
     return (
-        <div className="payments-wrapper w-100">
+        <div className="payments-wrapper w-100 align-center">
             {isConfirmed ? (
                 <div
                     className="flex-column align-center confirm-success w-100 max-w-540"
@@ -44,7 +62,7 @@ export default function SuccessPage() {
                         width="120"
                         height="120"
                     />
-                    <h2 className="title">결제를 완료했어요</h2>
+                    <h2 className="title">결제가 완료되었습니다</h2>
                     <div className="response-section w-100">
                         <div className="flex justify-between">
                             <span className="response-label">결제 금액</span>

@@ -5,12 +5,13 @@ import '../../scss/payments.css';
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
-export default function CheckoutPage({totalPriceCal}) {
+export default function CheckoutPage({ totalPriceCal }) {
+    
     const [ready, setReady] = useState(false);
     const [widgets, setWidgets] = useState(null);
     const [amount, setAmount] = useState({
         currency: "KRW",
-        value: totalPriceCal,
+        value: 50_000,
     });
 
 
@@ -71,8 +72,8 @@ export default function CheckoutPage({totalPriceCal}) {
                 <div id="payment-method" className="w-100" />
                 <div id="agreement" className="w-100" />
                 <div className="btn-wrapper w-100">
+
                     <button
-                        style={{lineHeight: "25px"}}
                         className="btn primary w-100"
                         onClick={async () => {
                             try {
@@ -84,8 +85,8 @@ export default function CheckoutPage({totalPriceCal}) {
                                  */
                                 await widgets?.requestPayment({
                                     orderId: generateRandomString(),
-                                    orderName: "[테스트] 테스트 결제 중입니다.",
-                                    customerName: "정컬리",
+                                    orderName: "토스 티셔츠 외 2건",
+                                    customerName: "김토스",
                                     customerEmail: "customer123@gmail.com",
                                     successUrl: window.location.origin + "/sandbox/success" + window.location.search,
                                     failUrl: window.location.origin + "/sandbox/fail" + window.location.search
@@ -95,7 +96,8 @@ export default function CheckoutPage({totalPriceCal}) {
                             }
                         }}
                     >
-                        {`${totalPriceCal.toLocaleString()}원`} <br/>
+                        {`${totalPriceCal.toLocaleString()}원`} <br />
+
                         결제하기
                     </button>
                 </div>
