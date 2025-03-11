@@ -54,3 +54,14 @@ export const deleteItem = async(req, res) => {
     res.json(result)
     res.end();
 };
+
+
+/*********************************************
+        장바구니 선택 삭제
+*******************************************/
+
+export const deleteCheckedItems = async(req, res) => {
+    const result = await repository.deleteCheckedItems(req.body);
+    res.json(result)
+    res.end();
+};

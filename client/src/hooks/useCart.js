@@ -1,10 +1,9 @@
     import React, { useContext } from "react";
     import { CartContext } from "../context/CartContext.js";
-    import { useCalculate } from "../hooks/useCalculate.js";
     import axios from "axios";
 
     export function useCart() {
-        const { cartList, setCartList, cartCount, setCartCount, userInfo, setUserInfo, setCheckProduct } = useContext(CartContext);
+        const {  setCartList, cartCount, setCartCount, setCartAddress } = useContext(CartContext);
 
 
         /********************************************
@@ -82,6 +81,42 @@
 
 
 
+        /*********************************************
+                장바구니 아이템 다중 선택 삭제
+                사용처 : Carts
+        *******************************************/
 
-        return { saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem};
+                const deleteCheckedItems = async (nos) => {
+                    const result = await axios.delete("http://localhost:9000/cart/deleteCheck", {
+                        data: { nos } 
+                    });
+                    if (result.data.result_rows > 0) {
+                        await getCartList(); // 삭제 후 최신 목록 불러오기
+                    }
+                    return result.data.result_rows;
+                }
+        
+
+    /********************************************
+        회원 정보에서 주소 가져오기 (member 테이블)
+    ********************************************/
+    const getUserAddress = async () => {
+        const id = localStorage.getItem("user_id");
+        if (!id) return;
+
+        try {
+            const res = await axios.post("http://localhost:9000/member/mypage", { id });
+            if (res.data) {
+                setCartAddress({
+                    zipcode: res.data.zipcode || "",
+                    address: res.data.address || "주소 정보 없음",
+                    detailaddress: res.data.detailaddress || ""
+                });
+            }
+        } catch (error) {
+            console.error("주소 정보 불러오기 실패:", error);
+        }
+    };
+
+    return { getCartList, getUserAddress,  saveToCartList, updateCartList, getCartList, getCount, setCount, deleteCartItem, deleteCheckedItems };
     }

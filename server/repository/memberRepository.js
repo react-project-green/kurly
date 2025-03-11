@@ -132,8 +132,8 @@ export const updateMember = async (formData) => {
  * carts : 장바구니 주소 수정
  ******************************/
 
-export async function addressUp(formData) {  // ✅ export 방식 확인
-    console.log("📢 업데이트 요청 데이터:", formData);
+export async function addressUp(formData) {  
+    console.log("formData", formData);
 
     const sql = `
         UPDATE member 

@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
+import { CartContext } from "../../context/CartContext.js";
+import '../../scss/cart.scss';
 
 export default function Postcode() {
-    const [data, setData] = useState({ zipcode: '', address: '', detailaddress: '' });
-    const [isOpen, setIsOpen] = useState(false); // 검색창 열기/닫기 상태
-    const [userId, setUserId] = useState(null); // 사용자 ID 저장
+    const { cartAddress, setCartAddress } = useContext(CartContext);
+    const [userId, setUserId] = useState(null);
+    const [tempAddress, setTempAddress] = useState({ 
+        zipcode: '', 
+        address: '', 
+        detailaddress: ''  // ✅ 초기값을 빈칸으로 설정
+    });
 
     useEffect(() => {
-        // 로컬 스토리지에서 사용자 ID 가져오기
         const id = localStorage.getItem("user_id");
         if (id) {
             setUserId(id);
         }
     }, []);
 
-    const handleComplete = async (addressData) => {
+    const handleComplete = (addressData) => {
         let fullAddress = addressData.address;
         let extraAddress = '';
 
@@ -29,46 +34,70 @@ export default function Postcode() {
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
 
-        const updatedData = {
+        // ✅ detailaddress를 초기화하여 항상 빈칸으로 유지
+        setTempAddress({
             zipcode: addressData.zonecode,
             address: fullAddress,
-            detailaddress: data.detailaddress || 'ddddd', // 기존 상세주소 유지
-            id: userId, // 사용자 ID 추가
-        };
+            detailaddress: ''
+        });
+    };
 
-        setData(updatedData);
+    // ✅ 상세 주소 입력 시 tempAddress 업데이트
+    const handleDetailAddressChange = (e) => {
+        setTempAddress((prev) => ({
+            ...prev,
+            detailaddress: e.target.value
+        }));
+    };
 
+    const handleUpdateAddress = async () => {
+        if (!tempAddress.address) {
+            alert("변경할 주소를 먼저 검색해주세요.");
+            return;
+        }
 
+        const updatedData = { ...tempAddress, id: userId };
+        setCartAddress(updatedData);
+        localStorage.setItem("cartAddress", JSON.stringify(updatedData));
 
-
-
-        // 주소 변경 API 호출
         try {
             const response = await axios.post("http://localhost:9000/member/addressUpdate", updatedData);
             if (response.data.result_rows) {
                 alert("배송지가 성공적으로 변경되었습니다.");
             } else {
-                console.log(updatedData);
-                
-                alert("배송지 변경에 실패했습니다. 다시 시도해주세요.");
+                alert("배송지 변경에 실패했습니다.");
             }
         } catch (error) {
             console.error("배송지 업데이트 오류:", error);
-            alert("배송지 변경 중 오류가 발생했습니다.");
         }
-
-        setIsOpen(false); // 주소 선택 후 검색창 닫기
     };
 
     return (
-        <div>
-            {/* 우편번호 입력 필드 */}
+        <div className='c-layout' style={{ padding: "5px" }}>
+            <p className='f18 w600'>배송지 관리</p>
             <div>
-                <p>현재 주소:{data.address || "주소를 검색해주세요."}</p>
+                <span className='delivery-default' style={{ margin: "15px 0 0px 0" }} >기본배송지</span>
+                {cartAddress.address} {cartAddress.detailaddress}
             </div>
-            <div>
-                <DaumPostcode onComplete={handleComplete} autoClose={false} />
+            <div className='align-center' style={{ height: "1px", width: "100%", backgroundColor: "#dfe4eb", margin: "20px 0 20px 0" }}></div>
+
+            <p className='f18 w600'>배송지 변경</p>
+            <div className='address-ud'>
+                <p className='road-address-ud'>{tempAddress.address || "주소를 검색해주세요"}</p>
+                <div className='address-ud-bt'>
+                    <input 
+                        className='detail-address-ud' 
+                        type="text" 
+                        placeholder='나머지 주소를 입력해주세요' 
+                        value={tempAddress.detailaddress}  // ✅ 초기값이 빈칸이므로 검색 후에도 빈칸 유지됨
+                        onChange={handleDetailAddressChange}
+                    />
+                    <button className='w-btn3' onClick={handleUpdateAddress}>배송지 수정</button>
+                </div>
+                <div className='align-center' style={{ height: "1px", width: "100%", backgroundColor: "#dfe4eb", margin: "20px 0 20px 0" }}></div>
             </div>
+            <p className='f18 w600'>주소 검색</p>
+            <DaumPostcode onComplete={handleComplete} autoClose={false} />
         </div>
     );
 }

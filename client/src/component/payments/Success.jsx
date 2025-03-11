@@ -28,7 +28,7 @@ export default function SuccessPage() {
         });
 
         setIsConfirmed(true);
-       localStorage.removeItem("checkedItems")
+        localStorage.removeItem("checkedItems")
     }
 
     return (
