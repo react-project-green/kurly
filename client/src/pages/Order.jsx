@@ -13,8 +13,8 @@ import { AuthContext } from "../component/auth/AuthContext.js";
 
 // toss payments 컴포넌트
 import CheckoutPage from '../component/payments/Checkout.jsx';
-// import SuccessPage from '../component/payments/Success.jsx';
-// import FailPage from '../component/payments/Fail.jsx';
+import SuccessPage from '../component/payments/Success.jsx';
+import FailPage from '../component/payments/Fail.jsx';
 
 
 export default function Order() {

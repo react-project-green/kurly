@@ -235,7 +235,6 @@ CREATE TABLE `orderList` (
   `zipcode`			varchar(10)      NOT NULL,
   `address`			varchar(200)     NOT NULL,
   `address_detail`  varchar(200)     NOT NULL,
-  `onum`	 		varchar(40) 	 NOT NULL,
    CONSTRAINT `orderList_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `orderList_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

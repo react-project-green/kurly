@@ -99,33 +99,6 @@ useEffect(() => {
     };
 
 
-        // 주소 상태 관리
-        // useEffect(()=>{
-        //     const id = localStorage.getItem("user_id");
-        //     const result = axios.post("http://localhost:9000/member/updateAddress", { "id": id })
-        // },[])
-
-
-
-        //     const [formData, setFormData] = useState({
-        //         zipcode: '',
-        //         address: '',
-        //         detailaddress: ''
-        //     });
-        
-
-
-        // const [addressData, setAddressData] = useState({});
-        // const addAddress = (data) => {
-        //     setAddressData(data);
-        //     setFormData({
-        //         ...formData,
-        //         "zipcode": data.zipcode,
-        //         "address": data.address
-        //     });
-        // };
-
-
     /* svg 아이콘들 */
     const icons = [
         {

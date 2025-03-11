@@ -4,7 +4,7 @@ import { CartContext } from "../../context/CartContext.js";
 import '../../scss/payments.css';
 
 export default function SuccessPage() {
-    const {checkProduct, setCheckProduct } = useContext(CartContext);
+
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [searchParams] = useSearchParams();
     const paymentKey = searchParams.get("paymentKey");
@@ -27,25 +27,8 @@ export default function SuccessPage() {
             })
         });
 
-        if (response.ok) {
-            // 결제 성공 후 장바구니 체크된 아이템 삭제 요청
-            const deleteResponse = await fetch("http://localhost:9000/cart/successOrder", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    checkedItems: Array.from(checkProduct) // 장바구니 체크된 상품 번호 배열
-                })
-            });
-    
-            const deleteResult = await deleteResponse.json();
-            console.log("삭제 결과:", deleteResult);
-    
-            if (deleteResult.result_rows > 0) {
-                setCheckProduct(new Set());  // 성공 시 초기화
-                setIsConfirmed(true);}
-        }
+        setIsConfirmed(true);
+       localStorage.removeItem("checkedItems")
     }
 
     return (
