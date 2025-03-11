@@ -75,6 +75,7 @@ export const getUserType = async (req, res) => {
 
 /******************************
  * Carts 배송지 변경
+ * 작성자 : 정서령
  ******************************/
 
 export const addressUp = async (req, res) => {
@@ -84,7 +85,8 @@ export const addressUp = async (req, res) => {
 };
 
 /******************************
- * Carts 배송지 수정전 db 조회
+ * Carts 배송지 수정전 db 조회 -> getMypage 이용
+ * 작성자 : 정서령
  ******************************/
 
 export const getAddress = async (req, res) => {

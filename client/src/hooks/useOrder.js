@@ -1,16 +1,17 @@
 import React from 'react';
 import { OrderContext } from '../context/orderContext.js';
 import { useContext } from 'react';
-import { useCalculate } from './useCalculate.js';
 import axios from 'axios';
 
 
 export function useOrder() {
 
-    const {totalPriceAll, totalPriceDc, totalPriceCal} = useCalculate();
     const { setOrderList, setUserInfo } = useContext(OrderContext);
 
-    /* 전체 주문정보 가져오기 : getOrderList */
+        /********************************************
+                전체 주문정보 가져오기 (장바구니에서 체크된 상품)
+                사용처 : Order
+        ********************************************/
     const getOrderList = async() => {
         const id = localStorage.getItem('user_id');
         const checkedItems = JSON.parse(localStorage.getItem("checkedItems")) 
@@ -22,22 +23,16 @@ export function useOrder() {
         return result.data;
     }
 
-    const saveToOrder = async (orderList, totalPrice, tid , type ) => {
-        console.log('orderlist', orderList);
-        console.log('orderprice', totalPrice);
-        const id = localStorage.getItem('user_id');
-        const formData = {
-            "id" : id,
-            "tid" : tid,
-            "type" : type,
-            "totalPrice" : totalPrice,
-            "orderList" : orderList
-        }
-        
-
-        const result = await axios.post('http://localhost:9000/order/add', formData);
-        console.log('orderlist', result.data);
-    }
+    //     /********************************************
+    //             결제 완료시 주문내역 테이블 업데이트
+    //             사용처 : Success
+    //     ********************************************/
+    
+    // const saveToOrder = async (OrderList) => { 
+    //         const result = await axios.post('http://localhost:9000/order/add', { orderList: OrderList });
+    //         console.log("주문 저장 성공:", result.data);
+    //         return result.data;
+    //     } 
     
 
         /********************************************
@@ -51,8 +46,9 @@ export function useOrder() {
                         name: result.data.name,
                         phone: result.data.phone,
                         address: result.data.address,
+                        detailaddress: result.data.detailaddress,
                         emailname: result.data.emailname,
-                        emaildomain: result.data.emaildomain
+                        emaildomain: result.data.emaildomain,
                     });
                     
                 };
@@ -61,6 +57,6 @@ export function useOrder() {
 
 
 
-    return {getOrderList, saveToOrder , getUserInfo} ;
+    return {getOrderList, getUserInfo} ;
 }
 

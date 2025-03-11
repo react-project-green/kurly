@@ -1,6 +1,12 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CartContext } from "../../context/CartContext.js";
+import { OrderContext } from "../../context/orderContext.js";
+import { useOrder } from "../../hooks/useOrder.js";
+import { useCart } from "../../hooks/useCart.js";
+import { useCalculate } from "../../hooks/useCalculate.js";
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 import '../../scss/payments.css';
 
 export default function SuccessPage() {
@@ -11,24 +17,44 @@ export default function SuccessPage() {
     const orderId = searchParams.get("orderId");
     const amount = searchParams.get("amount");
 
+
+    const { orderList, setOrderList  } = useContext(OrderContext); 
+    const { getOrderList } = useOrder(); 
+    const { deleteCheckedItems } = useCart(); 
+    const navigate = useNavigate();
+
+    // 결제 완료 페이지 까지 넘어오면 주문 내역(OrderList) 테이블 업데이트
+    // orderList 업데이트 // 빈 배열 넘어오는 것 방지!
+    useEffect(() => {
+        (async () => setOrderList(await getOrderList()))();
+    }, []);
+
     async function confirmPayment() {
-        // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
-        // 서버에선 해당 데이터를 가지고 승인 API를 호출하면 결제가 완료됩니다.
-        // https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8
-        const response = await fetch("http://localhost:9000/sandbox-dev/api/v1/payments/confirm", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                paymentKey,
-                orderId,
-                amount
-            })
+        await fetch("http://localhost:9000/sandbox-dev/api/v1/payments/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: "테스트 결제 승인 요청" })
         });
 
-        setIsConfirmed(true);
-        localStorage.removeItem("checkedItems")
+        
+        const checkedItems = JSON.parse(localStorage.getItem("checkedItems"));
+        // db로 보낼 데이터 생성
+        const sendOrders = orderList
+            .filter(({ no }) => checkedItems.includes(no))
+            .map(({ qty, pid, price, dc }) => ({
+                qty,
+                id: localStorage.getItem('user_id'),
+                pid,
+                total_price: price * qty * (1 - dc / 100), // 각 상품 별로 금액 계산
+                tid: `TID${Math.floor(100000 + Math.random() * 900000)}`
+            }));
+
+        if (sendOrders.length) {
+            await axios.post('http://localhost:9000/order/add', { orderList: sendOrders }); // 빈배열 아닐 경우 서버로 orderList 데이터 전송
+            await deleteCheckedItems(checkedItems); // 체크된 상품 장바구니 삭제
+            localStorage.removeItem("checkedItems"); // 로컬스토리지 checkedItems 삭제
+            setIsConfirmed(true); // 이후 무조건 결제완료 -> true 변경
+        }
     }
 
     return (
@@ -46,7 +72,7 @@ export default function SuccessPage() {
                         height="120"
                     />
                     <h2 className="title">결제가 완료되었습니다</h2>
-                    <div className="response-section w-100">
+                    <div className="response-section w-100 ">
                         <div className="flex justify-between">
                             <span className="response-label">결제 금액</span>
                             <span id="amount" className="response-text">
@@ -70,20 +96,12 @@ export default function SuccessPage() {
                     <div className="w-100 button-group">
 
                         <div className="flex" style={{ gap: "16px" }}>
-                            <a
+                            <button
                                 className="btn w-100"
-                                href="https://developers.tosspayments.com/sandbox"
+                                onClick={()=>{navigate("/member/mypage/order")}}
                             >
-                                다시 테스트하기
-                            </a>
-                            <a
-                                className="btn w-100"
-                                href="https://docs.tosspayments.com/guides/v2/payment-widget/integration"
-                                target="_blank"
-                                rel="noopner noreferer"
-                            >
-                                결제 연동 문서가기
-                            </a>
+                                주문 내역 이동
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -96,10 +114,10 @@ export default function SuccessPage() {
                             height="120"
                         />
                         <h2 className="title text-center">결제 요청까지 성공했어요.</h2>
-                        <h4 className="text-center description">결제 승인하고 완료해보세요.</h4>
+                        <h4 className="text-center description">결제 승인하고 주문을 완료해보세요.</h4>
                     </div>
-                    <div className="w-100">
-                        <button className="btn primary w-100" onClick={confirmPayment}>
+                    <div className="w-100 flex">
+                        <button className="btn primary2 w-100" onClick={confirmPayment}>
                             결제 승인하기
                         </button>
                     </div>
