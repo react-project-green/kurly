@@ -45,7 +45,7 @@ export default function Mypage() {
     }, []); // 의존성 배열 추가
 
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     // 로그인 상태일 때만 아래 코드 실행
@@ -99,7 +99,7 @@ export default function Mypage() {
                                 <div className={`member_click ${activeTab === 'update' ? 'activeTab' : ''}`} onClick={() => handleMenuClick('update')}>
                                     <label>개인정보 수정</label>
                                 </div>
-                                <div className='kakao_button'>
+                                <div className='kakao_button'> 
                                     <label onClick={() => memberClick()} style={{ cursor: "pointer" }}>1:1문의 </label>
                                     <KakaoTalkButton />
                                 </div>

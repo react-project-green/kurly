@@ -23,6 +23,7 @@ import { CartProvider } from './context/CartContext.js';
 import { OrderProvider } from './context/orderContext.js';
 import { SearchProvider } from './context/searchContext.js';
 import Delivery from './component/member/Delivery.jsx';
+import MemberError from './component/member/MemberError.jsx';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
               <Route path="/member/login" element={<Login />} />
               <Route path="/member/signup" element={<Signup />} />
               <Route path="/member/delivery" element={<Delivery />} />
+              <Route path="/member/error" element={<MemberError />} />
               <Route path="/member/mypage/:active" element={<Mypage />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />

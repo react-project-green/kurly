@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
-import MemberError from './MemberError.jsx';
+import React, { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCalculate } from "../../hooks/useCalculate.js";
 import { AuthContext } from "../../component/auth/AuthContext.js";
+import { LuCopy } from "react-icons/lu";
 
 export default function MypageOrder() {
     const [orderList, setOrderList] = useState([
@@ -38,10 +38,23 @@ export default function MypageOrder() {
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const navigate = useNavigate();
     const { isLogin } = useContext(AuthContext);
+    const textRef = useRef(); // ref로 주문 번호 span에 접근
 
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
+
+    // 텍스트 복사 함수
+    const handleCopy = () => {
+        const text = textRef.current.innerText;  // ref로 가져온 span의 텍스트
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                alert('주문번호가 복사되었습니다!');
+            })
+            .catch((err) => {
+                console.error('복사 실패: ', err);
+            });
+    };
 
     return (
         <>
@@ -51,7 +64,9 @@ export default function MypageOrder() {
                     <div className='member_order_num'>
                         <p>2025.03.07</p>
                         <label>주문번호:: </label>
-                        <span> 65456871567</span>
+                        {/* span에 ref 연결하고, 복사 버튼 추가 */}
+                        <span ref={textRef}>65456871567</span>
+                        <button onClick={handleCopy} style={{ marginLeft: "10px" }}><LuCopy /></button>
                     </div>
                     <div className='member_order_border'></div>
                     <div>
@@ -59,17 +74,17 @@ export default function MypageOrder() {
                             {orderList.map((item, index) => (
                                 <li key={index} className='member_order_list'>
                                     <div className='member_order_detail' 
-                                        onClick={()=>{
-                                            navigate(`${item.link}`)
+                                        onClick={() => {
+                                            navigate(`${item.link}`);
                                         }}
-                                        >
-                                        <img style={{ width: "70px", height:"auto", borderRadius: "10px" }} src={item.img} alt={item.name}/>
+                                    >
+                                        <img style={{ width: "70px", height: "auto", borderRadius: "10px" }} src={item.img} alt={item.name} />
                                         <div className='member_order_sub'>
                                             <span>샛별배송</span>
                                             <p className='member_order_pname'>{item.name}</p>
                                             <div className='member_order_price'> 
                                                 <p>{item.tPrice}원 </p>
-                                                <span style={{margin:"0 5px 0 5px"}}>|</span>
+                                                <span style={{ margin: "0 5px" }}>|</span>
                                                 <span>{item.qty}개</span>
                                             </div>
                                         </div>
@@ -79,18 +94,14 @@ export default function MypageOrder() {
                         </ul>
                     </div>
                 </div>
-                <div>
-                </div>
                 <div className='order-summury-content' style={{ width: "auto", borderRadius: "8px" }}>
-                    <div className='flex space-between pmfont1 '>
+                    <div className='flex space-between pmfont1'>
                         <div><span>상품금액</span></div>
                         <div>
                             <span>643,630원</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
             </div>
         </>
     );

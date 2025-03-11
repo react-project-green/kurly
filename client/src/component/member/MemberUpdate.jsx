@@ -117,7 +117,7 @@ export default function MemberUpdate() {
 
     //로그인 상태가 아닐 때 에러 페이지 송출
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     // 수정하기 버튼 클릭 시 상태 토글
