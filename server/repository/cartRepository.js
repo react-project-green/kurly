@@ -6,7 +6,6 @@ import { db } from "../repository/db.js";
 
 export const getItems = async({id}) => {
 
-    // 쿼리 수정하기
     const sql = `
         select * from view_cart_list
         where id = ?
@@ -88,8 +87,11 @@ export const getCount = async({id}) => {
 }
 
 
+
+
+
 /*************************************
- 장바구니 아이템 삭제
+    장바구니 아이템 삭제 (x 아이콘)
  *************************************/
 
 
@@ -102,3 +104,4 @@ export const deleteItem = async({no}) => {
     
     return {"result_rows": result.affectedRows }
 }
+

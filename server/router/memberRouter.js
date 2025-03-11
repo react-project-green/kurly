@@ -10,5 +10,6 @@ router
     .post('/mypage', controller.getMypage) //유저 이름 호출
     .post('/type', controller.getUserType) // 유저 타입 확인
     .post('/update', controller.updateMember) // 유저 정보 업데이트
+    .post('/addressUpdate', controller.addressUp) // 카트 배송지 업데이트
 
     export default router; 

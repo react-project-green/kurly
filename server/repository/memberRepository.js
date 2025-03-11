@@ -128,3 +128,28 @@ export const updateMember = async (formData) => {
     return {result_rows : result.affectedRows};
 };
 
+/******************************
+ * carts : 장바구니 주소 수정
+ ******************************/
+
+export async function addressUp(formData) {  // ✅ export 방식 확인
+    console.log("📢 업데이트 요청 데이터:", formData);
+
+    const sql = `
+        UPDATE member 
+        SET 
+            address = ?, 
+            detailaddress = ?, 
+            zipcode = ?
+        WHERE id = ?
+    `;
+    const values = [         
+        formData.address,       
+        formData.detailaddress, 
+        formData.zipcode,       
+        formData.id             
+    ];
+
+        const [result] = await db.execute(sql, values);
+        return { result_rows: result.affectedRows };
+};

@@ -322,7 +322,7 @@ body {
 
 .cart-product-item {
     margin: 0 0 20px 0;
-    border-top: #dfe4eb 1px solid;
+    // border-top: #dfe4eb 1px solid;
 
 }
 
@@ -332,6 +332,7 @@ body {
     align-items: center;
     margin: 0 auto;
     padding: 16px 0 12px;
+    border-top: #dfe4eb 1px solid;
 }
 
 .cart-product-pacakaging span {
@@ -381,7 +382,7 @@ body {
 /* 상품 */
 
 .product-item-title {
-    padding: 5px 0 10px 0;
+    padding: 10px 0 10px 0;
 }
 
 .product-item-title p {
@@ -588,14 +589,18 @@ body {
 {
     padding: 8px 0;
     display: flex;
-    justify-content: space-between; // 
 }
 
 .order-email{
-    align-items: left;
-    display: block;
-    
+    // align-items: left;
+    // display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    gap: 4px;
+    text-align: left; 
 }
+
 
 
 .delivery-content,
@@ -620,7 +625,7 @@ body {
 
 .orderer-info-row div {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     line-height: 24px;
 }
 

@@ -96,7 +96,10 @@ export default function Header() {
                       <div className='user_address'>
                         <span>{userAddress.address}</span>
                       </div>
-                      <button type='button' className='delivery_changebtn' onClick={handleTogle}>배송지 변경</button>
+                      <button type='button' 
+                              className='delivery_changebtn' 
+                              onClick={()=>{ alert('마이페이지로 이동합니다');
+                                            handleCateNavigate('/member/mypage/update')}}>배송지 변경</button>
                       <Modal open={isOpen} onCancel={handleTogle} footer={null} destroyOnClose={true}>
                         <DaumPostcode onComplete={handleComplete} />
                       </Modal>
