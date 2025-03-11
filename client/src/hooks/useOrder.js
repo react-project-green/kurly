@@ -8,7 +8,7 @@ import axios from 'axios';
 export function useOrder() {
 
     const {totalPriceAll, totalPriceDc, totalPriceCal} = useCalculate();
-    const {orderList, setOrderList, orderPrice, setOrderPrice, userInfo, setUserInfo, setMember } = useContext(OrderContext);
+    const { setOrderList, setUserInfo } = useContext(OrderContext);
 
     /* 전체 주문정보 가져오기 : getOrderList */
     const getOrderList = async() => {

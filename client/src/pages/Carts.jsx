@@ -5,6 +5,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
+import axios from "axios";
 // contexts, custom hooks
 import { useCart } from "../hooks/useCart.js";
 import { useCalculate } from "../hooks/useCalculate.js";
@@ -15,6 +16,7 @@ import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
 //librarys
+import Postcode from '../component/cart/Postcode.jsx';
 import DaumPostcode from 'react-daum-postcode';
 import { Modal} from 'antd';
 
@@ -95,6 +97,33 @@ useEffect(() => {
     const handleTogle = () => {
         setIsOpen((prev) => !prev);
     };
+
+
+        // 주소 상태 관리
+        // useEffect(()=>{
+        //     const id = localStorage.getItem("user_id");
+        //     const result = axios.post("http://localhost:9000/member/updateAddress", { "id": id })
+        // },[])
+
+
+
+        //     const [formData, setFormData] = useState({
+        //         zipcode: '',
+        //         address: '',
+        //         detailaddress: ''
+        //     });
+        
+
+
+        // const [addressData, setAddressData] = useState({});
+        // const addAddress = (data) => {
+        //     setAddressData(data);
+        //     setFormData({
+        //         ...formData,
+        //         "zipcode": data.zipcode,
+        //         "address": data.address
+        //     });
+        // };
 
 
     /* svg 아이콘들 */
@@ -211,7 +240,7 @@ useEffect(() => {
                             <p className='f14'>{cartList[0]?.address ?? '주소 정보 없음'}</p>
                             <button className='w-btn' type='button' onClick={handleTogle}>변경</button>
                             <Modal open={isOpen} onCancel={handleTogle} footer={null}>
-                                <DaumPostcode onComplete={handleComplete} />
+                                <Postcode onComplete={handleComplete} />
                             </Modal>
                         </div>
                     </div>
