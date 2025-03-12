@@ -137,8 +137,10 @@ export const getOrder = async ({ id }) => {
             pid,
             tid,
             qty,
-            format(total_price, 0) as total_price,
+            format(total_price, 0) as tid_total_price,
+            total_price,
             left(odate, 10) as odate,
+            odate as order_date, 
             brand,
             subject,
             concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img
