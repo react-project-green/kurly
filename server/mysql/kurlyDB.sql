@@ -312,6 +312,26 @@ from cart c, member m, product p
 where c.id = m.id 
 and c.pid = p.pid;
 
+-- ########################################
+-- order_details 뷰테이블 생성 (주문목록 호출)
+-- ######################################## 
+CREATE VIEW order_details AS
+SELECT 
+    o.id,
+    o.pid,
+    o.tid,
+    o.qty,
+    o.total_price,
+    o.odate,
+    p.brand,
+    p.subject,
+    p.upload_img
+FROM 
+    orderlist o
+JOIN 
+    product p ON o.pid = p.pid;
+
+
 
 -- #######################################
 -- Dumping routines for database 'kurlyDB'
