@@ -18,14 +18,14 @@ import Packaging from '../component/cart/Packaging.jsx';
 //librarys
 import Postcode from '../component/cart/Postcode.jsx';
 import DaumPostcode from 'react-daum-postcode';
-import { Modal} from 'antd';
+import { Modal } from 'antd';
 
 export default function Carts() {
 
     /*------------------------ 전역 ---------------------- */
-    const { cartList, setCartList, checkProduct, setCheckProduct } = useContext(CartContext);
+    const { cartList, setCartList, checkProduct, setCheckProduct, cartAddress } = useContext(CartContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
-    const { getCartList, deleteCheckedItems } = useCart();
+    const { getCartList, deleteCheckedItems, getUserAddress } = useCart();
     const { isLogin } = useContext(AuthContext);
     const navigate = useNavigate();
     const [allChecked, setAllChecked] = useState(false);
@@ -44,51 +44,57 @@ export default function Carts() {
             return;
         }
         getCartList();
+        getUserAddress();
     }, [isLogin]);
 
 
-/*---- 페이지 로딩시 카트리스트 기본적으로 전체 선택 후 로컬스토리지 저장 ---- */
-useEffect(() => {
-    if (cartList.length > 0) {
-        const allCheckedNos = cartList.map(item => item.no);
-        setCheckProduct(allCheckedNos);
-        setAllChecked(true);
+    /*---- 페이지 로딩시 카트리스트 기본적으로 전체 선택 후 로컬스토리지 저장 ---- */
+    useEffect(() => {
+        if (cartList.length > 0) {
+            const allCheckedNos = cartList.map(item => item.no);
+            setCheckProduct(allCheckedNos);
+            setAllChecked(true);
 
-        localStorage.setItem("checkedItems", JSON.stringify(allCheckedNos));
-    }
-}, [cartList]);
+            localStorage.setItem("checkedItems", JSON.stringify(allCheckedNos));
+        }
+    }, [cartList]);
 
 
 
-    
+
     const handleAllCheck = () => {
         const checkedNos = allChecked ? [] : cartList.map(item => item.no);
-    
+
         setCheckProduct(checkedNos);
         localStorage.setItem("checkedItems", JSON.stringify(checkedNos));
-    
+
         setAllChecked(!allChecked);
     };
 
 
- /* 장바구니 체크박스 개별 선택 -> 로컬스토리지 저장 */
-
- const handleCheck = (no) => {
-    setCheckProduct(prev => {
-        const updatedChecked = prev.some(item => item === no) 
-            ? prev.filter(item => item !== no) 
-            : [...prev, no];
-
-        localStorage.setItem("checkedItems", JSON.stringify(updatedChecked));
-        return updatedChecked;
-    });
-};
 
 
 
+    /* 장바구니 체크박스 개별 선택 -> 로컬스토리지 저장 */
 
-    /* daumpotscode */
+    const handleCheck = (no) => {
+        setCheckProduct(prev => {
+            const updatedChecked = prev.some(item => item === no)
+                ? prev.filter(item => item !== no)
+                : [...prev, no];
+
+            localStorage.setItem("checkedItems", JSON.stringify(updatedChecked));
+            return updatedChecked;
+        });
+    };
+
+
+
+
+
+    /* daum postcode */
     const [isOpen, setIsOpen] = useState(false);
+
 
     const handleComplete = () => {
         setIsOpen(false);
@@ -128,35 +134,34 @@ useEffect(() => {
     ];
 
 
-    
+
     /* cartlist의 packaging 글자에 따라 packaging 컴포넌트 매칭 */
     const changePackaging = [...new Set(cartList.map(item => item.delivery))];
 
-    
+
     /*  */
     const handleOrder = () => {
         if (checkProduct.size === 0) {
             alert('주문할 상품을 체크해주세요')
             return
         } else {
-            navigate("../order") 
-        } 
+            navigate("../order")
+        }
     }
-    
-    console.log('carts 끝',cartList);
+
     return (
         <div className='c-layout g-full'>
             <p className='c-title'>장바구니</p>
             <div className='c-content'>
                 <div className='cart-left-side '>
-                    <SelectAll 
-                        CheckBox={CheckBox} 
-                        checked={allChecked} 
+                    <SelectAll
+                        CheckBox={CheckBox}
+                        checked={allChecked}
                         onChange={handleAllCheck}
-                        deleteCheckedItems={deleteCheckedItems} 
+                        deleteCheckedItems={deleteCheckedItems}
                         setCheckProduct={setCheckProduct}
                         checkProduct={checkProduct}
-                        />
+                    />
 
                     {/* 장바구니 상품 리스트, OrderSummary 시작 */}
                     <div className='cart-product w-full'>
@@ -165,14 +170,14 @@ useEffect(() => {
                             <p className='f18 w600'>샛별배송</p>
                         </div>
                         <ul className='cart-product-list'> {/* 상품리스트 반복 */}
-                                {
-                                    changePackaging && changePackaging.map((item, index)=>
+                            {
+                                changePackaging && changePackaging.map((item, index) =>
                                     <div className='cart-product-pacakaging' key={`${item}-${index}`} >
                                         <Packaging packaging={item} />
                                     </div>
-                                    
-                                    )
-                                }
+
+                                )
+                            }
                             {cartList && cartList.map((item) =>
                                 <li className='cart-product-item' key={item.no}>
                                     <ProductItem
@@ -210,9 +215,11 @@ useEffect(() => {
                         </div>
                         <p className='delivery-type f13 w600' style={{ color: "var(--kurlypurple)" }}>샛별배송</p>
                         <div className='delivery-bottom flex space-between '>
-                            <p className='f14'>{cartList[0]?.address ?? '주소 정보 없음'}</p>
+                            <p className='f14'>{cartAddress.address || cartAddress.detailaddress
+                                ? `${cartAddress.address} ${cartAddress.detailaddress}`
+                                : "주소 정보 없음"} </p>
                             <button className='w-btn' type='button' onClick={handleTogle}>변경</button>
-                            <Modal open={isOpen} onCancel={handleTogle} footer={null}>
+                            <Modal open={isOpen} onCancel={handleTogle} footer={null} key={isOpen}>
                                 <Postcode onComplete={handleComplete} />
                             </Modal>
                         </div>
@@ -279,11 +286,11 @@ const CheckBox = ({ checked, onChange }) => {
 // 전체선택 컴포넌트
 const SelectAll = ({ CheckBox, checked, onChange, deleteCheckedItems, setCheckProduct, checkProduct }) => {
 
-        /* 선택 아이템 삭제 */
-        const delCheckedItems = async() => {
-            deleteCheckedItems(checkProduct);// 선택된 상품 삭제 요청
-            setCheckProduct(new Set()); // 삭제 후 선택 초기화
-        }
+    /* 선택 아이템 삭제 */
+    const delCheckedItems = async () => {
+        deleteCheckedItems(checkProduct);// 선택된 상품 삭제 요청
+        setCheckProduct([]); // 삭제 후 선택 초기화
+    }
 
     return (
         <div className='cart-header w-full'>

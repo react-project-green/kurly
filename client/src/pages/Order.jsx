@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
 
 import { useOrder } from "../hooks/useOrder.js";
+import { useCart } from "../hooks/useCart.js";
 import { useCalculate } from "../hooks/useCalculate.js";
-import { CartContext } from "../context/CartContext.js";
+// import { CartContext } from "../context/CartContext.js";
 import { OrderContext } from "../context/orderContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
 
 // toss payments 컴포넌트
 import CheckoutPage from '../component/payments/Checkout.jsx';
-import SuccessPage from '../component/payments/Success.jsx';
-import FailPage from '../component/payments/Fail.jsx';
 
 
 export default function Order() {
@@ -23,6 +22,7 @@ export default function Order() {
     const { orderList, userInfo, setUserInfo } = useContext(OrderContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
     const { getUserInfo, getOrderList } = useOrder();
+    const { getCartList } = useCart();
     const { isLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ export default function Order() {
         }
         getOrderList();
         getUserInfo();
+        getCartList(); // 계산 위해 장바구니 목록 추가
         
     }, [isLogin]);
 
@@ -114,6 +115,7 @@ export default function Order() {
                         <ul>
                             {orderList.map(item => (
                                     <li key={item.no}>
+                                    <div className='space-between'>
                                     <div className='order-item flex'>
                                         <img style={{width : "56px", borderRadius:"10px"}} src={`http://localhost:9000/${item.upload_img
 }`} alt="" />
@@ -127,6 +129,8 @@ export default function Order() {
                                         <p className='discount' style={{ fontSize: "13px", textDecoration: "line-through", color: "#bcc4cc" }}>{`${(item.price * item.qty).toLocaleString()}원`}</p>
                                             </div>
                                     </div>
+                                    </div>
+                                    <div className='f16' style={{marginRight:"20px"}}>{item.qty}개</div>
                                     </div>
                                     </li>
                             ))}
@@ -179,7 +183,7 @@ export default function Order() {
                 <div className='delivery-detail flex110'>
                     <span className='delivery-default'>기본배송지</span>
                     <p>
-                        {userInfo.address}
+                        {userInfo.address}&nbsp;{userInfo.detailaddress}
                         </p>
                     <button className='w-btn2' onClick={()=>{ 
                         alert('장바구니로 이동하시어 다른 배송지로 변경하시겠습니까?')
@@ -195,7 +199,7 @@ export default function Order() {
                         <span>자유 출입 가능</span>
                     </div>
                     <div>
-                        {userInfo.name}, {userInfo.phone}
+                        {userInfo.name}, &nbsp;{userInfo.phone}
                         </div>
                     <button className='w-btn2'>수정</button>
                 </div>

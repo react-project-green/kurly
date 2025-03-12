@@ -67,7 +67,7 @@ export default function CheckoutPage({ totalPriceCal }) {
 
 
     return (
-        <div className="payments-wrapper w-100">
+        <div className="payments-wrapper order-payments-wrapper w-100">
             <div className="w-100">
                 <div id="payment-method" className="w-100" />
                 <div id="agreement" className="w-100" />

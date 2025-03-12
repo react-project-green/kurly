@@ -62,6 +62,18 @@ export const updateMember = async (req, res) => {
     res.json(result);
     res.end();
 }
+/******************************
+ * MyPage : 주문내역 조회
+ ******************************/
+export const getOrder = async (req, res) => {
+    try {
+        const result = await repository.getOrder(req.body); // 주문 목록 가져오기
+        res.json(result); // 배열 형태로 반환
+    } catch (error) {
+        console.error("주문 조회 실패:", error);
+        res.status(500).json({ message: "주문 조회 실패" });
+    }
+};
 
 /******************************
  * Login : 로그인 유저 타입 확인 
@@ -75,11 +87,22 @@ export const getUserType = async (req, res) => {
 
 /******************************
  * Carts 배송지 변경
+ * 작성자 : 정서령
  ******************************/
 
 export const addressUp = async (req, res) => {
-    console.log("📢 API 요청 데이터:", req.body);
     const result = await repository.addressUp(req.body);
+    res.json(result);
+    res.end();
+};
+
+/******************************
+ * Carts 배송지 수정전 db 조회 -> getMypage 이용
+ * 작성자 : 정서령
+ ******************************/
+
+export const getAddress = async (req, res) => {
+    const result = await repository.getMypage(req.body);
     res.json(result);
     res.end();
 };
