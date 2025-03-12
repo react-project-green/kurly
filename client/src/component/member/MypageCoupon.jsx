@@ -9,7 +9,10 @@ export default function MypageCoupon() {
                 <div className='member_my_right_title'>쿠폰 </div>
                 <div className='member_coupon_box'>
                     <div>
-                    현재 사용 가능한 쿠폰이 없습니다.
+                        <span style={{ color: '#999999' }}>
+                            현재 사용 가능한 쿠폰이 없습니다.
+
+                        </span>
 
                     </div>
                 </div>

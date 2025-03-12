@@ -62,6 +62,18 @@ export const updateMember = async (req, res) => {
     res.json(result);
     res.end();
 }
+/******************************
+ * MyPage : 주문내역 조회
+ ******************************/
+export const getOrder = async (req, res) => {
+    try {
+        const result = await repository.getOrder(req.body); // 주문 목록 가져오기
+        res.json(result); // 배열 형태로 반환
+    } catch (error) {
+        console.error("주문 조회 실패:", error);
+        res.status(500).json({ message: "주문 조회 실패" });
+    }
+};
 
 /******************************
  * Login : 로그인 유저 타입 확인 

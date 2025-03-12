@@ -658,12 +658,24 @@
             -webkit-box-pack: center;
             justify-content: center;
             -webkit-box-align: center;
-            align-items: center;
-            color: #999999;
+            align-items: center; 
             height: 500px;
+            
           }
         }
 
+        .member_order_box_false{
+          height: 500px;
+          margin: auto; 
+          div { 
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            height: 500px;
+          }
+        }
         .member_my_right_1 {
           margin-top: 30px;
           background-color: #fff;
@@ -853,6 +865,10 @@
 /******************************
  * mypage : 주문내역
  ******************************/
+.member_order_box{
+  
+  margin-bottom: 20px;
+}
 .member_order {
   padding: 20px;
   ul{

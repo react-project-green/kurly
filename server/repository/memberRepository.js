@@ -97,8 +97,8 @@ export const getMypage = async ({ id }) => {
 /******************************
  * MyPage : 비밀번호, 핸드폰번호, 주소, 이메일 수정
  ******************************/
-export const updateMember = async (formData) => { 
-    
+export const updateMember = async (formData) => {
+
     const sql = `
         UPDATE member 
         SET 
@@ -113,26 +113,49 @@ export const updateMember = async (formData) => {
         WHERE id = ?
     `;
     const values = [
-        formData.phone,         
-        formData.emailname,     
-        formData.emaildomain,   
-        formData.pwd,           
-        formData.address,       
-        formData.detailaddress, 
-        formData.zipcode,  
-        formData.name,     
-        formData.id             
+        formData.phone,
+        formData.emailname,
+        formData.emaildomain,
+        formData.pwd,
+        formData.address,
+        formData.detailaddress,
+        formData.zipcode,
+        formData.name,
+        formData.id
     ];
     const [result] = await db.execute(sql, values);
 
-    return {result_rows : result.affectedRows};
+    return { result_rows: result.affectedRows };
 };
+/****************************** 
+ * mypage : 주문목록 조회
+ ******************************/
+export const getOrder = async ({ id }) => {
+    const sql = `  
+        SELECT 
+            id,
+            pid,
+            tid,
+            qty,
+            format(total_price, 0) as total_price,
+            left(odate, 10) as odate,
+            brand,
+            subject,
+            concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img
+        FROM 
+            order_details 
+        WHERE 
+            id = ?;
+    `;
 
+    const [result] = await db.execute(sql, [id]);
+    return result;
+}
 /******************************
  * carts : 장바구니 주소 수정
  ******************************/
 
-export async function addressUp(formData) {  
+export async function addressUp(formData) {
     console.log("formData", formData);
 
     const sql = `
@@ -143,13 +166,13 @@ export async function addressUp(formData) {
             zipcode = ?
         WHERE id = ?
     `;
-    const values = [         
-        formData.address,       
-        formData.detailaddress, 
-        formData.zipcode,       
-        formData.id             
+    const values = [
+        formData.address,
+        formData.detailaddress,
+        formData.zipcode,
+        formData.id
     ];
 
-        const [result] = await db.execute(sql, values);
-        return { result_rows: result.affectedRows };
+    const [result] = await db.execute(sql, values);
+    return { result_rows: result.affectedRows };
 };
