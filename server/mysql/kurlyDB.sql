@@ -57,8 +57,7 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `cid` 			char(3)			PRIMARY KEY ,
   `title`			varchar(20)		NOT NULL,
-  `image`			varchar(50)	    NOT NULL,
-  CONSTRAINT `CATEGORY_FK_CID` FOREIGN KEY (`cid`) REFERENCES `product` (`cate_depth1`)
+  `image`			varchar(50)	    NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,8 +80,7 @@ CREATE TABLE `sub_category` (
   `title`			varchar(20)		NOT NULL,
   `cid`				char(3)			NOT NULL,
    PRIMARY KEY (`cid`, `sid`), 
-   CONSTRAINT `SUB_CATEGORY_FK_CID` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`),
-   CONSTRAINT `SUB_CATEGORY_FK_SID` FOREIGN KEY (`sid`) REFERENCES `product` (`cate_depth2`)
+   CONSTRAINT `SUB_CATEGORY_FK_CID` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,7 +101,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `pid`               int           PRIMARY KEY    auto_increment,
   `brand`             varchar(100)  NOT NULL,
-  `cate_depth1`       char(3)	 	NOT NULL,
+  `cate_depth1`       char(3)	  	NOT NULL,
   `cate_depth2`       char(3)	  	NOT NULL,
   `subject`           text    		NOT NULL,
   `sub_desc`          text,
@@ -299,16 +297,17 @@ from product;
 create view view_cart_list
 as 
 select  c.no as no,
-		    c.qty as qty,
-		    m.id as id,
-		    m.address as address,
-		    p.pid as pid,
-		    p.delivery as delivery ,
-		    p.subject as subject,
-		    p.sub_desc as sub_desc,
-		    p.price as price,
-		    p.dc as dc,
-		    upload_img
+		c.qty as qty,
+--    	c.checked as checked,
+		m.id as id,
+		m.address as address,
+		p.pid as pid,
+		p.delivery as delivery ,
+		p.subject as subject,
+		p.sub_desc as sub_desc,
+		p.price as price,
+		p.dc as dc,
+		upload_img
 from cart c, member m, product p
 where c.id = m.id 
 and c.pid = p.pid;
