@@ -7,6 +7,7 @@ import { AuthContext } from './auth/AuthContext.js'
 import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
 import { SearchContext } from '../context/searchContext.js';
 import { CartContext } from '../context/CartContext.js'
+import { useCart } from '../hooks/useCart.js';
 export default function Header() {
   
   const [ hoverCategoryCid , setHoverCategoryCid ] = useState(null);
@@ -15,6 +16,7 @@ export default function Header() {
   const { cartCount } = useContext(CartContext);
   const navigate = useNavigate();
   const user_address = localStorage.getItem('address');
+  const { getCount } = useCart();
   const { handleComplete, handleTogle, handleKeyPress, 
           handleSearch, handleCateNavigate, handleLoginToggle, 
           isOpen, categoryList, subCategoryList, userAddress, 
