@@ -60,8 +60,8 @@ export function useHeaderHandler() {
   const fetchWishList = async() =>{
     if(!user_id) return;
       const wishList = await axios.post('http://localhost:9000/main/wishList', {'id':user_id});
-      setWishList( wishList.data[0].wish);
-      // console.log('wishListjsx',wishList.data[0].wish);
+      setWishList( wishList.data[0].wish ===null ? [] : wishList.data[0].wish );
+      console.log('wishListjsx',wishList.data[0].wish);
   };  
 
   /* 주소 api - 모달 열기/닫기 토글  */
