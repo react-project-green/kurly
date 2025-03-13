@@ -22,7 +22,8 @@ export default function Detail() {
     const {saveToCartList,updateCartList} = useCart();
     const {isLogin} = useContext(AuthContext);
     const {loginCheck} = useLogin();
-    const {cartList} = useContext(CartContext);
+    const {cartList, wishList, setWishList} = useContext(CartContext);
+    const [heart, setHeart] = useState(false);
     const scrolls = [
         {id:'상품설명', ref:useRef(null)},
         {id:'상세정보', ref:useRef(null)},
@@ -35,7 +36,7 @@ export default function Detail() {
     const [product, setProduct] = useState({});
     const btmCartRef = useRef(null);
     const [btnCheck, setBtnCheck] = useState(false);
-    const [heart, setHeart] = useState(false);
+    // const [heart, setHeart] = useState(false);
     const [reviewCount, setReviewCount] = useState(0);
     
     // btm add cart btn
@@ -55,21 +56,29 @@ export default function Detail() {
     useEffect(() =>{
         axios.post('http://localhost:9000/product/detail',{'pid':pid})
                 .then((res) => {
-                    setProduct(res.data[0]);                                    
+                    setProduct(res.data[0]); 
                 })
                 .catch((error) => console.log(error));
     },[]);
 
+    // 하트체크 여부 화면에 표시 
     useEffect(()=>{
-        if(product.pid && !heart){   
-            const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
-            if(checkArray && product.pid){
-                const samePid = checkArray.includes(product.pid);
-                if(samePid) setHeart(true);
-            }
+        if(!product.pid) return;
+        if(!Array.isArray(wishList) || wishList.length === 0) return;
+        setHeart(wishList.includes(product.pid));
+    },[product.pid]);
+    
+    // 예리언니 코드
+    // useEffect(()=>{
+    //     if(product.pid && !heart){   
+    //         const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
+    //         if(checkArray && product.pid){
+    //             const samePid = checkArray.includes(product.pid);
+    //             if(samePid) setHeart(true);
+    //         }
             
-        }
-    },[product.pid, heart]);
+    //     }
+    // },[product.pid, heart]);
 
     useEffect(()=>{
         const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
@@ -132,31 +141,56 @@ export default function Detail() {
         }
         
     }
-    
+
+
     // 찜하기 
-    const handleAddHeart = useCallback(() => {
-        if(isLogin){
-            let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
-            const samePid = heartList.includes(product.pid);
-            const wishListCnt = heartList.length;
-            
-            if(wishListCnt <=9){
-                if(!samePid){
-                    heartList.unshift(Number(pid));       
-                    localStorage.setItem('heartList',JSON.stringify(heartList)); 
-                    setHeart(true);
-                }else{
-                    const newArray = heartList.filter((item)=> item !== product.pid);
-                    localStorage.setItem('heartList',JSON.stringify(newArray)); 
-                    setHeart(false);
-                }
-            }else{
-                alert('찜한 상품은 최대 10개까지 저장됩니다.');
-            }
-        }else{
-            loginCheck();
+    const handleAddHeart = async() => {
+        try {
+            if(!isLogin) return loginCheck(); 
+            const id = localStorage.getItem("user_id");
+
+            setWishList((prevWishList)=>{
+               const isAlreadyWished = prevWishList.includes(product.pid); 
+               const updateWishList =  isAlreadyWished ? wishList.filter((prev)=>prev !== product.pid) : [...prevWishList, product.pid];
+
+               axios.post("http://localhost:9000/main/wishListUpdate", {id, wishList :updateWishList})
+                    .then((res)=>{
+                        if(res.data === 1 ){
+                            setHeart(!isAlreadyWished);  
+                        }
+                    }) 
+                    .catch((error)=>console.log(error));
+                    return updateWishList;  // 상태 즉시 업데이트
+            });
+        } catch (error) {
+            console.log(error);
         }
-    }, [isLogin, pid, product.pid, loginCheck]);
+    }
+    
+    // 예리 언니 코드
+    // const handleAddHeart = useCallback(() => {
+    //     if(isLogin){
+    //         let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
+    //         const samePid = heartList.includes(product.pid);
+    //         const wishListCnt = heartList.length;
+            
+    //         if(wishListCnt <=9){
+    //             if(!samePid){
+    //                 heartList.unshift(Number(pid));       
+    //                 localStorage.setItem('heartList',JSON.stringify(heartList)); 
+    //                 setHeart(true);
+    //             }else{
+    //                 const newArray = heartList.filter((item)=> item !== product.pid);
+    //                 localStorage.setItem('heartList',JSON.stringify(newArray)); 
+    //                 setHeart(false);
+    //             }
+    //         }else{
+    //             alert('찜한 상품은 최대 10개까지 저장됩니다.');
+    //         }
+    //     }else{
+    //         loginCheck();
+    //     }
+    // }, [isLogin, pid, product.pid, loginCheck]);
 
     return (
         <div>

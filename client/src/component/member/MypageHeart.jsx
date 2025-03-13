@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import { BsCart2 } from "react-icons/bs";
-import {CartContext} from '../../context/CartContext.js';
+import {CartContext}  from '../../context/CartContext.js';
 import {useCart} from '../../hooks/useCart.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,28 +11,31 @@ export default function MypageHeart() {
   const [ pidArray, setPidArray ] = useState([]);
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
-  const {cartList, wishListCnt, setWishListCnt} = useContext(CartContext);
+  const {cartList, wishListCnt, setWishListCnt, setWishList, wishList} = useContext(CartContext);
   const {saveToCartList,updateCartList} = useCart();
+  const id= localStorage.getItem('user_id');
 
   useEffect(()=>{
-    const wishPidList = JSON.parse(localStorage.getItem('heartList') || '[]') 
-    setWishListCnt(wishPidList.length);
-    
-    if(wishPidList.length > 0){
-      axios.post('http://localhost:9000/main/wishList', {pidArray : wishPidList})
-           .then((res)=>setPidArray(res.data))    
+      axios.post('http://localhost:9000/main/wishListInfo', {id})
+           .then((res)=>{
+              setPidArray(res.data)
+              setWishListCnt(res.data.length)            
+            })    
            .catch((error)=>console.log(error))    
-    }else{
-      setPidArray([]);
-    }
-  },[]);
+  },[pidArray]);
 
-    const handleDelete = (pid) => {
-      const wishPidList = JSON.parse(localStorage.getItem('heartList') || '[]');
-      const updatedPidList = wishPidList.filter((item) => item !== pid);
-      localStorage.setItem('heartList', JSON.stringify(updatedPidList));
-      setPidArray(prev => prev.filter((item)=> item.pid !== pid));
-      setWishListCnt(updatedPidList.length);
+    const handleDelete = async(pid) => {
+      setWishList((prevWishList)=>{
+        const updateWishList =  wishList.filter((item)=> item !== pid);
+        console.log('updateWishList',updateWishList);
+        axios.post("http://localhost:9000/main/wishListUpdate", {id, 'wishList':updateWishList})
+             .then((res)=>{
+               if(res.data === 1 ){
+                 setWishList(updateWishList);
+               }
+             })
+             .catch((error)=>console.log(error))
+      })
     };
  
     const cartAddItem = (pid) => {
@@ -44,11 +47,13 @@ export default function MypageHeart() {
       if(findItem){
         const result = updateCartList(findItem.no, "increase", count);
         result && alert('장바구니에 추가되었습니다.');
+        handleDelete(pid);
       }else{
         const id = localStorage.getItem('user_id');
         const formData = {id:id, cartList: [cartItem]};
         const result = saveToCartList(formData);
         result && alert('장바구니에 추가되었습니다.');
+        handleDelete(pid);
       }
     };
 

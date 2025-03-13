@@ -9,13 +9,14 @@ export const CartProvider = ({children}) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [checkProduct, setCheckProduct] = useState([]);
     const [wishListCnt, setWishListCnt] = useState(0);
+    const [wishList, setWishList] = useState([]);
     const [cartAddress, setCartAddress] = useState({ zipcode: "", address: "", detailaddress: "" });
 
 
     
 
     return (
-        <CartContext.Provider value={{wishListCnt, setWishListCnt, cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, checkProduct, setCheckProduct, cartAddress, setCartAddress }}> 
+        <CartContext.Provider value={{wishListCnt, setWishListCnt,wishList, setWishList, cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, checkProduct, setCheckProduct, cartAddress, setCartAddress }}> 
         {children}
         </CartContext.Provider>
     )

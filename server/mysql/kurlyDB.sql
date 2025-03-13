@@ -35,7 +35,8 @@ CREATE TABLE `member` (
   `address`       VARCHAR(80)     NOT NULL,
   `detailaddress` VARCHAR(80)     NOT NULL,
   `zipcode`       VARCHAR(10)     NOT NULL,
-  `type`          CHAR(1)   ,
+  `type`          CHAR(1),
+  `wish`		      json,	
   `reg_date`      DATETIME      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -139,24 +140,8 @@ CREATE TABLE `qna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 -- ########################################
--- Dumping data for table `wish`  6. 위시리스트 테이블
--- ########################################
-DROP TABLE IF EXISTS `wish`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wish` (
-  `no` 				int 		 	PRIMARY KEY 	auto_increment,
-  `id`				varchar(20)		NOT NULL,
-  `pid` 			int				NOT NULL,
-   CONSTRAINT `WISH_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `WISH_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- ########################################
--- Dumping data for table `cart`  7.장바구니 테이블
+-- Dumping data for table `cart`  6.장바구니 테이블
 -- ########################################
 DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -180,7 +165,7 @@ VALUES('test1', 7, 3),('test2', 3, 5),('test1', 12, 6),
 
 
 -- ########################################
--- Dumping data for table `reviews`   8.리뷰테이블
+-- Dumping data for table `reviews`   7.리뷰테이블
 -- ########################################
 DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -201,7 +186,7 @@ create table reviews(
 
 
 -- ########################################
--- Dumping data for table `notice`  9.공지사항 테이블
+-- Dumping data for table `notice`  8.공지사항 테이블
 -- ########################################
 DROP TABLE IF EXISTS `notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -218,7 +203,7 @@ CREATE TABLE `notice` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- ########################################
--- Dumping data for table `orderList` 10.결제 테이블
+-- Dumping data for table `orderList` 9.결제 테이블
 -- ########################################
 DROP TABLE IF EXISTS `orderList`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -252,7 +237,7 @@ VALUES
 ('test2', 12, 'TID012', 10, 28000, now());
 
 -- ########################################
--- Dumping data for table `inquire` 11. inquire 테이블 
+-- Dumping data for table `inquire` 10. inquire 테이블 
 -- ########################################
 DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -273,7 +258,7 @@ create table inquire(
 
 
 -- ########################################
--- view_categoty_pro_list 뷰테이블 생성
+-- 11. view_categoty_pro_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_category_pro_list`;
 create view view_category_pro_list 
@@ -291,14 +276,13 @@ select pid
 from product; 
 
 -- ########################################
--- view_cart_list 뷰테이블 생성
+-- 12.view_cart_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_cart_list`;
 create view view_cart_list
 as 
 select  c.no as no,
 		c.qty as qty,
---    	c.checked as checked,
 		m.id as id,
 		m.address as address,
 		p.pid as pid,
@@ -313,7 +297,7 @@ where c.id = m.id
 and c.pid = p.pid;
 
 -- ########################################
--- order_details 뷰테이블 생성 (주문목록 호출)
+-- 13. order_details 뷰테이블 생성 (주문목록 호출)
 -- ######################################## 
 CREATE VIEW order_details AS
 SELECT 
@@ -326,12 +310,8 @@ SELECT
     p.brand,
     p.subject,
     p.upload_img
-FROM 
-    orderlist o
-JOIN 
-    product p ON o.pid = p.pid;
-
-
+FROM orderlist o
+JOIN product p ON o.pid = p.pid;
 
 -- #######################################
 -- Dumping routines for database 'kurlyDB'
