@@ -2,25 +2,31 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../component/auth/AuthContext";
 import { SearchContext } from "../context/searchContext";
+import { CartContext } from "../context/CartContext";
 import axios from "axios";
 
 export function useHeaderHandler() {
   const navigate = useNavigate();
   const { isLogin, setIsLogin, setUserType } = useContext(AuthContext);
   const { searchKeyword, setSearchKeyword, setSearch } = useContext(SearchContext);
+  const { wishList, setWishList} = useContext(CartContext);
   const [ isOpen, setIsOpen] = useState(false);
   const [ topMenu, setTopMenu] = useState([]);
   const [ supportMenu, setSupportMenu] = useState([]);
   const [ categoryList, setCategoryList] = useState([]);
   const [ subCategoryList, setSubCategoryList] = useState([]);
-  const [ wishListCnt, setWishListCnt ] = useState(0);
   const [ userAddress, setUserAddress] = useState('');
   const user_id = localStorage.getItem('user_id');
+
+ 
 
   /* useEffect로 각 함수 호출  */
   useEffect(() => {
     fetchCategory();
     fetchHeaderData();
+    if (user_id) {
+      fetchWishList();
+    }
   }, [user_id]);
 
   /* json 값 가져오기  */
@@ -50,6 +56,14 @@ export function useHeaderHandler() {
     }
   };
   
+  /* 위시리스트 값 가져오기  */
+  const fetchWishList = async() =>{
+    if(!user_id) return;
+      const wishList = await axios.post('http://localhost:9000/main/wishList', {'id':user_id});
+      setWishList( wishList.data[0].wish);
+      // console.log('wishListjsx',wishList.data[0].wish);
+  };  
+
   /* 주소 api - 모달 열기/닫기 토글  */
   const handleTogle = () => {        
     setIsOpen((prev) => !prev);

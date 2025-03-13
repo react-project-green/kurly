@@ -136,23 +136,51 @@ export const getRecentlyViewItem = async({pidArray}) =>{
   return result;
 }
 
+
 /*************************** 
- *  8. 위시리스트 상품 정보 가져오기 
+ *  8. 위시리스트 배열 가져오기
 ***************************/
-export const getWishListInfo = async({pidArray})=>{
-  const pidList = pidArray.map(()=> '?').join(",");
+export const getWishListPid = async({id}) =>{
+  const sql =`select JSON_EXTRACT(wish, '$') as wish from member where id=?`;
+
+  const [result]= await db.execute(sql, [id]);
+  console.log('메인 위시리스트 배열 select',result);
+  return result;
+};
+
+/*************************** 
+ *  9. 위시리스트 상품 정보 INSERT
+***************************/
+export const setWishList = async(data) =>{
+  const sql=`update member set wish = ? where id = ?`;
+  const values = [ JSON.stringify(data.wishList), data.id];
+
+  const [result] = await db.execute(sql, values);
+  console.log('레파지토리 인서트 확인',result);
+  
+  return result.affectedRows;
+};  
+
+/*************************** 
+ *  10. 위시리스트 상품 정보 가져오기 
+***************************/
+export const getWishListInfo = async({id})=>{
+  // const pidList = pidArray.map(()=> '?').join(",");
   const sql =`
-    select pid
-          , subject as name
-          , sub_desc as description
-          , price as originalPrice
-          , dc 
-          , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
-          , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-      from  product
-     where pid in (${pidList})
+      select  P.pid
+              , P.subject as name
+              , P.sub_desc as description
+              , P.price as originalPrice
+              , P.dc 
+              , concat(format(P.price - (P.price * (P.dc * 0.01)),0),'원') as discountedPrice
+              , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
+      from    product P, member m
+      where   JSON_CONTAINS(m.wish, Cast(p.pid as JSON))
+      and     m.id =? 
   `;
 
-  const [result] = await db.execute(sql, pidArray);
+  const [result] = await db.execute(sql, [id]);
   return result;
 }  
+
+
