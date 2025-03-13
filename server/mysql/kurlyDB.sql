@@ -36,7 +36,7 @@ CREATE TABLE `member` (
   `detailaddress` VARCHAR(80)     NOT NULL,
   `zipcode`       VARCHAR(10)     NOT NULL,
   `type`          CHAR(1),
-  `wish`		  json,	
+  `wish`		      json,	
   `reg_date`      DATETIME      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -258,7 +258,7 @@ create table inquire(
 
 
 -- ########################################
--- 12. view_categoty_pro_list 뷰테이블 생성
+-- 11. view_categoty_pro_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_category_pro_list`;
 create view view_category_pro_list 
@@ -276,14 +276,13 @@ select pid
 from product; 
 
 -- ########################################
--- 13.view_cart_list 뷰테이블 생성
+-- 12.view_cart_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_cart_list`;
 create view view_cart_list
 as 
 select  c.no as no,
 		c.qty as qty,
---    	c.checked as checked,
 		m.id as id,
 		m.address as address,
 		p.pid as pid,
@@ -298,7 +297,7 @@ where c.id = m.id
 and c.pid = p.pid;
 
 -- ########################################
--- order_details 뷰테이블 생성 (주문목록 호출)
+-- 13. order_details 뷰테이블 생성 (주문목록 호출)
 -- ######################################## 
 CREATE VIEW order_details AS
 SELECT 
@@ -311,12 +310,8 @@ SELECT
     p.brand,
     p.subject,
     p.upload_img
-FROM 
-    orderlist o
-JOIN 
-    product p ON o.pid = p.pid;
-
-
+FROM orderlist o
+JOIN product p ON o.pid = p.pid;
 
 -- #######################################
 -- Dumping routines for database 'kurlyDB'
