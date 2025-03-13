@@ -22,7 +22,7 @@ export default function MypageHeart() {
               setWishListCnt(res.data.length)            
             })    
            .catch((error)=>console.log(error))    
-  },[pidArray]);
+  },[]);
 
     const handleDelete = async(pid) => {
       setWishList((prevWishList)=>{

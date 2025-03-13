@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo  } from 'react';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -20,7 +20,8 @@ export default function RecentlyViewItemSlider() {
     }
   }
 
-  const [pidArray, setPidArray] =useState(getLocalPid());
+  // const [pidArray, setPidArray] =useState(()=>getLocalPid());
+  const pidArray = useMemo(()=>getLocalPid(),[]);
 
   useEffect(()=>{
     if(pidArray.length > 0){
@@ -28,7 +29,7 @@ export default function RecentlyViewItemSlider() {
            .then((res)=> setRecentlyItem(res.data))
            .catch((error)=>console.log(error))
     }
-  }, [pidArray]);
+  }, []);
 
   const settings= {
     infinite:false,
