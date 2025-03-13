@@ -148,7 +148,6 @@ export default function Detail() {
         try {
             if (!isLogin) return loginCheck();
             const id = localStorage.getItem("user_id");
-<<<<<<< HEAD
             if(wishList !==null){
                 setWishList((prevWishList)=>{
                    const isAlreadyWished = prevWishList.includes(product.pid); 
@@ -164,24 +163,6 @@ export default function Detail() {
                         return updateWishList;  // 상태 즉시 업데이트
                 });
             }    
-=======
-            if (wishList !== null) {
-
-                setWishList((prevWishList) => {
-                    const isAlreadyWished = prevWishList.includes(product.pid);
-                    const updateWishList = isAlreadyWished ? wishList.filter((prev) => prev !== product.pid) : [...prevWishList, product.pid];
-
-                    axios.post("http://localhost:9000/main/wishListUpdate", { id, wishList: updateWishList })
-                        .then((res) => {
-                            if (res.data === 1) {
-                                setHeart(!isAlreadyWished);
-                            }
-                        })
-                        .catch((error) => console.log(error));
-                    return updateWishList;  // 상태 즉시 업데이트
-                });
-            }
->>>>>>> e6c70abc9e129b494db5e2173b9a99a4217288dd
         } catch (error) {
             console.log(error);
         }

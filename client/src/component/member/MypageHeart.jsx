@@ -15,7 +15,6 @@ export default function MypageHeart() {
   const { saveToCartList, updateCartList } = useCart();
   const id = localStorage.getItem('user_id');
 
-<<<<<<< HEAD
   useEffect(()=>{
       axios.post('http://localhost:9000/main/wishListInfo', {id})
            .then((res)=>{
@@ -25,27 +24,20 @@ export default function MypageHeart() {
            .catch((error)=>console.log(error))    
   },[]);
 
-    const handleDelete = async(pid) => {
-      setWishList((prevWishList)=>{
-        const updateWishList =  wishList.filter((item)=> item !== pid);
-        console.log('updateWishList',updateWishList);
-        axios.post("http://localhost:9000/main/wishListUpdate", {id, 'wishList':updateWishList})
-             .then((res)=>{
-               if(res.data === 1 ){
-                 setWishList(updateWishList);
-               }
-             })
-             .catch((error)=>console.log(error))
-=======
-  useEffect(() => {
-    axios.post('http://localhost:9000/main/wishListInfo', { id })
-      .then((res) => {
-        setPidArray(res.data)
-        setWishListCnt(res.data.length)
->>>>>>> e6c70abc9e129b494db5e2173b9a99a4217288dd
-      })
-      .catch((error) => console.log(error))
-  }, [pidArray]);
+  //   const handleDelete = async(pid) => {
+  //     setWishList((prevWishList)=>{
+  //       const updateWishList =  wishList.filter((item)=> item !== pid);
+  //       console.log('updateWishList',updateWishList);
+  //       axios.post("http://localhost:9000/main/wishListUpdate", {id, 'wishList':updateWishList})
+  //            .then((res)=>{
+  //              if(res.data === 1 ){
+  //                setWishList(updateWishList);
+  //              }
+  //            })
+  //            .catch((error)=>console.log(error))
+  //     })
+  //     .catch((error) => console.log(error))
+  // }, [pidArray]);
 
   const handleDelete = async (pid) => {
     setWishList((prevWishList) => {
