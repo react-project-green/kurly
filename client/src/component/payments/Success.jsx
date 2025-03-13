@@ -35,25 +35,28 @@ export default function SuccessPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: "테스트 결제 승인 요청" })
         });
-
-        
+    
         const checkedItems = JSON.parse(localStorage.getItem("checkedItems"));
-        // db로 보낼 데이터 생성
+    
+        // ✅ 선택된 모든 상품에 대해 하나의 주문번호 생성
+        const commonTid = `TID${Date.now()}`;
+    
+        // ✅ db로 보낼 데이터 생성
         const sendOrders = orderList
-            .filter(({ no }) => checkedItems.includes(no))
+            .filter(({ no }) => checkedItems.includes(no)) // 체크된 상품만 필터링
             .map(({ qty, pid, price, dc }) => ({
                 qty,
                 id: localStorage.getItem('user_id'),
                 pid,
-                total_price: price * qty * (1 - dc / 100), // 각 상품 별로 금액 계산
-                tid: `TID${Math.floor(100000 + Math.random() * 900000)}`
+                total_price: price * qty * (1 - dc / 100), // 개별 상품 금액 계산
+                tid: commonTid // ✅ 모든 상품에 동일한 `tid` 부여
             }));
-
+    
         if (sendOrders.length) {
-            await axios.post('http://localhost:9000/order/add', { orderList: sendOrders }); // 빈배열 아닐 경우 서버로 orderList 데이터 전송
+            await axios.post('http://localhost:9000/order/add', { orderList: sendOrders }); // 서버로 전송
             await deleteCheckedItems(checkedItems); // 체크된 상품 장바구니 삭제
             localStorage.removeItem("checkedItems"); // 로컬스토리지 checkedItems 삭제
-            setIsConfirmed(true); // 이후 무조건 결제완료 -> true 변경
+            setIsConfirmed(true);
         }
     }
 

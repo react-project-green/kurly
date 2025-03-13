@@ -120,6 +120,7 @@ export function useHeaderHandler() {
         localStorage.removeItem("user_id")
         localStorage.removeItem("user_type");
         localStorage.removeItem("address");
+        localStorage.removeItem("checkedItems");
         setIsLogin(false);
         setUserType('');
         setSearchKeyword('');

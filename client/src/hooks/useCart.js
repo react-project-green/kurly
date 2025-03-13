@@ -52,10 +52,15 @@
                 사용처 : Header
         ********************************************/
         const getCount = async () => {
+
             const id = localStorage.getItem("user_id");
-            const result = await axios.post("http://localhost:9000/cart/count", { "id": id })
-            setCartCount(result.data.count)
-            return result.data.count;
+            if (id.length) {
+                const result = await axios.post("http://localhost:9000/cart/count", { "id": id })
+                setCartCount(result.data.count)
+                return result.data.count;
+            } else {
+                return; 
+            }
         };
 
 
