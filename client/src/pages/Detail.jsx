@@ -68,6 +68,17 @@ export default function Detail() {
         setHeart(wishList.includes(product.pid));
     }, [product.pid]);
 
+    // 예리언니 코드
+    // useEffect(()=>{
+    //     if(product.pid && !heart){   
+    //         const checkArray = JSON.parse(localStorage.getItem('heartList')) || [];
+    //         if(checkArray && product.pid){
+    //             const samePid = checkArray.includes(product.pid);
+    //             if(samePid) setHeart(true);
+    //         }
+
+    //     }
+    // },[product.pid, heart]);
 
     useEffect(() => {
         const pidArray = JSON.parse(localStorage.getItem('viewProducts')) || [];
@@ -114,6 +125,9 @@ export default function Detail() {
             } else {
                 const id = localStorage.getItem("user_id");
 
+                // formdata 형식으로 db에 보내야해서 수정했어용
+                // cartItem을 배열형식으로 보내서 서버로 map 돌릴 수 있어서
+                // 테스트 때문에 수정했습니당ㅠㅠ
                 const formData = { id: id, cartList: [cartItem] }
                 const result = saveToCartList(formData);
                 result && alert("장바구니에 추가되었습니다.")
@@ -153,7 +167,32 @@ export default function Detail() {
         } catch (error) {
             console.log(error);
         }
-    } 
+    }
+
+    // 예리 언니 코드
+    // const handleAddHeart = useCallback(() => {
+    //     if(isLogin){
+    //         let heartList =  JSON.parse(localStorage.getItem('heartList')) || [];
+    //         const samePid = heartList.includes(product.pid);
+    //         const wishListCnt = heartList.length;
+
+    //         if(wishListCnt <=9){
+    //             if(!samePid){
+    //                 heartList.unshift(Number(pid));       
+    //                 localStorage.setItem('heartList',JSON.stringify(heartList)); 
+    //                 setHeart(true);
+    //             }else{
+    //                 const newArray = heartList.filter((item)=> item !== product.pid);
+    //                 localStorage.setItem('heartList',JSON.stringify(newArray)); 
+    //                 setHeart(false);
+    //             }
+    //         }else{
+    //             alert('찜한 상품은 최대 10개까지 저장됩니다.');
+    //         }
+    //     }else{
+    //         loginCheck();
+    //     }
+    // }, [isLogin, pid, product.pid, loginCheck]);
 
     return (
         <div>

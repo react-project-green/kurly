@@ -43,7 +43,7 @@ export const getUserName = async (req, res) => {
     res.end();
 };
 /******************************
- * MyPage : 개인정보 호출
+ * MyPage : 이름 호출
  ******************************/
 export const getMypage = async (req, res) => {
     const result = await repository.getMypage(req.body);
@@ -73,22 +73,6 @@ export const getOrder = async (req, res) => {
         console.error("주문 조회 실패:", error);
         res.status(500).json({ message: "주문 조회 실패" });
     }
-};
-/******************************
- * Find : 아이디 조회
- ******************************/
-export const findId = async (req, res) => {
-    const result = await repository.findId(req.body);
-    res.json(result);
-    res.end();
-};
-/******************************
- * Find : 비밀번호 조회
- ******************************/
-export const findPwd = async (req, res) => {
-    const result = await repository.findPwd(req.body);
-    res.json(result);
-    res.end();
 };
 
 /******************************

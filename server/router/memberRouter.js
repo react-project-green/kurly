@@ -11,8 +11,6 @@ router
     .post('/type', controller.getUserType) // 유저 타입 확인
     .post('/update', controller.updateMember) // 유저 정보 업데이트
     .post('/order', controller.getOrder) // 유저 정보 업데이트
-    .post('/findid', controller.findId) // 유저 아이디 찾기
-    .post('/findpwd', controller.findPwd) // 유저 아이디 찾기
     .post('/addressUpdate', controller.addressUp) // 카트 배송지 업데이트
     .post('/address', controller.getAddress) // 카트 배송지 조회
 
