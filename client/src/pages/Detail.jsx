@@ -94,6 +94,8 @@ export default function Detail() {
                 }
             }
         }
+        console.log('pidArray',pidArray);
+        
         localStorage.setItem('viewProducts', JSON.stringify(pidArray));
 
     }, [product.pid]); // pid

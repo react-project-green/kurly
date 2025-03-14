@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { CartContext } from '../../context/CartContext.js';
 import { useCart } from '../../hooks/useCart.js';
@@ -22,36 +22,21 @@ export default function MypageHeart() {
               setWishListCnt(res.data.length)            
             })    
            .catch((error)=>console.log(error))    
-  },[]);
+  },[pidArray]);
 
-  //   const handleDelete = async(pid) => {
-  //     setWishList((prevWishList)=>{
-  //       const updateWishList =  wishList.filter((item)=> item !== pid);
-  //       console.log('updateWishList',updateWishList);
-  //       axios.post("http://localhost:9000/main/wishListUpdate", {id, 'wishList':updateWishList})
-  //            .then((res)=>{
-  //              if(res.data === 1 ){
-  //                setWishList(updateWishList);
-  //              }
-  //            })
-  //            .catch((error)=>console.log(error))
-  //     })
-  //     .catch((error) => console.log(error))
-  // }, [pidArray]);
-
-  const handleDelete = async (pid) => {
-    setWishList((prevWishList) => {
-      const updateWishList = wishList.filter((item) => item !== pid);
-      console.log('updateWishList', updateWishList);
-      axios.post("http://localhost:9000/main/wishListUpdate", { id, 'wishList': updateWishList })
-        .then((res) => {
-          if (res.data === 1) {
-            setWishList(updateWishList);
-          }
-        })
-        .catch((error) => console.log(error))
-    })
-  };
+    const handleDelete =useCallback((pid) => {
+      setWishList((prevWishList)=>{
+        const updateWishList =  prevWishList.filter((item)=> item !== pid);
+        console.log('updateWishList',updateWishList);
+        axios.post("http://localhost:9000/main/wishListUpdate", {id, 'wishList':updateWishList})
+             .then((res)=>{
+               if(res.data === 1 ){
+                 setWishList(updateWishList);
+               }
+             })
+             .catch((error)=>console.log(error))
+      })
+  }, [id]);
 
   const cartAddItem = (pid) => {
     const cartItem = {

@@ -1,36 +1,26 @@
-import React, { useEffect, useRef, useState, useMemo  } from 'react';
+import React, { useEffect, useRef, useState, useContext  } from 'react';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// import { useRecently } from '../../hooks/useRecently.js';
+import { SearchContext } from '../../context/searchContext.js';
+
 
 export default function RecentlyViewItemSlider() {
-  const [ recentlyItems, setRecentlyItem ] =useState([]);
+  const {  recentlyItems } = useContext(SearchContext);
+  // const { getRecntlyItems } = useRecently();
+  const { isToggle, setIsToggle} = useState(false);
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   
-  const getLocalPid = () =>{
-    try {
-      const data = localStorage.getItem('viewProducts');
-      return data ? JSON.parse(data) : []; 
-    } catch (error) {
-      console.log('로컬스토리지 파싱 오류',error);
-      return [];
-    }
-  }
-
-  // const [pidArray, setPidArray] =useState(()=>getLocalPid());
-  const pidArray = useMemo(()=>getLocalPid(),[]);
-
-  useEffect(()=>{
-    if(pidArray.length > 0){
-      axios.post('http://localhost:9000/main/recentlyViewItem', {pidArray})
-           .then((res)=> setRecentlyItem(res.data))
-           .catch((error)=>console.log(error))
-    }
-  }, []);
-
+  // useEffect(() => {
+  //   if(!recentlyItems || recentlyItems.length ===0 ){
+  //     // getRecntlyItems();
+  //   }
+  // }, [recentlyItems]);
+  console.log('recentlyItems',recentlyItems);
+  
   const settings= {
     infinite:false,
     vertical:true,
@@ -39,22 +29,19 @@ export default function RecentlyViewItemSlider() {
     slidesToScroll:1,
     initialSlide: 0,
     arrows:true
-  }
+  };
   
-  const handlePrevClick = () =>{
-    if(sliderRef.current){
-     sliderRef.current.slickPrev();
-    }
-   };
-   const handleNextClick = () =>{
-     if(sliderRef.current){
-       sliderRef.current.slickNext();
-     }
-   };
+   const handlePrevClick = () => {
+    if (sliderRef.current) sliderRef.current.slickPrev();
+  };
+
+  const handleNextClick = () => {
+    if (sliderRef.current) sliderRef.current.slickNext();
+  };
  
 
   return (
-    (pidArray.length) > 0 ? (
+    (recentlyItems.length > 0) ? (
       <div className='side_bar3'>
         <button className='custom-prev custom-arrow' onClick={handlePrevClick}>▲</button>
         최근 본 상품

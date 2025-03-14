@@ -308,7 +308,10 @@
 .side_bar3_1 .slick-track {
   height: auto !important;
 }
-
+.side_bar3 .slick-prev,
+.side_bar3 .slick-next {
+  display: none !important; 
+}
 .recently_img{
   width: 100%;
   height: 70px;

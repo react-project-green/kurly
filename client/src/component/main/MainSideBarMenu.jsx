@@ -1,11 +1,24 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect, useCallback} from 'react';
 import RecentlyViewItemSlider from './RecentlyViewItemSlider.jsx';
-import { useHeaderHandler } from '../../hooks/useHeaderHandler.js';
+// import { useHeaderHandler } from '../../hooks/useHeaderHandler.js';
+// import { SearchContext } from "../../context/searchContext.js";
+// import { useNavigate } from "react-router-dom";
 import '../../scss/main.scss'
 
-export default function MainSideBarMenu({className}) {
-  const {handleCateNavigate} = useHeaderHandler();
+const  MainSideBarMenu = React.memo(()=>{
+  // const {handleCateNavigate} = useHeaderHandler();
+  // const { setSearchKeyword } = useContext(SearchContext);
+  // const navigate = useNavigate();
   
+  // const handleCateNavigate = useCallback((path) => {  
+    // setSearchKeyword('');
+    // navigate(path);
+  // },[navigate, setSearchKeyword]);
+
+  const handleCateNavigate = () => {
+
+  };
+
   useEffect(() => {
      const handleScroll = () => {
       (window.scrollY > 200)
@@ -16,16 +29,17 @@ export default function MainSideBarMenu({className}) {
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
+    console.log('확인차 한번');
+    
   return (
     <>
-      <div className={`${className} side_bar_outline`}>
-        <div className={`${className} side_bar1`}>
-          <div className={`${className} side_delivery_info` }>
+      <div className='side_bar_outline'>
+        <div className='side_bar1'>
+          <div className='side_delivery_info'>
             <img src="/images/commonImage/deliveryInfo.jpg" alt=""  onClick={() => handleCateNavigate('/member/delivery')}/>
           </div>
         </div>
-        <div className={`${className} side_bar2` }>
+        <div className='side_bar2' >
           <ul>
             <li>컬리 고객 제도</li>
             <li>컬리 큐레어터</li>
@@ -36,7 +50,6 @@ export default function MainSideBarMenu({className}) {
       </div>
     </>
   );
-}
+});
 
-
-
+export default MainSideBarMenu;
