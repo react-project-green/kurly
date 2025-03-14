@@ -24,6 +24,7 @@ import { OrderProvider } from './context/orderContext.js';
 import { SearchProvider } from './context/searchContext.js';
 import Delivery from './component/member/Delivery.jsx';
 import MemberError from './component/member/MemberError.jsx';
+import Find from './component/member/Find.jsx';
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/member/delivery" element={<Delivery />} />
               <Route path="/member/error" element={<MemberError />} />
               <Route path="/member/mypage/:active" element={<Mypage />} />
+              <Route path='/member/findid' element={<Find />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
               <Route path="/sandbox" element={<CheckoutPage />} />
