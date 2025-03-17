@@ -1,33 +1,156 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef, useCallback, useMemo  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HeaderPromotionBanner from './main/HeaderPromotionBanner';
 import DaumPostcode from 'react-daum-postcode';
 import { Modal } from 'antd';
 import { AuthContext } from './auth/AuthContext.js'
-import { useHeaderHandler } from '../hooks/useHeaderHandler.js';
 import { SearchContext } from '../context/searchContext.js';
 import { CartContext } from '../context/CartContext.js'
 import { useCart } from "../hooks/useCart.js";
+import axios from "axios";
 
 export default function Header() {
 
   const [hoverCategoryCid, setHoverCategoryCid] = useState(null);
-  const { isLogin, userType } = useContext(AuthContext);
-  const { searchKeyword, setSearchKeyword } = useContext(SearchContext);
   const { cartCount } = useContext(CartContext);
+  const { isLogin, userType, setIsLogin, setUserType } = useContext(AuthContext);
+  const { searchKeyword, setSearchKeyword, setSearch } = useContext(SearchContext);
   const { getCount, setCount } = useCart();
+  
+  const { wishList, setWishList} = useContext(CartContext);
+  const [ isOpen, setIsOpen] = useState(false);
+  const [ topMenu, setTopMenu] = useState([]);
+  const [ supportMenu, setSupportMenu] = useState([]);
+  const [ categoryList, setCategoryList] = useState([]);
+  const [ subCategoryList, setSubCategoryList] = useState([]);
+  const [ userAddress, setUserAddress] = useState('');
   const navigate = useNavigate();
   const user_address = localStorage.getItem('address');
-  const { handleComplete, handleTogle, handleKeyPress,
-    handleSearch, handleCateNavigate, handleLoginToggle,
-    isOpen, categoryList, subCategoryList, userAddress,
-    topMenu, supportMenu } = useHeaderHandler();
-
-    useEffect(()=>{
-      isLogin ? getCount() :setCount(0);
+  const prevIdRef = useRef(null);
+  const hasFetchedRef = useRef(false);
+  const [user_id, setUser_id] = useState(() => localStorage.getItem('user_id') || null);
+  
+  useEffect(()=>{
+    isLogin ? getCount() :setCount(0);
   },[isLogin]);
+  
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('user_id');
+    if (storedUserId !== user_id) {
+      setUser_id(storedUserId);
+    }
+  }, []);
 
+  /* json 값 가져오기  */
+  useEffect(()=>{
+      axios.get("/data/header.json")
+           .then((res)=>{
+            setTopMenu((prev) => JSON.stringify(prev) !== JSON.stringify(res.data["header_top_menu"]) ? res.data["header_top_menu"] : prev);
+            setSupportMenu((prev) => JSON.stringify(prev) !== JSON.stringify(res.data["support_menu"]) ? res.data["support_menu"] : prev);
+           })
+           .catch((error)=>console.error(error))
+  },[user_id]);
 
+    /* useEffect로 각 함수 호출  */
+    useEffect(() => {
+      if (!user_id || hasFetchedRef.current) return; 
+      hasFetchedRef.current = true;
+      fetchCategory();
+      fetchWishList();
+    }, [user_id]);
+    
+  
+    /* 헤더 정보 값 가져오기  */
+    const fetchCategory = useCallback(async () => {
+      try {
+        if (user_id) {
+          const user_info = await axios.post('http://localhost:9000/main/userinfo', { id: user_id });
+          setUserAddress((prev) => prev !== user_info.data ? user_info.data : prev);
+        }
+        const category = await axios.post('http://localhost:9000/main/categories');
+        const sub_cate = await axios.post('http://localhost:9000/main/subcategories');
+        setCategoryList((prev) => JSON.stringify(prev) !== JSON.stringify(category.data) ? category.data : prev);
+        setSubCategoryList((prev) => JSON.stringify(prev) !== JSON.stringify(sub_cate.data) ? sub_cate.data : prev);
+      } catch (error) {
+        console.log(error);
+      }
+    }, [user_id]);
+  
+    
+    /* 위시리스트 값 가져오기  */
+    const fetchWishList = useCallback(async () => {
+      if (!user_id) return;
+      const wishListData = await axios.post('http://localhost:9000/main/wishList', { id: user_id });
+      setWishList((prev) => JSON.stringify(prev) !== JSON.stringify(wishListData.data[0]?.wish) ? wishListData.data[0]?.wish : prev);
+    }, [user_id]); 
+    
+    /* 주소 api - 모달 열기/닫기 토글  */
+  const handleTogle = () => {        
+    setIsOpen((prev) => !prev);
+  };
+
+  /* 주소 api - 주소 선택 완료 시 실행 */
+  const handleComplete = (data) => {  
+    const address = `${data.address}${data.buildingName ? `(${data.buildingName})` : ''}`;
+    if(user_id){
+      axios.post('http://localhost:9000/main/addressUpdate', { address, id: user_id })
+           .then((res)=>{
+            console.log(res.data)
+            setUserAddress(res.data)})
+           .catch((error)=>console.log(error))
+    }else{
+      localStorage.setItem("address", address)
+    }
+    handleTogle();
+  };
+  
+  /* 상단 검색창 엔터키 사용시 검색가능 -> 검색로직호출 */
+  const handleKeyPress = (e) => {
+     if(e.key === 'Enter') handleSearch();
+  }
+
+  /* 상단 검색창 로직 */
+  const handleSearch = () =>{
+    if(!searchKeyword.trim()) {
+      alert('검색어를 입력해주세요');
+      return ;
+    }  
+    setSearch(searchKeyword);
+    navigate('/main/category/search');
+  };
+
+  /* 상단 카테고리 메뉴 클릭시 이동 */
+  const handleCateNavigate = (path) => {  
+    setSearchKeyword('');
+    navigate(path);
+  };
+
+  const handleKywordDelete = () => {
+    setSearchKeyword('');
+  };
+
+  /* 로그인으로 헤더 버튼 바꾸기 */
+  const handleLoginToggle = () => {
+    if (isLogin) {
+      const select = window.confirm("로그아웃 하시겠습니까?")
+      if (select) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_id")
+        localStorage.removeItem("user_type");
+        localStorage.removeItem("address");
+        localStorage.removeItem("checkedItems");
+        setIsLogin(false);
+        setUserType('');
+        setSearchKeyword('');
+        navigate('/member/login');
+        alert("로그아웃되었습니다.");
+      }
+    } else {
+      setSearchKeyword('');
+      localStorage.removeItem("address");
+      navigate('/member/login');
+    }
+  }
 
   return (
     <div className='header_outline'>

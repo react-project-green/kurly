@@ -68,7 +68,7 @@ export const getUserAddressUpdate = async(req, res) => {
 ***************************/
 export const getRecentlyViewItem = async(req, res) =>{
   const result = await repository.getRecentlyViewItem(req.body);
-  console.log('result컨트롤러',result);
+  console.log('컨트롤러 :: 최근 본 상품',result);
   res.json(result);
   res.end();
 };

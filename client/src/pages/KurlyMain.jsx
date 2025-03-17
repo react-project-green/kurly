@@ -6,7 +6,6 @@ import MainPopUp from'../component/main/MainPopUp.jsx';
 
 export default function KurlyMain() {
 
-
   return (
     <div className='content-outline'>
       <PromoBannerSlider />
