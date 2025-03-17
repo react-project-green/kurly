@@ -11,6 +11,7 @@ import ProductListCategoryDetail from './pages/ProductListCategoryDetail.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import Mypage from './component/member/Mypage.jsx';
+import Find from './component/member/Find.jsx';
 import ScrollToTop from './context/ScrollToTop.js'
 import Carts from './pages/Carts.jsx';
 import Order from './pages//Order.jsx';
@@ -50,6 +51,7 @@ function App() {
               <Route path="/member/delivery" element={<Delivery />} />
               <Route path="/member/error" element={<MemberError />} />
               <Route path="/member/mypage/:active" element={<Mypage />} />
+              <Route path='/member/findid' element={<Find />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
               <Route path="/sandbox" element={<CheckoutPage />} />

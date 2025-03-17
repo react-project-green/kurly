@@ -81,10 +81,8 @@ export default function Login() {
                             </li>
                             <li>
                                 <div className='login_founder'>
-                                    <a href="#">아이디 찾기</a>
-                                    <span>&gt;</span>
-                                    <a href="#">패스워드 찾기</a>
-                                    <span>&gt;</span>
+                                    <span onClick={()=>{navigate('/member/findid')}}>아이디·비밀번호 찾기</span>
+                                    <span>&gt;</span> 
                                 </div>
                             </li>
                             <li>

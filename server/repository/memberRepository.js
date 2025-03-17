@@ -95,6 +95,45 @@ export const getMypage = async ({ id }) => {
     return result[0];
 }
 /******************************
+ * Find : 아이디찾기 
+ ******************************/
+export const findId = async ({ name, phone }) => {
+    const sql = `
+    select count(*) as result_rows from member
+    where name = ? and phone = ?;
+    `;
+    const [result] = await db.execute(sql, [name, phone]);
+    if (result[0].result_rows > 0) {
+        const idSql = `
+        select id from member
+        where name = ? and phone = ?;
+        `;
+        const [idResult] = await db.execute(idSql, [name, phone]);
+        return { success: true, id: idResult[0].id };  // 아이디 반환
+    }
+    return { success: false };  // 아이디를 찾지 못한 경우
+}
+
+/******************************
+ * Find : 비밀번호찾기 
+ ******************************/
+export const findPwd = async ({ id, phone }) => {
+    const sql = `
+    select count(*) as result_rows from member
+	where id = ? and phone = ?;
+    `;
+    const [result] = await db.execute(sql, [id, phone]);
+    if (result[0].result_rows > 0) {
+        const idSql = `
+        select pwd from member
+        where id = ? and phone = ?;
+        `;
+        const [idResult] = await db.execute(idSql, [id, phone]);
+        return { success: true, pwd: idResult[0].pwd };  // 아이디 반환
+    }
+    return { success: false };  // 아이디를 찾지 못한 경우
+}
+/******************************
  * MyPage : 비밀번호, 핸드폰번호, 주소, 이메일 수정
  ******************************/
 export const updateMember = async (formData) => {
