@@ -1,23 +1,17 @@
 import React, { useContext, useEffect, useCallback} from 'react';
 import RecentlyViewItemSlider from './RecentlyViewItemSlider.jsx';
-// import { useHeaderHandler } from '../../hooks/useHeaderHandler.js';
-// import { SearchContext } from "../../context/searchContext.js";
-// import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/searchContext.js";
+import { useNavigate } from "react-router-dom";
 import '../../scss/main.scss'
 
 const  MainSideBarMenu = React.memo(()=>{
-  // const {handleCateNavigate} = useHeaderHandler();
-  // const { setSearchKeyword } = useContext(SearchContext);
-  // const navigate = useNavigate();
+  const { setSearchKeyword } = useContext(SearchContext);
+  const navigate = useNavigate();
   
-  // const handleCateNavigate = useCallback((path) => {  
-    // setSearchKeyword('');
-    // navigate(path);
-  // },[navigate, setSearchKeyword]);
-
-  const handleCateNavigate = () => {
-
-  };
+  const handleCateNavigate = useCallback((path) => {  
+    setSearchKeyword('');
+    navigate(path);
+  },[navigate, setSearchKeyword]);
 
   useEffect(() => {
      const handleScroll = () => {
@@ -29,7 +23,6 @@ const  MainSideBarMenu = React.memo(()=>{
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-    console.log('확인차 한번');
     
   return (
     <>

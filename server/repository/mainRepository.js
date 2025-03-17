@@ -144,7 +144,7 @@ export const getWishListPid = async({id}) =>{
   const sql =`select JSON_EXTRACT(wish, '$') as wish from member where id=?`;
 
   const [result]= await db.execute(sql, [id]);
-  console.log('레파지토리 :: 메인 위시리스트 배열 select',result);
+  // console.log('레파지토리 :: 메인 위시리스트 배열 select',result);
   return result;
 };
 

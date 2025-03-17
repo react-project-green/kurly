@@ -2,7 +2,6 @@ import React,{useContext} from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineChatBubbleLeftEllipsis } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
-import MainSideBarMenu  from '../main/MainSideBarMenu.jsx';
 
 export default function ProductThumb({product}) {
     
@@ -26,7 +25,6 @@ export default function ProductThumb({product}) {
                     {/* <div className="review_num"><HiOutlineChatBubbleLeftEllipsis className='icon' />999+</div> */}
                 </div>
             </Link>
-            <MainSideBarMenu/>
         </div>
     );
 }

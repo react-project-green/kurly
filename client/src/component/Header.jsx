@@ -30,9 +30,6 @@ export default function Header() {
   const hasFetchedRef = useRef(false);
   const [user_id, setUser_id] = useState(() => localStorage.getItem('user_id') || null);
   
-  console.log('🚨🚨🚨 헤더의 문제일까??');
-  
-
   useEffect(()=>{
     isLogin ? getCount() :setCount(0);
   },[isLogin]);

@@ -3,23 +3,21 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useNavigate } from 'react-router-dom';
-// import { useRecently } from '../../hooks/useRecently.js';
+import { useRecently } from '../../hooks/useRecently.js';
 import { SearchContext } from '../../context/searchContext.js';
 
 
 export default function RecentlyViewItemSlider() {
-  const {  recentlyItems } = useContext(SearchContext);
-  // const { getRecntlyItems } = useRecently();
-  const { isToggle, setIsToggle} = useState(false);
+  const { recentlyItems } = useContext(SearchContext);
+  const { getRecntlyItems } = useRecently();
   const sliderRef = useRef(null);
   const navigate = useNavigate();
   
-  // useEffect(() => {
-  //   if(!recentlyItems || recentlyItems.length ===0 ){
-  //     // getRecntlyItems();
-  //   }
-  // }, [recentlyItems]);
-  console.log('recentlyItems',recentlyItems);
+  useEffect(() => {
+    if(recentlyItems){
+      getRecntlyItems();
+    }
+  }, [recentlyItems]);
   
   const settings= {
     infinite:false,

@@ -7,11 +7,6 @@ export const SearchProvider = ({children}) => {
   const [ search, setSearch ] = useState('');
   const [ recentlyItems, setRecentlyItems  ] =useState([]);
 
-  const debugSetRecentlyItems = (newItems) => {
-    console.log("🔍 setRecentlyItems 호출됨! 새로운 값:", newItems);
-    setRecentlyItems(newItems);
-  };
-
   return (
     <SearchContext.Provider value={{ searchKeyword, setSearchKeyword, search, setSearch, recentlyItems, setRecentlyItems  }}>
       {children}

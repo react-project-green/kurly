@@ -5,7 +5,6 @@ import MainSection from'../component/main/MainSection.jsx';
 import MainPopUp from'../component/main/MainPopUp.jsx';
 
 export default function KurlyMain() {
-  console.log('확인차 두번');
 
   return (
     <div className='content-outline'>
