@@ -34,7 +34,7 @@ export default function Mypage() {
     // 1:1문의 클릭 이벤트
     const memberClick = () => {
         alert('현재는 톡상담 서비스 이용시간입니다.');
-    }
+    };
     // 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
     useEffect(() => {
         const id = localStorage.getItem("user_id");

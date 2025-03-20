@@ -56,14 +56,12 @@ export default function Find() {
                     if (response.data.success) {
                         setMessage(`${response.data.id}`); // 성공 메시지 상태로 저장
                     } else {
-                        setMessage('해당 정보에 대한 아이디를 찾을 수 없습니다.'); // 실패 메시지 상태로 저장
-                    }
-                    setIsFormVisible(false); // 폼을 숨기기
+                        alert('해당 정보에 대한 아이디를 찾을 수 없습니다.'); // 실패 메시지 상태로 저장
+                    } 
                 })
                 .catch((error) => {
                     console.error('아이디 찾기 오류:', error);
-                    setMessage('서버 오류. 다시 시도해 주세요.'); // 오류 메시지 상태로 저장
-                    setIsFormVisible(false); // 폼을 숨기기
+                    alert('서버 오류. 다시 시도해 주세요.'); // 오류 메시지 상태로 저장 
                 });
         }
     };
@@ -106,17 +104,14 @@ export default function Find() {
                 .post('http://localhost:9000/member/findpwd', { id, phone, emailname, emaildomain }) // emailname과 emaildomain을 합쳐서 서버에 전달
                 .then((response) => {
                     if (response.data.success) {
-                        setMessage(`${response.data.pwd}`); // 성공 메시지 상태로 저장
-                        console.log(response.data.pwd);
+                        setMessage(`${response.data.pwd}`); // 성공 메시지 상태로 저장 
                     } else {
-                        setMessage('해당 정보에 대한 비밀번호를 찾을 수 없습니다.'); // 실패 메시지 상태로 저장
-                    }
-                    setIsFormVisible(false); // 폼을 숨기기
+                        alert('해당 정보에 대한 비밀번호를 찾을 수 없습니다.');
+                    } 
                 })
                 .catch((error) => {
                     console.error('비밀번호 찾기 오류:', error);
-                    setMessage('서버 오류. 다시 시도해 주세요.'); // 오류 메시지 상태로 저장
-                    setIsFormVisible(false); // 폼을 숨기기
+                    alert('서버 오류. 다시 시도해 주세요.'); 
                 });
         }
     };
