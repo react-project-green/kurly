@@ -55,9 +55,11 @@ export default function Find() {
                 .then((response) => {
                     if (response.data.success) {
                         setMessage(`${response.data.id}`); // 성공 메시지 상태로 저장
+                        setIsFormVisible(false); // 폼을 숨기기
                     } else {
-                        alert('해당 정보에 대한 아이디를 찾을 수 없습니다.'); // 실패 메시지 상태로 저장
-                    } 
+                        setMessage('해당 정보에 대한 아이디를 찾을 수 없습니다.'); // 실패 메시지 상태로 저장
+                    }
+                    
                 })
                 .catch((error) => {
                     console.error('아이디 찾기 오류:', error);
@@ -105,6 +107,7 @@ export default function Find() {
                 .then((response) => {
                     if (response.data.success) {
                         setMessage(`${response.data.pwd}`); // 성공 메시지 상태로 저장 
+                        setIsFormVisible(false); // 폼을 숨기기
                     } else {
                         alert('해당 정보에 대한 비밀번호를 찾을 수 없습니다.');
                     } 
