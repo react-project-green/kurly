@@ -115,24 +115,40 @@ export const findId = async ({ name, phone }) => {
 }
 
 /******************************
- * Find : 비밀번호찾기 
+ * Find : 비밀번호찾기
  ******************************/
-export const findPwd = async ({ id, phone }) => {
+export const findPwd = async ({ id, phone, emailname, emaildomain }) => {
     const sql = `
     select count(*) as result_rows from member
-	where id = ? and phone = ?;
+    where id = ? and phone = ?;
     `;
     const [result] = await db.execute(sql, [id, phone]);
+
     if (result[0].result_rows > 0) {
-        const idSql = `
-        select pwd from member
-        where id = ? and phone = ?;
+        // 생성된 비밀번호를 데이터베이스에 업데이트
+        const updateSql = `
+        update member
+        set pwd = LEFT(UUID(), 8)
+        where id = ? and phone = ? AND emailname = ? AND emaildomain = ?;
         `;
-        const [idResult] = await db.execute(idSql, [id, phone]);
-        return { success: true, pwd: idResult[0].pwd };  // 아이디 반환
+        await db.execute(updateSql, [id, phone, emailname, emaildomain]);
+
+        // 비밀번호 조회 쿼리
+        const selectPwdSql = `
+    SELECT pwd 
+    FROM member 
+    WHERE id = ? AND phone = ? AND emailname = ? AND emaildomain = ?;
+`;
+        const [pwdResult] = await db.execute(selectPwdSql, [id, phone, emailname, emaildomain]);
+
+
+        // 업데이트된 비밀번호 반환
+        return { success: true, pwd: pwdResult[0].pwd };
     }
+
     return { success: false };  // 아이디를 찾지 못한 경우
-}
+};
+
 /******************************
  * MyPage : 비밀번호, 핸드폰번호, 주소, 이메일 수정
  ******************************/

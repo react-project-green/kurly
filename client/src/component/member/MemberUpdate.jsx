@@ -142,14 +142,14 @@ export default function MemberUpdate() {
     // 회원 정보 수정 폼 제출
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         if (validateMember(refs)) {
             // 유효성 검사를 통과하면 서버로 데이터 전송
             axios
                 .post('http://localhost:9000/member/update', formData)
                 .then((res) => {
                     if (res.data.result_rows) {
-                        alert('업데이트 완료!');  
+                        alert('업데이트 완료!');
                         // 업데이트가 성공한 후, 수정 모드 비활성화
                         setIsEditing({
                             pwd: false,
@@ -160,10 +160,10 @@ export default function MemberUpdate() {
                             address: false,
                             detailaddress: false
                         });
-    
+
                         // formData를 업데이트된 값으로 설정
                         setOriginalFormData({ ...formData });
-    
+
                         // formData에 최신 값을 반영하여 화면에 업데이트된 정보 표시
                         setFormData({ ...formData });
                     } else {
@@ -179,7 +179,7 @@ export default function MemberUpdate() {
             return false;
         }
     };
-    
+
 
     // 취소 버튼 클릭 시 원래의 데이터로 되돌리기
     const handleCancelClick = () => {
@@ -275,11 +275,11 @@ export default function MemberUpdate() {
                                     ref={refs.emaildomainRef}
                                     className='emaildomain'>
                                     <option value="default">선택</option>
-                                    <option value="naver">naver.com</option>
-                                    <option value="google">gmail.com</option>
-                                    <option value="hanmail">hanmail.net</option>
-                                    <option value="kakao">kakao.com</option>
-                                    <option value="daum">daum.net</option>
+                                    <option value="@naver.com">naver.com</option>
+                                    <option value="@gmail.com">gmail.com</option>
+                                    <option value="@hanmail.net">hanmail.net</option>
+                                    <option value="@kakao.com">kakao.com</option>
+                                    <option value="@daum.net">daum.net</option>
                                 </select>
                             </div>
                         ) : (

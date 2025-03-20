@@ -89,7 +89,7 @@ export default function Login() {
                                 <button className='member_true_button'>로그인</button>
                             </li>
                             <li>
-                                <button className='member_none_button'>
+                                <button className='member_none_button'> 
                                     <Link to={'/member/signup'}>
                                         회원가입
                                     </Link>

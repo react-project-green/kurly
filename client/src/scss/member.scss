@@ -13,7 +13,7 @@
   display: block;
   padding: 0px 10px;
   text-align: center;
-  width: 300px;
+  width: 320px;
   height: 54px;
   border-radius: 3px;
   color: rgb(255, 255, 255);
@@ -79,6 +79,10 @@
       font-size: 12px;
       padding: 0;
       margin: 0;
+
+      span {
+        cursor: pointer;
+      }
     }
   }
 
@@ -145,7 +149,8 @@
     li {
       width: 700px;
       padding: 20px;
-      input{
+
+      input {
         outline: none;
       }
 
@@ -661,16 +666,17 @@
             -webkit-box-pack: center;
             justify-content: center;
             -webkit-box-align: center;
-            align-items: center; 
+            align-items: center;
             height: 500px;
-            
+
           }
         }
 
-        .member_order_box_false{
+        .member_order_box_false {
           height: 500px;
-          margin: auto; 
-          div { 
+          margin: auto;
+
+          div {
             display: flex;
             -webkit-box-pack: center;
             justify-content: center;
@@ -679,6 +685,7 @@
             height: 500px;
           }
         }
+
         .member_my_right_1 {
           margin-top: 30px;
           background-color: #fff;
@@ -794,7 +801,6 @@
 
           .address_label {
             width: 170px;
-            // border: 1px solid tomato; 
 
           }
 
@@ -868,17 +874,20 @@
 /******************************
  * mypage : 주문내역
  ******************************/
-.member_order_box{
-  
+.member_order_box {
+
   margin-bottom: 20px;
 }
+
 .member_order {
   padding: 20px;
-  ul{
-    li{
+
+  ul {
+    li {
       cursor: pointer;
     }
   }
+
   .member_order_num {
     p {
       padding-bottom: 2px;
@@ -907,24 +916,26 @@
       display: flex;
 
       .member_order_sub {
-        
+
         font-family: 'Pretendard-Regular';
         margin-left: 10px;
 
-        .member_order_pname { 
+        .member_order_pname {
           font-family: 'Pretendard-Regular';
           color: #222;
           font-size: 13px;
         }
 
-        span { 
+        span {
           color: #848f9a;
-          font-weight: lighter; 
+          font-weight: lighter;
         }
-        .member_order_price{ 
+
+        .member_order_price {
           display: flex;
           margin-top: 10px;
-          p{
+
+          p {
             font-family: 'Pretendard-Regular';
             color: #222;
             font-weight: bold;
@@ -934,7 +945,8 @@
       }
     }
   }
-  .member_order_price{
+
+  .member_order_price {
     font-family: 'Pretendard-Regular';
   }
 }
@@ -973,4 +985,164 @@
       text-align: center;
     }
   }
+}
+
+/******************************
+ * find : 아이디·비밀번호 찾기
+ ******************************/
+.member_form_box {
+  span {
+    font-family: 'Pretendard-Regular';
+  }
+
+  width: 900px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  .find_messege {
+    margin-bottom: 10px;
+
+    label {
+      font-family: 'Pretendard-Regular';
+    }
+  }
+
+  .find_button {
+    .find_button_toggle {
+      width: 150px;
+      display: inline-block;
+      height: 50px;
+      margin-bottom: 20px;
+
+      label {
+        font-family: 'Pretendard-Regular';
+        font-size: 16px;
+      }
+
+      .button_toggle_on {
+        border-bottom: 5px solid rgb(95, 0, 128);
+        padding-top: 20px;
+      }
+    }
+  }
+
+  ul {
+    text-align: center;
+
+    li {
+      padding: 5px;
+      margin-bottom: 5px;
+
+      .loginform_input {
+        font-family: 'Pretendard-Regular';
+        width: 320px;
+        height: 46px;
+        padding: 0px 11px 1px 15px;
+        border-radius: 4px;
+        border: 1px solid rgb(221, 221, 221);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgb(51, 51, 51);
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      .find_email_name {
+        font-family: 'Pretendard-Regular';
+        width: 160px;
+        height: 46px;
+        padding: 0px 11px 1px 15px;
+        border-radius: 4px;
+        border: 1px solid rgb(221, 221, 221);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgb(51, 51, 51);
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      .find_email_domain {
+        font-family: 'Pretendard-Regular';
+        height: 46px;
+        padding: 0px 11px 1px 15px;
+        border-radius: 4px;
+        border: 1px solid rgb(221, 221, 221);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgb(51, 51, 51);
+        outline: none;
+        box-sizing: border-box;
+      }
+    }
+
+    .login_founder {
+      text-align: right;
+      font-size: 12px;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .member_title_box {
+    text-align: center;
+    margin: 90px 0px 30px 0px;
+
+    span {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+}
+/******************************
+ * find : 아이디·비밀번호 찾기 결과
+ ******************************/
+.message_box{
+        font-family: 'Pretendard-Regular';
+  width: 320px;
+  height: 200px;
+  .message_icon{
+    font-size: 3rem;
+    fill: #5f0080;
+    margin-bottom: 10px;
+  }
+  .message_top{
+    span{
+    font-family: 'Pretendard-Regular';
+    padding-top: 30px;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 23px;
+  }
+}
+
+.message_bottom{
+  margin-bottom: 10px;
+  span{
+    font-family: 'Pretendard-Regular';
+    padding-top: 10px;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 23px;
+  } 
+  }
+  .message_result{
+    background-color: #e9e7f1;
+    height: 50px; 
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    p{ 
+      margin-top: 17px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 21px;
+      font-family: 'Pretendard-Regular';
+    }
+}
 }
