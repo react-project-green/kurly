@@ -15,9 +15,10 @@ import { AuthContext } from "../component/auth/AuthContext.js";
 import ProductItem from '../component/cart/ProductItem.jsx';
 import Packaging2 from '../component/cart/Packaging2.jsx';
 import Packaging from '../component/cart/Packaging.jsx';
+import CheckBox from '../component/cart/CheckBox';
+import SelectAll from '../component/cart/SelectAll';
 //librarys
 import Postcode from '../component/cart/Postcode.jsx';
-import DaumPostcode from 'react-daum-postcode';
 import { Modal } from 'antd';
 
 export default function Carts() {
@@ -258,49 +259,6 @@ export default function Carts() {
 
             </div>
         </div>
-    );
-}
-
-
-
-
-
-// 체크박스 컴포넌트
-const CheckBox = ({ checked, onChange }) => {
-
-    return (
-        <>
-            <input className="checkbox-input"
-                type="checkbox"
-                checked={checked}
-                onChange={onChange}
-            />
-            <div className={checked ? "checkbox-active" : "checkbox"}
-                onClick={onChange}></div>
-        </>
-    );
-}
-
-
-
-// 전체선택 컴포넌트
-const SelectAll = ({ CheckBox, checked, onChange, deleteCheckedItems, setCheckProduct, checkProduct }) => {
-
-    /* 선택 아이템 삭제 */
-    const delCheckedItems = async () => {
-        deleteCheckedItems(checkProduct);// 선택된 상품 삭제 요청
-        setCheckProduct([]); // 삭제 후 선택 초기화
-    }
-
-    return (
-        <div className='cart-header w-full'>
-            <div className='cart-select-all'>
-                <CheckBox checked={checked} onChange={onChange} />
-                <p className='f16 margin00016'>전체선택</p>
-            </div>
-            <button className='w-btn' onClick={delCheckedItems}>선택삭제</button>
-        </div>
-
     );
 }
 

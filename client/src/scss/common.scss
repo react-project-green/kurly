@@ -27,8 +27,19 @@
 * {
   font-family: 'Pretendard-Regular';
   color: #333333;
-  letter-spacing: 1.5px;
+  // letter-spacing: -0.9px;
   }
+
+span,
+p,
+li,
+div {
+  font-family: 'Pretendard-Regular';
+  color: #333333;
+  // letter-spacing: -0.9px;
+}
+
+
 .thin{
   font-family: 'Pretendard-Thin' !important;
 }
