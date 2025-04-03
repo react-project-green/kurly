@@ -8,10 +8,11 @@ export const getProductList = async({category}) => {
   let sql =``;
   
   if(category === 'new'){
-    sql =`select  *, concat(dc, '%') as discountRate
-          from    view_category_pro_list 
-          where   pdate between date_sub((select max(pdate) from view_category_pro_list), interval 10 day) 
-                        and (select max(pdate) from view_category_pro_list);`;
+    sql =`SELECT *, CONCAT(dc, '%') AS discountRate
+          from view_category_pro_list
+          where pdate between date_sub((select max(pdate) from view_category_pro_list), interval 300 day)
+          and (select max(pdate) from view_category_pro_list)
+          order by pdate desc;`;
   }else if(category === 'best'){
      sql=`select vw.* , concat(dc, '%') as discountRate
             from  view_category_pro_list as vw, orderList as py
