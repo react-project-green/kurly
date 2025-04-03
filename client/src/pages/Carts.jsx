@@ -115,7 +115,7 @@ export default function Carts() {
         {
             label: "decrease",
             icon: (
-                <svg width="13.33" height="2" viewBox="0 0 16 2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H16V2H0V0Z" fill="#bcc4cc"></path></svg>
+                <svg width="13.33" height="2" viewBox="0 0 16 2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H16V2H0V0Z" fill="#000"></path></svg>
 
             )
         },
