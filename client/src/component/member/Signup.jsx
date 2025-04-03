@@ -223,10 +223,10 @@ export default function Signup() {
                                     className='email_domain'>
                                     <option value="default">선택</option>
                                     <option value="@naver.com">naver.com</option>
-                                    <option value="@google.com">gmail.com</option>
+                                    <option value="@gmail.com">gmail.com</option>
                                     <option value="@hanmail.net">hanmail.net</option>
                                     <option value="@kakao.com">kakao.com</option>
-                                    <option value="@daum.com">daum.net</option>
+                                    <option value="@daum.net">daum.net</option>
                                 </select>
                             </div>
                         </li>

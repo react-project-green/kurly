@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useCallback } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,6 +8,9 @@ import PromoBanner from './PromoBanner.jsx';
 export default function PromoBannerSlider() {
   const [ bannerImgs, setBannerImg ] = useState([]);
   const [ currentSlide, setCurrentSlide ] = useState(0);
+  const handleBeforeChange = useCallback((oldIndex, newIndex) => {
+    setCurrentSlide(newIndex);
+  }, []);
 
   const settings = {
     dots: false,
@@ -20,8 +23,10 @@ export default function PromoBannerSlider() {
     pauseOnFocus: true,
     pauseOnHover: true,
     arrows: true,
-    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex) 
+    beforeChange: handleBeforeChange, 
   };
+
+  
 
   useEffect(()=>{
     axios.get('/data/main.json')
@@ -33,12 +38,12 @@ export default function PromoBannerSlider() {
     <div className='promotion_banner'>
       <div className='promotion_section'> 
         <Slider {...settings}> 
-          {bannerImgs && bannerImgs.map((banner, i)=>(
-            <PromoBanner key={i} {...banner}/>
+          {bannerImgs && bannerImgs.map((banner, i) => (
+            <PromoBanner key={i} {...banner} />
           ))}
         </Slider>
         <div className='pagenation'>
-          { bannerImgs.length > 0 && `${currentSlide +1} / ${bannerImgs.length}`} 
+          { bannerImgs.length > 0 && `${currentSlide + 1} / ${bannerImgs.length}`} 
         </div>
       </div>    
     </div>

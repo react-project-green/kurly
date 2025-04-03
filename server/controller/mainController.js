@@ -1,4 +1,4 @@
-import * as repository from '../repository/mainyRepository.js'; 
+import * as repository from '../repository/mainRepository.js'; 
 
 /*************************** 
  *  1. 프로덕트 리스트 값 가져오기 
@@ -72,8 +72,29 @@ export const getRecentlyViewItem = async(req, res) =>{
   res.end();
 };
 
+
 /*************************** 
- *  8. 위시리스트 상품 정보 가져오기 
+ *  8. 위시리스트 pid 조회
+***************************/
+export const getWishListPid = async(req, res) =>{
+  const result = await repository.getWishListPid(req.body);
+  res.json(result);
+  res.end();
+};
+
+
+/*************************** 
+ *  9. 위시리스트 상품 정보 INSERT
+***************************/
+export const setWishList = async(req, res) =>{
+  const result = await repository.setWishList(req.body);
+  res.json(result);
+  res.end();
+};
+
+
+/*************************** 
+ *  10. 위시리스트 상품 정보 가져오기 
 ***************************/
 export const getWishListInfo = async(req, res)=>{
   const result = await repository.getWishListInfo(req.body);

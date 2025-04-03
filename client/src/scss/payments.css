@@ -2,6 +2,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 30px;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 1050px;
+    margin: 0 auto;
+}
+.order-payments-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 24px;
     overflow: auto;
     width: 700px;
@@ -48,6 +58,12 @@
     color: #f9fcff;
     margin: 20px 20px;
 }
+.payments-wrapper .btn.primary2 {
+    width: 420px;
+    background-color: #672092;
+    color: #f9fcff;
+    margin: 0 auto;
+}
 
 .payments-wrapper .text-center {
     text-align: center;
@@ -84,6 +100,7 @@
 .payments-wrapper .confirm-success {
     display: none;
     margin-top: 72px;
+
 }
 
 .payments-wrapper .button-group {

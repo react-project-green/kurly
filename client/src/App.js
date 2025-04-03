@@ -11,6 +11,7 @@ import ProductListCategoryDetail from './pages/ProductListCategoryDetail.jsx';
 import Login from './component/member/Login.jsx';
 import Signup from './component/member/Signup.jsx';
 import Mypage from './component/member/Mypage.jsx';
+import Find from './component/member/Find.jsx';
 import ScrollToTop from './context/ScrollToTop.js'
 import Carts from './pages/Carts.jsx';
 import Order from './pages//Order.jsx';
@@ -20,12 +21,16 @@ import FailPage from './component/payments/Fail.jsx';
 import NewProduct from './pages/NewProduct.jsx';
 import MainSpecialCategory from './component/main/MainSpecialCategory.jsx';
 import { CartProvider } from './context/CartContext.js';
+import { OrderProvider } from './context/orderContext.js';
 import { SearchProvider } from './context/searchContext.js';
+import Delivery from './component/member/Delivery.jsx';
+import MemberError from './component/member/MemberError.jsx';
 
 function App() {
 
   return (
     <div className="App">
+      <OrderProvider>
       <CartProvider >
       <SearchProvider>
       <AuthProvider>
@@ -43,7 +48,10 @@ function App() {
               <Route path="/goods/detail/:pid" element={<Detail />} />
               <Route path="/member/login" element={<Login />} />
               <Route path="/member/signup" element={<Signup />} />
+              <Route path="/member/delivery" element={<Delivery />} />
+              <Route path="/member/error" element={<MemberError />} />
               <Route path="/member/mypage/:active" element={<Mypage />} />
+              <Route path='/member/findid' element={<Find />} />
               <Route path="/cart" element={<Carts />} />
               <Route path="/order" element={<Order />} />
               <Route path="/sandbox" element={<CheckoutPage />} />
@@ -56,6 +64,7 @@ function App() {
       </AuthProvider>
       </SearchProvider>
       </CartProvider>
+      </OrderProvider>
     </div>
   );
 }

@@ -117,7 +117,7 @@ export default function MemberUpdate() {
 
     //로그인 상태가 아닐 때 에러 페이지 송출
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     // 수정하기 버튼 클릭 시 상태 토글
@@ -150,10 +150,22 @@ export default function MemberUpdate() {
                 .then((res) => {
                     if (res.data.result_rows) {
                         alert('업데이트 완료!');
-                        navigate('/member/mypage');
-                        // window.location.replace('/member/mypage');
-                        // console.log(formData);
+                        // 업데이트가 성공한 후, 수정 모드 비활성화
+                        setIsEditing({
+                            pwd: false,
+                            emailname: false,
+                            emaildomain: false,
+                            phone: false,
+                            zipcode: false,
+                            address: false,
+                            detailaddress: false
+                        });
 
+                        // formData를 업데이트된 값으로 설정
+                        setOriginalFormData({ ...formData });
+
+                        // formData에 최신 값을 반영하여 화면에 업데이트된 정보 표시
+                        setFormData({ ...formData });
                     } else {
                         alert('업데이트 실패!');
                     }
@@ -163,10 +175,11 @@ export default function MemberUpdate() {
                     alert('정보 수정 실패!');
                 });
         } else {
-            // alert('유효성 검사 실패');
+            // 유효성 검사 실패
             return false;
         }
     };
+
 
     // 취소 버튼 클릭 시 원래의 데이터로 되돌리기
     const handleCancelClick = () => {
@@ -262,11 +275,11 @@ export default function MemberUpdate() {
                                     ref={refs.emaildomainRef}
                                     className='emaildomain'>
                                     <option value="default">선택</option>
-                                    <option value="naver">naver.com</option>
-                                    <option value="google">gmail.com</option>
-                                    <option value="hanmail">hanmail.net</option>
-                                    <option value="kakao">kakao.com</option>
-                                    <option value="daum">daum.net</option>
+                                    <option value="@naver.com">naver.com</option>
+                                    <option value="@gmail.com">gmail.com</option>
+                                    <option value="@hanmail.net">hanmail.net</option>
+                                    <option value="@kakao.com">kakao.com</option>
+                                    <option value="@daum.net">daum.net</option>
                                 </select>
                             </div>
                         ) : (
