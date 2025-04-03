@@ -8,10 +8,11 @@ export const getProductList = async({category}) => {
   let sql =``;
   
   if(category === 'new'){
-    sql =`select  *, concat(dc, '%') as discountRate
-          from    view_category_pro_list 
-          where   pdate between date_sub((select max(pdate) from view_category_pro_list), interval 10 day) 
-                        and (select max(pdate) from view_category_pro_list);`;
+    sql =`SELECT *, CONCAT(dc, '%') AS discountRate
+          from view_category_pro_list
+          where pdate between date_sub((select max(pdate) from view_category_pro_list), interval 300 day)
+          and (select max(pdate) from view_category_pro_list)
+          order by pdate desc;`;
   }else if(category === 'best'){
      sql=`select vw.* , concat(dc, '%') as discountRate
             from  view_category_pro_list as vw, orderList as py
@@ -128,7 +129,7 @@ export const getUserAddressUpdate = async({address, id}) => {
 ***************************/
 export const getRecentlyViewItem = async({pidArray}) =>{
   const pidList = pidArray.map(()=>'?').join(",");
-  const sql = `select pid, concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
+  const sql = `select pid, concat('http://54.180.92.85:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
                from product 
                where pid in (${pidList}) `;
 
@@ -171,7 +172,7 @@ export const getWishListInfo = async({id})=>{
               , P.price as originalPrice
               , P.dc 
               , concat(format(P.price - (P.price * (P.dc * 0.01)),0),'원') as discountedPrice
-              , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
+              , concat('http://54.180.92.85:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
       from    product P, member m
       where   JSON_CONTAINS(m.wish, Cast(p.pid as JSON))
       and     m.id =? 

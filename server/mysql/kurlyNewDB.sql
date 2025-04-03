@@ -1,27 +1,6 @@
-DROP DATABASE kurlydb;
-CREATE DATABASE  IF NOT EXISTS `kurlydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `kurlydb`;
--- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
---
--- Host: localhost    Database: kurlydb
--- ------------------------------------------------------
--- Server version	8.0.20
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 -- ########################################
 -- Dumping data for table `member` 1.유저 테이블
 -- ########################################
-DROP TABLE IF EXISTS `member`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `member` (
@@ -42,7 +21,7 @@ CREATE TABLE `member` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- LOCK TABLES `KURLY_MEMBER` WRITE;
-INSERT INTO `member` (`ID`, `PWD`, `NAME`,`gender`,`PHONE`, `emailname`, `emaildomain`, `ADDRESS`, `detailaddress`,`zipcode`, `type`,`reg_date`) VALUES
+INSERT INTO `MEMBER` (`ID`, `PWD`, `NAME`,`gender`,`PHONE`, `emailname`, `emaildomain`, `ADDRESS`, `detailaddress`,`zipcode`, `type`,`reg_date`) VALUES
 ('admin', 'admin', '관리자', 'f' , '010-1111-1111', 'admin', '@admin.com', '서울 종로구 우정국로2길 21','(령빌딩) 9층','03189', 'A', '2025-01-01'),
 ('test1', '1111', '홍길동', 'm' , '010-2222-2222', 'test1', '@naver.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-02'),
 ('test2', '2222', '홍길순', 'f', '010-3333-3333', 'test2', '@gmail.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-03'),
@@ -52,7 +31,6 @@ INSERT INTO `member` (`ID`, `PWD`, `NAME`,`gender`,`PHONE`, `emailname`, `emaild
 -- ########################################
 -- Dumping data for table `category` 2.카테고리 테이블
 -- ########################################
-DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
@@ -73,7 +51,6 @@ values(101,'스킨케어','/images/commonImage/category1.jpg'),(102,'메이크�
 -- ########################################
 -- Dumping data for table `sub_category` 3.서브카테고리 테이블
 -- ########################################
-DROP TABLE IF EXISTS `sub_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sub_category` (
@@ -96,7 +73,6 @@ values('001','스킨·토너',101),('002','로션',101),('003','에센스·세�
 -- ########################################
 -- Dumping data for table `product` 4.상품 테이블
 -- ########################################
-DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
@@ -126,7 +102,6 @@ CREATE TABLE `product` (
 -- ########################################
 -- Dumping data for table `QNA`  5.문의 테이블
 -- ########################################
-DROP TABLE IF EXISTS `qna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qna` (
@@ -143,7 +118,6 @@ CREATE TABLE `qna` (
 -- ########################################
 -- Dumping data for table `cart`  6.장바구니 테이블
 -- ########################################
-DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
@@ -167,7 +141,6 @@ VALUES('test1', 7, 3),('test2', 3, 5),('test1', 12, 6),
 -- ########################################
 -- Dumping data for table `reviews`   7.리뷰테이블
 -- ########################################
-DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table reviews(
@@ -188,7 +161,6 @@ create table reviews(
 -- ########################################
 -- Dumping data for table `notice`  8.공지사항 테이블
 -- ########################################
-DROP TABLE IF EXISTS `notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notice` (
@@ -205,10 +177,9 @@ CREATE TABLE `notice` (
 -- ########################################
 -- Dumping data for table `orderList` 9.결제 테이블
 -- ########################################
-DROP TABLE IF EXISTS `orderlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orderlist` (
+CREATE TABLE `orderList` (
   `oid` 			int		 		 PRIMARY KEY 	auto_increment,
   `id`				varchar(20)		 NOT NULL,
   `pid`				int				 NOT NULL,
@@ -216,12 +187,12 @@ CREATE TABLE `orderlist` (
   `qty`				int 			 NOT NULL,
   `total_price` 	int				 NOT NULL,
   `odate` 			datetime		 NOT NULL,
-   CONSTRAINT `orderlist_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `orderlist_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+   CONSTRAINT `ORDERLIST_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `ORDERLIST_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO orderlist (id, pid, tid, qty, total_price, odate)
+INSERT INTO orderList (id, pid, tid, qty, total_price, odate)
 VALUES 
 ('test1', 1,  'TID001', 10, 10000, now()),
 ('test2', 2,  'TID002', 8, 20000, now()),
@@ -239,7 +210,6 @@ VALUES
 -- ########################################
 -- Dumping data for table `inquire` 10. inquire 테이블 
 -- ########################################
-DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table inquire(

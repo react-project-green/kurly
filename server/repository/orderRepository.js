@@ -6,7 +6,7 @@ import { db } from "./db.js";
 
 export const add = ({ qty, id, pid, total_price, tid }) => {
         const sql = `
-                INSERT INTO orderList (qty, id, pid, total_price, tid, odate)
+                INSERT INTO orderlist (qty, id, pid, total_price, tid, odate)
                 VALUES (?, ?, ?, ?, ?, NOW())
         `;
         return db.execute(sql, [qty, id, pid, total_price, tid]);
