@@ -269,7 +269,7 @@ select pid
 	 , price as originalPrice
 	 , dc 
 	 , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
-	 , concat('http://54.180.92.85:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
+	 , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
      , pdate
      , cate_depth1
      , cate_depth2

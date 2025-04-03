@@ -129,7 +129,7 @@ export const getUserAddressUpdate = async({address, id}) => {
 ***************************/
 export const getRecentlyViewItem = async({pidArray}) =>{
   const pidList = pidArray.map(()=>'?').join(",");
-  const sql = `select pid, concat('http://54.180.92.85:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
+  const sql = `select pid, concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img 
                from product 
                where pid in (${pidList}) `;
 
@@ -172,7 +172,7 @@ export const getWishListInfo = async({id})=>{
               , P.price as originalPrice
               , P.dc 
               , concat(format(P.price - (P.price * (P.dc * 0.01)),0),'원') as discountedPrice
-              , concat('http://54.180.92.85:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
+              , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
       from    product P, member m
       where   JSON_CONTAINS(m.wish, Cast(p.pid as JSON))
       and     m.id =? 

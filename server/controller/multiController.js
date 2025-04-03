@@ -50,7 +50,7 @@ const storage = multer.diskStorage({
 			let oldFiles =[];
             for(let file of req.files){
                 originalname.push(file.originalname);
-                uploadname.push(`http://54.180.92.85:9000/${file.path}`);
+                uploadname.push(`http://localhost:9000/${file.path}`);
 				oldFiles.push(file.filename);
             }
             res.json({
