@@ -7,9 +7,12 @@ export default function MemberError() {
         <div className='content'>
             <div className='member_form_box'>
                 <div className='login_box'>
-                    <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ad0bd6106586491.Y3JvcCw4MDgsNjMyLDAsMA.png"
-                        alt="Welcome to Kurly" style={{ margin: "50px 0px 50px 0px" }} /> 
-                    <div style={{ marginLeft: "50px" }}>
+                    <div className='member_title_box'>
+
+                    </div>
+                    <img src="/images/memberImages/logo.png"
+                        alt="Welcome to Kurly" style={{ width:"300px"}} /> 
+                    <div>  
                         <button className='member_true_button' style={{width:"300px", marginBottom:"10px"}}>
                             <Link to={'/member/login'} style={{ color: "#ffff" }} >
                                 로그인

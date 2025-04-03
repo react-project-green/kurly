@@ -9,13 +9,13 @@ import MypageHeart from './MypageHeart.jsx';
 import MemberUpdate from './MemberUpdate.jsx';
 import MemberError from './MemberError.jsx';
 import KakaoTalkButton from './KakaoTalkButton.jsx'
-import {CartContext} from '../../context/CartContext.js';
+import { CartContext } from '../../context/CartContext.js';
 
 
 export default function Mypage() {
     const navigate = useNavigate();
     const { active } = useParams();
-    const {wishListCnt, setWishListCnt} = useContext(CartContext);
+    const { wishListCnt, setWishListCnt } = useContext(CartContext);
     // AuthContext에서 로그인 상태(isLogin)와 userId를 가져옴
     const { isLogin, setIsLogin, userType } = useContext(AuthContext);
 
@@ -30,8 +30,11 @@ export default function Mypage() {
     // handleMenuClick 함수 정의
     const handleMenuClick = (tab) => {
         setActiveTab(tab);
-
-    } 
+    }
+    // 1:1문의 클릭 이벤트
+    const memberClick = () => {
+        alert('현재는 톡상담 서비스 이용시간입니다.');
+    };
     // 로그인 상태 확인 후 로그인 상태가 아닐 경우 오류 페이지 출력
     useEffect(() => {
         const id = localStorage.getItem("user_id");
@@ -42,7 +45,7 @@ export default function Mypage() {
     }, []); // 의존성 배열 추가
 
     if (!isLogin) {
-        return <MemberError />;
+        navigate("/member/error")
     }
 
     // 로그인 상태일 때만 아래 코드 실행
@@ -96,7 +99,7 @@ export default function Mypage() {
                                 <div className={`member_click ${activeTab === 'update' ? 'activeTab' : ''}`} onClick={() => handleMenuClick('update')}>
                                     <label>개인정보 수정</label>
                                 </div>
-                                <div className='kakao_button'>
+                                <div className='kakao_button'> 
                                     <label onClick={() => memberClick()} style={{ cursor: "pointer" }}>1:1문의 </label>
                                     <KakaoTalkButton />
                                 </div>

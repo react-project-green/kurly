@@ -14,7 +14,7 @@ export const getProductList = async({category}) => {
                         and (select max(pdate) from view_category_pro_list);`;
   }else if(category === 'best'){
      sql=`select vw.* , concat(dc, '%') as discountRate
-            from  view_category_pro_list as vw, payments as py
+            from  view_category_pro_list as vw, orderList as py
            where vw.pid = py.pid
              and   py.qty >= 8
      `; 
@@ -44,7 +44,9 @@ export const getProductList = async({category}) => {
 export const getSearchItem = async({search}) => {
   const searchKeyWord = `%${search}%`;
   const sql =`
-    select * from view_category_pro_list where name like ? 
+    select *, concat(dc, '%') as discountRate
+      from view_category_pro_list 
+     where name like ? 
   `;
 
  const [result] = await db.execute(sql, [searchKeyWord]);
@@ -90,7 +92,7 @@ export const getSubCategoryTitleList = async(req, res) =>{
 ***************************/
 export const getSubCategoryProductList = async({cid, sid}) =>{
   const sql =`
-    select * , concat(dc, '%') as discountRate 
+    select * , concat(dc, '%') as discountRate
       from   view_category_pro_list 
      where   cate_depth1 = ?
        and   cate_depth2 = ?
@@ -134,23 +136,49 @@ export const getRecentlyViewItem = async({pidArray}) =>{
   return result;
 }
 
+
 /*************************** 
- *  8. 위시리스트 상품 정보 가져오기 
+ *  8. 위시리스트 배열 가져오기
 ***************************/
-export const getWishListInfo = async({pidArray})=>{
-  const pidList = pidArray.map(()=> '?').join(",");
+export const getWishListPid = async({id}) =>{
+  const sql =`select JSON_EXTRACT(wish, '$') as wish from member where id=?`;
+
+  const [result]= await db.execute(sql, [id]);
+  // console.log('레파지토리 :: 메인 위시리스트 배열 select',result);
+  return result;
+};
+
+/*************************** 
+ *  9. 위시리스트 상품 정보 INSERT
+***************************/
+export const setWishList = async(data) =>{
+  const sql=`update member set wish = ? where id = ?`;
+  const values = [ JSON.stringify(data.wishList), data.id];
+
+  const [result] = await db.execute(sql, values);
+  return result.affectedRows;
+};  
+
+/*************************** 
+ *  10. 위시리스트 상품 정보 가져오기 
+***************************/
+export const getWishListInfo = async({id})=>{
+  // const pidList = pidArray.map(()=> '?').join(",");
   const sql =`
-    select pid
-          , subject as name
-          , sub_desc as description
-          , price as originalPrice
-          , dc 
-          , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
-          , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-      from  product
-     where pid in (${pidList})
+      select  P.pid
+              , P.subject as name
+              , P.sub_desc as description
+              , P.price as originalPrice
+              , P.dc 
+              , concat(format(P.price - (P.price * (P.dc * 0.01)),0),'원') as discountedPrice
+              , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(P.upload_img, '$[0]'))) as image_url
+      from    product P, member m
+      where   JSON_CONTAINS(m.wish, Cast(p.pid as JSON))
+      and     m.id =? 
   `;
 
-  const [result] = await db.execute(sql, pidArray);
+  const [result] = await db.execute(sql, [id]);
   return result;
 }  
+
+

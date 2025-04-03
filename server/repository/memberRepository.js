@@ -95,11 +95,65 @@ export const getMypage = async ({ id }) => {
     return result[0];
 }
 /******************************
+ * Find : 아이디찾기 
+ ******************************/
+export const findId = async ({ name, phone }) => {
+    const sql = `
+    select count(*) as result_rows from member
+    where name = ? and phone = ?;
+    `;
+    const [result] = await db.execute(sql, [name, phone]);
+    if (result[0].result_rows > 0) {
+        const idSql = `
+        select id from member
+        where name = ? and phone = ?;
+        `;
+        const [idResult] = await db.execute(idSql, [name, phone]);
+        return { success: true, id: idResult[0].id };  // 아이디 반환
+    }
+    return { success: false };  // 아이디를 찾지 못한 경우
+}
+
+/******************************
+ * Find : 비밀번호찾기
+ ******************************/
+export const findPwd = async ({ id, phone, emailname, emaildomain }) => {
+    const sql = `
+    select count(*) as result_rows from member
+    where id = ? and phone = ?;
+    `;
+    const [result] = await db.execute(sql, [id, phone]);
+
+    if (result[0].result_rows > 0) {
+        // 생성된 비밀번호를 데이터베이스에 업데이트
+        const updateSql = `
+        update member
+        set pwd = LEFT(UUID(), 8)
+        where id = ? and phone = ? AND emailname = ? AND emaildomain = ?;
+        `;
+        await db.execute(updateSql, [id, phone, emailname, emaildomain]);
+
+        // 비밀번호 조회 쿼리
+        const selectPwdSql = `
+    SELECT pwd 
+    FROM member 
+    WHERE id = ? AND phone = ? AND emailname = ? AND emaildomain = ?;
+`;
+        const [pwdResult] = await db.execute(selectPwdSql, [id, phone, emailname, emaildomain]);
+
+
+        // 업데이트된 비밀번호 반환
+        return { success: true, pwd: pwdResult[0].pwd };
+    }
+
+    return { success: false };  // 아이디를 찾지 못한 경우
+};
+
+/******************************
  * MyPage : 비밀번호, 핸드폰번호, 주소, 이메일 수정
  ******************************/
 export const updateMember = async (formData) => {
-    console.log(formData);
-    
+
     const sql = `
         UPDATE member 
         SET 
@@ -114,18 +168,68 @@ export const updateMember = async (formData) => {
         WHERE id = ?
     `;
     const values = [
-        formData.phone,         
-        formData.emailname,     
-        formData.emaildomain,   
-        formData.pwd,           
-        formData.address,       
-        formData.detailaddress, 
-        formData.zipcode,  
-        formData.name,     
-        formData.id             
+        formData.phone,
+        formData.emailname,
+        formData.emaildomain,
+        formData.pwd,
+        formData.address,
+        formData.detailaddress,
+        formData.zipcode,
+        formData.name,
+        formData.id
     ];
     const [result] = await db.execute(sql, values);
 
-    return {result_rows : result.affectedRows};
+    return { result_rows: result.affectedRows };
 };
+/****************************** 
+ * mypage : 주문목록 조회
+ ******************************/
+export const getOrder = async ({ id }) => {
+    const sql = `  
+        SELECT 
+            id,
+            pid,
+            tid,
+            qty,
+            format(total_price, 0) as tid_total_price,
+            total_price,
+            left(odate, 10) as odate,
+            odate as order_date, 
+            brand,
+            subject,
+            concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as upload_img
+        FROM 
+            order_details 
+        WHERE 
+            id = ?;
+    `;
 
+    const [result] = await db.execute(sql, [id]);
+    return result;
+}
+/******************************
+ * carts : 장바구니 주소 수정
+ ******************************/
+
+export async function addressUp(formData) {
+    console.log("formData", formData);
+
+    const sql = `
+        UPDATE member 
+        SET 
+            address = ?, 
+            detailaddress = ?, 
+            zipcode = ?
+        WHERE id = ?
+    `;
+    const values = [
+        formData.address,
+        formData.detailaddress,
+        formData.zipcode,
+        formData.id
+    ];
+
+    const [result] = await db.execute(sql, values);
+    return { result_rows: result.affectedRows };
+};

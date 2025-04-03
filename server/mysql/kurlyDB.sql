@@ -35,28 +35,29 @@ CREATE TABLE `member` (
   `address`       VARCHAR(80)     NOT NULL,
   `detailaddress` VARCHAR(80)     NOT NULL,
   `zipcode`       VARCHAR(10)     NOT NULL,
-  `type`          CHAR(1)   ,
+  `type`          CHAR(1),
+  `wish`		      json,	
   `reg_date`      DATETIME      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 -- LOCK TABLES `KURLY_MEMBER` WRITE;
 INSERT INTO `MEMBER` (`ID`, `PWD`, `NAME`,`gender`,`PHONE`, `emailname`, `emaildomain`, `ADDRESS`, `detailaddress`,`zipcode`, `type`,`reg_date`) VALUES
-('admin', 'admin', '관리자', 'f' , '010-1111-1111', 'admin', 'admin.com', '서울 종로구 우정국로2길 21','(령빌딩) 9층','03189', 'A', '2025-01-01'),
-('test1', '1111', '홍길동', 'm' , '010-2222-2222', 'test1', 'naver.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-02'),
-('test2', '2222', '홍길순', 'f', '010-3333-3333', 'test2', 'gmail.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-03'),
-('test3', '3333', '홀리홀리', 'f', '010-3333-3333', 'test2', 'gmail.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-03');
+('admin', 'admin', '관리자', 'f' , '010-1111-1111', 'admin', '@admin.com', '서울 종로구 우정국로2길 21','(령빌딩) 9층','03189', 'A', '2025-01-01'),
+('test1', '1111', '홍길동', 'm' , '010-2222-2222', 'test1', '@naver.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-02'),
+('test2', '2222', '홍길순', 'f', '010-3333-3333', 'test2', '@gmail.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-03'),
+('test3', '3333', '홀리홀리', 'f', '010-3333-3333', 'test2', '@gmail.com', '서울특별시 강남구 강남대로 78길 8',' (한국빌딩) 4층, 8층','06242', 'U', '2025-01-03');
 -- UNLOCK TABLES;
 
 -- ########################################
--- Dumping data for table `category` 2.카텍고리 테이블
+-- Dumping data for table `category` 2.카테고리 테이블
 -- ########################################
 DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-  `cid` 			char(3)			    PRIMARY KEY ,
-  `title`			varchar(20)		  NOT NULL,
+  `cid` 			char(3)			PRIMARY KEY ,
+  `title`			varchar(20)		NOT NULL,
   `image`			varchar(50)	    NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -76,11 +77,11 @@ DROP TABLE IF EXISTS `sub_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sub_category` (
-  `sid` 			char(3)		 	  NOT NULL,
+  `sid` 			char(3)		 	NOT NULL,
   `title`			varchar(20)		NOT NULL,
-  `cid`				char(3)			  NOT NULL,
+  `cid`				char(3)			NOT NULL,
    PRIMARY KEY (`cid`, `sid`), 
-   CONSTRAINT `SUB_CATEGORY_FK_ID` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`)
+   CONSTRAINT `SUB_CATEGORY_FK_CID` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,9 +102,9 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `pid`               int           PRIMARY KEY    auto_increment,
   `brand`             varchar(100)  NOT NULL,
-  `cate_depth1`       char(3)	 	    NOT NULL,
-  `cate_depth2`       char(3)	  	  NOT NULL,
-  `subject`           text    		  NOT NULL,
+  `cate_depth1`       char(3)	  	NOT NULL,
+  `cate_depth2`       char(3)	  	NOT NULL,
+  `subject`           text    		NOT NULL,
   `sub_desc`          text,
   `price`             int           NOT NULL,
   `dc`                int,
@@ -129,34 +130,18 @@ DROP TABLE IF EXISTS `qna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qna` (
-  `no` 				int 		 	        PRIMARY KEY 	auto_increment,
-  `id` 				varchar(20) 	    NOT NULL,
-  `pid` 			int  			        NOT NULL,
-  `title`			varchar(20)		    NOT NULL,
-  `content` 	varchar(1000) 	NOT NULL,
+  `no` 				int 		 	PRIMARY KEY 	auto_increment,
+  `id` 				varchar(20) 	NOT NULL,
+  `pid` 			int  			NOT NULL,
+  `title`			varchar(20)		NOT NULL,
+  `content` 		varchar(1000) 	NOT NULL,
    CONSTRAINT `QNA_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `QNA_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 -- ########################################
--- Dumping data for table `wish`  6. 위시리스트 테이블
--- ########################################
-DROP TABLE IF EXISTS `wish`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wish` (
-  `no` 				int 		 	    PRIMARY KEY 	auto_increment,
-  `id`				varchar(20)		NOT NULL,
-  `pid` 			int				    NOT NULL,
-   CONSTRAINT `WISH_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `WISH_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- ########################################
--- Dumping data for table `cart`  7.장바구니 테이블
+-- Dumping data for table `cart`  6.장바구니 테이블
 -- ########################################
 DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -166,7 +151,7 @@ CREATE TABLE `cart` (
   `id`            varchar(20)    NOT NULL,
   `pid`           int             NOT NULL,
   `qty`           int             NOT NULL,
-  `checked`       boolean         NOT NULL DEFAULT true,
+--  `checked`       boolean         NOT NULL DEFAULT true,
    CONSTRAINT `CART_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
    CONSTRAINT `CART_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -180,28 +165,28 @@ VALUES('test1', 7, 3),('test2', 3, 5),('test1', 12, 6),
 
 
 -- ########################################
--- Dumping data for table `reviews`   8.리뷰테이블
+-- Dumping data for table `reviews`   7.리뷰테이블
 -- ########################################
 DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table reviews(
 	rid				int 				primary key 	auto_increment,
-  subject			varchar(50)			not null,
-  detail_txt		varchar(1000)		not null,
-  images			json,
+    subject			varchar(50)			not null,
+    detail_txt		varchar(1000)		not null,
+    images			json,
 	date			datetime			not null,
 	id				VARCHAR(30) 		not null,
-  pid 			int 				not null,
-  count 			int,
-  CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-  CONSTRAINT `REVIEWS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+    pid 			int 				not null,
+    count 			int,
+   CONSTRAINT `REVIEWS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `REVIEWS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
 -- ########################################
--- Dumping data for table `notice`  9.공지사항 테이블
+-- Dumping data for table `notice`  8.공지사항 테이블
 -- ########################################
 DROP TABLE IF EXISTS `notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -217,53 +202,48 @@ CREATE TABLE `notice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 -- ########################################
--- Dumping data for table `payments` 10.결제 테이블
+-- Dumping data for table `orderList` 9.결제 테이블
 -- ########################################
-DROP TABLE IF EXISTS `payments`;
+DROP TABLE IF EXISTS `orderList`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `payments` (
-  `oid` 			int		 		PRIMARY KEY 	auto_increment,
-  `id`				varchar(20)		NOT NULL,
-  `pid`				int				NOT NULL,
-  `tid` 			varchar(50)		NOT NULL,
-  `qty`				int 			NOT NULL,
-  `total_price` 	int				NOT NULL,
-  `type` 			varchar(30)		NOT NULL,
-  `odate` 			datetime		NOT NULL,
-  `zipcode`			varchar(10)     NOT NULL,
-  `address`			varchar(200)     NOT NULL,
-  `address_detail`  varchar(200)     NOT NULL,
-   CONSTRAINT `PAYMENTS_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-   CONSTRAINT `PAYMENTS_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+CREATE TABLE `orderList` (
+  `oid` 			int		 		 PRIMARY KEY 	auto_increment,
+  `id`				varchar(20)		 NOT NULL,
+  `pid`				int				 NOT NULL,
+  `tid` 			varchar(50)		 NOT NULL,
+  `qty`				int 			 NOT NULL,
+  `total_price` 	int				 NOT NULL,
+  `odate` 			datetime		 NOT NULL,
+   CONSTRAINT `ORDERLIST_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `ORDERLIST_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO payments (id, pid, tid, qty, total_price, type, odate, zipcode, address, address_detail)
+INSERT INTO orderList (id, pid, tid, qty, total_price, odate)
 VALUES 
-('test1', 1,  'TID001', 10, 10000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 2,  'TID002', 8, 20000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
-('test1', 3,  'TID003', 9, 15000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 4,  'TID004', 10, 18000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
-('test1', 5,  'TID005', 4, 22000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 6,  'TID006', 6, 30000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
-('test1', 7,  'TID007', 10, 17000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 8,  'TID008', 2, 26000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
-('test1', 9,  'TID009', 5, 19000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 10, 'TID010', 6, 21000, 'card', now(), '12345', '서울시 양천구', '상세주소2'),
-('test1', 11, 'TID011', 9, 24000, 'card', now(), '12345', '서울시 구로구', '상세주소1'),
-('test2', 12, 'TID012', 10, 28000, 'card', now(), '12345', '서울시 양천구', '상세주소2');
+('test1', 1,  'TID001', 10, 10000, now()),
+('test2', 2,  'TID002', 8, 20000, now()),
+('test1', 3,  'TID003', 9, 15000,now()),
+('test2', 4,  'TID004', 10, 18000, now()),
+('test1', 5,  'TID005', 4, 22000, now()),
+('test2', 6,  'TID006', 6, 30000, now()),
+('test1', 7,  'TID007', 10, 17000, now()),
+('test2', 8,  'TID008', 2, 26000, now()),
+('test1', 9,  'TID009', 5, 19000, now()),
+('test2', 10, 'TID010', 6, 21000, now()),
+('test1', 11, 'TID011', 9, 24000, now()),
+('test2', 12, 'TID012', 10, 28000, now());
 
 -- ########################################
--- Dumping data for table `inquire` 11. inquire 테이블 
+-- Dumping data for table `inquire` 10. inquire 테이블 
 -- ########################################
 DROP TABLE IF EXISTS `inquire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table inquire(
-	 iid				int 	primary key		auto_increment,
+	iid				int 	primary key		auto_increment,
     pid 			int 				not null,
     subject			varchar(100)		not null,
     detail_txt		varchar(1000)		not null,   
@@ -271,14 +251,14 @@ create table inquire(
     date 			datetime 			not null,
     answer 			boolean,
     answer_txt 		varchar(1000),
-    CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
-    CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+   CONSTRAINT `INQUIRE_FK_ID` FOREIGN KEY (`id`) REFERENCES `member` (`id`),
+   CONSTRAINT `INQUIRE_FK_PID` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
 -- ########################################
--- view_categoty_pro_list 뷰테이블 생성
+-- 11. view_categoty_pro_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_category_pro_list`;
 create view view_category_pro_list 
@@ -290,33 +270,48 @@ select pid
 	 , dc 
 	 , concat(format(price - (price * (dc * 0.01)),0),'원') as discountedPrice
 	 , concat('http://localhost:9000/',JSON_UNQUOTE(JSON_EXTRACT(upload_img, '$[0]'))) as image_url
-   , pdate
-   , cate_depth1
-   , cate_depth2
+     , pdate
+     , cate_depth1
+     , cate_depth2
 from product; 
 
 -- ########################################
--- view_cart_list 뷰테이블 생성
+-- 12.view_cart_list 뷰테이블 생성
 -- ########################################
 -- DROP view `view_cart_list`;
 create view view_cart_list
 as 
 select  c.no as no,
-      c.qty as qty,
-      c.checked as checked,
-      m.id as id,
-      m.address as address,
-      p.pid as pid,
-	    p.delivery as delivery ,
-      p.subject as subject,
-      p.sub_desc as sub_desc,
-      p.price as price,
-      p.dc as dc,
-      upload_img
+		c.qty as qty,
+		m.id as id,
+		m.address as address,
+		p.pid as pid,
+		p.delivery as delivery ,
+		p.subject as subject,
+		p.sub_desc as sub_desc,
+		p.price as price,
+		p.dc as dc,
+		upload_img
 from cart c, member m, product p
 where c.id = m.id 
 and c.pid = p.pid;
 
+-- ########################################
+-- 13. order_details 뷰테이블 생성 (주문목록 호출)
+-- ######################################## 
+CREATE VIEW order_details AS
+SELECT 
+    o.id,
+    o.pid,
+    o.tid,
+    o.qty,
+    o.total_price,
+    o.odate,
+    p.brand,
+    p.subject,
+    p.upload_img
+FROM orderlist o
+JOIN product p ON o.pid = p.pid;
 
 -- #######################################
 -- Dumping routines for database 'kurlyDB'

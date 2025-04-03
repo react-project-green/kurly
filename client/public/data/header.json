@@ -5,9 +5,9 @@
                         {"no":3, "path":"/", "title":"고객센터"}
                       ],
   "support_menu" : [
-                      {"path":"/", "title":"공지사항"},
-                      {"path":"/", "title":"자주하는 질문"},
-                      {"path":"/", "title":"1 : 1 문의"},
-                      {"path":"/", "title":"대량주문 문의"}
+                      {"no":1,"path":"/", "title":"공지사항"},
+                      {"no":2,"path":"/", "title":"자주하는 질문"},
+                      {"no":3,"path":"/", "title":"1 : 1 문의"},
+                      {"no":4,"path":"/", "title":"대량주문 문의"}
                     ]
 }

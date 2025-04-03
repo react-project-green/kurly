@@ -5,52 +5,61 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/cart.scss';
 
+import { useOrder } from "../hooks/useOrder.js";
 import { useCart } from "../hooks/useCart.js";
 import { useCalculate } from "../hooks/useCalculate.js";
-import { CartContext } from "../context/CartContext.js";
+// import { CartContext } from "../context/CartContext.js";
+import { OrderContext } from "../context/orderContext.js";
 import { AuthContext } from "../component/auth/AuthContext.js";
 
 // toss payments 컴포넌트
 import CheckoutPage from '../component/payments/Checkout.jsx';
-// import SuccessPage from '../component/payments/Success.jsx';
-// import FailPage from '../component/payments/Fail.jsx';
 
 
 export default function Order() {
 
-    const { cartList, checkProduct, userInfo, cartCount } = useContext(CartContext);
+
+    const { orderList, userInfo, setUserInfo } = useContext(OrderContext);
     const { totalPriceAll, totalPriceDc, totalPriceCal } = useCalculate();
-    const { getCartList, getUserInfo } = useCart();
+    const { getUserInfo, getOrderList } = useOrder();
+    const { getCartList } = useCart();
     const { isLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const [isChecked, setIsChecked] = useState(false); // 라디오 버튼
+    const [isToggled, setIsToggled] = useState(false); // 주문 목록 토글
+
     useEffect(() => {
-        if (isLogin) {
-            getCartList();
-            getUserInfo();
-        } else {
-            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
-            select ? navigate('/member/login') : navigate('/');
+        if (!isLogin) {
+            if (window.confirm("로그인이 필요합니다. 로그인 하시겠습니까?")) {
+                navigate('/member/login');
+            } else {
+                navigate('/');
+            }
+            return;
         }
+        getOrderList();
+        getUserInfo();
+        getCartList(); // 계산 위해 장바구니 목록 추가
+        
+    }, [isLogin]);
 
-    }, [isLogin])
 
-
-    const checkedList = cartList.filter(item => checkProduct.has(item.no));
 
     /* radio button */
-    const [isChecked, setIsChecked] = useState(false);
 
     const handleRadioChange = () => {
         setIsChecked(!isChecked);
     };
 
     /* cartlist toggle */
-    const [isToggled, setIsToggled] = useState(false)
 
     const toggleList = () => {
         setIsToggled(isToggled => !isToggled);
     };
+
+
+    
 
 
     /* svg icons */
@@ -77,7 +86,7 @@ export default function Order() {
         },
         {
             label: "reply",
-            icon: (<svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>)
+            icon: (<svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path></svg>)
         }
     ]
 
@@ -104,8 +113,9 @@ export default function Order() {
                         <p className='f16 w600' style={{padding:"16px 0px 0px 16px"}} >샛별배송</p>
                         <div className='order-list-bar'></div>
                         <ul>
-                            {checkedList.map(item => (
+                            {orderList.map(item => (
                                     <li key={item.no}>
+                                    <div className='space-between'>
                                     <div className='order-item flex'>
                                         <img style={{width : "56px", borderRadius:"10px"}} src={`http://localhost:9000/${item.upload_img
 }`} alt="" />
@@ -120,13 +130,18 @@ export default function Order() {
                                             </div>
                                     </div>
                                     </div>
+                                    <div className='f16' style={{marginRight:"20px"}}>{item.qty}개</div>
+                                    </div>
                                     </li>
                             ))}
                         </ul>
                     </div>
 
                 ) : (
-                    <p className='f16'>{checkedList[0]?.subject} 외 {cartCount}개 상품을 주문합니다 </p>
+                    (orderList.length <= 1 ) ? 
+                        <p className='f16'>{orderList[0]?.subject} 상품을 주문합니다 </p> :
+                        <p className='f16'>{orderList[0]?.subject} 외 {orderList.length -1}개 상품을 주문합니다 </p>
+
                 )}
             </div>
             {/* </div> */}
@@ -137,21 +152,25 @@ export default function Order() {
             <div className='orderer-info-content'>
                 <div className='orderer-info-row flex '>
                     <span className='w500 order-mt'>보내는 분</span>
-                    <div className='flex110'>{userInfo.name}</div>
+                    <div className='flex110'>
+                        {userInfo.name}
+                        </div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>휴대폰</span>
-                    <div className='flex110'>{userInfo.phone}</div>
+                    <div className='flex110'>
+                        {userInfo.phone}
+                        </div>
                 </div>
                 <div className='orderer-info-row flex'>
                     <span className='w500 order-mt'>이메일</span>
-                    <div className='flex110 order-email'>
-                    {userInfo.email}
-                        <div>
+                    <div className='order-email'>
+                    <p>
+                        {`${userInfo.emailname}@${userInfo.emaildomain}`}
+                        </p>
 
                             <p className='f12' style={{ color: "#666666" }}>이메일을 통해 주문처리 과정을 보내드립니다.</p>
                             <p className='f12' style={{ color: "#666666" }}>정보변경은 마이컬리  &gt; 개인정보 수정 메뉴에서 가능합니다.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -163,7 +182,9 @@ export default function Order() {
                 <span className='order-mt'>배송지</span>
                 <div className='delivery-detail flex110'>
                     <span className='delivery-default'>기본배송지</span>
-                    <p className>{userInfo.address}</p>
+                    <p>
+                        {userInfo.address}&nbsp;{userInfo.detailaddress}
+                        </p>
                     <button className='w-btn2' onClick={()=>{ 
                         alert('장바구니로 이동하시어 다른 배송지로 변경하시겠습니까?')
                         navigate("../cart")}}>변경</button>
@@ -177,7 +198,9 @@ export default function Order() {
                         <span className='line'></span>
                         <span>자유 출입 가능</span>
                     </div>
-                    <div>{userInfo.name}, {userInfo.phone}</div>
+                    <div>
+                        {userInfo.name}, &nbsp;{userInfo.phone}
+                        </div>
                     <button className='w-btn2'>수정</button>
                 </div>
             </div>
@@ -197,7 +220,7 @@ export default function Order() {
                                     <span></span>
                                 </button>
                             </div>
-                            <button>
+                            <button className='flex align-center'>
                                 <span className='f12' style={{ color: "rgb(95, 0, 128)" }}>쿠폰 사용 문의(카카오톡) </span>
                                 <span className='move'></span>
                             </button>
@@ -224,9 +247,9 @@ export default function Order() {
                                                 className='radio-input' />
                                             <div className='radio-btn'>
                                                 {/* 라디오버튼 체크x */}
-                                                <svg className={`icon unchecked ${isChecked ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <svg className={`icon unchecked ${isChecked ? 'hidden' : ''}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                                 {/* 라디오버튼 체크o */}
-                                                <svg className={`icon checked ${isChecked ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                <svg className={`icon checked ${isChecked ? '' : 'hidden'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#5f0080"></path><path d="M7 12.6667L10.3846 16L18 8.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                             </div>
                                         </label>
                                         <span style={{ color: "rgb(153, 153, 153)" }}>-10,000원 즉시할인 적용</span>
