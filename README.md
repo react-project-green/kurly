@@ -98,6 +98,7 @@
 ## 📎 배포 링크
 http://kurly-react.s3-website.ap-northeast-2.amazonaws.com/
 
+
 ## 🎞 시연영상 (풀버전) 
 [![유튜브 이동](https://github.com/user-attachments/assets/7317a9aa-17fe-409b-ac34-593ebff500e4)](https://www.youtube.com/watch?v=kZ_qybqN7Aw)
 (이미지 클릭시 유튜브 링크로 이동합니다.) 
