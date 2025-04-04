@@ -52,14 +52,8 @@
 
 ## 프로젝트 시연 & 기능 설명
 
-gif
-![2025-03-10-17-29-33](https://github.com/user-attachments/assets/593dbf57-3109-4dcf-91d6-7917db5d4e4c)
-
-
-
-
-
-https://github.com/user-attachments/assets/7ec0ddcd-5201-4a20-af79-e3963b93d706
+[https://www.youtube.com/watch?v=kZ_qybqN7Aw](![Image](https://github.com/user-attachments/assets/7317a9aa-17fe-409b-ac34-593ebff500e4))
+(이미지 클릭시 유튜브 링크로 이동합니다.) 
 
 
 
