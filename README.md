@@ -62,6 +62,9 @@ npm i react-slick --save
 npm i slick-carousel --save
 npm i antd
 npm i react-daum-postcode
+npm install @tosspayments/tosspayments-sdk
+npm i sass
+npm i react-icons
 ```
 
 <b>server</b>
@@ -70,8 +73,7 @@ npm init --yes
 npm i express --save
 npm i mysql2
 npm i cors
-npm i nodemon --save-dev
-npm i
+npm i nodemon --save-dev 
 ```
 ### ☑️footer
 - @ 누르면 상품등록으로 이동
