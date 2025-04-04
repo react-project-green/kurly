@@ -51,7 +51,7 @@
 
 
 ## 프로젝트 시연 & 기능 설명
-[![유튜브 이동[이미지URL이나 경로](https://github.com/user-attachments/assets/7317a9aa-17fe-409b-ac34-593ebff500e4))](https://www.youtube.com/watch?v=kZ_qybqN7Aw)
+[![유튜브 이동](https://github.com/user-attachments/assets/7317a9aa-17fe-409b-ac34-593ebff500e4)](https://www.youtube.com/watch?v=kZ_qybqN7Aw)
 
 (이미지 클릭시 유튜브 링크로 이동합니다.) 
 
