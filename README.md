@@ -144,43 +144,14 @@
 ![Image](https://github.com/user-attachments/assets/387ba85e-7595-4321-8744-bc187f83cf06)
 ![Image](https://github.com/user-attachments/assets/8164c95a-c513-42fa-8974-28e9b7c49631)
 ![Image](https://github.com/user-attachments/assets/61a08592-d770-4e33-a3d0-9712f250e964)
+![Image](https://github.com/user-attachments/assets/0476495d-5651-4f8e-95ba-dbdb513cf74e)
  
 ### 7️⃣ 마이페이지 
-![Image](https://github.com/user-attachments/assets/0476495d-5651-4f8e-95ba-dbdb513cf74e)
 ![Image](https://github.com/user-attachments/assets/6e94bcd5-72eb-40aa-b1dd-71cffa0c644a)
 ![Image](https://github.com/user-attachments/assets/7f97be46-29c4-4d2d-a33a-9fb3084cdaac)
 
 ### 8️⃣ 상품등록
 ![Image](https://github.com/user-attachments/assets/2c93c118-f0b9-4bff-b6a3-19c33e13e17d)
-
-
-
-### ☑️ 설치 라이브러리  
-
-<b>client</b>
-  
-```bash
-npm i
-npm i react-bootstrap
-npm i react-slick --save
-npm i slick-carousel --save
-npm i antd
-npm i react-daum-postcode
-npm install @tosspayments/tosspayments-sdk
-npm i sass
-npm i react-icons
-```
-
-<b>server</b>
-```bash
-npm init --yes
-npm i express --save
-npm i mysql2
-npm i cors
-npm i nodemon --save-dev 
-```
-### ☑️footer
-- @ 누르면 상품등록으로 이동
 
 <br>
 
@@ -191,20 +162,6 @@ npm i nodemon --save-dev
 - 상세 페이지에서 많은 hook사용, 많은 콜스택으로 에러 발생. 여러 컴포넌트로 나눠 생성하여 오류 해결함.
 - 개인정보 수정을 한 버튼으로 수정 및 업데이트를 진행하면 수정되지 않은 정보들을 빈값으로 인식하여 오류 발생. 수정 버튼 클릭시 수정 가능한 데이터들을 input으로 변환하여 업데이트 될 수 있도록 하여 해결함.
 <br>
-
-
-## ✨ Notice
-- MySQL 엑셀파일 import 방법 링크 <br>
-     🔗 https://docs.google.com/document/d/1i-fSyf0fiAIxes1XgFarcSiYTNz78uyrBF80Sx3AAgg/edit?tab=t.0  <br>
-- WBS 구글 스프레드시트 링크 <br>
-     🔗 https://docs.google.com/spreadsheets/d/1efKJctb6Yvo3z2QcAqwEk18eivzJ61jYt6foYRShAQk/edit?usp=sharing  <br>
-- 배열에서 두개 이상 경로가 있는 이미지 불러오기  <br>
-     배열인 값은  쿼리에서 직접 주소를 붙이지 말고 아래처럼 태그 앞에 로컬 호스트 주소 추가하여 map을 통해 값을 추출해주세요 
-   ```
-   <img src={`http://54.180.92.85:9000/${item}`}></img> 
-   ```
-   <br>
-
    
 ## ❗ Reference
 - 본 프로젝트는 마켓컬리를 참조하여 학습 목적으로 만들어졌습니다.
