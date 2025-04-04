@@ -21,6 +21,7 @@ export const validateSignup = (refs) => {
         if (ref.current) {
             if (name !== 'emaildomain') {
                 if (ref.current.value === '') {
+                    alert('필수입력사항은 비워둘 수 없습니다.')
                     ref.current.focus();
                     return false;
                 }
